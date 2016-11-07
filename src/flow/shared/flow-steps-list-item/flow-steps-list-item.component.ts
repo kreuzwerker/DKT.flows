@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Step } from '../../models/step.model'
 
 @Component({
@@ -6,6 +6,27 @@ import { Step } from '../../models/step.model'
   templateUrl: 'flow-steps-list-item.component.html',
   styleUrls: ['flow-steps-list-item.component.css'],
 })
-export class FlowStepsListItemComponent {
+export class FlowStepsListItemComponent implements OnInit {
   @Input() step: Step
+
+  headerIcon: string;
+  headerTitle: string;
+  options: { icon: string, title: string, classes: Array<string> }[];
+
+  ngOnInit() {
+    if (this.step.service) {
+      let service = this.step.service;
+      this.headerIcon = service.icon;
+      this.headerTitle = `${service.name}: ${service.step.name}`;
+    }
+    else {
+      this.headerIcon = 'settings';
+      this.headerTitle = 'Set up this step';
+      this.options = [
+        { icon: 'lock', title: 'Select', classes: ['locked']},
+        { icon: 'lock', title: 'Configure', classes: ['locked']},
+        { icon: 'check', title: 'Test', classes: ['success']},
+      ]
+    }
+  }
 }

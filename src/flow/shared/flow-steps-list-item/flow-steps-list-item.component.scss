@@ -1,13 +1,61 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../app/variables';
+
 .flow-steps-list-item {
   padding: 0px;
 
-  .header, .body {
-    padding:1rem;
+  .header, .options {
+    md-icon {
+      margin: .8rem;
+      text-align: center;
+    }
+
+    p {
+      display: inline-block;
+      margin-bottom:0px;
+    }
   }
 
-  .body {
-    // TODO make this work -> import _variables.scss ?
-    // background-color: $element-bg-color;
-    background-color: #eee;
+  .header {
+    md-icon {
+      font-size: 1.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  .options {
+    padding-left:0px;
+    margin-top: 0px;
+    padding-top:.4rem;
+    padding-bottom:.4rem;
+    background-color: $element-bg-color;
+
+    li {
+      md-icon {
+        font-size: .9rem;
+        width: 1.5rem;
+        height: .9rem;
+        margin-top: .4rem;
+        margin-bottom: .4rem;
+      }
+
+      p {
+        font-size: 12px;
+      }
+
+      /*
+        Status classes
+      */
+
+      &.locked {
+        color: $inactive-color;
+      }
+
+      &.success {
+        color: $success-color;
+      }
+    }
   }
 }

@@ -15,6 +15,7 @@ const FLOW: Flow = {
     { id: 2, 
       service: {
         name: 'RSS',
+        icon: 'rss_feed',
         step: {
           name: 'New Item in Feed'
         }

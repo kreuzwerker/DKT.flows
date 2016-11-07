@@ -11,6 +11,7 @@ export class Step {
 
   service?: {
     name: string;
+    icon: string;
     step: {
       name: string;
     }
