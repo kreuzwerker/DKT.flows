@@ -15,6 +15,10 @@ export class AppComponent implements OnInit {
     ['monitor', 'both'].includes(STORE_DEV_TOOLS) // set in constants.js file in project root
   );
   mobile = MOBILE;
+
+  // Hide sidebar by default
+  showSidebar = false;
+
   sideNavMode = MOBILE ? 'over' : 'side';
   views = views;
   @ViewChild(MdSidenav) sidenav: MdSidenav;

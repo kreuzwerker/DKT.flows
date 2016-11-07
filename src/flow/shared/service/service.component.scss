@@ -1,0 +1,17 @@
+// Blue 500
+$primary-color: #2196F3;
+
+.service {
+  padding:3em;
+
+  md-icon {
+    font-size: 3rem;
+    color: $primary-color;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  p {
+    text-align: center;
+  }
+}

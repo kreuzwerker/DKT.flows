@@ -1,5 +1,5 @@
 <md-sidenav-layout fullscreen>
-  <md-sidenav [opened]="!mobile" #sidenav [mode]="sideNavMode">
+  <md-sidenav [opened]="showSidebar" #sidenav [mode]="sideNavMode">
     <md-nav-list>
       <template ngFor let-view [ngForOf]="views" let-even="even" let-odd="odd" let-rowIndex="index">
         <a md-list-item [routerLink]="view.link" routerLinkActive="active-link" (click)="mobile ? sidenav.close() : {}">
@@ -13,10 +13,10 @@
   <md-toolbar color="primary">
     <button md-icon-button (click)="sidenav.toggle()">
       <md-icon>menu</md-icon>
-    </button> Angular Starter App
+    </button> DKT flows
   </md-toolbar>
-<md-card id="my-page-card">
+<div id="my-page-card">
   <router-outlet (activate)="activateEvent($event)" (deactivate)="deactivateEvent($event)"></router-outlet>
-</md-card>
+</div>
 </md-sidenav-layout>
 <my-store-devtools *ngIf="showMonitor"></my-store-devtools>

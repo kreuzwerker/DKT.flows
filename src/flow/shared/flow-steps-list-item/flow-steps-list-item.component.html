@@ -1,0 +1,15 @@
+<md-card class="flow-steps-list-item">
+  <md-card-content>
+    <div class="header">
+      <span *ngIf="!step.service">
+        <md-icon>build</md-icon>
+        Set up this step
+      </span>
+      <span *ngIf="step.service">
+        <md-icon>{{step.service.icon}}</md-icon>
+        {{step.service.name}}: {{step.service.step.name}}
+      </span>
+    </div>
+    <p class="body">Card content</p>
+  </md-card-content>
+</md-card>

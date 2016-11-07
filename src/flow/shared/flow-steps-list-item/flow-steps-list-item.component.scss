@@ -1,0 +1,13 @@
+.flow-steps-list-item {
+  padding: 0px;
+
+  .header, .body {
+    padding:1rem;
+  }
+
+  .body {
+    // TODO make this work -> import _variables.scss ?
+    // background-color: $element-bg-color;
+    background-color: #eee;
+  }
+}

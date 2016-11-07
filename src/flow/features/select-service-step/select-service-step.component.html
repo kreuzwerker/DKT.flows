@@ -1,0 +1,19 @@
+<div class="layout" layout="row" layout-align="left center">
+  <div class="left" layout="column" flex="30" layout-padding>
+    <h3>{{flow.name}}</h3>
+    <p>{{flow.description}}</p>
+
+    <!-- Flow steps -->
+    <div class="steps">
+      <div class="step" *ngFor="let step of flow.steps">
+        <dkt-flow-steps-list-item [step]="step"></dkt-flow-steps-list-item>
+      </div>
+    </div>
+  </div>
+
+  <div class="center" layout="column" flex="40" layout-align="left">
+    <dkt-services></dkt-services>
+  </div>
+
+  <!--<div class="right" layout="column" flex="30"> 3 </div>-->
+</div>
