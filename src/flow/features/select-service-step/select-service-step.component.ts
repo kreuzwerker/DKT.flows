@@ -17,13 +17,12 @@ const FLOW: Flow = {
         name: 'RSS',
         icon: 'rss_feed',
         step: {
-          name: 'New Item in Feed'
+          name: 'New item in feed'
         }
       }
     }
   ]
 }
-
 
 @Component({
   selector: 'dkt-select-service-step',

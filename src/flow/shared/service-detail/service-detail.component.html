@@ -11,4 +11,32 @@
     </div>
     <p class="description">{{service.description}}</p>
   </div>
+
+  <md-tab-group>
+    <md-tab>
+      <template md-tab-label>Triggers ({{triggerSteps.length}})</template>
+      <template md-tab-content>
+        <ul class="service-steps">
+          <li *ngFor="let serviceStep of triggerSteps">
+            <strong>{{serviceStep.name}}</strong>
+            {{serviceStep.description}}
+          </li>
+        </ul>
+        <p *ngIf="triggerSteps.length == 0" class="no-steps">No triggers available.</p>
+      </template>
+    </md-tab>
+    <md-tab>
+      <template md-tab-label>Actions ({{actionSteps.length}})</template>
+      <template md-tab-content>
+        <ul class="service-steps">
+          <li *ngFor="let serviceStep of actionSteps">
+            <strong>{{serviceStep.name}}</strong>
+            {{serviceStep.description}}
+          </li>
+        </ul>
+        <p *ngIf="actionSteps.length == 0" class="no-steps">No actions available.</p>
+      </template>
+    </md-tab>
+  </md-tab-group>
+
 </div>

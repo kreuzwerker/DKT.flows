@@ -3,7 +3,15 @@ import { Service } from './../../models/service.model';
 import { ServiceDetailComponent } from './../service-detail/service-detail.component';
 
 export const SERVICES: Array<Service> = [
-  { name: 'RSS', group: 'DKT native app', description: 'RSS service steps.', 'icon': 'rss_feed'},
+  { name: 'RSS', group: 'DKT native app', description: 'RSS service steps.', 'icon': 'rss_feed',
+    steps: [
+      { name: 'New item in RSS feed', description: 'Triggers on new RSS feed items.', type: 'trigger' },
+      { name: 'New kitten in feed', description: 'Triggers on new RSS feed items which feature a kitten.', type: 'trigger' },
+
+      { name: 'Make coffee', description: 'Makes a delicious freshly brewed organic coffee.', type: 'action' },
+      { name: 'Sing hallelujah', description: 'Praises the lord.', type: 'action' },
+    ],
+  },
   { name: 'Email', group: 'DKT native app', description: 'Email service steps.', 'icon': 'mail'},
   { name: 'Filter', group: 'DKT native app', description: 'Filter service steps.', 'icon': 'filter_list'},
 ]

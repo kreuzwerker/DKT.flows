@@ -45,4 +45,32 @@ div.service-detail {
       font-size: .85rem;
     }
   }
+
+  ul.service-steps {
+    padding:0;
+    margin:0px;
+
+    li {
+      list-style: none;
+      padding: 1rem;
+      cursor: pointer;
+
+      strong {
+        display: block;
+      }
+
+      &:hover {
+        background-color: $element-hover-color;
+      }
+
+      &.selected {
+        background-color: $element-selected-color;
+      }
+    }
+  }
+
+  p.no-steps {
+    margin: 1rem 0;
+    color: $inactive-color;
+  }
 }

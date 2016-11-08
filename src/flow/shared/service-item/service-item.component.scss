@@ -8,11 +8,11 @@ https://github.com/jtangelder/sass-loader/issues/211 */
   cursor: pointer;
 
   &:hover {
-    background-color: #F5F5F5;
+    background-color: $element-hover-color;
   }
 
   &.selected {
-    background-color: #EEEEEE;
+    background-color: $element-selected-color;
   }
 
   p {
