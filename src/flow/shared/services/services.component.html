@@ -1,3 +1,12 @@
 <div class="services" layout="row" layout-align="left">
-  <dkt-service *ngFor="let service of services" [service]="service"></dkt-service>
+  <dkt-service-item
+    *ngFor="let service of services" 
+    [service]="service"
+    [isSelected]="service == selectedService"
+    (onSelectService)="selectService($event.service)">
+  </dkt-service-item>
+  <dkt-service-detail
+    [service]="selectedService"
+    (onClose)="unselectService()">
+  </dkt-service-detail>
 </div>

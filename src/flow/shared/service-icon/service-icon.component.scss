@@ -1,0 +1,10 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../app/variables';
+
+md-icon.service {
+  font-size: 3rem;
+  color: $service-icon-color;
+  width: 3rem;
+  height: 3rem;
+}

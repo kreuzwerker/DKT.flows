@@ -4,15 +4,15 @@ import { ChangeDetectionStrategy } from '@angular/core';
 
 import { MaterialModule } from '@angular/material';
 
-import { FlowStepsListItemComponent } from './flow-steps-list-item.component';
+import { FlowStepItemComponent } from './flow-step-item.component';
 
-describe('FlowStepsListItemComponent', () => {
+describe('FlowStepItemComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
                 MaterialModule.forRoot(),
             ],
-            declarations: [FlowStepsListItemComponent],
+            declarations: [FlowStepItemComponent],
             providers: [
                 // for automatic change detection
                 // { provide: ComponentFixtureAutoDetect, useValue: true }
@@ -21,7 +21,7 @@ describe('FlowStepsListItemComponent', () => {
 
         // this is a temporary workaround, as fixture.detectChanges() isn't working
         // for components with ChangeDetectionStrategy.OnPush
-        .overrideComponent(FlowStepsListItemComponent, {
+        .overrideComponent(FlowStepItemComponent, {
             set: { changeDetection: ChangeDetectionStrategy.Default }
         })
 
@@ -31,7 +31,7 @@ describe('FlowStepsListItemComponent', () => {
     }));
 
     it('should render step without service', async(() => {
-        let fixture = TestBed.createComponent(FlowStepsListItemComponent);
+        let fixture = TestBed.createComponent(FlowStepItemComponent);
         let comp = fixture.componentInstance;
         fixture.detectChanges();
 
@@ -50,7 +50,7 @@ describe('FlowStepsListItemComponent', () => {
     }));
 
     it('should render step with service', async(() => {
-        let fixture = TestBed.createComponent(FlowStepsListItemComponent);
+        let fixture = TestBed.createComponent(FlowStepItemComponent);
         let comp = fixture.componentInstance;
         fixture.detectChanges();
 

@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Step } from '../../models/step.model';
 
 @Component({
-  selector: 'dkt-flow-steps-list-item',
-  templateUrl: 'flow-steps-list-item.component.html',
-  styleUrls: ['flow-steps-list-item.component.css'],
+  selector: 'dkt-flow-step-item',
+  templateUrl: 'flow-step-item.component.html',
+  styleUrls: ['flow-step-item.component.css'],
 })
-export class FlowStepsListItemComponent implements OnInit {
+export class FlowStepItemComponent implements OnInit {
   @Input() step: Step;
 
   headerIcon: string;

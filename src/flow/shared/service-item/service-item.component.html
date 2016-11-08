@@ -1,0 +1,7 @@
+<div class="service-item"
+  (click)="select()"
+  [ngClass]="{selected: isSelected}"
+  layout="column" layout-align="center" layout-padding>
+  <dkt-service-icon icon="{{service.icon}}"></dkt-service-icon>
+  <p>{{service.name}}</p>
+</div>
