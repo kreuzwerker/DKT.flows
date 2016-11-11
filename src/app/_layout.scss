@@ -1,0 +1,22 @@
+$layout-border-color: #eee;
+
+/*
+  Layout
+*/
+
+div.layout {
+  min-height:100%;  
+
+  .col-header {
+    border-bottom: 1px solid $layout-border-color;
+    height:4rem;
+  }
+}
+
+div.layout > div {
+  min-height:100%;
+}
+
+div.left, div.center {
+  border-right: 1px solid $layout-border-color;
+}
