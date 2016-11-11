@@ -17,9 +17,11 @@
       <template md-tab-label>Triggers ({{triggerSteps.length}})</template>
       <template md-tab-content>
         <ul class="service-steps">
-          <li *ngFor="let serviceStep of triggerSteps">
+          <li 
+            *ngFor="let serviceStep of triggerSteps"
+            (click)="selectServiceStep(serviceStep)">
             <strong>{{serviceStep.name}}</strong>
-            {{serviceStep.description}}
+            <span>{{serviceStep.description}}</span>
           </li>
         </ul>
         <p *ngIf="triggerSteps.length == 0" class="no-steps">No triggers available.</p>
@@ -29,9 +31,11 @@
       <template md-tab-label>Actions ({{actionSteps.length}})</template>
       <template md-tab-content>
         <ul class="service-steps">
-          <li *ngFor="let serviceStep of actionSteps">
+          <li
+            *ngFor="let serviceStep of actionSteps"
+            (click)="selectServiceStep(serviceStep)">
             <strong>{{serviceStep.name}}</strong>
-            {{serviceStep.description}}
+            <span>{{serviceStep.description}}</span>
           </li>
         </ul>
         <p *ngIf="actionSteps.length == 0" class="no-steps">No actions available.</p>

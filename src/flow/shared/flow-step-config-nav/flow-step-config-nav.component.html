@@ -1,0 +1,20 @@
+<div class="flow-step-config-nav" layout="row" layout-align="start center">
+  <h4>Flow configuration</h4>
+  <ul>
+    <li *ngIf="showStepNav('select')" [class.current]="current == 'select'">
+      <span class="icon" *ngIf="getStepIconType('select') == 'check'"><md-icon>check</md-icon></span>      
+      <span class="icon" *ngIf="getStepIconType('select') == 'number'">1</span>      
+      <span class="label">Select {{type}}</span>
+    </li>
+    <li *ngIf="showStepNav('configure')" [class.current]="current == 'configure'">
+      <span class="icon" *ngIf="getStepIconType('configure') == 'check'"><md-icon>check</md-icon></span>      
+      <span class="icon" *ngIf="getStepIconType('configure') == 'number'">2</span>      
+      <span class="label">Configure {{type}}</span>
+    </li>
+    <li *ngIf="showStepNav('test')" [class.current]="current == 'test'">
+      <span class="icon" *ngIf="getStepIconType('test') == 'check'"><md-icon>check</md-icon></span>      
+      <span class="icon" *ngIf="getStepIconType('test') == 'number'">3</span>      
+      <span class="label">Test {{type}}</span>
+    </li>
+  </ul>
+</div>

@@ -8,6 +8,7 @@ import { SelectServiceStepComponent } from './features/select-service-step/selec
 
 // Shared
 import { FlowStepItemComponent } from './shared/flow-step-item/flow-step-item.component';
+import { FlowStepConfigNavComponent } from './shared/flow-step-config-nav/flow-step-config-nav.component';
 import { ServicesComponent } from './shared/services/services.component';
 import { ServiceItemComponent } from './shared/service-item/service-item.component';
 import { ServiceDetailComponent } from './shared/service-detail/service-detail.component';
@@ -21,6 +22,7 @@ const routes: Routes = [
   declarations: [
     SelectServiceStepComponent,
     FlowStepItemComponent,
+    FlowStepConfigNavComponent,
     ServicesComponent,
     ServiceItemComponent,
     ServiceDetailComponent,

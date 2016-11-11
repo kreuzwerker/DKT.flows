@@ -10,6 +10,7 @@ import { ServiceStep } from './../../models/service-step.model';
 export class ServiceDetailComponent implements OnChanges {
   @Input() service: Service;
   @Output() onClose = new EventEmitter();
+  @Output() onSelectServiceStep = new EventEmitter();
 
   show: boolean = false;
   triggerSteps: ServiceStep[];
@@ -36,5 +37,9 @@ export class ServiceDetailComponent implements OnChanges {
       this.triggerSteps = [];
       this.actionSteps = [];
     }
+  }
+
+  selectServiceStep(serviceStep) {
+    this.onSelectServiceStep.emit({ serviceStep: serviceStep });
   }
 }

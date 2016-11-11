@@ -12,8 +12,12 @@
   </div>
 
   <div class="center" layout="column" flex="40" layout-align="left">
+    <div class="col-header"></div>
+
     <dkt-services></dkt-services>
   </div>
 
-  <!--<div class="right" layout="column" flex="30"> 3 </div>-->
+  <div class="right" layout="column" flex>
+    <dkt-flow-step-config-nav [type]="'Trigger'" [current]="'select'" class="col-header"></dkt-flow-step-config-nav>
+  </div>
 </div>

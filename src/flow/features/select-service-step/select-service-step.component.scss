@@ -1,22 +1,10 @@
 h1.step {
-    color: indigo;
+  color: indigo;
 }
 
-div.layout > div {
-    height:100%;
-}
-
-div.left {
-  border-right: 1px solid #eee;
-}
-
-div.right {
-  border-left: 1px solid #eee;
-}
-
-// 
-// Flow steps
-// 
+/*
+  Flow steps
+*/
 
 .steps {
   .step {

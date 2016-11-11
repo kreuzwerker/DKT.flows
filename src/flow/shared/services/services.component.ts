@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Service } from './../../models/service.model';
+import { ServiceStep } from './../../models/service-step.model';
 import { ServiceDetailComponent } from './../service-detail/service-detail.component';
 
 export const SERVICES: Array<Service> = [
@@ -35,7 +36,7 @@ export class ServicesComponent implements OnInit {
 
   ngOnInit() { }
 
-  selectService(service) {
+  selectService(service: Service) {
     // Set the current service as selected and open service detail dialog
     this.selectedService = service;
     this.serviceDetail.open();
@@ -43,5 +44,9 @@ export class ServicesComponent implements OnInit {
 
   unselectService() {
     this.selectedService = null;
+  }
+
+  selectServiceStep(serviceStep: ServiceStep) {
+    console.log(serviceStep);
   }
 }
