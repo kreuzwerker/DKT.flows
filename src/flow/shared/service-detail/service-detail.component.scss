@@ -56,14 +56,6 @@ div.service-detail {
       cursor: pointer;
       font-size: .9em;
 
-      strong {
-        display: block;
-      }
-
-      span {
-        color: $secondary-text-color;
-      }
-
       &:hover {
         background-color: $element-hover-color;
       }

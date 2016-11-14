@@ -20,8 +20,7 @@
           <li 
             *ngFor="let serviceStep of triggerSteps"
             (click)="selectServiceStep(serviceStep)">
-            <strong>{{serviceStep.name}}</strong>
-            <span>{{serviceStep.description}}</span>
+            <dkt-service-step-item [serviceStep]="serviceStep"></dkt-service-step-item>
           </li>
         </ul>
         <p *ngIf="triggerSteps.length == 0" class="no-steps">No triggers available.</p>
@@ -34,8 +33,7 @@
           <li
             *ngFor="let serviceStep of actionSteps"
             (click)="selectServiceStep(serviceStep)">
-            <strong>{{serviceStep.name}}</strong>
-            <span>{{serviceStep.description}}</span>
+            <dkt-service-step-item [serviceStep]="serviceStep"></dkt-service-step-item>
           </li>
         </ul>
         <p *ngIf="actionSteps.length == 0" class="no-steps">No actions available.</p>
