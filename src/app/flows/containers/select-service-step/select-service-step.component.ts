@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Flow } from '../../models/flow.model'
-import { Step } from '../../models/step.model'
+import { Flow, Step } from '../../models'
+import { FlowsStateService } from './../../';
 
-// import { SERVICES } from './../../shared/services/services.component';
+// import { SERVICES } from './../../components/services/services.component';
 
 // Flow mock
 const FLOW: Flow = {

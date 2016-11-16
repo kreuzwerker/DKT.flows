@@ -1,6 +1,6 @@
 /* TODO relative paths are bad. find a way to import variables globally:
 https://github.com/jtangelder/sass-loader/issues/211 */
-@import '../../../app/variables';
+@import '../../../variables';
 
 .service-item {
   padding:2em;
