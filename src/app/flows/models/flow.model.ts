@@ -1,7 +1,7 @@
 import { Step } from './step.model';
 
 export class Flow {
-  id: number;
+  id: string;
   name: string;
   description: string;
   steps?: Array<Step>;

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Service, ServiceStep } from './../../models';
-import { ServiceDetailComponent } from './../service-detail/service-detail.component';
+import { ServiceDetailComponent } from './../../components/service-detail/service-detail.component';
 import { FlowsStateService } from './../../flows-state.service';
 
 @Component({
@@ -38,6 +38,6 @@ export class ServicesComponent implements OnInit {
   }
 
   selectServiceStep(serviceStep: ServiceStep) {
-    console.log(serviceStep);
+    this.state.setStepServiceStep(this.selectedService, serviceStep);
   }
 }

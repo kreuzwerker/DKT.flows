@@ -14,7 +14,7 @@ export interface FlowState {
 
 const initialState: FlowState = {
   flow: { 
-    id: 0,
+    id: "0",
     name: '',
     description: '',
     steps: [],
@@ -28,28 +28,30 @@ export function flowReducer(state = initialState, action: Action): FlowState {
 
     case FlowActions.LOAD_FLOW: {
       let _flow: Flow = {
-        id: 1,
+        id: "1",
         name: 'First flow',
         description: "This is a mocked flow object.",
         steps: [
-          { id: 1 },
-          { id: 2, 
+          { id: "1" },
+          { id: "2", 
             service: {
               name: 'RSS',
-              icon: 'rss_feed',
-              step: {
-                name: 'New item in feed'
-              }
+              group: 'DKT native app',
+              description: 'RSS service steps.',
+              'icon': 'rss_feed',
+            },
+            serviceStep: { 
+              name: 'New item in RSS feed',
+              description: 'Triggers on new RSS feed items.',
+              type: 'trigger',
             }
           }
         ]
       }
   
-      let newState: FlowState = {
+      return Object.assign({}, state, {
         flow: _flow
-      }
-
-      return newState;
+      });
     }
 
     default: {
@@ -61,15 +63,7 @@ export function flowReducer(state = initialState, action: Action): FlowState {
 export function getCurrentFlow(): Selector<AppState,Flow> {
   return state$ => state$
     .map((state) => {
-      console.log('STATE', state)
       return state.flow.flow
     })
-    .distinctUntilChanged();
-}
-
-export function getCurrentStep(): Selector<AppState,Step> {
-  // MOCK
-  return state$ => state$
-    .map(state => state.flow.flow.steps[0])
     .distinctUntilChanged();
 }

@@ -20,8 +20,9 @@ export class FlowStepItemComponent implements OnInit {
   render() {
     if (this.step && this.step.service) {
       let service = this.step.service;
+      let serviceStep = this.step.serviceStep;
       this.headerIcon = service.icon;
-      this.headerTitle = `${service.name}: ${service.step.name}`;
+      this.headerTitle = `${service.name}: ${serviceStep.name}`;
       this.options = [
         { icon: 'flash_on', title: 'Select Trigger', classes: []},
         { icon: 'settings', title: 'Configure Trigger', classes: ['active']},

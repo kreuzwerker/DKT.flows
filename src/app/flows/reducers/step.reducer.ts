@@ -1,8 +1,10 @@
 /* tslint:disable: no-switch-case-fall-through */
 import { Action } from '@ngrx/store';
 
-import { StepActions } from '../actions/step.actions';
-import { Step } from '../models/step.model';
+import { Selector } from '../../core';
+import { AppState } from '../../reducers';
+import { StepActions } from '../actions';
+import { Step, ServiceStep } from '../models';
 
 export interface StepState {
   step: Step;
@@ -10,8 +12,8 @@ export interface StepState {
 
 const initialState: StepState = {
   step: { 
-    id: 0,
-    service: null
+    id: "0",
+    serviceStep: null
   },
 };
 
@@ -24,10 +26,12 @@ export function stepReducer(state = initialState, action: Action): StepState {
       });
     }
 
-    case StepActions.SET_STEP_SERVICE: {
-      // TODO state.step.service = payload
-      return Object.assign({}, state, {
-        service: action.payload
+    case StepActions.SET_STEP_SERVICE_STEP: {
+      return Object.assign({}, state, { 
+        step: Object.assign({}, state.step, {
+          service: action.payload.service,
+          serviceStep: action.payload.serviceStep
+        }) 
       });
     }
 
@@ -37,3 +41,8 @@ export function stepReducer(state = initialState, action: Action): StepState {
   }
 }
 
+export function getCurrentStep(): Selector<AppState,Step> {
+  return state$ => state$
+    .map(state => state.step.step)
+    .distinctUntilChanged();
+}

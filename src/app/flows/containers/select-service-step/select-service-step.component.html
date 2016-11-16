@@ -22,9 +22,7 @@
   <div class="right" layout="column" flex>
     <dkt-flow-step-config-nav [type]="'Trigger'" [current]="'select'" class="col-header"></dkt-flow-step-config-nav>
     <div layout-padding>
-      <!--
-        TODO -> get the current selected service step
-        <dkt-service-step-item [serviceStep]="serviceStep"></dkt-service-step-item>-->
+      <dkt-service-step-item *ngIf="selectedServiceStep" [serviceStep]="selectedServiceStep"></dkt-service-step-item>
       <dkt-flow-step-nav-buttons></dkt-flow-step-nav-buttons>
     </div>
   </div>

@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Containers
 import { SelectServiceStepComponent } from './containers/select-service-step/select-service-step.component';
+import { ServicesComponent } from './containers/services/services.component';
 
 // Components
 import { FlowHeaderComponent } from './components/flow-header/flow-header.component';
 import { FlowStepItemComponent } from './components/flow-step-item/flow-step-item.component';
 import { FlowStepConfigNavComponent } from './components/flow-step-config-nav/flow-step-config-nav.component';
 import { FlowStepNavButtonsComponent } from './components/flow-step-nav-buttons/flow-step-nav-buttons.component';
-import { ServicesComponent } from './components/services/services.component';
 import { ServiceItemComponent } from './components/service-item/service-item.component';
 import { ServiceDetailComponent } from './components/service-detail/service-detail.component';
 import { ServiceIconComponent } from './components/service-icon/service-icon.component';

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AppState } from '../reducers';
 import { FlowState, StepState, ServicesState, getCurrentFlow, getCurrentStep, getServices } from './reducers';
-import { Flow, Step, Service } from './models';
+import { Flow, Step, Service, ServiceStep } from './models';
 import { FlowActions, StepActions, ServicesActions } from './actions';
 
 @Injectable()
@@ -58,6 +58,12 @@ export class FlowsStateService {
   selectStep(step: Step): void {
     this.store$.dispatch(
       this.stepActions.selectStep(step)
+    );
+  }
+
+  setStepServiceStep(service: Service, serviceStep: ServiceStep): void {
+    this.store$.dispatch(
+      this.stepActions.setStepServiceStep(service, serviceStep)
     );
   }
 }

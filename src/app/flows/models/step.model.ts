@@ -1,21 +1,9 @@
-// import { Service } from './service.model';
+import { Service, ServiceStep } from './';
 
 export class Step {
-  id: number;
-
-  /*
-  How should this be implemented?
-  - step.service should be a persisted property that tells us about which
-    service and which service step this step uses.
-  */
-
-  service?: {
-    name: string;
-    icon: string;
-    step: {
-      name: string;
-    }
-  };
+  id: string;
+  service?: Service;
+  serviceStep?: ServiceStep;
 }
 
 
