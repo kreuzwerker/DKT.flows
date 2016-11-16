@@ -15,8 +15,8 @@ export interface FlowState {
 const initialState: FlowState = {
   flow: { 
     id: 0,
-    name: '[Initial Flow State]',
-    description: '[init desc]',
+    name: '',
+    description: '',
     steps: [],
   },
   // loading: false,
@@ -60,7 +60,10 @@ export function flowReducer(state = initialState, action: Action): FlowState {
 
 export function getCurrentFlow(): Selector<AppState,Flow> {
   return state$ => state$
-    .map(state => state.flow.flow)
+    .map((state) => {
+      console.log('STATE', state)
+      return state.flow.flow
+    })
     .distinctUntilChanged();
 }
 

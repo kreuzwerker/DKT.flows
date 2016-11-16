@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { AppState } from '../reducers';
-import { getCurrentFlow, getCurrentStep } from './reducers';
-import { Flow, Step } from './models';
-import { FlowActions } from './actions';
+import { FlowState, StepState, ServicesState, getCurrentFlow, getCurrentStep, getServices } from './reducers';
+import { Flow, Step, Service } from './models';
+import { FlowActions, StepActions, ServicesActions } from './actions';
 
 @Injectable()
 export class FlowsStateService {
@@ -14,15 +14,50 @@ export class FlowsStateService {
   flow$: Observable<Flow>;
   // Current editing step
   step$: Observable<Step>
+  // Available services
+  services$: Observable<Service[]>
 
-  constructor(private actions: FlowActions, private store$: Store<AppState>) {
-    this.flow$ = store$.let(getCurrentFlow());
-    this.step$ = store$.let(getCurrentStep());
+  constructor(
+      private flowActions: FlowActions,
+      private stepActions: StepActions,
+      private servicesActions: ServicesActions,
+      private store$: Store<AppState>
+    ) {
+    this.flow$     = store$.let(getCurrentFlow());
+    this.step$     = store$.let(getCurrentStep());
+    this.services$ = store$.let(getServices())
   }
 
   loadFlow(id: string): void {
     this.store$.dispatch(
-      this.actions.loadFlow(id)
+      this.flowActions.loadFlow(id)
+    );
+  }
+
+  loadServices(): void {
+    // TODO implement effect
+    let services = [
+      { name: 'RSS', group: 'DKT native app', description: 'RSS service steps.', 'icon': 'rss_feed',
+        steps: [
+          { name: 'New item in RSS feed', description: 'Triggers on new RSS feed items.', type: 'trigger' },
+          { name: 'New kitten in feed', description: 'Triggers on new RSS feed items which feature a kitten.', type: 'trigger' },
+
+          { name: 'Make coffee', description: 'Makes a delicious freshly brewed organic coffee.', type: 'action' },
+          { name: 'Sing hallelujah', description: 'Praises the lord.', type: 'action' },
+        ],
+      },
+      { name: 'Email', group: 'DKT native app', description: 'Email service steps.', 'icon': 'mail'},
+      { name: 'Filter', group: 'DKT native app', description: 'Filter service steps.', 'icon': 'filter_list'},
+    ]
+
+    this.store$.dispatch(
+      this.servicesActions.loadServices(services)
+    );
+  }
+
+  selectStep(step: Step): void {
+    this.store$.dispatch(
+      this.stepActions.selectStep(step)
     );
   }
 }

@@ -6,22 +6,26 @@ import { Step } from '../models/step.model';
 
 export interface StepState {
   step: Step;
-  // loading: boolean;
-  // loaded: boolean;
 };
 
 const initialState: StepState = {
   step: { 
-    id: 0
+    id: 0,
+    service: null
   },
-  // loading: false,
-  // loaded: true,
 };
 
 export function stepReducer(state = initialState, action: Action): StepState {
   switch (action.type) {
 
-    case StepActions.SET_SERVICE: {
+    case StepActions.SELECT_STEP: {
+      return Object.assign({}, state, {
+        step: action.payload
+      });
+    }
+
+    case StepActions.SET_STEP_SERVICE: {
+      // TODO state.step.service = payload
       return Object.assign({}, state, {
         service: action.payload
       });

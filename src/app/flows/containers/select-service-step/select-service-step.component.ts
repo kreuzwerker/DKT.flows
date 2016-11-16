@@ -1,28 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Flow, Step } from '../../models'
-import { FlowsStateService } from './../../';
-
-// import { SERVICES } from './../../components/services/services.component';
-
-// Flow mock
-const FLOW: Flow = {
-  id: 1,
-  name: 'First flow',
-  description: "This is a mocked flow object.",
-  steps: [
-    { id: 1 },
-    { id: 2, 
-      service: {
-        name: 'RSS',
-        icon: 'rss_feed',
-        step: {
-          name: 'New item in feed'
-        }
-      }
-    }
-  ]
-}
+import { FlowsStateService } from './../../flows-state.service';
 
 @Component({
   selector: 'dkt-select-service-step',
@@ -33,13 +12,15 @@ const FLOW: Flow = {
 export class SelectServiceStepComponent  {
   steps: Step[];
 
-  constructor(public flows: FlowsStateService) {
+  constructor(public state: FlowsStateService) {
   }
 
   ngOnInit() {
-    this.flows.loadFlow('1');
-    this.flows.flow$.subscribe((flow) => {
+    this.state.loadFlow('1');
+    this.state.flow$.subscribe((flow) => {
       this.steps = flow.steps
+
+      this.state.selectStep(flow.steps[0]);
     });
   }
 }

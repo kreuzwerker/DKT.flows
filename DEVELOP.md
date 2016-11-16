@@ -56,6 +56,7 @@ Application state
 
 State is shared across all modules in a central application state store.
 
+TODO review
 Each module takes care of managing its own state under `state.[module]`, e.g.
 `state.flows`. It provides an API for getting and setting module-specific state 
 in `[module]/[module]-state.service.ts`.

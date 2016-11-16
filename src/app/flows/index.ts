@@ -21,7 +21,7 @@ import { ServiceStepItemComponent } from './components/service-step-item/service
 import { FlowsStateService } from './flows-state.service';
 
 // Actions
-import { FlowActions } from './actions';
+import { FlowActions, StepActions, ServicesActions } from './actions';
 
 const routes: Routes = [
   {path: 'flows/1/select-service-step', component: SelectServiceStepComponent}
@@ -49,9 +49,9 @@ const routes: Routes = [
   ],
   providers: [
     FlowsStateService,
-    FlowActions
+    FlowActions,
+    StepActions,
+    ServicesActions,
   ]
 })
 export class FlowsModule {}
-
-export { FlowsStateService } from './flows-state.service'
