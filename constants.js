@@ -23,7 +23,12 @@ exports.DEV_SERVER_PROXY_CONFIG = {
  * For info on source map options, go to: 
  * https://webpack.github.io/docs/configuration.html#devtool
  */
+// Enable for faster local builds, but no source map support for integrated debugging
 exports.DEV_SOURCE_MAPS = 'eval';
+// Enable source map support for debugging
+// TODO issue with source map generation, maybe related to angular-material
+// @see https://github.com/angular/angular-cli/issues/1490
+// exports.DEV_SOURCE_MAPS = 'source-map';
 exports.PROD_SOURCE_MAPS = 'source-map';
 
 /**
@@ -42,8 +47,8 @@ exports.DEV_SERVER_WATCH_OPTIONS = {
  * specifies which @ngrx dev tools will be available when you build and load
  * your app in dev mode. Options are: monitor | logger | both | none
  */
-// exports.STORE_DEV_TOOLS = 'monitor'
-exports.STORE_DEV_TOOLS = 'none'
+exports.STORE_DEV_TOOLS = 'both'
+// exports.STORE_DEV_TOOLS = 'none'
 
 exports.EXCLUDE_SOURCE_MAPS = [
   // these packages have problems with their sourcemaps
