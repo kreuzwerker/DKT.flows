@@ -30,6 +30,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     SelectServiceStepComponent,
+    FlowHeaderComponent,
     FlowStepItemComponent,
     FlowStepConfigNavComponent,
     FlowStepNavButtonsComponent,

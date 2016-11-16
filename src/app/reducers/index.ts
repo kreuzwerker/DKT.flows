@@ -5,15 +5,21 @@ import { storeLogger } from 'ngrx-store-logger';
 import { routerReducer, RouterState } from '@ngrx/router-store';
 
 import { userReducer, UserState } from '../user/user.reducer';
+import { flowReducer, FlowState } from '../flows/reducers/flow.reducer';
+import { stepReducer, StepState } from '../flows/reducers/step.reducer';
 
 export interface AppState {
   router: RouterState;
   user: UserState;
+  flow: FlowState;
+  step: StepState;
 }
 
 export const reducers = {
   router: routerReducer,
-  user: userReducer
+  user: userReducer,
+  flow: flowReducer,
+  step: stepReducer,
 };
 
 // Generate a reducer to set the root state in dev mode for HMR

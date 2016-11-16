@@ -1,11 +1,13 @@
 <div class="layout" layout="row" layout-align="left center">
   <div class="left" layout="column" flex="30" layout-padding>
-    <h3>{{flow.name}}</h3>
-    <p>{{flow.description}}</p>
+    <dkt-flow-header [flow]="flows.flow$ | async"></dkt-flow-header>
+    <!-- debug:
+      <pre>{{(flows.flow$ | async) | json}}
+    </pre>-->
 
     <!-- Flow steps -->
     <div class="steps">
-      <div class="step" *ngFor="let step of flow.steps">
+      <div class="step" *ngFor="let step of (flows.flow$ | async)?.steps">
         <dkt-flow-step-item [step]="step"></dkt-flow-step-item>
       </div>
     </div>

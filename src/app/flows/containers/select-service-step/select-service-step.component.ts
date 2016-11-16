@@ -30,9 +30,16 @@ const FLOW: Flow = {
   styleUrls: ['select-service-step.component.css']
 })
 
-export class SelectServiceStepComponent {
-  flow = FLOW;
+export class SelectServiceStepComponent  {
+  steps: Step[];
 
-  constructor() {
+  constructor(public flows: FlowsStateService) {
+  }
+
+  ngOnInit() {
+    this.flows.loadFlow('1');
+    this.flows.flow$.subscribe((flow) => {
+      this.steps = flow.steps
+    });
   }
 }
