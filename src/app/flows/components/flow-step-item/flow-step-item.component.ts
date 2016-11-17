@@ -11,7 +11,12 @@ export class FlowStepItemComponent implements OnInit {
 
   headerIcon: string;
   headerTitle: string;
-  options: { icon: string, title: string, classes: Array<string> }[];
+  options: {
+    icon: string,
+    title: string,
+    classes: Array<string>,
+    link?: string
+  }[];
 
   ngOnInit() {
     this.render();
@@ -23,9 +28,10 @@ export class FlowStepItemComponent implements OnInit {
       let serviceStep = this.step.serviceStep;
       this.headerIcon = service.icon;
       this.headerTitle = `${service.name}: ${serviceStep.name}`;
+      let basePath = `/flows/1/steps/${this.step.id}/`;
       this.options = [
-        { icon: 'flash_on', title: 'Select Trigger', classes: []},
-        { icon: 'settings', title: 'Configure Trigger', classes: ['active']},
+        { icon: 'flash_on', title: 'Select Trigger', classes: [], link: basePath + 'select-service-step' },
+        { icon: 'settings', title: 'Configure Trigger', classes: ['active'], link: basePath + 'configure-step' },
         { icon: 'lock', title: 'Test Trigger', classes: ['locked']},
       ];
     } else {

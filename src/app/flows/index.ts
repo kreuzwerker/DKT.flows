@@ -24,7 +24,7 @@ import { FlowsStateService } from './flows-state.service';
 import { FlowActions, StepActions, ServicesActions } from './actions';
 
 const routes: Routes = [
-  {path: 'flows/1/select-service-step', component: SelectServiceStepComponent}
+  {path: 'flows/:flowId/steps/:stepId/select-service-step', component: SelectServiceStepComponent}
 ];
 
 @NgModule({

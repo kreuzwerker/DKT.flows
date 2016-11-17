@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Flow, Step, ServiceStep } from '../../models'
 import { FlowsStateService } from './../../flows-state.service';
@@ -13,12 +14,17 @@ export class SelectServiceStepComponent  {
   steps: Step[];
   selectedServiceStep: ServiceStep | null;
 
-  constructor(public state: FlowsStateService) {
+  constructor(public route: ActivatedRoute, public state: FlowsStateService) {
     this.selectedServiceStep = null
   }
 
   ngOnInit() {
-    this.state.loadFlow('1');
+    this.route.params
+      .map(params => params['flowId'])
+      .subscribe((flowId) => {
+        this.state.loadFlow(flowId);
+      });
+      
     this.state.flow$.subscribe((flow) => {
       this.steps = flow.steps
       this.state.selectStep(flow.steps[0]);

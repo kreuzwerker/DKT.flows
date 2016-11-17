@@ -43,6 +43,10 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 
       p {
         font-size: 12px;
+
+        a {
+          color: inherit;
+        }
       }
 
       /*

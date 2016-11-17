@@ -9,7 +9,10 @@
     <ul class="options">
       <li *ngFor="let option of options" [ngClass]="option.classes" layout="row" layout-align="start center">
         <md-icon>{{option.icon}}</md-icon>
-        <p>{{option.title}}</p>
+        <p>
+          <a *ngIf="option.link" [routerLink]="option.link" routerLinkActive="active-link">{{option.title}}</a>
+          <span *ngIf="!option.link">{{option.title}}</span>
+        </p>
       </li>
     </ul>
   </md-card-content>
