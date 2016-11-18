@@ -1,5 +1,19 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+
 h1.step {
   color: indigo;
+}
+
+/*
+  Layout
+*/
+
+div.layout {
+  div.left, div.right {
+    width: 400px;
+  }
 }
 
 /*
@@ -10,4 +24,14 @@ h1.step {
   .step {
     margin-bottom:1rem;
   }
+}
+
+/*
+ Selection
+*/
+
+.selected-service-step {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: $element-selected-color;
 }

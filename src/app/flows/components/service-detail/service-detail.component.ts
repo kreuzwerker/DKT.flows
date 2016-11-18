@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { Service } from './../../models/service.model';
-import { ServiceStep } from './../../models/service-step.model';
+
+import { Service, ServiceStep } from './../../models';
 
 @Component({
   selector: 'dkt-service-detail',
@@ -9,6 +9,7 @@ import { ServiceStep } from './../../models/service-step.model';
 })
 export class ServiceDetailComponent implements OnChanges {
   @Input() service: Service;
+  @Input() selectedServiceStep: ServiceStep;
   @Output() onClose = new EventEmitter();
   @Output() onSelectServiceStep = new EventEmitter();
 
@@ -17,7 +18,9 @@ export class ServiceDetailComponent implements OnChanges {
   actionSteps: ServiceStep[];
 
   ngOnChanges(changes: SimpleChanges) {
-    this.processService(changes['service']['currentValue']);
+    if (changes['service'] !== undefined) {
+      this.processService(changes['service']['currentValue']);
+    }
   }
 
   open() {

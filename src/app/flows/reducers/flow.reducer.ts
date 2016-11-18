@@ -41,6 +41,7 @@ export function flowReducer(state = initialState, action: Action): FlowState {
               'icon': 'rss_feed',
             },
             serviceStep: { 
+              id: '1',
               name: 'New item in RSS feed',
               description: 'Triggers on new RSS feed items.',
               type: 'trigger',

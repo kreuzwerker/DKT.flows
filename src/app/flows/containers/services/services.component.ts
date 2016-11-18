@@ -13,6 +13,7 @@ import { FlowsStateService } from './../../flows-state.service';
 export class ServicesComponent implements OnInit {
   services: Array<Service>;
   selectedService: Service;
+  selectedServiceStep: ServiceStep;
 
   @ViewChild(ServiceDetailComponent) serviceDetail: ServiceDetailComponent;
 
@@ -25,6 +26,15 @@ export class ServicesComponent implements OnInit {
     this.state.services$.subscribe((services) => {
       this.services = services
     });
+
+    this.state.step$.subscribe((step) => {
+      if (step.serviceStep !== undefined) {
+        this.selectedServiceStep = step.serviceStep;
+      } else {
+        this.selectedServiceStep = null
+      }
+    });
+
   }
 
   selectService(service: Service) {

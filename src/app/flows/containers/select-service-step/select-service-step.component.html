@@ -1,5 +1,5 @@
 <div class="layout" layout="row" layout-align="left center">
-  <div class="left" layout="column" flex="30" layout-padding>
+  <div class="left" layout="column" layout-padding>
     <dkt-flow-header [flow]="state.flow$ | async"></dkt-flow-header>
     <!-- debug:
       <pre>{{(state.flow$ | async) | json}}
@@ -13,16 +13,18 @@
     </div>
   </div>
 
-  <div class="center" layout="column" flex="40" layout-align="left">
+  <div class="center" layout="column" flex>
     <div class="col-header"></div>
 
     <dkt-services></dkt-services>
   </div>
 
-  <div class="right" layout="column" flex>
+  <div class="right" *ngIf="selectedServiceStep" layout="column">
     <dkt-flow-step-config-nav [type]="'Trigger'" [current]="'select'" class="col-header"></dkt-flow-step-config-nav>
     <div layout-padding>
-      <dkt-service-step-item *ngIf="selectedServiceStep" [serviceStep]="selectedServiceStep"></dkt-service-step-item>
+      <div class="selected-service-step">
+        <dkt-service-step-item [serviceStep]="selectedServiceStep"></dkt-service-step-item>
+      </div>
       <dkt-flow-step-nav-buttons></dkt-flow-step-nav-buttons>
     </div>
   </div>

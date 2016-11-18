@@ -39,11 +39,11 @@ export class FlowsStateService {
     let services = [
       { name: 'RSS', group: 'DKT native app', description: 'RSS service steps.', 'icon': 'rss_feed',
         steps: [
-          { name: 'New item in RSS feed', description: 'Triggers on new RSS feed items.', type: 'trigger' },
-          { name: 'New kitten in feed', description: 'Triggers on new RSS feed items which feature a kitten.', type: 'trigger' },
+          { id: '1', name: 'New item in RSS feed', description: 'Triggers on new RSS feed items.', type: 'trigger' },
+          { id: '2', name: 'New kitten in feed', description: 'Triggers on new RSS feed items which feature a kitten.', type: 'trigger' },
 
-          { name: 'Make coffee', description: 'Makes a delicious freshly brewed organic coffee.', type: 'action' },
-          { name: 'Sing hallelujah', description: 'Praises the lord.', type: 'action' },
+          { id: '3', name: 'Make coffee', description: 'Makes a delicious freshly brewed organic coffee.', type: 'action' },
+          { id: '4', name: 'Sing hallelujah', description: 'Praises the lord.', type: 'action' },
         ],
       },
       { name: 'Email', group: 'DKT native app', description: 'Email service steps.', 'icon': 'mail'},
