@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Service, ServiceStep } from './../../models';
+import * as serviceHelpers from './../../utils/service.helpers';
 
 @Component({
   selector: 'dkt-service-detail',
@@ -34,8 +35,8 @@ export class ServiceDetailComponent implements OnChanges {
 
   processService(service) {
     if (service && service.steps) {
-      this.triggerSteps = service.steps.filter(step => step.type == 'trigger');
-      this.actionSteps = service.steps.filter(step => step.type == 'action');
+      this.triggerSteps = serviceHelpers.getServiceTriggerSteps(service);
+      this.actionSteps = serviceHelpers.getServiceActionSteps(service);
     } else {
       this.triggerSteps = [];
       this.actionSteps = [];
