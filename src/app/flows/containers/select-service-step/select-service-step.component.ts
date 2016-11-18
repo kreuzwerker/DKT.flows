@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, style, state, animate, transition, trigger } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Flow, Step, ServiceStep } from '../../models'
@@ -7,7 +7,20 @@ import { FlowsStateService } from './../../flows-state.service';
 @Component({
   selector: 'dkt-select-service-step',
   templateUrl: 'select-service-step.component.html',
-  styleUrls: ['select-service-step.component.css']
+  styleUrls: ['select-service-step.component.css'],
+  animations: [
+    trigger('flyInOut', [
+      state('in', style({transform: 'translateX(0)'})),
+      transition('void => *', [
+        style({transform: 'translateX(100%)'}),
+        animate('200ms ease-out')
+      ]),
+      transition('* => void', [
+        animate('200ms ease-out', style({transform: 'translateX(-100%)'}))
+      ])
+    ])
+  ]
+
 })
 
 export class SelectServiceStepComponent  {
