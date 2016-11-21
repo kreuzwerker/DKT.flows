@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { compose } from '@ngrx/core/compose';
 import { ActionReducer, combineReducers } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
@@ -7,6 +8,10 @@ import { routerReducer, RouterState } from '@ngrx/router-store';
 import { userReducer, UserState } from '../user/user.reducer';
 
 import { FlowState, flowReducer, StepState, stepReducer, ServicesState, servicesReducer } from '../flows/reducers';
+
+export interface Selector<T,V> {
+  (observable$: Observable<T>): Observable<V>;
+}
 
 export interface AppState {
   router: RouterState;

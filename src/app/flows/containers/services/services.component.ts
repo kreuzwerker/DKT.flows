@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { Service, ServiceStep } from './../../models';
 import * as serviceHelpers from './../../utils/service.helpers';
@@ -27,7 +27,23 @@ export class ServicesComponent implements OnInit {
     // Load all services
     this.state.loadServices();
     this.state.services$.subscribe((services) => {
-      this.services = services
+      this.services = services;
+    });
+
+    // Subscribe to current selected service
+    this.state.service$.subscribe((service) => {
+      this.selectedService = service;
+
+      if (service) {
+        // Upon selecting a service:
+        // Preselect the first service step if no service step is currently selected
+        if (this.selectedServiceStep === null) {
+          this.selectFirstServiceStep(service, 'trigger');
+        }
+
+        // Open service detail dialog
+        this.serviceDetail.open();
+      }
     });
 
     // Subscribe to current selected flow step
@@ -35,25 +51,17 @@ export class ServicesComponent implements OnInit {
       if (step.serviceStep !== undefined) {
         this.selectedServiceStep = step.serviceStep;
       } else {
-        this.selectedServiceStep = null
+        this.selectedServiceStep = null;
       }
     });
   }
 
   selectService(service: Service) {
-    // Upon selecting a service:
-    // Set the current service as selected 
-    this.selectedService = service;
-    // Preselect the first service step if no service step is currently selected
-    if (this.selectedServiceStep === null) {
-      this.selectFirstServiceStep(service, 'trigger');
-    }
-    // Open service detail dialog
-    this.serviceDetail.open();
+    this.state.selectService(service);
   }
 
   unselectService(): void {
-    this.selectedService = null;
+    this.state.selectService(null);
   }
 
   selectServiceStep(serviceStep: ServiceStep): void {

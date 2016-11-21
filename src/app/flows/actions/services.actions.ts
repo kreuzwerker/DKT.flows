@@ -8,6 +8,14 @@ import { Service } from './../models'
 @Injectable()
 export class ServicesActions {
 
+  static SELECT_SERVICE = 'SELECT_SERVICE';
+  selectService(service: Service): Action {
+    return {
+      type: ServicesActions.SELECT_SERVICE,
+      payload: service
+    };
+  }
+
   static LOAD_SERVICES_SUCCESS = 'LOAD_SERVICES_SUCCESS';
   loadServices(services: Service[]): Action {
     return {

@@ -1,8 +1,8 @@
 /* tslint:disable: no-switch-case-fall-through */
 import { Action } from '@ngrx/store';
+import 'rxjs/add/operator/startWith'
 
-import { Selector } from '../../core';
-import { AppState } from '../../reducers';
+import { AppState, Selector } from '../../reducers';
 import { ServicesActions } from '../actions';
 import { Service } from '../models';
 
@@ -20,11 +20,22 @@ const initialState: ServicesState = {
 
 export function servicesReducer(state = initialState, action: Action): ServicesState {
   switch (action.type) {
-
     case ServicesActions.LOAD_SERVICES_SUCCESS: {
       return Object.assign({}, state, {
         services: action.payload
       });
+    }
+
+    case ServicesActions.SELECT_SERVICE: {
+      return Object.assign({}, state,
+        {
+          services: state.services.map((service, index) => {
+            return Object.assign({}, service, {
+              selected: (service === action.payload ? true : false)
+            });
+          })
+        }
+      );
     }
 
     default: {
@@ -36,5 +47,14 @@ export function servicesReducer(state = initialState, action: Action): ServicesS
 export function getServices(): Selector<AppState,Service[]> {
   return state$ => state$
     .map(state => state.services.services)
+    .distinctUntilChanged();
+}
+
+export function getCurrentService(): Selector<AppState,Service> {
+  return state$ => state$
+    .let(getServices())
+    .flatMap(service => service)
+    .first(service => service.selected === true)
+    .startWith(null)
     .distinctUntilChanged();
 }

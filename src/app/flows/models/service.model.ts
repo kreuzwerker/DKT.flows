@@ -5,6 +5,6 @@ export class Service {
   group: string;
   description: string;
   icon: string;
-  
   steps?: ServiceStep[];
+  selected?: boolean;
 }

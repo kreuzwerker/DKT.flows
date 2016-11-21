@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { AppState } from '../reducers';
-import { FlowState, StepState, ServicesState, getCurrentFlow, getCurrentStep, getServices } from './reducers';
+import { FlowState, StepState, ServicesState, getCurrentFlow, getCurrentStep, getServices, getCurrentService } from './reducers';
 import { Flow, Step, Service, ServiceStep } from './models';
 import { FlowActions, StepActions, ServicesActions } from './actions';
 
@@ -13,9 +13,11 @@ export class FlowsStateService {
   // Current loaded flow
   flow$: Observable<Flow>;
   // Current editing step
-  step$: Observable<Step>
+  step$: Observable<Step>;
   // Available services
-  services$: Observable<Service[]>
+  services$: Observable<Service[]>;
+  // Current service
+  service$: Observable<Service>;
 
   constructor(
       private flowActions: FlowActions,
@@ -25,7 +27,8 @@ export class FlowsStateService {
     ) {
     this.flow$     = store$.let(getCurrentFlow());
     this.step$     = store$.let(getCurrentStep());
-    this.services$ = store$.let(getServices())
+    this.services$ = store$.let(getServices());
+    this.service$  = store$.let(getCurrentService());
   }
 
   loadFlow(id: string): void {
@@ -65,5 +68,11 @@ export class FlowsStateService {
     this.store$.dispatch(
       this.stepActions.setStepServiceStep(service, serviceStep)
     );
+  }
+
+  selectService(service: Service): void {
+    this.store$.dispatch(
+      this.servicesActions.selectService(service)
+    );    
   }
 }
