@@ -51,10 +51,14 @@ export function getServices(): Selector<AppState,Service[]> {
 }
 
 export function getCurrentService(): Selector<AppState,Service> {
+  // See http://stackoverflow.com/questions/40720535/get-the-current-selected-item-or-null-from-item-list
   return state$ => state$
     .let(getServices())
+    .map((services) => {
+      let selectedServices = services.filter(service => service.selected)
+      return selectedServices.length ? selectedServices : [null];
+    })
     .flatMap(service => service)
-    .first(service => service.selected === true)
     .startWith(null)
-    .distinctUntilChanged();
+    .distinctUntilChanged()
 }

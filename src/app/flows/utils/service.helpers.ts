@@ -1,7 +1,7 @@
 import { Service, ServiceStep } from './../models';
 
 export function getServiceStepsByType(service: Service, type: string): ServiceStep[] {
-  return service.steps.filter(step => step.type == type)
+  return service.steps ? service.steps.filter(step => step.type == type) : [];
 }
 
 export function getServiceTriggerSteps(service: Service) {

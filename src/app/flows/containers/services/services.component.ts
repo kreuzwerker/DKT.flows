@@ -41,10 +41,13 @@ export class ServicesComponent implements OnInit {
           this.selectFirstServiceStep(service, 'trigger');
         }
 
-        // Open service detail dialog
         this.serviceDetail.open();
       }
-    });
+      else {
+        this.serviceDetail.close();
+      }
+    },
+    (err) => console.log('error', err);
 
     // Subscribe to current selected flow step
     this.state.step$.subscribe((step) => {
@@ -58,10 +61,6 @@ export class ServicesComponent implements OnInit {
 
   selectService(service: Service) {
     this.state.selectService(service);
-  }
-
-  unselectService(): void {
-    this.state.selectService(null);
   }
 
   selectServiceStep(serviceStep: ServiceStep): void {

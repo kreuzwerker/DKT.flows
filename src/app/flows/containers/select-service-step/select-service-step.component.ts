@@ -1,4 +1,5 @@
-import { Component, OnInit, style, state, animate, transition, trigger } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { style, state, animate, transition, trigger } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Flow, Step, ServiceStep } from '../../models'
