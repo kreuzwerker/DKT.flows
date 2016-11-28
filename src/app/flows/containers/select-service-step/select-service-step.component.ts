@@ -21,15 +21,14 @@ import { FlowsStateService } from './../../flows-state.service';
       ])
     ])
   ]
-
 })
 
 export class SelectServiceStepComponent  {
-  steps: Step[];
-  selectedServiceStep: ServiceStep | null;
+  steps: Step[] = [];
+  selectedServiceStep: ServiceStep | null = null;
+  selectableServiceStepTypes: Array<string> = ['action'];
 
   constructor(public route: ActivatedRoute, public state: FlowsStateService) {
-    this.selectedServiceStep = null
   }
 
   ngOnInit() {
@@ -45,11 +44,14 @@ export class SelectServiceStepComponent  {
     });
 
     this.state.step$.subscribe((step) => {
-      if (step.serviceStep !== undefined) {
-        this.selectedServiceStep = step.serviceStep;
-      } else {
-        this.selectedServiceStep = null
-      }
+      this.selectedServiceStep = (step.serviceStep !== undefined)
+        ? step.serviceStep 
+        : null;
+
+      // Allow 'trigger' services steps only at the beginning of a flow
+      this.selectableServiceStepTypes = (step.position === 0) 
+        ? ['trigger']
+        : ['action'];
     });
   }
 }

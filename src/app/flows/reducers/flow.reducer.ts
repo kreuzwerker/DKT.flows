@@ -31,8 +31,8 @@ export function flowReducer(state = initialState, action: Action): FlowState {
         name: 'First flow',
         description: "This is a mocked flow object.",
         steps: [
-          { id: "1" },
-          { id: "2", 
+          { id: "1", "position": 0 },
+          { id: "2", "position": 1, 
             service: {
               name: 'RSS',
               group: 'DKT native app',

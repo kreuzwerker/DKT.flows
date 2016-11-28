@@ -1,6 +1,6 @@
 /* tslint:disable: no-switch-case-fall-through */
 import { Action } from '@ngrx/store';
-import 'rxjs/add/operator/startWith'
+import 'rxjs/add/operator/startWith';
 
 import { AppState, Selector } from '../../reducers';
 import { ServicesActions } from '../actions';
@@ -59,6 +59,5 @@ export function getCurrentService(): Selector<AppState,Service> {
       return selectedServices.length ? selectedServices : [null];
     })
     .flatMap(service => service)
-    .startWith(null)
     .distinctUntilChanged()
 }

@@ -12,6 +12,7 @@ export interface StepState {
 const initialState: StepState = {
   step: { 
     id: "0",
+    position: 0,
     serviceStep: null
   },
 };
