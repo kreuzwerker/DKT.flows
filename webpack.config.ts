@@ -197,9 +197,9 @@ const commonConfig = function webpackConfig(): WebpackConfig {
       }),
       ...MY_CLIENT_PRODUCTION_PLUGINS,
     );
-    if (!E2E) {
+    if (!E2E && !UNIVERSAL) {
       config.plugins.push(
-        new BundleAnalyzerPlugin()
+        new BundleAnalyzerPlugin({analyzerPort: 5000})
       );
     }
   }
@@ -281,6 +281,7 @@ const clientConfig = function webpackConfig(): WebpackConfig {
     historyApiFallback: {
       disableDotRule: true,
     },
+    stats: 'minimal',
     host: '0.0.0.0',
     watchOptions: DEV_SERVER_WATCH_OPTIONS
   };
