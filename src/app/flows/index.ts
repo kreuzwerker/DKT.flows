@@ -4,6 +4,9 @@ import { MaterialModule } from '@angular/material';
 import { Routes, RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 
+// DKT module imports
+import { CoreModule } from './../core';
+
 // Containers
 import { SelectServiceStepComponent } from './containers/select-service-step/select-service-step.component';
 import { ServicesComponent } from './containers/services/services.component';
@@ -47,6 +50,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    CoreModule,
     RouterModule.forChild(routes),
     MaterialModule.forRoot(),
     EffectsModule.run(FlowEffects),

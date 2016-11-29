@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { AppState } from '../reducers';
-import { FlowState, StepState, ServicesState, getCurrentFlow, getCurrentStep, getServices, getCurrentService } from './reducers';
+import * as state from './reducers';
 import { Flow, Step, Service, ServiceStep } from './models';
 import { FlowActions, StepActions, ServicesActions } from './actions';
 
@@ -12,10 +12,12 @@ import { FlowActions, StepActions, ServicesActions } from './actions';
 export class FlowsStateService {
   // Current loaded flow
   flow$: Observable<Flow>;
+  isLoadingFlow$: Observable<Boolean>;
   // Current editing step
   step$: Observable<Step>;
   // Available services
   services$: Observable<Service[]>;
+  isLoadingServices$: Observable<Boolean>;
   // Current service
   service$: Observable<Service>;
 
@@ -25,10 +27,12 @@ export class FlowsStateService {
       private servicesActions: ServicesActions,
       private store$: Store<AppState>
     ) {
-    this.flow$     = store$.let(getCurrentFlow());
-    this.step$     = store$.let(getCurrentStep());
-    this.services$ = store$.let(getServices());
-    this.service$  = store$.let(getCurrentService());
+    this.flow$              = store$.let(state.getCurrentFlow());
+    this.isLoadingFlow$     = store$.let(state.isLoadingFlow());
+    this.step$              = store$.let(state.getCurrentStep());
+    this.services$          = store$.let(state.getServices());
+    this.isLoadingServices$ = store$.let(state.isLoadingServices());
+    this.service$           = store$.let(state.getCurrentService());
   }
 
   loadFlow(id: string): void {

@@ -16,6 +16,7 @@ import { UserEffects } from './user/user.effects';
 // --- DKT vendors ---------------------------------------
 
 // --- DKT modules ---------------------------------------
+import { CoreModule } from './core';
 import { FlowsModule } from './flows';
 
 const STORE_DEV_TOOLS_IMPORTS = [];
@@ -40,6 +41,7 @@ export const APP_IMPORTS = [
   STORE_DEV_TOOLS_IMPORTS,
   StoreDevToolsModule,
 
+  CoreModule,
   FlowsModule
 ];
 

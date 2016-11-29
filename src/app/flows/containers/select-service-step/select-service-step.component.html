@@ -1,5 +1,7 @@
 <div class="layout" layout="row" layout-align="left center">
   <div class="left" layout="column" layout-padding>
+    <loading-indicator *ngIf="state.isLoadingFlow$ | async" text="Loading flow"></loading-indicator>
+
     <dkt-flow-header [flow]="state.flow$ | async"></dkt-flow-header>
     <!-- debug:
       <pre>{{(state.flow$ | async) | json}}

@@ -1,4 +1,8 @@
-<div class="services" layout="row" layout-align="left">
+<div class="services" layout="row" layout-align="start center">
+  <div layout="row" layout-align="center center" layout-padding>
+    <loading-indicator *ngIf="state.isLoadingServices$ | async" text="Loading services"></loading-indicator>
+  </div>
+
   <dkt-service-item
     *ngFor="let service of services" 
     [service]="service"

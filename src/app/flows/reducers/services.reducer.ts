@@ -8,21 +8,35 @@ import { Service } from '../models';
 
 export interface ServicesState {
   services: Service[];
-  // loading: boolean;
-  // loaded: boolean;
+  loading: boolean;
+  loaded: boolean;
 };
 
 const initialState: ServicesState = {
   services: [],
-  // loading: false,
-  // loaded: true,
+  loading: false,
+  loaded: true,
 };
 
 export function servicesReducer(state = initialState, action: Action): ServicesState {
   switch (action.type) {
+    case ServicesActions.LOAD_SERVICES:
+      return Object.assign({}, state, {
+        loading: true,
+        loaded: false
+      });
+
     case ServicesActions.FETCH_SERVICES_SUCCESS:
       return Object.assign({}, state, {
-        services: action.payload.services
+        services: action.payload.services,
+        loading: false,
+        loaded: true
+      });
+
+    case ServicesActions.FETCH_SERVICES_FAILED:
+      return Object.assign({}, state, {
+        loading: false,
+        loaded: false
       });
 
     case ServicesActions.SELECT_SERVICE: {
@@ -41,6 +55,12 @@ export function servicesReducer(state = initialState, action: Action): ServicesS
       return state;
     }
   }
+}
+
+export function isLoadingServices(): Selector<AppState,Boolean> {
+  return state$ => state$
+    .map(state => state.services.loading)
+    .distinctUntilChanged();
 }
 
 export function getServices(): Selector<AppState,Service[]> {
