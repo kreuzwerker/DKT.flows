@@ -7,10 +7,10 @@ import { FlowData } from './../models';
 @Injectable()
 export class FlowActions {
 
-  static FETCH_FLOW_FULFILLED = 'FETCH_FLOW_FULFILLED';
+  static FETCH_FLOW_SUCCESS = 'FETCH_FLOW_SUCCESS';
   fetchFlowFulfilled(flow: FlowData): Action {
     return {
-      type: FlowActions.FETCH_FLOW_FULFILLED,
+      type: FlowActions.FETCH_FLOW_SUCCESS,
       payload: {
         flow: flow
       }

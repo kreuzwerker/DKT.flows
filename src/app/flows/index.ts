@@ -26,7 +26,7 @@ import { FlowsApiService } from './flows-api.service'
 import { FlowActions, StepActions, ServicesActions } from './actions';
 
 // Effects
-import { FlowEffects } from './effects'
+import { FlowEffects, ServicesEffects } from './effects'
 
 const routes: Routes = [
   {path: 'flows/:flowId/steps/:stepId/select-service-step', component: SelectServiceStepComponent}
@@ -50,6 +50,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule.forRoot(),
     EffectsModule.run(FlowEffects),
+    EffectsModule.run(ServicesEffects),
   ],
   exports: [
   ],

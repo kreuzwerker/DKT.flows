@@ -24,7 +24,7 @@ const initialState: FlowState = {
 
 export function flowReducer(state = initialState, action: Action): FlowState {
   switch (action.type) {
-    case FlowActions.FETCH_FLOW_FULFILLED:
+    case FlowActions.FETCH_FLOW_SUCCESS:
       return Object.assign({}, state, {
         flow: action.payload.flow
       });

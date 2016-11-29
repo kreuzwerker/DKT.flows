@@ -38,23 +38,14 @@ export class FlowsStateService {
   }
 
   loadServices(): void {
-    // TODO implement effect
-    let services = [
-      { name: 'RSS', group: 'DKT native app', description: 'RSS service steps.', 'icon': 'rss_feed',
-        steps: [
-          { id: '1', name: 'New item in RSS feed', description: 'Triggers on new RSS feed items.', type: 'trigger' },
-          { id: '2', name: 'New kitten in feed', description: 'Triggers on new RSS feed items which feature a kitten.', type: 'trigger' },
-
-          { id: '3', name: 'Make coffee', description: 'Makes a delicious freshly brewed organic coffee.', type: 'action' },
-          { id: '4', name: 'Sing hallelujah', description: 'Praises the lord.', type: 'action' },
-        ],
-      },
-      { name: 'Email', group: 'DKT native app', description: 'Email service steps.', 'icon': 'mail'},
-      { name: 'Filter', group: 'DKT native app', description: 'Filter service steps.', 'icon': 'filter_list'},
-    ]
-
+    /**
+    - step
+      - name
+      - service
+    - step ..
+    */
     this.store$.dispatch(
-      this.servicesActions.loadServices(services)
+      this.servicesActions.loadServices()
     );
   }
 

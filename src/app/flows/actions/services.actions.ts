@@ -16,11 +16,28 @@ export class ServicesActions {
     };
   }
 
-  static LOAD_SERVICES_SUCCESS = 'LOAD_SERVICES_SUCCESS';
-  loadServices(services: Service[]): Action {
+  static FETCH_SERVICES_SUCCESS = 'FETCH_SERVICES_SUCCESS';
+  fetchServicesFulfilled(services: Service[]): Action {
     return {
-      type: ServicesActions.LOAD_SERVICES_SUCCESS,
-      payload: services
+      type: ServicesActions.FETCH_SERVICES_SUCCESS,
+      payload: {
+        services: services
+      }
+    };
+  }
+
+  static FETCH_SERVICES_FAILED = 'FETCH_SERVICES_FAILED';
+  fetchServicesFailed(error: any): Action {
+    return {
+      type: ServicesActions.FETCH_SERVICES_FAILED,
+      payload: error
+    };
+  }
+
+  static LOAD_SERVICES = 'LOAD_SERVICES';
+  loadServices(): Action {
+    return {
+      type: ServicesActions.LOAD_SERVICES,
     };
   }
 }

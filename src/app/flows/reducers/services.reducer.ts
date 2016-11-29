@@ -20,11 +20,10 @@ const initialState: ServicesState = {
 
 export function servicesReducer(state = initialState, action: Action): ServicesState {
   switch (action.type) {
-    case ServicesActions.LOAD_SERVICES_SUCCESS: {
+    case ServicesActions.FETCH_SERVICES_SUCCESS:
       return Object.assign({}, state, {
-        services: action.payload
+        services: action.payload.services
       });
-    }
 
     case ServicesActions.SELECT_SERVICE: {
       return Object.assign({}, state,
