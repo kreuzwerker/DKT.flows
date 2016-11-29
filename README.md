@@ -1,3 +1,14 @@
+DKT flows
+=========
+
+## Mock API
+
+1. Run `npm run mock-api:reset` to prepare the Mock API with fixture data
+1. Run `npm run mock-api:serve` to start serving the Mock API at 
+   `http://localhost:3001`
+
+---
+
 # Complete starter seed project for Angular 2
 
 ## Material Branch with Universal (Server-side rendering) support
