@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@angular/material';
 import { Routes, RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
 
 // Containers
 import { SelectServiceStepComponent } from './containers/select-service-step/select-service-step.component';
@@ -19,9 +20,13 @@ import { ServiceStepItemComponent } from './components/service-step-item/service
 
 // Services
 import { FlowsStateService } from './flows-state.service';
+import { FlowsApiService } from './flows-api.service'
 
 // Actions
 import { FlowActions, StepActions, ServicesActions } from './actions';
+
+// Effects
+import { FlowEffects } from './effects'
 
 const routes: Routes = [
   {path: 'flows/:flowId/steps/:stepId/select-service-step', component: SelectServiceStepComponent}
@@ -44,10 +49,12 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     MaterialModule.forRoot(),
+    EffectsModule.run(FlowEffects),
   ],
   exports: [
   ],
   providers: [
+    FlowsApiService,
     FlowsStateService,
     FlowActions,
     StepActions,

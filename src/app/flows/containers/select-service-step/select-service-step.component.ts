@@ -44,12 +44,12 @@ export class SelectServiceStepComponent  {
     });
 
     this.state.step$.subscribe((step) => {
-      this.selectedServiceStep = (step.serviceStep !== undefined)
+      this.selectedServiceStep = (step && step.serviceStep !== undefined)
         ? step.serviceStep 
         : null;
 
       // Allow 'trigger' services steps only at the beginning of a flow
-      this.selectableServiceStepTypes = (step.position === 0) 
+      this.selectableServiceStepTypes = (step && step.position === 0) 
         ? ['trigger']
         : ['action'];
     });

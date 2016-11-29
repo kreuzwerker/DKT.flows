@@ -52,6 +52,7 @@ export function getServices(): Selector<AppState,Service[]> {
 
 export function getCurrentService(): Selector<AppState,Service> {
   // See http://stackoverflow.com/questions/40720535/get-the-current-selected-item-or-null-from-item-list
+  // 
   return state$ => state$
     .let(getServices())
     .map((services) => {

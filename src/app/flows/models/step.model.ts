@@ -7,4 +7,9 @@ export class Step {
   serviceStep?: ServiceStep;
 }
 
-
+export class StepData {
+  id: string;
+  position: number;
+  service?: Service;
+  serviceStep?: ServiceStep;
+}

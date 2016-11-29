@@ -24,35 +24,10 @@ const initialState: FlowState = {
 
 export function flowReducer(state = initialState, action: Action): FlowState {
   switch (action.type) {
-
-    case FlowActions.LOAD_FLOW: {
-      let _flow: Flow = {
-        id: "1",
-        name: 'First flow',
-        description: "This is a mocked flow object.",
-        steps: [
-          { id: "1", "position": 0 },
-          { id: "2", "position": 1, 
-            service: {
-              name: 'RSS',
-              group: 'DKT native app',
-              description: 'RSS service steps.',
-              'icon': 'rss_feed',
-            },
-            serviceStep: { 
-              id: '1',
-              name: 'New item in RSS feed',
-              description: 'Triggers on new RSS feed items.',
-              type: 'trigger',
-            }
-          }
-        ]
-      }
-  
+    case FlowActions.FETCH_FLOW_FULFILLED:
       return Object.assign({}, state, {
-        flow: _flow
+        flow: action.payload.flow
       });
-    }
 
     default: {
       return state;

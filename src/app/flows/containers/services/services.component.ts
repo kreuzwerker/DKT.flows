@@ -54,7 +54,7 @@ export class ServicesComponent implements OnInit {
 
     // Subscribe to current selected flow step
     this.state.step$.subscribe((step) => {
-      if (step.serviceStep !== undefined) {
+      if (step && step.serviceStep !== undefined) {
         this.selectedServiceStep = step.serviceStep;
       } else {
         this.selectedServiceStep = null;

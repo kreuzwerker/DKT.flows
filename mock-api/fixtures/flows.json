@@ -1,7 +1,7 @@
 [
     {
       "id": "1",
-      "name": "First flow from API EDIT",
+      "name": "First flow",
       "description": "This is a mocked flow object.",
       "steps": [
         { "id": "1", "position": 0 },
