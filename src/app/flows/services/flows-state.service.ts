@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { AppState } from '../reducers';
-import * as state from './reducers';
-import { Flow, Step, Service, ServiceStep } from './models';
-import { FlowActions, StepActions, ServicesActions } from './actions';
+import { AppState } from './../../reducers';
+import * as state from './../reducers';
+import { Flow, Step, Service, ServiceStep } from './../models';
+import { FlowActions, StepActions, ServicesActions } from './../actions';
 
 @Injectable()
 export class FlowsStateService {
@@ -42,12 +42,6 @@ export class FlowsStateService {
   }
 
   loadServices(): void {
-    /**
-    - step
-      - name
-      - service
-    - step ..
-    */
     this.store$.dispatch(
       this.servicesActions.loadServices()
     );

@@ -12,21 +12,9 @@
   </div>
 
   <div class="center" layout="column" flex>
-    <div class="col-header"></div>
-
-    <dkt-services [selectableServiceStepTypes]="selectableServiceStepTypes"></dkt-services>
+    (select a step to edit)
   </div>
 
-  <div class="right" 
-    *ngIf="selectedServiceStep"
-    [@flyInOut]="selectedServiceStep"
-    layout="column">
-    <dkt-flow-step-config-nav [type]="'Trigger'" [current]="'select'" class="col-header"></dkt-flow-step-config-nav>
-    <div layout-padding>
-      <div class="selected-service-step">
-        <dkt-service-step-item [serviceStep]="selectedServiceStep"></dkt-service-step-item>
-      </div>
-      <dkt-flow-step-nav-buttons></dkt-flow-step-nav-buttons>
-    </div>
+  <div class="right" layout="column">
   </div>
 </div>

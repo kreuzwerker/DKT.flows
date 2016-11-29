@@ -8,6 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from './../core';
 
 // Containers
+import { FlowComponent } from './containers/flow/flow.component';
 import { SelectServiceStepComponent } from './containers/select-service-step/select-service-step.component';
 import { ServicesComponent } from './containers/services/services.component';
 
@@ -22,8 +23,7 @@ import { ServiceIconComponent } from './components/service-icon/service-icon.com
 import { ServiceStepItemComponent } from './components/service-step-item/service-step-item.component';
 
 // Services
-import { FlowsStateService } from './flows-state.service';
-import { FlowsApiService } from './flows-api.service'
+import { FlowsApiService, FlowsAppService, FlowsStateService } from './services'
 
 // Actions
 import { FlowActions, StepActions, ServicesActions } from './actions';
@@ -32,11 +32,13 @@ import { FlowActions, StepActions, ServicesActions } from './actions';
 import { FlowEffects, ServicesEffects } from './effects'
 
 const routes: Routes = [
-  {path: 'flows/:flowId/steps/:stepId/select-service-step', component: SelectServiceStepComponent}
+  { path: 'flows/:flowId', component: FlowComponent },
+  { path: 'flows/:flowId/steps/:stepId/select-service-step', component: SelectServiceStepComponent }
 ];
 
 @NgModule({
   declarations: [
+    FlowComponent,
     SelectServiceStepComponent,
     FlowHeaderComponent,
     FlowStepItemComponent,
@@ -59,6 +61,7 @@ const routes: Routes = [
   exports: [
   ],
   providers: [
+    FlowsAppService,
     FlowsApiService,
     FlowsStateService,
     FlowActions,

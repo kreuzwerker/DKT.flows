@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'loading-indicator',
+  selector: 'dkt-loading-indicator',
   templateUrl: 'loading-indicator.component.html',
   styleUrls: ['loading-indicator.component.css']
 })

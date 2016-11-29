@@ -10,7 +10,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AppState } from '../../reducers';
-import { FlowsApiService } from './../flows-api.service';
+import { FlowsApiService } from './../services';
 import { FlowActions } from './../actions';
 
 

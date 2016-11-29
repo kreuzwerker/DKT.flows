@@ -3,7 +3,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Service, ServiceStep } from './../../models';
 import * as serviceHelpers from './../../utils/service.helpers';
 import { ServiceDetailComponent } from './../../components/service-detail/service-detail.component';
-import { FlowsStateService } from './../../flows-state.service';
+import { FlowsStateService } from './../../services';
 
 @Component({
   selector: 'dkt-services',

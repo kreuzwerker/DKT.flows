@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Step } from '../../models/step.model';
+import { Flow, Step } from '../../models';
 
 @Component({
   selector: 'dkt-flow-step-item',
@@ -7,6 +7,7 @@ import { Step } from '../../models/step.model';
   styleUrls: ['flow-step-item.component.css'],
 })
 export class FlowStepItemComponent implements OnInit {
+  @Input() flow: Flow;
   @Input() step: Step;
 
   headerIcon: string;
@@ -23,12 +24,13 @@ export class FlowStepItemComponent implements OnInit {
   };
 
   render() {
+    var basePath = `/flows/${this.flow.id}/steps/${this.step.id}/`;
+
     if (this.step && this.step.service) {
       let service = this.step.service;
       let serviceStep = this.step.serviceStep;
       this.headerIcon = service.icon;
       this.headerTitle = `${service.name}: ${serviceStep.name}`;
-      let basePath = `/flows/1/steps/${this.step.id}/`;
       this.options = [
         { icon: 'flash_on', title: 'Select Trigger', classes: [], link: basePath + 'select-service-step' },
         { icon: 'settings', title: 'Configure Trigger', classes: ['active'], link: basePath + 'configure-step' },
@@ -38,7 +40,8 @@ export class FlowStepItemComponent implements OnInit {
       this.headerIcon = 'settings';
       this.headerTitle = 'Set up this step';
       this.options = [
-        { icon: 'lock', title: 'Select', classes: ['locked']},
+        // { icon: 'lock', title: 'Select', classes: ['locked']},
+        { icon: 'flash_on', title: 'Select Trigger', classes: [], link: basePath + 'select-service-step' },
         { icon: 'lock', title: 'Configure', classes: ['locked']},
         { icon: 'lock', title: 'Test', classes: ['locked']},
       ];

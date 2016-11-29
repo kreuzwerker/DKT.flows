@@ -1,6 +1,6 @@
 <div class="services" layout="row" layout-align="start center">
   <div layout="row" layout-align="center center" layout-padding>
-    <loading-indicator *ngIf="state.isLoadingServices$ | async" text="Loading services"></loading-indicator>
+    <dkt-loading-indicator *ngIf="state.isLoadingServices$ | async" text="Loading services"></dkt-loading-indicator>
   </div>
 
   <dkt-service-item

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
-import { Flow, Step, ServiceStep } from '../../models'
-import { FlowsStateService } from './../../flows-state.service';
+import { FlowsAppService, FlowsStateService } from './../../services'
+import { ServiceStep } from './../../models'
 
 @Component({
   selector: 'dkt-select-service-step',
   templateUrl: 'select-service-step.component.html',
   styleUrls: ['select-service-step.component.css'],
+  providers: [FlowsAppService],
   animations: [
     trigger('flyInOut', [
       state('in', style({transform: 'translateX(0)'})),
@@ -24,25 +24,14 @@ import { FlowsStateService } from './../../flows-state.service';
 })
 
 export class SelectServiceStepComponent  {
-  steps: Step[] = [];
   selectedServiceStep: ServiceStep | null = null;
   selectableServiceStepTypes: Array<string> = ['action'];
 
-  constructor(public route: ActivatedRoute, public state: FlowsStateService) {
-  }
-
-  ngOnInit() {
-    this.route.params
-      .map(params => params['flowId'])
-      .subscribe((flowId) => {
-        this.state.loadFlow(flowId);
-      });
-      
-    this.state.flow$.subscribe((flow) => {
-      this.steps = flow.steps
-      this.state.selectStep(flow.steps[0]);
-    });
-
+  constructor(
+    public flowsApp: FlowsAppService,
+    public state: FlowsStateService
+  ) {
+    // Current selected step
     this.state.step$.subscribe((step) => {
       this.selectedServiceStep = (step && step.serviceStep !== undefined)
         ? step.serviceStep 

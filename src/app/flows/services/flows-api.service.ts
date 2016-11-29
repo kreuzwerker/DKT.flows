@@ -3,8 +3,8 @@ import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http, Request, RequestMethod, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { API_FLOWS_URL, API_SERVICES_URL } from './constants';
-import { FlowData, Service } from './models';
+import { API_FLOWS_URL, API_SERVICES_URL } from './../constants';
+import { FlowData, Service } from './../models';
 
 export interface RequestArgs {
   method: RequestMethod;
