@@ -3,7 +3,7 @@ import { UserService } from './user/user.service';
 
 // --- DKT vendors ---------------------------------------
 
-import { MATERIAL_BROWSER_PROVIDERS } from 'ng2-material';
+import { MATERIAL_BROWSER_PROVIDERS } from '../../node_modules/ng2-material/src';
 
 export const APP_PROVIDERS = [
   UserActions,

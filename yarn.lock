@@ -3695,25 +3695,6 @@ nested-error-stacks@^1.0.0:
   dependencies:
     inherits "~2.0.1"
 
-ng2-material:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/ng2-material/-/ng2-material-0.8.1.tgz#0360d5e77b1e08547ffc82dd23a7359c11a5833e"
-  dependencies:
-    "@angular/common" "^2.0.0"
-    "@angular/compiler" "^2.0.0"
-    "@angular/core" "^2.0.0"
-    "@angular/forms" "^2.0.0"
-    "@angular/http" "^2.0.0"
-    "@angular/material" "^2.0.0-alpha.9"
-    "@angular/platform-browser" "^2.0.0"
-    "@angular/platform-browser-dynamic" "^2.0.0"
-    "@angular/router" "^3.0.0"
-    es6-promise ">=3.3.1"
-    es6-shim "^0.35.1"
-    reflect-metadata "^0.1.8"
-    rxjs "^5.0.0-beta.12"
-    zone.js "^0.6.23"
-
 ngrx-store-freeze@0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/ngrx-store-freeze/-/ngrx-store-freeze-0.1.4.tgz#7994ad26878a503603606b9eb25ccdb61269750f"

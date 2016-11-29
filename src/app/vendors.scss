@@ -1,5 +1,4 @@
 // Shim for missing Material 2 layout directives:
-@import "../../node_modules/ng2-material/ng2-material";
-// TODO make this import work
-// @import "../../node_modules/ng2-material/ng2-material/font/font";
+@import "../../node_modules/ng2-material/src/all";
+@import "../../node_modules/ng2-material/public/font/font";
 
