@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
-import { FlowsAppService, FlowsStateService } from './../../services'
+import { FlowsStateService } from './../../services'
 import { ServiceStep } from './../../models'
 
 @Component({
   selector: 'dkt-select-service-step',
   templateUrl: 'select-service-step.component.html',
   styleUrls: ['select-service-step.component.css'],
-  providers: [FlowsAppService],
   animations: [
     trigger('flyInOut', [
       state('in', style({transform: 'translateX(0)'})),
@@ -28,7 +27,6 @@ export class SelectServiceStepComponent  {
   selectableServiceStepTypes: Array<string> = ['action'];
 
   constructor(
-    public flowsApp: FlowsAppService,
     public state: FlowsStateService
   ) {
     // Current selected step

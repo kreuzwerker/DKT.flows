@@ -1,17 +1,5 @@
-<div class="layout" layout="row" layout-align="left center">
-  <div class="left" layout="column" layout-padding>
-    <dkt-loading-indicator *ngIf="state.isLoadingFlow$ | async" text="Loading flow"></dkt-loading-indicator>
-    <dkt-flow-header [flow]="state.flow$ | async"></dkt-flow-header>
-
-    <!-- Flow steps -->
-    <div class="steps">
-      <div class="step" *ngFor="let step of (state.flow$ | async)?.steps">
-        <dkt-flow-step-item [flow]="flowsApp.flow" [step]="step"></dkt-flow-step-item>
-      </div>
-    </div>
-  </div>
-
-  <div class="center" layout="column" flex>
+<div class="full-height" layout="row">
+  <div class="left border-left" layout="column" flex>
     <div class="col-header"></div>
 
     <dkt-services [selectableServiceStepTypes]="selectableServiceStepTypes"></dkt-services>

@@ -2,21 +2,26 @@
 https://github.com/jtangelder/sass-loader/issues/211 */
 @import '../../../variables';
 
+h1.step {
+  color: indigo;
+}
 
 /*
   Layout
 */
 
-div.right {
-  width: 400px;
+div.layout {
+  div.left {
+    min-width: 300px;
+  }
 }
 
 /*
- Selection
+  Flow steps
 */
 
-.selected-service-step {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background-color: $element-selected-color;
+.steps {
+  .step {
+    margin-bottom:1rem;
+  }
 }

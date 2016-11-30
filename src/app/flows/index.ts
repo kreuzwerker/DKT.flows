@@ -8,7 +8,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from './../core';
 
 // Containers
-import { FlowComponent } from './containers/flow/flow.component';
+import { FlowsAppComponent } from './containers/flows-app/flows-app.component';
+import { FlowHomeComponent } from './containers/flow-home/flow-home.component';
 import { SelectServiceStepComponent } from './containers/select-service-step/select-service-step.component';
 import { ServicesComponent } from './containers/services/services.component';
 
@@ -32,13 +33,18 @@ import { FlowActions, StepActions, ServicesActions } from './actions';
 import { FlowEffects, ServicesEffects } from './effects'
 
 const routes: Routes = [
-  { path: 'flows/:flowId', component: FlowComponent },
-  { path: 'flows/:flowId/steps/:stepId/select-service-step', component: SelectServiceStepComponent }
+  { path: 'flows/:flowId', component: FlowsAppComponent,
+    children: [
+      { path: '', component: FlowHomeComponent },
+      { path: 'steps/:stepId/select-service-step', component: SelectServiceStepComponent }
+    ] 
+  }
 ];
 
 @NgModule({
   declarations: [
-    FlowComponent,
+    FlowsAppComponent,
+    FlowHomeComponent,
     SelectServiceStepComponent,
     FlowHeaderComponent,
     FlowStepItemComponent,

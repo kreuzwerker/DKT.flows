@@ -12,7 +12,10 @@ export class FlowsAppService {
 
   // NB it's required to declare FlowsApp as provider when used with a component
   // @see http://stackoverflow.com/questions/39977962/angular-2-0-2-activatedroute-is-empty-in-a-service
-  constructor(public route: ActivatedRoute, public state: FlowsStateService) {
+  constructor(
+    public route: ActivatedRoute,
+    public state: FlowsStateService
+  ) {
     this.onFlowRouteChange()
     this.onStepRouteChange()
 
@@ -34,11 +37,13 @@ export class FlowsAppService {
 
   // Updated requested step ID and select the step if flow steps are loaded
   onStepRouteChange() {
-    this.route.params
+    this.route.firstChild.params
       .map(params => params['stepId'])
       .subscribe((stepId) => {
-        this.requestedStepId = stepId;
-        this.selectRequestedStep();
+        if (stepId) {
+          this.requestedStepId = stepId;
+          this.selectRequestedStep();
+        }
       });
   }
 
