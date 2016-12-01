@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
-import { FlowsStateService } from './../../services'
+import { FlowsAppService, FlowsStateService } from './../../services'
 import { ServiceStep } from './../../models'
 
 @Component({
@@ -27,8 +27,12 @@ export class SelectServiceStepComponent  {
   selectableServiceStepTypes: Array<string> = ['action'];
 
   constructor(
+    public flowsApp: FlowsAppService,
     public state: FlowsStateService
   ) {
+    // Register current step preparation stage
+    this.flowsApp.setStepStage('select');
+
     // Current selected step
     this.state.step$.subscribe((step) => {
       this.selectedServiceStep = (step && step.serviceStep !== undefined)
