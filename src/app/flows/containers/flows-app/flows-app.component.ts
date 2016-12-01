@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
 import { Step } from './../../models';
@@ -17,7 +17,6 @@ export class FlowsAppComponent {
     public router: Router,
     public state: FlowsStateService
   ) {
-    console.log('CONSTRUC FLOWS APP')
     this.onFlowRouteChange()
     this.onStepRouteChange()
 
@@ -35,7 +34,7 @@ export class FlowsAppComponent {
   }
 
   /*
-    Routes
+    Routing: load the requested flow and select the request step on route changes
   */
 
   // Load flow
@@ -49,17 +48,19 @@ export class FlowsAppComponent {
 
   // Updated requested step ID and select the step if flow steps are loaded
   onStepRouteChange() {
-    this.router.events.subscribe((e) => {
-      // Check if there's a /steps child route
-      if (this.route.children) {
-        this.route.children[0].params.forEach((params: Params) => {
-          if (params['stepId']) {
-            this.requestedStepId = params['stepId'];
-            this.selectRequestedStep();
-          }
-        });
-      }
-    });
+    this.router.events
+      .filter(event => event instanceof NavigationEnd)
+      .subscribe((e) => {
+        // Check if there's a /steps child route
+        if (this.route.children) {
+          this.route.children[0].params.forEach((params: Params) => {
+            if (params['stepId'] && params['stepId'] !== this.requestedStepId) {
+              this.requestedStepId = params['stepId'];
+              this.selectRequestedStep();
+            }
+          });
+        }
+      });
   }
 
   selectRequestedStep() {
