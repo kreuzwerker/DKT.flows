@@ -80,11 +80,10 @@ export class ServicesComponent implements OnInit, OnDestroy {
 
   selectServiceStep(serviceStep: ServiceStep): void {
     if (serviceStep.type !== this.selectableServiceStepType) {
-      let typeName = serviceStepHelpers.getServiceStepTypeName(serviceStep),
-          msg = `You can't select ${typeName} steps.`;
-
+      let typeName = serviceStepHelpers.getServiceStepTypeName(serviceStep);
       let config = new MdSnackBarConfig();
-      this.snackBar.open(msg, 'action', config);
+      // TODO implement config.duration=1000 as soon as available in API
+      this.snackBar.open(`You can't select ${typeName} steps.`, 'OK', config);
       return
     }
 
