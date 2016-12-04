@@ -11,3 +11,7 @@ Fix: check if `CommonModule` got imported.
 Fix: check if `MaterialModule` got imported.
 
 Why modules need to take care of loading their dependencies (self-encapsulation): [Stack Overflow](http://stackoverflow.com/questions/39159792/angular2-app-module-with-root-level-imports/39186107#39186107)
+
+**UI becomes unresponsive** after a while of using the application.
+Best practise: make sure to unsubscribe from observables upon ngOnDestroy
+Fix: disable Redux Store Dev Tools 'monitor'

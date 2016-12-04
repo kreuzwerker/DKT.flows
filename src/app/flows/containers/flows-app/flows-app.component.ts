@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
@@ -8,7 +9,8 @@ import { Step } from './../../models';
 	templateUrl: 'flows-app.component.html',
 	styleUrls: ['flows-app.component.css']
 })
-export class FlowsAppComponent {
+export class FlowsAppComponent implements OnDestroy {
+  ngOnDestroy$ = new Subject<boolean>();
   requestedStepId: string = null;
 
   constructor(
@@ -21,16 +23,20 @@ export class FlowsAppComponent {
     this.onStepRouteChange()
 
     // Current selected flow
-    this.state.flow$.subscribe((flow) => {
+    this.state.flow$.takeUntil(this.ngOnDestroy$).subscribe((flow) => {
       this.flowsApp.flow = flow
       this.flowsApp.steps = flow.steps
       this.selectRequestedStep()
     });
 
     // Current selected step
-    this.state.step$.subscribe((step) => {
+    this.state.step$.takeUntil(this.ngOnDestroy$).subscribe((step) => {
       this.flowsApp.step = step;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.ngOnDestroy$.next(true);
   }
 
   /*
@@ -39,7 +45,7 @@ export class FlowsAppComponent {
 
   // Load flow
   onFlowRouteChange() {
-    this.route.params
+    this.route.params.takeUntil(this.ngOnDestroy$)
       .map(params => params['flowId'])
       .subscribe((flowId) => {
         this.state.loadFlow(flowId);
@@ -48,7 +54,7 @@ export class FlowsAppComponent {
 
   // Updated requested step ID and select the step if flow steps are loaded
   onStepRouteChange() {
-    this.router.events
+    this.router.events.takeUntil(this.ngOnDestroy$)
       .filter(event => event instanceof NavigationEnd)
       .subscribe((e) => {
         // Check if there's a /steps child route

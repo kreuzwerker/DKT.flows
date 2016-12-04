@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { Component, OnDestroy } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
 import { FlowsAppService, FlowsStateService } from './../../services'
@@ -16,13 +17,14 @@ import { ServiceStep } from './../../models'
         animate('200ms ease-out')
       ]),
       transition('* => void', [
-        animate('200ms ease-out', style({transform: 'translateX(-100%)'}))
+        animate('200ms ease-out', style({transform: 'translateX(100%)'}))
       ])
     ])
   ]
 })
 
-export class SelectServiceStepComponent  {
+export class SelectServiceStepComponent implements OnDestroy {
+  ngOnDestroy$ = new Subject<boolean>();
   selectedServiceStep: ServiceStep | null = null;
   selectableServiceStepTypes: Array<string> = ['action'];
 
@@ -34,7 +36,7 @@ export class SelectServiceStepComponent  {
     this.flowsApp.setStepStage('select');
 
     // Current selected step
-    this.state.step$.subscribe((step) => {
+    this.state.step$.takeUntil(this.ngOnDestroy$).subscribe((step) => {
       this.selectedServiceStep = (step && step.serviceStep !== undefined)
         ? step.serviceStep 
         : null;
@@ -44,5 +46,9 @@ export class SelectServiceStepComponent  {
         ? ['trigger']
         : ['action'];
     });
+  }
+
+  ngOnDestroy(): void {
+    this.ngOnDestroy$.next(true);
   }
 }

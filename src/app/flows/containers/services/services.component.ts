@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { Service, ServiceStep } from './../../models';
 import * as serviceHelpers from './../../utils/service.helpers';
@@ -11,9 +12,10 @@ import { FlowsStateService } from './../../services';
   styleUrls: ['services.component.css']
 })
 
-export class ServicesComponent implements OnInit {
+export class ServicesComponent implements OnInit, OnDestroy {
   @Input() selectableServiceStepTypes: Array<string>;
 
+  ngOnDestroy$ = new Subject<boolean>();
   services: Array<Service>;
   selectedService: Service;
   selectedServiceStep: ServiceStep | null;
@@ -28,12 +30,12 @@ export class ServicesComponent implements OnInit {
   ngOnInit() {
     // Load all services
     this.state.loadServices();
-    this.state.services$.subscribe((services) => {
+    this.state.services$.takeUntil(this.ngOnDestroy$).subscribe((services) => {
         this.services = services;
       });
 
-      // Subscribe to current selected service
-      this.state.service$.subscribe((service) => {
+    // Subscribe to current selected service
+    this.state.service$.takeUntil(this.ngOnDestroy$).subscribe((service) => {
         this.selectedService = service;
 
         if (service) {
@@ -53,13 +55,17 @@ export class ServicesComponent implements OnInit {
     );
 
     // Subscribe to current selected flow step
-    this.state.step$.subscribe((step) => {
+    this.state.step$.takeUntil(this.ngOnDestroy$).subscribe((step) => {
       if (step && step.serviceStep !== undefined) {
         this.selectedServiceStep = step.serviceStep;
       } else {
         this.selectedServiceStep = null;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.ngOnDestroy$.next(true);
   }
 
   selectService(service: Service) {
