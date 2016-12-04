@@ -26,7 +26,7 @@ import { ServiceStep } from './../../models'
 export class SelectServiceStepComponent implements OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   selectedServiceStep: ServiceStep | null = null;
-  selectableServiceStepTypes: Array<string> = ['action'];
+  selectableServiceStepType: string = 'action';
 
   constructor(
     public flowsApp: FlowsAppService,
@@ -42,9 +42,9 @@ export class SelectServiceStepComponent implements OnDestroy {
         : null;
 
       // Allow 'trigger' services steps only at the beginning of a flow
-      this.selectableServiceStepTypes = (step && step.position === 0) 
-        ? ['trigger']
-        : ['action'];
+      this.selectableServiceStepType = (step && step.position === 0) 
+        ? 'trigger'
+        : 'action';
     });
   }
 

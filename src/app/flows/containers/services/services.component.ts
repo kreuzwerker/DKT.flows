@@ -13,7 +13,7 @@ import { FlowsStateService } from './../../services';
 })
 
 export class ServicesComponent implements OnInit, OnDestroy {
-  @Input() selectableServiceStepTypes: Array<string>;
+  @Input() selectableServiceStepType: string;
 
   ngOnDestroy$ = new Subject<boolean>();
   services: Array<Service>;
@@ -73,7 +73,7 @@ export class ServicesComponent implements OnInit, OnDestroy {
   }
 
   selectServiceStep(serviceStep: ServiceStep): void {
-    if (!this.selectableServiceStepTypes.includes(serviceStep.type)) {
+    if (serviceStep.type !== this.selectableServiceStepType) {
       alert(`You can't select ${serviceStep.type} steps.`);
       return
     }

@@ -19,6 +19,7 @@ import * as serviceHelpers from './../../utils/service.helpers';
 export class ServiceDetailComponent implements OnChanges {
   @Input() service: Service;
   @Input() selectedServiceStep: ServiceStep;
+  @Input() selectableServiceStepType: string;
   @Output() onSelectServiceStep = new EventEmitter();
 
   show: boolean = false;
