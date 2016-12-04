@@ -53,16 +53,17 @@ export class FlowStepItemComponent implements OnInit {
     currentActive: string,
     basePath: string
   ): FlowStepItemOption[] {
-    var options = []
-  
+    var options = [],
+        typeName = stepHelpers.getStepServiceStepTypeName(step)
+
     // Select service:
-    var option: FlowStepItemOption = { title: 'Select Trigger', icon: 'flash_on', link: basePath + 'select-service-step' };
+    var option: FlowStepItemOption = { title: 'Select ' + typeName, icon: 'flash_on', link: basePath + 'select-service-step' };
     // Active?
     option.classes = (currentActive == 'select') ? ['active']: [];
     options.push(option);
   
     // Configure step:
-    var option: FlowStepItemOption = { title: 'Configure Trigger' };
+    var option: FlowStepItemOption = { title: 'Configure ' + typeName };
     // Active?
     option.classes = (currentActive == 'configure') ? ['active']: [];
     // Locked?
@@ -73,7 +74,7 @@ export class FlowStepItemComponent implements OnInit {
     options.push(option);
   
     // Test step:
-    var option: FlowStepItemOption = { title: 'Test Trigger'};
+    var option: FlowStepItemOption = { title: 'Test ' + typeName};
     // Active?
     option.classes = (currentActive == 'test') ? ['active']: [];
     // Locked?

@@ -1,8 +1,9 @@
 import { Subject } from 'rxjs/Subject';
 import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
-import { Service, ServiceStep } from './../../models';
+import { Service, ServiceStep, ServiceStepType } from './../../models';
 import * as serviceHelpers from './../../utils/service.helpers';
+import * as serviceStepHelpers from './../../utils/service-step.helpers';
 import { ServiceDetailComponent } from './../../components/service-detail/service-detail.component';
 import { FlowsStateService } from './../../services';
 
@@ -13,7 +14,7 @@ import { FlowsStateService } from './../../services';
 })
 
 export class ServicesComponent implements OnInit, OnDestroy {
-  @Input() selectableServiceStepType: string;
+  @Input() selectableServiceStepType: ServiceStepType;
 
   ngOnDestroy$ = new Subject<boolean>();
   services: Array<Service>;
@@ -42,7 +43,7 @@ export class ServicesComponent implements OnInit, OnDestroy {
           // Upon selecting a service:
           // Preselect the first service step if no service step is currently selected
           if (this.selectedServiceStep === null) {
-            this.selectFirstServiceStep(service, 'trigger');
+            this.selectFirstServiceStep(service, ServiceStepType.Trigger);
           }
 
           this.serviceDetail.open();
@@ -74,14 +75,15 @@ export class ServicesComponent implements OnInit, OnDestroy {
 
   selectServiceStep(serviceStep: ServiceStep): void {
     if (serviceStep.type !== this.selectableServiceStepType) {
-      alert(`You can't select ${serviceStep.type} steps.`);
+      let typeName = serviceStepHelpers.getServiceStepTypeName(serviceStep);
+      alert(`You can't select ${typeName} steps.`);
       return
     }
 
     this.state.setStepServiceStep(this.selectedService, serviceStep);
   }
 
-  selectFirstServiceStep(service: Service, type: string = 'action'): void {
+  selectFirstServiceStep(service: Service, type: ServiceStepType = ServiceStepType.Action): void {
     let triggerSteps = serviceHelpers.getServiceStepsByType(service, type);
     if (triggerSteps.length) {
       this.selectServiceStep(triggerSteps[0]);

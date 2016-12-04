@@ -3,7 +3,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
 import { FlowsAppService, FlowsStateService } from './../../services'
-import { ServiceStep } from './../../models'
+import { ServiceStep, ServiceStepType } from './../../models'
 
 @Component({
   selector: 'dkt-select-service-step',
@@ -26,7 +26,7 @@ import { ServiceStep } from './../../models'
 export class SelectServiceStepComponent implements OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   selectedServiceStep: ServiceStep | null = null;
-  selectableServiceStepType: string = 'action';
+  selectableServiceStepType: ServiceStepType = ServiceStepType.Action;
 
   constructor(
     public flowsApp: FlowsAppService,
@@ -43,8 +43,8 @@ export class SelectServiceStepComponent implements OnDestroy {
 
       // Allow 'trigger' services steps only at the beginning of a flow
       this.selectableServiceStepType = (step && step.position === 0) 
-        ? 'trigger'
-        : 'action';
+        ? ServiceStepType.Trigger
+        : ServiceStepType.Action;
     });
   }
 
