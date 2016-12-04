@@ -9,6 +9,7 @@ angular-webpack2-starter
 1. Create new branch `git checkout -b starter-updates`
 2. Pull in changes `git pull starter master`
 3. Review changes, resolve merge conflicts
+4. Run `npm run clean` and `yarn install`
 
 How to keep angular-webpack2-starter upgradable
 - put any custom config into `src/constants.js`

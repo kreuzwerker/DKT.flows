@@ -1,5 +1,6 @@
 import { Subject } from 'rxjs/Subject';
 import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { MdSnackBar, MdSnackBarConfig } from '@angular/material'
 
 import { Service, ServiceStep, ServiceStepType } from './../../models';
 import * as serviceHelpers from './../../utils/service.helpers';
@@ -10,7 +11,8 @@ import { FlowsStateService } from './../../services';
 @Component({
   selector: 'dkt-services',
   templateUrl: 'services.component.html',
-  styleUrls: ['services.component.css']
+  styleUrls: ['services.component.css'],
+  providers: [MdSnackBar]
 })
 
 export class ServicesComponent implements OnInit, OnDestroy {
@@ -23,7 +25,10 @@ export class ServicesComponent implements OnInit, OnDestroy {
 
   @ViewChild(ServiceDetailComponent) serviceDetail: ServiceDetailComponent;
 
-  constructor(public state: FlowsStateService) {
+  constructor(
+    public state: FlowsStateService,
+    public snackBar: MdSnackBar
+  ) {
     this.selectedService = null;
     this.selectedServiceStep = null;
   }
@@ -75,8 +80,11 @@ export class ServicesComponent implements OnInit, OnDestroy {
 
   selectServiceStep(serviceStep: ServiceStep): void {
     if (serviceStep.type !== this.selectableServiceStepType) {
-      let typeName = serviceStepHelpers.getServiceStepTypeName(serviceStep);
-      alert(`You can't select ${typeName} steps.`);
+      let typeName = serviceStepHelpers.getServiceStepTypeName(serviceStep),
+          msg = `You can't select ${typeName} steps.`;
+
+      let config = new MdSnackBarConfig();
+      this.snackBar.open(msg, 'action', config);
       return
     }
 

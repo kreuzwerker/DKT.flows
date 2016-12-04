@@ -4,8 +4,7 @@
     "name": "First flow",
     "description": "This is a mocked flow object.",
     "steps": [
-      { "id": "1", "position": 0 },
-      { "id": "2", "position": 1, 
+      { "id": "1", "position": 0, 
         "service": {
           "name": "RSS",
           "group": "DKT native app",
@@ -16,9 +15,24 @@
           "id": "1",
           "name": "New item in RSS feed",
           "description": "Triggers on new RSS feed items.",
-          "type": "trigger"
+          "type": 0
         }
-      }
+      },
+      { "id": "2", "position": 1, 
+        "service": {
+          "name": "RSS",
+          "group": "DKT native app",
+          "description": "RSS service steps.",
+          "icon": "rss_feed"
+        },
+        "serviceStep": { 
+          "id": "4",
+          "name": "Sing hallelujah",
+          "description": "Praises the lord.",
+          "type": 1
+        }
+      },
+      { "id": "3", "position": 2 }
     ]
   },
   {
@@ -26,7 +40,7 @@
     "name": "Second flow",
     "description": "This, too, is a mocked flow object.",
     "steps": [
-      { "id": "3", "position": 0 }
+      { "id": "4", "position": 0 }
     ]
   }
 ]
