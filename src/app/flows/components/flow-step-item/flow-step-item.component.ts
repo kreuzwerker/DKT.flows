@@ -56,7 +56,7 @@ export class FlowStepItemComponent implements OnInit {
     var options = [],
         typeName = stepHelpers.getStepServiceStepTypeName(step)
 
-    // Select service:
+    // Select service step:
     var option: FlowStepItemOption = { title: 'Select ' + typeName, icon: 'flash_on', link: basePath + 'select-service-step' };
     // Active?
     option.classes = (currentActive == 'select') ? ['active']: [];

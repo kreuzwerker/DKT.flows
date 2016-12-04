@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
-import { Service, ServiceStep } from './../../models';
+import { Service, ServiceStep, ServiceStepType } from './../../models';
 import * as serviceHelpers from './../../utils/service.helpers';
 
 @Component({
@@ -19,16 +19,20 @@ import * as serviceHelpers from './../../utils/service.helpers';
 export class ServiceDetailComponent implements OnChanges {
   @Input() service: Service;
   @Input() selectedServiceStep: ServiceStep;
-  @Input() selectableServiceStepType: string;
+  @Input() selectableServiceStepType: ServiceStepType;
   @Output() onSelectServiceStep = new EventEmitter();
 
   show: boolean = false;
   triggerSteps: ServiceStep[];
   actionSteps: ServiceStep[];
+  selectedTabIndex: number = 0;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['service'] !== undefined) {
       this.processService(changes['service']['currentValue']);
+    }
+    else if (changes['selectableServiceStepType'] !== undefined) {
+      this.processSelectableServiceStepType(changes['selectableServiceStepType']['currentValue'])
     }
   }
 
@@ -48,6 +52,10 @@ export class ServiceDetailComponent implements OnChanges {
       this.triggerSteps = [];
       this.actionSteps = [];
     }
+  }
+
+  processSelectableServiceStepType(type) {
+    this.selectedTabIndex = type == ServiceStepType.Trigger ? 0 : 1;
   }
 
   selectServiceStep(serviceStep) {

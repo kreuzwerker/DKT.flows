@@ -43,7 +43,7 @@ export class ServicesComponent implements OnInit, OnDestroy {
           // Upon selecting a service:
           // Preselect the first service step if no service step is currently selected
           if (this.selectedServiceStep === null) {
-            this.selectFirstServiceStep(service, ServiceStepType.Trigger);
+            this.selectFirstServiceStep(service, this.selectableServiceStepType);
           }
 
           this.serviceDetail.open();

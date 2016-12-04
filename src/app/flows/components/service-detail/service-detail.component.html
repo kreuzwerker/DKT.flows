@@ -14,14 +14,14 @@
     <p class="description">{{service.description}}</p>
   </div>
 
-  <md-tab-group *ngIf="service" [selectedIndex]="this.selectableServiceStepType == 'trigger' ? 0 : 1">
+  <md-tab-group *ngIf="service" [selectedIndex]="selectedTabIndex">
     <md-tab>
       <template md-tab-label>Triggers ({{triggerSteps.length}})</template>
       <template md-tab-content>
         <ul class="service-steps">
           <li 
             *ngFor="let serviceStep of triggerSteps"
-            [class.selected]="serviceStep == selectedServiceStep"
+            [class.selected]="selectedServiceStep && serviceStep.id === selectedServiceStep.id"
             (click)="selectServiceStep(serviceStep)">
             <dkt-service-step-item [serviceStep]="serviceStep"></dkt-service-step-item>
           </li>
@@ -35,7 +35,7 @@
         <ul class="service-steps">
           <li
             *ngFor="let serviceStep of actionSteps"
-            [class.selected]="serviceStep == selectedServiceStep"
+            [class.selected]="selectedServiceStep && serviceStep.id === selectedServiceStep.id"
             (click)="selectServiceStep(serviceStep)">
             <dkt-service-step-item [serviceStep]="serviceStep"></dkt-service-step-item>
           </li>
