@@ -7,13 +7,15 @@ import { Router } from '@angular/router';
   styleUrls: ['flow-step-nav-buttons.component.css']
 })
 export class FlowStepNavButtonsComponent {
-  @Input() cancelPath: string;
+  @Input() backPath: string;
+  @Input() backLabel: string;
   @Input() continuePath: string;
+  @Input() continueLabel: string;
 
   constructor(public router: Router) {}
 
-  cancel() {
-    this.router.navigate([this.cancelPath]);
+  back() {
+    this.router.navigate([this.backPath]);
   }
 
   continue() {

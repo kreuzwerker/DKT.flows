@@ -1,7 +1,14 @@
 <div class="full-height" layout="row">
-  <div class="left border-right" layout="column" flex>
-    <div class="col-header"></div>
+  <div class="left" layout="column" flex>
+    <dkt-flow-step-config-nav [type]="flowsApp.stepTypeName" [current]="'configure'" class="col-header"></dkt-flow-step-config-nav>
 
-    [Config form]
+    <div layout-padding>
+      <div style="border:4px solid #eee; color:#ccc; padding:1rem; min-height:300px; margin-bottom:1rem;">[Config form]</div>
+
+      <dkt-flow-step-nav-buttons 
+        backPath="{{flowsApp.flowStepPath()}}/select-service-step" backLabel="Back"
+        continuePath="{{flowsApp.flowStepPath()}}/test" continueLabel="Continue"
+        ></dkt-flow-step-nav-buttons>
+    </div>
   </div>
 </div>

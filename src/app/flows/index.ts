@@ -12,6 +12,7 @@ import { FlowsAppComponent } from './containers/flows-app/flows-app.component';
 import { FlowHomeComponent } from './containers/flow-home/flow-home.component';
 import { SelectServiceStepComponent } from './containers/select-service-step/select-service-step.component';
 import { ConfigureStepComponent } from './containers/configure-step/configure-step.component';
+import { TestStepComponent } from './containers/test-step/test-step.component';
 import { ServicesComponent } from './containers/services/services.component';
 
 // Components
@@ -38,7 +39,8 @@ const routes: Routes = [
     children: [
       { path: '', component: FlowHomeComponent },
       { path: 'steps/:stepId/select-service-step', component: SelectServiceStepComponent },
-      { path: 'steps/:stepId/configure', component: ConfigureStepComponent }
+      { path: 'steps/:stepId/configure', component: ConfigureStepComponent },
+      { path: 'steps/:stepId/test', component: TestStepComponent }
     ] 
   }
 ];
@@ -49,6 +51,7 @@ const routes: Routes = [
     FlowHomeComponent,
     SelectServiceStepComponent,
     ConfigureStepComponent,
+    TestStepComponent,
     FlowHeaderComponent,
     FlowStepItemComponent,
     FlowStepConfigNavComponent,

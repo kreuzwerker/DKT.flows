@@ -31,7 +31,7 @@ export class FlowsAppComponent implements OnDestroy {
 
     // Current selected step
     this.state.step$.takeUntil(this.ngOnDestroy$).subscribe((step) => {
-      this.flowsApp.step = step;
+      this.flowsApp.setStep(step);
     });
   }
 

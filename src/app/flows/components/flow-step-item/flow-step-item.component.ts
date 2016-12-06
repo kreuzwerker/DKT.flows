@@ -69,8 +69,8 @@ export class FlowStepItemComponent implements OnInit {
     // Locked?
     var locked = !stepHelpers.stepHasService(step) || !stepHelpers.stepIsConfigured(step);
     option.icon    = locked ? 'lock': 'settings';
-    option.classes = locked ? ['locked']: [];
-    option.link    = locked ? basePath + 'configure-step' : null;
+    option.classes = locked ? option.classes.concat(['locked']): option.classes;
+    option.link    = locked ? basePath + 'configure' : null;
     options.push(option);
   
     // Test step:
@@ -80,8 +80,8 @@ export class FlowStepItemComponent implements OnInit {
     // Locked?
     var locked = (!stepHelpers.stepHasService(step) || !stepHelpers.stepIsConfigured(step) || !stepHelpers.stepIsTested(step));
     option.icon    = locked ? 'lock': 'check';
-    option.classes = locked ? ['locked']: [];
-    option.link    = locked ? basePath + 'test-step' : null;
+    option.classes = locked ? option.classes.concat(['locked']): option.classes;
+    option.link    = locked ? basePath + 'test' : null;
     options.push(option);
 
     return options;

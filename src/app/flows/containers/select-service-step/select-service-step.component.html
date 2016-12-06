@@ -9,14 +9,14 @@
     *ngIf="selectedServiceStep"
     [@flyInOut]="selectedServiceStep"
     layout="column">
-    <dkt-flow-step-config-nav [type]="'Trigger'" [current]="'select'" class="col-header"></dkt-flow-step-config-nav>
+    <dkt-flow-step-config-nav [type]="flowsApp.stepTypeName" [current]="'select'" class="col-header"></dkt-flow-step-config-nav>
     <div layout-padding>
       <div class="selected-service-step">
         <dkt-service-step-item [serviceStep]="selectedServiceStep"></dkt-service-step-item>
       </div>
       <dkt-flow-step-nav-buttons 
-        cancelPath="{{flowsApp.flowPath()}}"
-        continuePath="{{flowsApp.flowStepPath()}}/configure"
+        backPath="{{flowsApp.flowPath()}}" backLabel="Cancel"
+        continuePath="{{flowsApp.flowStepPath()}}/configure" continueLabel="Continue"
         ></dkt-flow-step-nav-buttons>
     </div>
   </div>

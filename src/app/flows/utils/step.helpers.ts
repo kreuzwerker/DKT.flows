@@ -20,6 +20,6 @@ export function getStepServiceStepType(step: Step): ServiceStepType {
 
 export function getStepServiceStepTypeName(step: Step): string {
   return this.getStepServiceStepType(step) == ServiceStepType.Trigger 
-    ? 'trigger' 
-    : 'action';
+    ? 'Trigger' 
+    : 'Action';
 }
