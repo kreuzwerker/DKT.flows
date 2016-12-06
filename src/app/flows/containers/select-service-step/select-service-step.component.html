@@ -14,7 +14,10 @@
       <div class="selected-service-step">
         <dkt-service-step-item [serviceStep]="selectedServiceStep"></dkt-service-step-item>
       </div>
-      <dkt-flow-step-nav-buttons></dkt-flow-step-nav-buttons>
+      <dkt-flow-step-nav-buttons 
+        cancelPath="{{flowsApp.flowPath()}}"
+        continuePath="{{flowsApp.flowStepPath()}}/configure"
+        ></dkt-flow-step-nav-buttons>
     </div>
   </div>
 </div>

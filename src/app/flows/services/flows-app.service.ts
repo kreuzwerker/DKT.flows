@@ -20,4 +20,16 @@ export class FlowsAppService {
   setStepStage(stage: string): void {
     this.stepStage = stage;
   }
+
+  /*
+    Helpers
+  */
+
+  flowPath(): string {
+    return `/flows/${this.flow.id}`
+  }
+
+  flowStepPath(): string {
+    return `${this.flowPath()}/steps/${this.step.id}`
+  }
 }
