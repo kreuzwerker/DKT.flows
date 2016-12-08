@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { Action } from '@ngrx/store';
 
-import { Step, StepData, Provider, ServiceStep } from '../models';
+import { Step, StepData, Provider, Service } from '../models';
 
 @Injectable()
 export class StepActions {
@@ -16,12 +16,12 @@ export class StepActions {
   }
 
   static SET_STEP_SERVICE_STEP = 'SET_STEP_SERVICE_STEP';
-  setStepServiceStep(provider: Provider, serviceStep: ServiceStep): Action {
+  setStepService(provider: Provider, service: Service): Action {
     return {
       type: StepActions.SET_STEP_SERVICE_STEP,
       payload: {
         provider: provider,
-        serviceStep: serviceStep,
+        service: service,
       }
     };
   }

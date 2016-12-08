@@ -3,12 +3,12 @@ import { Component, OnDestroy } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
 import { FlowsAppService, FlowsStateService } from './../../services'
-import { ServiceStep, ServiceStepType } from './../../models'
+import { Service, ServiceType } from './../../models'
 
 @Component({
-  selector: 'dkt-select-service-step',
-  templateUrl: 'select-service-step.component.html',
-  styleUrls: ['select-service-step.component.css'],
+  selector: 'dkt-select-service',
+  templateUrl: 'select-service.component.html',
+  styleUrls: ['select-service.component.css'],
   animations: [
     trigger('flyInOut', [
       state('in', style({transform: 'translateX(0)'})),
@@ -23,10 +23,10 @@ import { ServiceStep, ServiceStepType } from './../../models'
   ]
 })
 
-export class SelectServiceStepComponent implements OnDestroy {
+export class SelectServiceComponent implements OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
-  selectedServiceStep: ServiceStep | null = null;
-  selectableServiceStepType: ServiceStepType = ServiceStepType.Action;
+  selectedService: Service | null = null;
+  selectableServiceType: ServiceType = ServiceType.Action;
 
   constructor(
     public flowsApp: FlowsAppService,
@@ -37,14 +37,14 @@ export class SelectServiceStepComponent implements OnDestroy {
 
     // Current selected step
     this.state.step$.takeUntil(this.ngOnDestroy$).subscribe((step) => {
-      this.selectedServiceStep = (step && step.serviceStep !== undefined)
-        ? step.serviceStep 
+      this.selectedService = (step && step.service !== undefined)
+        ? step.service 
         : null;
 
       // Allow 'trigger' providers steps only at the beginning of a flow
-      this.selectableServiceStepType = (step && step.position === 0) 
-        ? ServiceStepType.Trigger
-        : ServiceStepType.Action;
+      this.selectableServiceType = (step && step.position === 0) 
+        ? ServiceType.Trigger
+        : ServiceType.Action;
     });
   }
 

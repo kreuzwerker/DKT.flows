@@ -16,28 +16,28 @@
 
   <md-tab-group *ngIf="provider" [selectedIndex]="selectedTabIndex" md-dynamic-height>
     <md-tab>
-      <template md-tab-label>Triggers ({{triggerSteps.length}})</template>
+      <template md-tab-label>Triggers ({{triggerServices.length}})</template>
       <ul class="service-steps">
         <li 
-          *ngFor="let serviceStep of triggerSteps"
-          [class.selected]="selectedServiceStep && serviceStep.id === selectedServiceStep.id"
-          (click)="selectServiceStep(serviceStep)">
-          <dkt-service-step-item [serviceStep]="serviceStep"></dkt-service-step-item>
+          *ngFor="let service of triggerServices"
+          [class.selected]="selectedService && service.id === selectedService.id"
+          (click)="selectService(service)">
+          <dkt-service-item [service]="service"></dkt-service-item>
         </li>
       </ul>
-      <p *ngIf="triggerSteps.length == 0" class="no-steps">No triggers available.</p>
+      <p *ngIf="triggerServices.length == 0" class="no-steps">No triggers available.</p>
     </md-tab>
     <md-tab>
-      <template md-tab-label>Actions ({{actionSteps.length}})</template>
+      <template md-tab-label>Actions ({{actionServices.length}})</template>
       <ul class="service-steps">
         <li
-          *ngFor="let serviceStep of actionSteps"
-          [class.selected]="selectedServiceStep && serviceStep.id === selectedServiceStep.id"
-          (click)="selectServiceStep(serviceStep)">
-          <dkt-service-step-item [serviceStep]="serviceStep"></dkt-service-step-item>
+          *ngFor="let service of actionServices"
+          [class.selected]="selectedService && service.id === selectedService.id"
+          (click)="selectService(service)">
+          <dkt-service-item [service]="service"></dkt-service-item>
         </li>
       </ul>
-      <p *ngIf="actionSteps.length == 0" class="no-steps">No actions available.</p>
+      <p *ngIf="actionServices.length == 0" class="no-steps">No actions available.</p>
     </md-tab>
   </md-tab-group>
 

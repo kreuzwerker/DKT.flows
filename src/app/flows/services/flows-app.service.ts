@@ -17,7 +17,7 @@ export class FlowsAppService {
 
   setStep(step: Step): void {
     this.step = step;
-    this.stepTypeName = stepHelpers.getStepServiceStepTypeName(step);
+    this.stepTypeName = stepHelpers.getStepServiceTypeName(step);
   }
 
   /*
@@ -25,7 +25,7 @@ export class FlowsAppService {
   */
 
   // Current step preparation stage: select, configure, test
-  // Gets set by child component, e.g. FlowHome, SelectServiceStep etc.
+  // Gets set by child component, e.g. FlowHome, SelectService etc.
   stepStage = null;
 
   setStepStage(stage: string): void {

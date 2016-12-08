@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 
 import { AppState, Selector } from '../../reducers';
 import { StepActions } from '../actions';
-import { Step, ServiceStep } from '../models';
+import { Step, Service } from '../models';
 
 export interface StepState {
   step: Step;
@@ -15,7 +15,7 @@ const initialState: StepState = {
   step: { 
     id: "0",
     position: 0,
-    serviceStep: null
+    service: null
   },
   saving: false,
   saved: true
@@ -34,7 +34,7 @@ export function stepReducer(state = initialState, action: Action): StepState {
       return Object.assign({}, state, { 
         step: Object.assign({}, state.step, {
           provider: action.payload.provider,
-          serviceStep: action.payload.serviceStep
+          service: action.payload.service
         }) 
       });
     }

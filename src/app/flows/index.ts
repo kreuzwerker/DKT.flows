@@ -10,7 +10,7 @@ import { CoreModule } from './../core';
 // Containers
 import { FlowsAppComponent } from './containers/flows-app/flows-app.component';
 import { FlowHomeComponent } from './containers/flow-home/flow-home.component';
-import { SelectServiceStepComponent } from './containers/select-service-step/select-service-step.component';
+import { SelectServiceComponent } from './containers/select-service/select-service.component';
 import { ConfigureStepComponent } from './containers/configure-step/configure-step.component';
 import { TestStepComponent } from './containers/test-step/test-step.component';
 import { ProvidersComponent } from './containers/providers/providers.component';
@@ -23,7 +23,7 @@ import { FlowStepNavButtonsComponent } from './components/flow-step-nav-buttons/
 import { ProviderItemComponent } from './components/provider-item/provider-item.component';
 import { ProviderDetailComponent } from './components/provider-detail/provider-detail.component';
 import { ProviderIconComponent } from './components/provider-icon/provider-icon.component';
-import { ServiceStepItemComponent } from './components/service-step-item/service-step-item.component';
+import { ServiceItemComponent } from './components/service-item/service-item.component';
 
 // Services
 import { FlowsApiService, FlowsAppService, FlowsStateService } from './services'
@@ -38,7 +38,7 @@ const routes: Routes = [
   { path: 'flows/:flowId', component: FlowsAppComponent,
     children: [
       { path: '', component: FlowHomeComponent },
-      { path: 'steps/:stepId/select-service-step', component: SelectServiceStepComponent },
+      { path: 'steps/:stepId/select-service', component: SelectServiceComponent },
       { path: 'steps/:stepId/configure', component: ConfigureStepComponent },
       { path: 'steps/:stepId/test', component: TestStepComponent }
     ] 
@@ -49,7 +49,7 @@ const routes: Routes = [
   declarations: [
     FlowsAppComponent,
     FlowHomeComponent,
-    SelectServiceStepComponent,
+    SelectServiceComponent,
     ConfigureStepComponent,
     TestStepComponent,
     FlowHeaderComponent,
@@ -60,7 +60,7 @@ const routes: Routes = [
     ProviderItemComponent,
     ProviderDetailComponent,
     ProviderIconComponent,
-    ServiceStepItemComponent,
+    ServiceItemComponent,
   ],
   imports: [
     CommonModule,

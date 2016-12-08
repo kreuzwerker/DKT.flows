@@ -39,9 +39,9 @@ export class FlowStepItemComponent implements OnInit {
 
     if (stepHelpers.stepHasService(this.step)) {
       let provider = this.step.provider;
-      let serviceStep = this.step.serviceStep;
+      let service = this.step.service;
       this.headerIcon = provider.icon;
-      this.headerTitle = `${provider.name}: ${serviceStep.name}`;
+      this.headerTitle = `${provider.name}: ${service.name}`;
     } else {
       this.headerIcon = 'settings';
       this.headerTitle = 'Set up this step';
@@ -54,10 +54,10 @@ export class FlowStepItemComponent implements OnInit {
     basePath: string
   ): FlowStepItemOption[] {
     var options = [],
-        typeName = stepHelpers.getStepServiceStepTypeName(step)
+        typeName = stepHelpers.getStepServiceTypeName(step)
 
     // Select service step:
-    var option: FlowStepItemOption = { title: 'Select ' + typeName, icon: 'flash_on', link: basePath + 'select-service-step' };
+    var option: FlowStepItemOption = { title: 'Select ' + typeName, icon: 'flash_on', link: basePath + 'select-service' };
     // Active?
     option.classes = (currentActive == 'select') ? ['active']: [];
     options.push(option);

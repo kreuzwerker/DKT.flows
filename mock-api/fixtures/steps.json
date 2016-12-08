@@ -9,7 +9,7 @@
       "description": "RSS service steps.",
       "icon": "rss_feed"
     },
-    "serviceStep": {
+    "service": {
       "id": "1",
       "name": "New item in RSS feed",
       "description": "Triggers on new RSS feed items.",
@@ -26,7 +26,7 @@
       "description": "RSS service steps.",
       "icon": "rss_feed"
     },
-    "serviceStep": {
+    "service": {
       "id": "4",
       "name": "Sing hallelujah",
       "description": "Praises the lord.",

@@ -2,17 +2,17 @@
   <div class="left border-right" layout="column" flex>
     <div class="col-header"></div>
 
-    <dkt-providers [selectableServiceStepType]="selectableServiceStepType" (onChangeServiceStep)="flowsApp.saveFlowStep()"></dkt-providers>
+    <dkt-providers [selectableServiceType]="selectableServiceType" (onChangeService)="flowsApp.saveFlowStep()"></dkt-providers>
   </div>
 
   <div class="right" 
-    *ngIf="selectedServiceStep"
-    [@flyInOut]="selectedServiceStep"
+    *ngIf="selectedService"
+    [@flyInOut]="selectedService"
     layout="column">
     <dkt-flow-step-config-nav [type]="flowsApp.stepTypeName" [current]="'select'" class="col-header"></dkt-flow-step-config-nav>
     <div layout-padding>
       <div class="selected-service-step">
-        <dkt-service-step-item [serviceStep]="selectedServiceStep"></dkt-service-step-item>
+        <dkt-service-item [service]="selectedService"></dkt-service-item>
       </div>
       <dkt-flow-step-nav-buttons 
         backPath="{{flowsApp.flowPath()}}" backLabel="Cancel"

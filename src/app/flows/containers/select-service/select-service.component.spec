@@ -7,18 +7,18 @@
 // import { By } from '@angular/platform-browser';
 // import { DebugElement } from '@angular/core';
 
-// import { SelectServiceStepComponent } from './select-service-step.component';
+// import { SelectServiceComponent } from './select-service.component';
 
-// describe('SelectServiceStepComponent', () => {
+// describe('SelectServiceComponent', () => {
 //     let fixture, comp, el;
 
 //     beforeEach(() => {
 //         TestBed.configureTestingModule({
-//             declarations: [SelectServiceStepComponent],
+//             declarations: [SelectServiceComponent],
 //             providers: []
 //         });
 
-//         fixture = TestBed.createComponent(SelectServiceStepComponent);
+//         fixture = TestBed.createComponent(SelectServiceComponent);
 //         comp = fixture.componentInstance;
 
 //         // el = fixture.debugElement.query(By.css('h1'));

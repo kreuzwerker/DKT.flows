@@ -2,9 +2,9 @@ import { Subject } from 'rxjs/Subject';
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material'
 
-import { Provider, ServiceStep, ServiceStepType } from './../../models';
+import { Provider, Service, ServiceType } from './../../models';
 import * as providerHelpers from './../../utils/provider.helpers';
-import * as serviceStepHelpers from './../../utils/service-step.helpers';
+import * as serviceHelpers from './../../utils/service.helpers';
 import { ProviderDetailComponent } from './../../components/provider-detail/provider-detail.component';
 import { FlowsStateService } from './../../services';
 
@@ -16,13 +16,13 @@ import { FlowsStateService } from './../../services';
 })
 
 export class ProvidersComponent implements OnInit, OnDestroy {
-  @Input() selectableServiceStepType: ServiceStepType;
-  @Output() onChangeServiceStep = new EventEmitter();
+  @Input() selectableServiceType: ServiceType;
+  @Output() onChangeService = new EventEmitter();
 
   ngOnDestroy$ = new Subject<boolean>();
   providers: Array<Provider>;
   selectedProvider: Provider;
-  selectedServiceStep: ServiceStep | null;
+  selectedService: Service | null;
 
   @ViewChild(ProviderDetailComponent) serviceDetail: ProviderDetailComponent;
 
@@ -31,7 +31,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     public snackBar: MdSnackBar
   ) {
     this.selectedProvider = null;
-    this.selectedServiceStep = null;
+    this.selectedService = null;
   }
 
   ngOnInit() {
@@ -48,8 +48,8 @@ export class ProvidersComponent implements OnInit, OnDestroy {
         if (provider) {
           // Upon selecting a service:
           // Preselect the first service step if no service step is currently selected
-          if (this.selectedServiceStep === null) {
-            this.selectFirstServiceStep(provider, this.selectableServiceStepType);
+          if (this.selectedService === null) {
+            this.selectFirstService(provider, this.selectableServiceType);
           }
 
           this.serviceDetail.open();
@@ -63,10 +63,10 @@ export class ProvidersComponent implements OnInit, OnDestroy {
 
     // Subscribe to current selected flow step
     this.state.step$.takeUntil(this.ngOnDestroy$).subscribe((step) => {
-      if (step && step.serviceStep !== undefined) {
-        this.selectedServiceStep = step.serviceStep;
+      if (step && step.service !== undefined) {
+        this.selectedService = step.service;
       } else {
-        this.selectedServiceStep = null;
+        this.selectedService = null;
       }
     });
   }
@@ -79,23 +79,23 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     this.state.selectProvider(provider);
   }
 
-  selectServiceStep(serviceStep: ServiceStep): boolean {
-    if (serviceStep.type !== this.selectableServiceStepType) {
-      let typeName = serviceStepHelpers.getServiceStepTypeName(serviceStep);
+  selectService(service: Service): boolean {
+    if (service.type !== this.selectableServiceType) {
+      let typeName = serviceHelpers.getServiceTypeName(service);
       let config = new MdSnackBarConfig();
       // TODO implement config.duration=1000 as soon as available in API
       this.snackBar.open(`You can't select ${typeName} steps.`, 'OK', config);
       return false;
     }
 
-    this.state.setStepServiceStep(this.selectedProvider, serviceStep);
+    this.state.setStepService(this.selectedProvider, service);
     return true;
   }
 
-  selectFirstServiceStep(provider: Provider, type: ServiceStepType = ServiceStepType.Action): void {
-    let triggerSteps = providerHelpers.getProviderStepsByType(provider, type);
-    if (triggerSteps.length) {
-      this.selectServiceStep(triggerSteps[0]);
+  selectFirstService(provider: Provider, type: ServiceType = ServiceType.Action): void {
+    let triggerServices = providerHelpers.getProviderStepsByType(provider, type);
+    if (triggerServices.length) {
+      this.selectService(triggerServices[0]);
     }
   }
 
@@ -103,13 +103,13 @@ export class ProvidersComponent implements OnInit, OnDestroy {
    * User initiated selection of service: select new service and signal change 
    * event (for saving the flow step).
    * 
-   * @param {ServiceStep} serviceStep
+   * @param {Service} service
    * 
    * @memberOf ProvidersComponent
    */
-  changeServiceStep(serviceStep: ServiceStep): void {
-    if (this.selectServiceStep(serviceStep)) {
-      this.onChangeServiceStep.emit({ serviceStep: serviceStep });
+  changeService(service: Service): void {
+    if (this.selectService(service)) {
+      this.onChangeService.emit({ service: service });
     }
   }
 }

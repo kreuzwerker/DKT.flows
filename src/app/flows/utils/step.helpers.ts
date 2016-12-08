@@ -1,7 +1,7 @@
-import { Step, ServiceStepType } from './../models';
+import { Step, ServiceType } from './../models';
 
 export function stepHasService(step: Step): boolean {
-  return typeof step !== undefined && typeof step.serviceStep === 'object';
+  return typeof step !== undefined && typeof step.service === 'object';
 }
 
 export function stepIsConfigured(step: Step): boolean {
@@ -14,12 +14,12 @@ export function stepIsTested(step: Step): boolean {
   return false;
 }
 
-export function getStepServiceStepType(step: Step): ServiceStepType {
-  return step.position === 0 ? ServiceStepType.Trigger : ServiceStepType.Action;
+export function getStepServiceType(step: Step): ServiceType {
+  return step.position === 0 ? ServiceType.Trigger : ServiceType.Action;
 }
 
-export function getStepServiceStepTypeName(step: Step): string {
-  return this.getStepServiceStepType(step) == ServiceStepType.Trigger 
+export function getStepServiceTypeName(step: Step): string {
+  return this.getStepServiceType(step) == ServiceType.Trigger 
     ? 'Trigger' 
     : 'Action';
 }

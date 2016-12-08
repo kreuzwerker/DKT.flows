@@ -1,11 +1,11 @@
-export class ServiceStep {
+export class Service {
   id: string;
   name: string;
   description: string;
-  type: ServiceStepType;
+  type: ServiceType;
 }
 
-export enum ServiceStepType {
+export enum ServiceType {
   Trigger = 0,
   Action = 1
 }

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
-import { Provider, ServiceStep, ServiceStepType } from './../../models';
+import { Provider, Service, ServiceType } from './../../models';
 import * as providerHelpers from './../../utils/provider.helpers';
 
 @Component({
@@ -18,21 +18,21 @@ import * as providerHelpers from './../../utils/provider.helpers';
 })
 export class ProviderDetailComponent implements OnChanges {
   @Input() provider: Provider;
-  @Input() selectedServiceStep: ServiceStep;
-  @Input() selectableServiceStepType: ServiceStepType;
-  @Output() onSelectServiceStep = new EventEmitter();
+  @Input() selectedService: Service;
+  @Input() selectableServiceType: ServiceType;
+  @Output() onSelectService = new EventEmitter();
 
   show: boolean = false;
-  triggerSteps: ServiceStep[];
-  actionSteps: ServiceStep[];
+  triggerServices: Service[];
+  actionServices: Service[];
   selectedTabIndex: number = 0;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['provider'] !== undefined) {
       this.processProvider(changes['provider']['currentValue']);
     }
-    else if (changes['selectableServiceStepType'] !== undefined) {
-      this.processSelectableServiceStepType(changes['selectableServiceStepType']['currentValue'])
+    else if (changes['selectableServiceType'] !== undefined) {
+      this.processSelectableServiceType(changes['selectableServiceType']['currentValue'])
     }
   }
 
@@ -46,19 +46,19 @@ export class ProviderDetailComponent implements OnChanges {
 
   processProvider(provider) {
     if (provider && provider.steps) {
-      this.triggerSteps = providerHelpers.getProviderTriggerSteps(provider);
-      this.actionSteps = providerHelpers.getProviderActionSteps(provider);
+      this.triggerServices = providerHelpers.getProviderTriggerSteps(provider);
+      this.actionServices = providerHelpers.getProviderActionSteps(provider);
     } else {
-      this.triggerSteps = [];
-      this.actionSteps = [];
+      this.triggerServices = [];
+      this.actionServices = [];
     }
   }
 
-  processSelectableServiceStepType(type) {
-    this.selectedTabIndex = type == ServiceStepType.Trigger ? 0 : 1;
+  processSelectableServiceType(type) {
+    this.selectedTabIndex = type == ServiceType.Trigger ? 0 : 1;
   }
 
-  selectServiceStep(serviceStep) {
-    this.onSelectServiceStep.emit({ serviceStep: serviceStep });
+  selectService(service) {
+    this.onSelectService.emit({ service: service });
   }
 }

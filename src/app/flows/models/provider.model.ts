@@ -1,10 +1,10 @@
-import { ServiceStep } from './service-step.model';
+import { Service } from './service.model';
 
 export class Provider {
   name: string;
   group: string;
   description: string;
   icon: string;
-  steps?: ServiceStep[];
+  steps?: Service[];
   selected?: boolean;
 }

@@ -11,8 +11,8 @@
   </dkt-provider-item>
   <dkt-provider-detail
     [provider]="selectedProvider"
-    [selectedServiceStep]="selectedServiceStep"
-    [selectableServiceStepType]="selectableServiceStepType"
-    (onSelectServiceStep)="changeServiceStep($event.serviceStep)">
+    [selectedService]="selectedService"
+    [selectableServiceType]="selectableServiceType"
+    (onSelectService)="changeService($event.service)">
   </dkt-provider-detail>
 </div>
