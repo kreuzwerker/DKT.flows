@@ -4,6 +4,7 @@ const path = require('path');
 const dbFile = path.join(__dirname, 'db.json');
 const fixtures = {
   flows: require('./fixtures/flows.json'),
+  steps: require('./fixtures/steps.json'),
   services: require('./fixtures/services.json')
 };
 

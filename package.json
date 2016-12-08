@@ -89,7 +89,7 @@
     "universal:aot": "npm run compile:universal && npm run server:universal",
     "universal:watch": "npm run build:universal && npm-run-all -p -r watch:universal server:universal",
     "mock-api:reset": "node mock-api/db.js",
-    "mock-api:serve": "json-server mock-api/db.json -p 3001 -w --delay 500"
+    "mock-api:serve": "json-server mock-api/db.json -p 3001 -w --routes mock-api/routes.json --delay 500"
   },
   "dependencies": {
     "@angular/common": "2.1.0",

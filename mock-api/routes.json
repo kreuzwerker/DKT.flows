@@ -1,0 +1,4 @@
+{
+  "/flows/:flowId": "/flows/:flowId?_embed=steps",
+  "/flows/:flowId/steps/:stepId": "/steps/:stepId"
+}
