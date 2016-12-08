@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
-import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material'
 
 import { Service, ServiceStep, ServiceStepType } from './../../models';
@@ -17,6 +17,7 @@ import { FlowsStateService } from './../../services';
 
 export class ServicesComponent implements OnInit, OnDestroy {
   @Input() selectableServiceStepType: ServiceStepType;
+  @Output() onChangeServiceStep = new EventEmitter();
 
   ngOnDestroy$ = new Subject<boolean>();
   services: Array<Service>;
@@ -78,22 +79,37 @@ export class ServicesComponent implements OnInit, OnDestroy {
     this.state.selectService(service);
   }
 
-  selectServiceStep(serviceStep: ServiceStep): void {
+  selectServiceStep(serviceStep: ServiceStep): boolean {
     if (serviceStep.type !== this.selectableServiceStepType) {
       let typeName = serviceStepHelpers.getServiceStepTypeName(serviceStep);
       let config = new MdSnackBarConfig();
       // TODO implement config.duration=1000 as soon as available in API
       this.snackBar.open(`You can't select ${typeName} steps.`, 'OK', config);
-      return
+      return false;
     }
 
     this.state.setStepServiceStep(this.selectedService, serviceStep);
+    return true;
   }
 
   selectFirstServiceStep(service: Service, type: ServiceStepType = ServiceStepType.Action): void {
     let triggerSteps = serviceHelpers.getServiceStepsByType(service, type);
     if (triggerSteps.length) {
       this.selectServiceStep(triggerSteps[0]);
+    }
+  }
+
+  /**
+   * User initiated selection of service: select new service and signal change 
+   * event (for saving the flow step).
+   * 
+   * @param {ServiceStep} serviceStep
+   * 
+   * @memberOf ServicesComponent
+   */
+  changeServiceStep(serviceStep: ServiceStep): void {
+    if (this.selectServiceStep(serviceStep)) {
+      this.onChangeServiceStep.emit({ serviceStep: serviceStep });
     }
   }
 }

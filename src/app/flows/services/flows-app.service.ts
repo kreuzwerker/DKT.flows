@@ -13,6 +13,8 @@ export class FlowsAppService {
   step: Step = null;
   stepTypeName: string = null;
 
+  constructor(public state: FlowsStateService) {}
+
   setStep(step: Step): void {
     this.step = step;
     this.stepTypeName = stepHelpers.getStepServiceStepTypeName(step);
@@ -28,6 +30,18 @@ export class FlowsAppService {
 
   setStepStage(stage: string): void {
     this.stepStage = stage;
+  }
+
+  /*
+    Persistance
+  */
+
+  saveFlow(): void {
+    this.state.saveFlow(this.flow.id, this.flow);
+  }
+
+  saveFlowStep(): void {
+    this.state.saveFlowStep(this.flow.id, this.step.id, this.step);
   }
 
   /*
