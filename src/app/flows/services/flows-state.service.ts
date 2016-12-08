@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AppState } from './../../reducers';
 import * as state from './../reducers';
-import { Flow, Step, Service, ServiceStep } from './../models';
+import { Flow, FlowData, Step, StepData, Service, ServiceStep } from './../models';
 import { FlowActions, StepActions, ServicesActions } from './../actions';
 
 @Injectable()
@@ -38,6 +38,18 @@ export class FlowsStateService {
   loadFlow(id: string): void {
     this.store$.dispatch(
       this.flowActions.loadFlow(id)
+    );
+  }
+
+  saveFlow(id: string, flow: FlowData): void {
+    this.store$.dispatch(
+      this.flowActions.saveFlow(id, flow)
+    );
+  }
+
+  saveFlowStep(flowId: string, stepId: string, step: StepData): void {
+    this.store$.dispatch(
+      this.stepActions.saveStep(flowId, stepId, step)
     );
   }
 

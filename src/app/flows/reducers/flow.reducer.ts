@@ -9,6 +9,8 @@ export interface FlowState {
   flow: Flow;
   loading: boolean;
   loaded: boolean;
+  saving: boolean;
+  saved: boolean;
 };
 
 const initialState: FlowState = {
@@ -20,10 +22,17 @@ const initialState: FlowState = {
   },
   loading: false,
   loaded: false,
+  saving: false,
+  saved: true
 };
 
 export function flowReducer(state = initialState, action: Action): FlowState {
   switch (action.type) {
+
+    /*
+      Load flow
+    */
+
     case FlowActions.LOAD_FLOW:
       return Object.assign({}, state, {
         loading: true,
@@ -41,6 +50,29 @@ export function flowReducer(state = initialState, action: Action): FlowState {
       return Object.assign({}, state, {
         loading: false,
         loaded: false
+      });
+
+    /*
+      Save flow
+    */
+
+    case FlowActions.SAVE_FLOW:
+      return Object.assign({}, state, {
+        saving: true,
+        saved: false
+      });
+
+    case FlowActions.UPDATE_FLOW_SUCCESS:
+      return Object.assign({}, state, {
+        flow: action.payload.flow,
+        saving: false,
+        saved: true
+      });
+
+    case FlowActions.UPDATE_FLOW_FAILED:
+      return Object.assign({}, state, {
+        saving: false,
+        saved: false
       });
 
     default: {

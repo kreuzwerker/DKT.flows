@@ -30,4 +30,12 @@ export class FlowEffects {
       .map(data => this.flowActions.fetchFlowFulfilled(data))
       .catch(error => Observable.of(this.flowActions.fetchFlowFailed(error)))
     );
+
+  @Effect()
+  saveFlow$ = this.actions$
+    .ofType(FlowActions.SAVE_FLOW)
+    .switchMap(({payload}) => this.api.updateFlow(payload.id, payload.flow)
+      .map(data => this.flowActions.updateFlowFulfilled(data))
+      .catch(error => Observable.of(this.flowActions.updateFlowFailed(error)))
+    );
 }
