@@ -41,7 +41,7 @@ export class SelectServiceStepComponent implements OnDestroy {
         ? step.serviceStep 
         : null;
 
-      // Allow 'trigger' services steps only at the beginning of a flow
+      // Allow 'trigger' providers steps only at the beginning of a flow
       this.selectableServiceStepType = (step && step.position === 0) 
         ? ServiceStepType.Trigger
         : ServiceStepType.Action;

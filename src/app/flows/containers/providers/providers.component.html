@@ -1,0 +1,18 @@
+<div class="providers" layout="row" layout-align="start center">
+  <div layout="row" layout-align="center center" layout-padding>
+    <dkt-loading-indicator *ngIf="state.isLoadingProviders$ | async" text="Loading providers"></dkt-loading-indicator>
+  </div>
+
+  <dkt-provider-item
+    *ngFor="let provider of providers" 
+    [provider]="provider"
+    [isSelected]="provider == selectedProvider"
+    (onSelectProvider)="selectProvider($event.provider)">
+  </dkt-provider-item>
+  <dkt-provider-detail
+    [provider]="selectedProvider"
+    [selectedServiceStep]="selectedServiceStep"
+    [selectableServiceStepType]="selectableServiceStepType"
+    (onSelectServiceStep)="changeServiceStep($event.serviceStep)">
+  </dkt-provider-detail>
+</div>

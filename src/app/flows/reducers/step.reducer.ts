@@ -33,7 +33,7 @@ export function stepReducer(state = initialState, action: Action): StepState {
     case StepActions.SET_STEP_SERVICE_STEP: {
       return Object.assign({}, state, { 
         step: Object.assign({}, state.step, {
-          service: action.payload.service,
+          provider: action.payload.provider,
           serviceStep: action.payload.serviceStep
         }) 
       });

@@ -1,6 +1,6 @@
 import { ServiceStep } from './service-step.model';
 
-export class Service {
+export class Provider {
   name: string;
   group: string;
   description: string;

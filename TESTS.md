@@ -12,7 +12,7 @@ The flows app
 - should list all flow steps
 
 Select service step view
-- should load all available services
+- should load all available providers
 - on select service / step has a service selected:
   - should show current selected service in right sidebar
   - should show the flow step config navigation

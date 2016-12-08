@@ -13,26 +13,26 @@ import { FlowHomeComponent } from './containers/flow-home/flow-home.component';
 import { SelectServiceStepComponent } from './containers/select-service-step/select-service-step.component';
 import { ConfigureStepComponent } from './containers/configure-step/configure-step.component';
 import { TestStepComponent } from './containers/test-step/test-step.component';
-import { ServicesComponent } from './containers/services/services.component';
+import { ProvidersComponent } from './containers/providers/providers.component';
 
 // Components
 import { FlowHeaderComponent } from './components/flow-header/flow-header.component';
 import { FlowStepItemComponent } from './components/flow-step-item/flow-step-item.component';
 import { FlowStepConfigNavComponent } from './components/flow-step-config-nav/flow-step-config-nav.component';
 import { FlowStepNavButtonsComponent } from './components/flow-step-nav-buttons/flow-step-nav-buttons.component';
-import { ServiceItemComponent } from './components/service-item/service-item.component';
-import { ServiceDetailComponent } from './components/service-detail/service-detail.component';
-import { ServiceIconComponent } from './components/service-icon/service-icon.component';
+import { ProviderItemComponent } from './components/provider-item/provider-item.component';
+import { ProviderDetailComponent } from './components/provider-detail/provider-detail.component';
+import { ProviderIconComponent } from './components/provider-icon/provider-icon.component';
 import { ServiceStepItemComponent } from './components/service-step-item/service-step-item.component';
 
 // Services
 import { FlowsApiService, FlowsAppService, FlowsStateService } from './services'
 
 // Actions
-import { FlowActions, StepActions, ServicesActions } from './actions';
+import { FlowActions, StepActions, ProvidersActions } from './actions';
 
 // Effects
-import { FlowEffects, StepEffects, ServicesEffects } from './effects'
+import { FlowEffects, StepEffects, ProvidersEffects } from './effects'
 
 const routes: Routes = [
   { path: 'flows/:flowId', component: FlowsAppComponent,
@@ -56,10 +56,10 @@ const routes: Routes = [
     FlowStepItemComponent,
     FlowStepConfigNavComponent,
     FlowStepNavButtonsComponent,
-    ServicesComponent,
-    ServiceItemComponent,
-    ServiceDetailComponent,
-    ServiceIconComponent,
+    ProvidersComponent,
+    ProviderItemComponent,
+    ProviderDetailComponent,
+    ProviderIconComponent,
     ServiceStepItemComponent,
   ],
   imports: [
@@ -69,7 +69,7 @@ const routes: Routes = [
     MaterialModule.forRoot(),
     EffectsModule.run(FlowEffects),
     EffectsModule.run(StepEffects),
-    EffectsModule.run(ServicesEffects),
+    EffectsModule.run(ProvidersEffects),
   ],
   exports: [
   ],
@@ -79,7 +79,7 @@ const routes: Routes = [
     FlowsStateService,
     FlowActions,
     StepActions,
-    ServicesActions,
+    ProvidersActions,
   ]
 })
 export class FlowsModule {}

@@ -11,7 +11,7 @@ const modules = {
   'user': fromUser
 };
 
-import { FlowState, flowReducer, StepState, stepReducer, ServicesState, servicesReducer } from '../flows/reducers';
+import { FlowState, flowReducer, StepState, stepReducer, ProvidersState, providersReducer } from '../flows/reducers';
 
 export interface Selector<T,V> {
   (observable$: Observable<T>): Observable<V>;
@@ -24,7 +24,7 @@ export interface AppState {
   // Flows states
   flow: FlowState;
   step: StepState;
-  services: ServicesState;
+  providers: ProvidersState;
 }
 
 export const reducers = {
@@ -34,7 +34,7 @@ export const reducers = {
   // Flows reducers
   flow: flowReducer,
   step: stepReducer,
-  services: servicesReducer,
+  providers: providersReducer,
 };
 
 // Generate a reducer to set the root state in dev mode for HMR

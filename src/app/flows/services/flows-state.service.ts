@@ -5,8 +5,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { AppState } from './../../reducers';
 import * as state from './../reducers';
-import { Flow, FlowData, Step, StepData, Service, ServiceStep } from './../models';
-import { FlowActions, StepActions, ServicesActions } from './../actions';
+import { Flow, FlowData, Step, StepData, Provider, ServiceStep } from './../models';
+import { FlowActions, StepActions, ProvidersActions } from './../actions';
 
 @Injectable()
 export class FlowsStateService {
@@ -15,24 +15,24 @@ export class FlowsStateService {
   isLoadingFlow$: Observable<Boolean>;
   // Current editing step
   step$: Observable<Step>;
-  // Available services
-  services$: Observable<Service[]>;
-  isLoadingServices$: Observable<Boolean>;
-  // Current service
-  service$: Observable<Service>;
+  // Available providers
+  providers$: Observable<Provider[]>;
+  isLoadingProviders$: Observable<Boolean>;
+  // Current provider
+  provider$: Observable<Provider>;
 
   constructor(
       private flowActions: FlowActions,
       private stepActions: StepActions,
-      private servicesActions: ServicesActions,
+      private providersActions: ProvidersActions,
       private store$: Store<AppState>
     ) {
-    this.flow$              = store$.let(state.getCurrentFlow());
-    this.isLoadingFlow$     = store$.let(state.isLoadingFlow());
-    this.step$              = store$.let(state.getCurrentStep());
-    this.services$          = store$.let(state.getServices());
-    this.isLoadingServices$ = store$.let(state.isLoadingServices());
-    this.service$           = store$.let(state.getCurrentService());
+    this.flow$               = store$.let(state.getCurrentFlow());
+    this.isLoadingFlow$      = store$.let(state.isLoadingFlow());
+    this.step$               = store$.let(state.getCurrentStep());
+    this.providers$          = store$.let(state.getProviders());
+    this.isLoadingProviders$ = store$.let(state.isLoadingProviders());
+    this.provider$           = store$.let(state.getCurrentProvider());
   }
 
   loadFlow(id: string): void {
@@ -53,9 +53,9 @@ export class FlowsStateService {
     );
   }
 
-  loadServices(): void {
+  loadProviders(): void {
     this.store$.dispatch(
-      this.servicesActions.loadServices()
+      this.providersActions.loadProviders()
     );
   }
 
@@ -65,15 +65,15 @@ export class FlowsStateService {
     );
   }
 
-  setStepServiceStep(service: Service, serviceStep: ServiceStep): void {
+  setStepServiceStep(provider: Provider, serviceStep: ServiceStep): void {
     this.store$.dispatch(
-      this.stepActions.setStepServiceStep(service, serviceStep)
+      this.stepActions.setStepServiceStep(provider, serviceStep)
     );
   }
 
-  selectService(service: Service): void {
+  selectProvider(provider: Provider): void {
     this.store$.dispatch(
-      this.servicesActions.selectService(service)
+      this.providersActions.selectProvider(provider)
     );    
   }
 }

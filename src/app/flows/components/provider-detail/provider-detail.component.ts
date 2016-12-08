@@ -1,13 +1,13 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
-import { Service, ServiceStep, ServiceStepType } from './../../models';
-import * as serviceHelpers from './../../utils/service.helpers';
+import { Provider, ServiceStep, ServiceStepType } from './../../models';
+import * as providerHelpers from './../../utils/provider.helpers';
 
 @Component({
-  selector: 'dkt-service-detail',
-  templateUrl: 'service-detail.component.html',
-  styleUrls: ['service-detail.component.css'],
+  selector: 'dkt-provider-detail',
+  templateUrl: 'provider-detail.component.html',
+  styleUrls: ['provider-detail.component.css'],
   animations: [
     trigger('fadeInOut', [
       state('true' , style({ opacity: 1, transform: 'scale(1.0)' })),
@@ -16,8 +16,8 @@ import * as serviceHelpers from './../../utils/service.helpers';
     ])
   ]
 })
-export class ServiceDetailComponent implements OnChanges {
-  @Input() service: Service;
+export class ProviderDetailComponent implements OnChanges {
+  @Input() provider: Provider;
   @Input() selectedServiceStep: ServiceStep;
   @Input() selectableServiceStepType: ServiceStepType;
   @Output() onSelectServiceStep = new EventEmitter();
@@ -28,8 +28,8 @@ export class ServiceDetailComponent implements OnChanges {
   selectedTabIndex: number = 0;
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['service'] !== undefined) {
-      this.processService(changes['service']['currentValue']);
+    if (changes['provider'] !== undefined) {
+      this.processProvider(changes['provider']['currentValue']);
     }
     else if (changes['selectableServiceStepType'] !== undefined) {
       this.processSelectableServiceStepType(changes['selectableServiceStepType']['currentValue'])
@@ -44,10 +44,10 @@ export class ServiceDetailComponent implements OnChanges {
     this.show = false;
   }
 
-  processService(service) {
-    if (service && service.steps) {
-      this.triggerSteps = serviceHelpers.getServiceTriggerSteps(service);
-      this.actionSteps = serviceHelpers.getServiceActionSteps(service);
+  processProvider(provider) {
+    if (provider && provider.steps) {
+      this.triggerSteps = providerHelpers.getProviderTriggerSteps(provider);
+      this.actionSteps = providerHelpers.getProviderActionSteps(provider);
     } else {
       this.triggerSteps = [];
       this.actionSteps = [];

@@ -11,23 +11,23 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AppState } from '../../reducers';
 import { FlowsApiService } from './../services';
-import { ServicesActions } from './../actions';
+import { ProvidersActions } from './../actions';
 
 
 @Injectable()
-export class ServicesEffects {
+export class ProvidersEffects {
   constructor(
     private actions$: Actions,
     private api: FlowsApiService,
     private store$: Store<AppState>,
-    private servicesActions: ServicesActions
+    private providersActions: ProvidersActions
   ) {}
 
   @Effect()
   loadFlow$ = this.actions$
-    .ofType(ServicesActions.LOAD_SERVICES)
-    .switchMap(({payload}) => this.api.fetchServices()
-      .map(data => this.servicesActions.fetchServicesFulfilled(data))
-      .catch(error => Observable.of(this.servicesActions.fetchServicesFailed(error)))
+    .ofType(ProvidersActions.LOAD_PROVIDERS)
+    .switchMap(({payload}) => this.api.fetchProviders()
+      .map(data => this.providersActions.fetchProvidersFulfilled(data))
+      .catch(error => Observable.of(this.providersActions.fetchProvidersFailed(error)))
     );
 }

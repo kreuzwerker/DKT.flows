@@ -1,15 +1,15 @@
-import { Service, ServiceStep } from './';
+import { Provider, ServiceStep } from './';
 
 export class Step {
   id: string;
   position: number;
-  service?: Service;
+  provider?: Provider;
   serviceStep?: ServiceStep;
 }
 
 export class StepData {
   id: string;
   position: number;
-  service?: Service;
+  provider?: Provider;
   serviceStep?: ServiceStep;
 }

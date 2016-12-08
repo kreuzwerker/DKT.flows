@@ -3,8 +3,8 @@ import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Http, Request, RequestMethod, RequestOptions, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { API_FLOWS_URL, API_SERVICES_URL } from './../constants';
-import { FlowData, StepData, Service } from './../models';
+import { API_FLOWS_URL, API_PROVIDERS_URL } from './../constants';
+import { FlowData, StepData, Provider } from './../models';
 
 @Injectable()
 export class FlowsApiService {
@@ -23,8 +23,8 @@ export class FlowsApiService {
     return this.patch(`${API_FLOWS_URL}/${flowId}/steps/${stepId}`, data);
   }
 
-  fetchServices(): Observable<Service[]> {
-    return this.get(`${API_SERVICES_URL}`);
+  fetchProviders(): Observable<Provider[]> {
+    return this.get(`${API_PROVIDERS_URL}`);
   }
 
   private get(url: string): Observable<any> {

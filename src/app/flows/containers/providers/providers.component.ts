@@ -2,54 +2,54 @@ import { Subject } from 'rxjs/Subject';
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material'
 
-import { Service, ServiceStep, ServiceStepType } from './../../models';
-import * as serviceHelpers from './../../utils/service.helpers';
+import { Provider, ServiceStep, ServiceStepType } from './../../models';
+import * as providerHelpers from './../../utils/provider.helpers';
 import * as serviceStepHelpers from './../../utils/service-step.helpers';
-import { ServiceDetailComponent } from './../../components/service-detail/service-detail.component';
+import { ProviderDetailComponent } from './../../components/provider-detail/provider-detail.component';
 import { FlowsStateService } from './../../services';
 
 @Component({
-  selector: 'dkt-services',
-  templateUrl: 'services.component.html',
-  styleUrls: ['services.component.css'],
+  selector: 'dkt-providers',
+  templateUrl: 'providers.component.html',
+  styleUrls: ['providers.component.css'],
   providers: [MdSnackBar]
 })
 
-export class ServicesComponent implements OnInit, OnDestroy {
+export class ProvidersComponent implements OnInit, OnDestroy {
   @Input() selectableServiceStepType: ServiceStepType;
   @Output() onChangeServiceStep = new EventEmitter();
 
   ngOnDestroy$ = new Subject<boolean>();
-  services: Array<Service>;
-  selectedService: Service;
+  providers: Array<Provider>;
+  selectedProvider: Provider;
   selectedServiceStep: ServiceStep | null;
 
-  @ViewChild(ServiceDetailComponent) serviceDetail: ServiceDetailComponent;
+  @ViewChild(ProviderDetailComponent) serviceDetail: ProviderDetailComponent;
 
   constructor(
     public state: FlowsStateService,
     public snackBar: MdSnackBar
   ) {
-    this.selectedService = null;
+    this.selectedProvider = null;
     this.selectedServiceStep = null;
   }
 
   ngOnInit() {
-    // Load all services
-    this.state.loadServices();
-    this.state.services$.takeUntil(this.ngOnDestroy$).subscribe((services) => {
-        this.services = services;
+    // Load all providers
+    this.state.loadProviders();
+    this.state.providers$.takeUntil(this.ngOnDestroy$).subscribe((providers) => {
+        this.providers = providers;
       });
 
-    // Subscribe to current selected service
-    this.state.service$.takeUntil(this.ngOnDestroy$).subscribe((service) => {
-        this.selectedService = service;
+    // Subscribe to current selected provider
+    this.state.provider$.takeUntil(this.ngOnDestroy$).subscribe((provider) => {
+        this.selectedProvider = provider;
 
-        if (service) {
+        if (provider) {
           // Upon selecting a service:
           // Preselect the first service step if no service step is currently selected
           if (this.selectedServiceStep === null) {
-            this.selectFirstServiceStep(service, this.selectableServiceStepType);
+            this.selectFirstServiceStep(provider, this.selectableServiceStepType);
           }
 
           this.serviceDetail.open();
@@ -75,8 +75,8 @@ export class ServicesComponent implements OnInit, OnDestroy {
     this.ngOnDestroy$.next(true);
   }
 
-  selectService(service: Service) {
-    this.state.selectService(service);
+  selectProvider(provider: Provider) {
+    this.state.selectProvider(provider);
   }
 
   selectServiceStep(serviceStep: ServiceStep): boolean {
@@ -88,12 +88,12 @@ export class ServicesComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    this.state.setStepServiceStep(this.selectedService, serviceStep);
+    this.state.setStepServiceStep(this.selectedProvider, serviceStep);
     return true;
   }
 
-  selectFirstServiceStep(service: Service, type: ServiceStepType = ServiceStepType.Action): void {
-    let triggerSteps = serviceHelpers.getServiceStepsByType(service, type);
+  selectFirstServiceStep(provider: Provider, type: ServiceStepType = ServiceStepType.Action): void {
+    let triggerSteps = providerHelpers.getProviderStepsByType(provider, type);
     if (triggerSteps.length) {
       this.selectServiceStep(triggerSteps[0]);
     }
@@ -105,7 +105,7 @@ export class ServicesComponent implements OnInit, OnDestroy {
    * 
    * @param {ServiceStep} serviceStep
    * 
-   * @memberOf ServicesComponent
+   * @memberOf ProvidersComponent
    */
   changeServiceStep(serviceStep: ServiceStep): void {
     if (this.selectServiceStep(serviceStep)) {

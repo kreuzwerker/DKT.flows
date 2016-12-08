@@ -38,10 +38,10 @@ export class FlowStepItemComponent implements OnInit {
     this.options = this.getStepOptions(this.step, this.currentActive, basePath);
 
     if (stepHelpers.stepHasService(this.step)) {
-      let service = this.step.service;
+      let provider = this.step.provider;
       let serviceStep = this.step.serviceStep;
-      this.headerIcon = service.icon;
-      this.headerTitle = `${service.name}: ${serviceStep.name}`;
+      this.headerIcon = provider.icon;
+      this.headerTitle = `${provider.name}: ${serviceStep.name}`;
     } else {
       this.headerIcon = 'settings';
       this.headerTitle = 'Set up this step';
