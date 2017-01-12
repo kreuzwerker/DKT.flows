@@ -171,8 +171,7 @@ module.exports = {
       HMR: false,
       PORT: 3000,
       HOST: JSON.stringify('localhost'),
-      STORE_DEV_TOOLS: JSON.stringify(STORE_DEV_TOOLS),
-      UNIVERSAL: false
+      STORE_DEV_TOOLS: JSON.stringify(STORE_DEV_TOOLS)
     }),
     new NamedModulesPlugin(),
     new webpack.LoaderOptionsPlugin({

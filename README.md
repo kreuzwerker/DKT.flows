@@ -11,26 +11,26 @@ DKT flows
 
 # Complete starter seed project for Angular 2
 
-## Material Branch with Universal (Server-side rendering) support
+## Material Branch without Universal (Server-side rendering) support
 
-> Featuring Material Design 2, Webpack 2 (and Webpack DLL plugin for faster dev builds), HMR (Hot Module Replacement), @ngrx for state management and optional server-side rendering with Universal.
+> Featuring Material Design 2, Webpack 2(and Webpack DLL plugin for faster dev builds), HMR (Hot Module Replacement), and @ngrx for state management.
 
 ###### You can use npm, but it's recommended to use yarn as it installs a lot faster and has other benefits https://yarnpkg.com/ . Make sure you are using yarn version 0.16.0 or newer (check with 'yarn --version')
 
 ```bash
-git clone https://github.com/qdouble/angular-webpack2-starter.git
+git clone -b no-universal-support https://github.com/qdouble/angular-webpack2-starter.git
 cd angular-webpack2-starter
 yarn
 yarn start
 ```
 
-### [Material Branch without Universal (Server-side rendering) support](https://github.com/qdouble/angular-webpack2-starter/tree/no-universal-support)
-
-### [Bootstrap Branch](https://github.com/qdouble/angular-webpack2-starter/tree/bootstrap)
+### [Material Branch with Universal (Server-side rendering) support](https://github.com/qdouble/angular-webpack2-starter)
 
 ### [Bootstrap and Universal Branch](https://github.com/qdouble/angular-webpack2-starter/tree/bootstrap-and-universal)
 
 ### [Minimal Branch](https://github.com/qdouble/angular-webpack2-starter/tree/minimal)
+
+### [Bootstrap Branch](https://github.com/qdouble/angular-webpack2-starter/tree/bootstrap)
 
 ## Features
 
@@ -45,7 +45,6 @@ yarn start
 * TypeScript 2
   * @types
 * Material Design 2
-* Universal (Server-side Rendering)
 * @ngrx
   * store (RxJS powered state management for Angular2 apps, inspired by Redux)
   * effects (Side effect model for @ngrx/store)
@@ -71,9 +70,6 @@ Use `yarn run start:hmr` to run dev server in HMR mode.
 Use `yarn run build` for production build.
 
 Use `yarn run server:prod` for production server and production watch. Default production port is `8088`.
-
-Use `yarn run universal` to run production build in Universal. To run and build universal in AOT mode, use
-`yarn run universal:aot`. Default universal port is `8000`.
 
 Default ports and option to use proxy backend for dev server can be changed in `constants.js` file.
 
@@ -125,4 +121,4 @@ For e2e tests, use `yarn run e2e`. To run unit test and e2e test at the same tim
 
 ### License
 
-[MIT](https://github.com/qdouble/angular-webpack2-starter/blob/master/LICENSE)
+[MIT](https://github.com/qdouble/angular-webpack2-starter/blob/no-universal-support/LICENSE)
