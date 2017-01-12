@@ -7,5 +7,5 @@ import { Flow } from './../../models/flow.model';
   styleUrls: ['flow-header.component.css']
 })
 export class FlowHeaderComponent {
-  @Input() flow: Flow
+  @Input() flow: Flow;
 }

@@ -14,7 +14,7 @@ export class FlowStepItemOption {
   templateUrl: 'flow-step-item.component.html',
   styleUrls: ['flow-step-item.component.css'],
 })
-export class FlowStepItemComponent implements OnInit {
+export class FlowStepItemComponent implements OnInit, OnChanges {
   @Input() flow: Flow;
   @Input() step: Step;
   @Input() currentActive: string;
@@ -29,7 +29,7 @@ export class FlowStepItemComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['step'] !== undefined || changes['currentActive'] !== undefined) {
-      this.render()
+      this.render();
     }
   }
 
@@ -53,36 +53,44 @@ export class FlowStepItemComponent implements OnInit {
     currentActive: string,
     basePath: string
   ): FlowStepItemOption[] {
-    var options = [],
-        typeName = stepHelpers.getStepServiceTypeName(step)
+    let options = [],
+        typeName = stepHelpers.getStepServiceTypeName(step);
 
     // Select service step:
-    var option: FlowStepItemOption = { title: 'Select ' + typeName, icon: 'flash_on', link: basePath + 'select-service' };
+    let selectOption: FlowStepItemOption = {
+      title: 'Select ' + typeName,
+      icon: 'flash_on',
+      link: basePath + 'select-service'
+    };
     // Active?
-    option.classes = (currentActive == 'select') ? ['active']: [];
-    options.push(option);
-  
+    selectOption.classes = (currentActive === 'select') ? ['active'] : [];
+    options.push(selectOption);
+
     // Configure step:
-    var option: FlowStepItemOption = { title: 'Configure ' + typeName };
+    let configureOption: FlowStepItemOption = { title: 'Configure ' + typeName };
     // Active?
-    option.classes = (currentActive == 'configure') ? ['active']: [];
+    configureOption.classes = (currentActive === 'configure') ? ['active'] : [];
     // Locked?
-    var locked = !stepHelpers.stepHasService(step) || !stepHelpers.stepIsConfigured(step);
-    option.icon    = locked ? 'lock': 'settings';
-    option.classes = locked ? option.classes.concat(['locked']): option.classes;
-    option.link    = locked ? basePath + 'configure' : null;
-    options.push(option);
-  
+    let conigureLocked = !stepHelpers.stepHasService(step) || !stepHelpers.stepIsConfigured(step);
+    configureOption.icon    = conigureLocked ? 'lock' : 'settings';
+    configureOption.classes = conigureLocked ?
+      configureOption.classes.concat(['locked']) :
+      configureOption.classes;
+    configureOption.link    = conigureLocked ? basePath + 'configure' : null;
+    options.push(configureOption);
+
     // Test step:
-    var option: FlowStepItemOption = { title: 'Test ' + typeName};
+    let testOption: FlowStepItemOption = { title: 'Test ' + typeName};
     // Active?
-    option.classes = (currentActive == 'test') ? ['active']: [];
+    testOption.classes = (currentActive === 'test') ? ['active'] : [];
     // Locked?
-    var locked = (!stepHelpers.stepHasService(step) || !stepHelpers.stepIsConfigured(step) || !stepHelpers.stepIsTested(step));
-    option.icon    = locked ? 'lock': 'check';
-    option.classes = locked ? option.classes.concat(['locked']): option.classes;
-    option.link    = locked ? basePath + 'test' : null;
-    options.push(option);
+    let testLocked = (!stepHelpers.stepHasService(step) ||
+      !stepHelpers.stepIsConfigured(step) ||
+      !stepHelpers.stepIsTested(step));
+    testOption.icon    = testLocked ? 'lock' : 'check';
+    testOption.classes = testLocked ? testOption.classes.concat(['locked']) : testOption.classes;
+    testOption.link    = testLocked ? basePath + 'test' : null;
+    options.push(testOption);
 
     return options;
   }

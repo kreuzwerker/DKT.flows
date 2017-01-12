@@ -2,8 +2,8 @@ import { Subject } from 'rxjs/Subject';
 import { Component, OnDestroy } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
-import { FlowsAppService, FlowsStateService } from './../../services'
-import { Service, ServiceType } from './../../models'
+import { FlowsAppService, FlowsStateService } from './../../services';
+import { Service, ServiceType } from './../../models';
 
 @Component({
   selector: 'dkt-select-service',
@@ -38,11 +38,11 @@ export class SelectServiceComponent implements OnDestroy {
     // Current selected step
     this.state.step$.takeUntil(this.ngOnDestroy$).subscribe((step) => {
       this.selectedService = (step && step.service !== undefined)
-        ? step.service 
+        ? step.service
         : null;
 
       // Allow 'trigger' providers steps only at the beginning of a flow
-      this.selectableServiceType = (step && step.position === 0) 
+      this.selectableServiceType = (step && step.position === 0)
         ? ServiceType.Trigger
         : ServiceType.Action;
     });

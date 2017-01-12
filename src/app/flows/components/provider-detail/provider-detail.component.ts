@@ -30,9 +30,8 @@ export class ProviderDetailComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['provider'] !== undefined) {
       this.processProvider(changes['provider']['currentValue']);
-    }
-    else if (changes['selectableServiceType'] !== undefined) {
-      this.processSelectableServiceType(changes['selectableServiceType']['currentValue'])
+    } else if (changes['selectableServiceType'] !== undefined) {
+      this.processSelectableServiceType(changes['selectableServiceType']['currentValue']);
     }
   }
 
@@ -55,7 +54,7 @@ export class ProviderDetailComponent implements OnChanges {
   }
 
   processSelectableServiceType(type) {
-    this.selectedTabIndex = type == ServiceType.Trigger ? 0 : 1;
+    this.selectedTabIndex = type === ServiceType.Trigger ? 0 : 1;
   }
 
   selectService(service) {

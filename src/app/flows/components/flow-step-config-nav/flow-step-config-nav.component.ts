@@ -19,15 +19,16 @@ export class FlowStepConfigNavComponent {
     }
   }
 
-  getStepIconType(step:string): string {
-    switch (step) {
-      case 'select':
-        return this.current === 'select' ? 'number' : 'check'; 
-      case 'configure':
-        if (this.current === 'select' || this.current === 'configure') return 'number';
-        else return 'check';
-      case 'test':
-        return 'number'; 
+  getStepIconType(step: string): string {
+    if (step === 'select') {
+      return this.current === 'select' ? 'number' : 'check';
+    } else if (step === 'configure') {
+      if (this.current === 'select' || this.current === 'configure') return 'number';
+      else return 'check';
+    } else if (step === 'test') {
+      return 'number';
+    } else {
+      return 'undefined';
     }
   }
 }

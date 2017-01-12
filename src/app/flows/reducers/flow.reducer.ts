@@ -14,8 +14,8 @@ export interface FlowState {
 };
 
 const initialState: FlowState = {
-  flow: { 
-    id: "0",
+  flow: {
+    id: '0',
     name: '',
     description: '',
     steps: [],
@@ -81,16 +81,16 @@ export function flowReducer(state = initialState, action: Action): FlowState {
   }
 }
 
-export function isLoadingFlow(): Selector<AppState,Boolean> {
+export function isLoadingFlow(): Selector<AppState, Boolean> {
   return state$ => state$
     .map(state => state.flow.loading)
     .distinctUntilChanged();
 }
 
-export function getCurrentFlow(): Selector<AppState,Flow> {
+export function getCurrentFlow(): Selector<AppState, Flow> {
   return state$ => state$
     .map((state) => {
-      return state.flow.flow
+      return state.flow.flow;
     })
     .distinctUntilChanged();
 }

@@ -57,27 +57,27 @@ export function providersReducer(state = initialState, action: Action): Provider
   }
 }
 
-export function isLoadingProviders(): Selector<AppState,Boolean> {
+export function isLoadingProviders(): Selector<AppState, Boolean> {
   return state$ => state$
     .map(state => state.providers.loading)
     .distinctUntilChanged();
 }
 
-export function getProviders(): Selector<AppState,Provider[]> {
+export function getProviders(): Selector<AppState, Provider[]> {
   return state$ => state$
     .map(state => state.providers.providers)
     .distinctUntilChanged();
 }
 
-export function getCurrentProvider(): Selector<AppState,Provider> {
+export function getCurrentProvider(): Selector<AppState, Provider> {
   // See http://stackoverflow.com/questions/40720535/get-the-current-selected-item-or-null-from-item-list
   // 
   return state$ => state$
     .let(getProviders())
     .map((providers) => {
-      let selectedProviders = providers.filter(provider => provider.selected)
+      let selectedProviders = providers.filter(provider => provider.selected);
       return selectedProviders.length ? selectedProviders : [null];
     })
     .flatMap(provider => provider)
-    .distinctUntilChanged()
+    .distinctUntilChanged();
 }

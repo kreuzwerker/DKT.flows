@@ -26,13 +26,13 @@ import { ProviderIconComponent } from './components/provider-icon/provider-icon.
 import { ServiceItemComponent } from './components/service-item/service-item.component';
 
 // Services
-import { FlowsApiService, FlowsAppService, FlowsStateService } from './services'
+import { FlowsApiService, FlowsAppService, FlowsStateService } from './services';
 
 // Actions
 import { FlowActions, StepActions, ProvidersActions } from './actions';
 
 // Effects
-import { FlowEffects, StepEffects, ProvidersEffects } from './effects'
+import { FlowEffects, StepEffects, ProvidersEffects } from './effects';
 
 const routes: Routes = [
   { path: 'flows/:flowId', component: FlowsAppComponent,
@@ -41,7 +41,7 @@ const routes: Routes = [
       { path: 'steps/:stepId/select-service', component: SelectServiceComponent },
       { path: 'steps/:stepId/configure', component: ConfigureStepComponent },
       { path: 'steps/:stepId/test', component: TestStepComponent }
-    ] 
+    ]
   }
 ];
 

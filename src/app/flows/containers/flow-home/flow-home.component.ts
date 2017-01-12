@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { FlowsAppService } from './../../services'
+import { FlowsAppService } from './../../services';
 
 @Component({
   selector: 'flow-home',

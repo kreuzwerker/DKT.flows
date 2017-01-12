@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { Action } from '@ngrx/store';
 
-import { Provider } from './../models'
+import { Provider } from './../models';
 
 @Injectable()
 export class ProvidersActions {

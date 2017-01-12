@@ -23,6 +23,7 @@ export class StepEffects {
     private stepActions: StepActions
   ) {}
 
+  // tslint:disable-next-line:member-ordering
   @Effect()
   saveStep$ = this.actions$
     .ofType(StepActions.SAVE_STEP)

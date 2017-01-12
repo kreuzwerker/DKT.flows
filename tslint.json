@@ -1,6 +1,7 @@
 {
   "rulesDirectory": [
-    "node_modules/codelyzer"
+    "node_modules/codelyzer",
+    "node_modules/tslint-eslint-rules/dist/rules"
   ],
   "rules": {
     "member-access": false,
@@ -72,9 +73,17 @@
       true,
       "spaces"
     ],
-    "max-line-length": [
+    // NB replaces tslint max-line-length which doesn't any ignore options
+    // @see https://github.com/buzinas/tslint-eslint-rules/blob/master/src/docs/rules/terMaxLenRule.md
+    "ter-max-len": [
       true,
-      100
+      {
+        "code": 100,
+        "tabWidth": 2,
+        "ignoreImports": true,
+        "ignoreUrls": true,
+        "ignorePattern": "^\\s*(let|const)\\s.+=\\s*require\\s*\\("
+      }
     ],
     "no-require-imports": false,
     "no-trailing-whitespace": true,

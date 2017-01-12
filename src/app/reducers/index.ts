@@ -13,7 +13,7 @@ const modules = {
 
 import { FlowState, flowReducer, StepState, stepReducer, ProvidersState, providersReducer } from '../flows/reducers';
 
-export interface Selector<T,V> {
+export interface Selector<T, V> {
   (observable$: Observable<T>): Observable<V>;
 }
 

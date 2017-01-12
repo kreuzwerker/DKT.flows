@@ -6,8 +6,8 @@ import { FlowsAppService, FlowsStateService } from './../../services';
 import { Step } from './../../models';
 
 @Component({
-	templateUrl: 'flows-app.component.html',
-	styleUrls: ['flows-app.component.css']
+  templateUrl: 'flows-app.component.html',
+  styleUrls: ['flows-app.component.css']
 })
 export class FlowsAppComponent implements OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
@@ -19,14 +19,14 @@ export class FlowsAppComponent implements OnDestroy {
     public router: Router,
     public state: FlowsStateService
   ) {
-    this.onFlowRouteChange()
-    this.onStepRouteChange()
+    this.onFlowRouteChange();
+    this.onStepRouteChange();
 
     // Current selected flow
     this.state.flow$.takeUntil(this.ngOnDestroy$).subscribe((flow) => {
-      this.flowsApp.flow = flow
-      this.flowsApp.steps = flow.steps
-      this.selectRequestedStep()
+      this.flowsApp.flow = flow;
+      this.flowsApp.steps = flow.steps;
+      this.selectRequestedStep();
     });
 
     // Current selected step
@@ -74,12 +74,13 @@ export class FlowsAppComponent implements OnDestroy {
       return;
     }
 
+    let requestedStep;
     if (this.requestedStepId !== null) {
       // Find requested step
-      var requestedStep = this.flowsApp.steps.find(step => step.id === this.requestedStepId);
+      requestedStep = this.flowsApp.steps.find(step => step.id === this.requestedStepId);
     } else {
       // Fall back to first step by default
-      var requestedStep = this.flowsApp.flow.steps[0];
+      requestedStep = this.flowsApp.flow.steps[0];
     }
 
     if (requestedStep) {
@@ -92,6 +93,8 @@ export class FlowsAppComponent implements OnDestroy {
   */
 
   getCurrentActiveStepOption (step: Step): string {
-    return (step && this.flowsApp.step && step.id === this.flowsApp.step.id) ? this.flowsApp.stepStage : '';
+    return (step && this.flowsApp.step && step.id === this.flowsApp.step.id) ?
+      this.flowsApp.stepStage :
+      '';
   }
 }

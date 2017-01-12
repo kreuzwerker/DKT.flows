@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs/Subject';
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { MdSnackBar, MdSnackBarConfig } from '@angular/material'
+import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 import { Provider, Service, ServiceType } from './../../models';
 import * as providerHelpers from './../../utils/provider.helpers';
@@ -53,8 +53,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
           }
 
           this.serviceDetail.open();
-        }
-        else {
+        } else {
           this.serviceDetail.close();
         }
       },

@@ -74,6 +74,6 @@ export class FlowsStateService {
   selectProvider(provider: Provider): void {
     this.store$.dispatch(
       this.providersActions.selectProvider(provider)
-    );    
+    );
   }
 }

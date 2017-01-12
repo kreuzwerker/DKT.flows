@@ -23,6 +23,7 @@ export class FlowEffects {
     private flowActions: FlowActions
   ) {}
 
+  // tslint:disable-next-line:member-ordering
   @Effect()
   loadFlow$ = this.actions$
     .ofType(FlowActions.LOAD_FLOW)

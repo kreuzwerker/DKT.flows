@@ -12,8 +12,8 @@ export interface StepState {
 };
 
 const initialState: StepState = {
-  step: { 
-    id: "0",
+  step: {
+    id: '0',
     position: 0,
     service: null
   },
@@ -31,11 +31,11 @@ export function stepReducer(state = initialState, action: Action): StepState {
     }
 
     case StepActions.SET_STEP_SERVICE_STEP: {
-      return Object.assign({}, state, { 
+      return Object.assign({}, state, {
         step: Object.assign({}, state.step, {
           provider: action.payload.provider,
           service: action.payload.service
-        }) 
+        })
       });
     }
 
@@ -68,7 +68,7 @@ export function stepReducer(state = initialState, action: Action): StepState {
   }
 }
 
-export function getCurrentStep(): Selector<AppState,Step> {
+export function getCurrentStep(): Selector<AppState, Step> {
   return state$ => state$
     .map(state => state.step.step)
     .distinctUntilChanged();

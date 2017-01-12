@@ -23,6 +23,7 @@ export class ProvidersEffects {
     private providersActions: ProvidersActions
   ) {}
 
+  // tslint:disable-next-line:member-ordering
   @Effect()
   loadFlow$ = this.actions$
     .ofType(ProvidersActions.LOAD_PROVIDERS)

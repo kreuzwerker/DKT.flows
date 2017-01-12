@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Flow, Step } from './../models'
+import { Flow, Step } from './../models';
 import { FlowsStateService } from './';
 import * as stepHelpers from './../utils/step.helpers';
 
@@ -12,6 +12,9 @@ export class FlowsAppService {
   // Current selected step
   step: Step = null;
   stepTypeName: string = null;
+  // Current step preparation stage: select, configure, test
+  // Gets set by child component, e.g. FlowHome, SelectService etc.
+  stepStage = null;
 
   constructor(public state: FlowsStateService) {}
 
@@ -23,10 +26,6 @@ export class FlowsAppService {
   /*
     Step preparation stage
   */
-
-  // Current step preparation stage: select, configure, test
-  // Gets set by child component, e.g. FlowHome, SelectService etc.
-  stepStage = null;
 
   setStepStage(stage: string): void {
     this.stepStage = stage;
@@ -49,10 +48,10 @@ export class FlowsAppService {
   */
 
   flowPath(): string {
-    return `/flows/${this.flow.id}`
+    return `/flows/${this.flow.id}`;
   }
 
   flowStepPath(): string {
-    return `${this.flowPath()}/steps/${this.step.id}`
+    return `${this.flowPath()}/steps/${this.step.id}`;
   }
 }
