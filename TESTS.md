@@ -4,31 +4,61 @@ Unit Tests
 Containers
 ----------
 
-The flows app
+FlowsAppComponent
 - should load the flow data for the current flow ID in the route
 - should select the requested step from the current step ID in the route
 - should select the first flow step if there is no current step ID in the route
-- should by default show FlowHome
+- should show FlowHome by default
 - should list all flow steps
 
-Select service step view
-- should load all available providers
-- on select service / step has a service selected:
+FlowsHomeComponent
+- init:
+  - should set step stage to null
+
+SelectServiceComponent
+- init:
+  - should set step stage to "select"
+- on select service OR flow step has a service selected:
   - should show current selected service in right sidebar
   - should show the flow step config navigation
 - step has no service selected:
   - should hide right sidebar
 
+ConfigureStepComponent
+- init:
+  - should set step stage to "configure"
+
+TestServiceComponent
+- init:
+  - should set step stage to "test"
+
+ProvidersComponent
+- init:
+  - should load all available providers
+- on select provider:
+  - set current selected provider
+  - select service
+  - open/close service detail
 
 Components
 ----------
 
-A flow steps list item
+FlowHeaderComponent (no specs)
+
+FlowStepConfigNav
+- Cancel button click should unselect the current flow step
+- Continue button click should redirect to 'configure' stage for current step
+
+FlowStepItemComponent
 - should list the available options for the given step
   => test option states: active, locked
 - I can select a service step
 
-Select service step dialog
+FlowStepNavButtons
+- back(): should call router with given backPath
+- continue(): should call router with given backPath
+
+ProviderDetailComponent
 - should display the service icon, name and description
 - step is the first flow step
   - the 'Trigger' tab should be preselected
@@ -42,19 +72,43 @@ Select service step dialog
   - the step's service step should be selected
 - I can close the dialog
 
-Flow config navigation
-- Cancel button click should unselect the current flow step
-- Continue button click should redirect to 'configure' stage for current step
+ProviderIcon (no specs)
 
+ProviderItem
+- select(): should emit event
+
+ServiceItem (no specs)
+
+LoadingIndicator (no specs)
 
 Services
 --------
 
 FlowsAppService
-
 FlowsStateService
-
 FlowsApiService
 
-Actions / Reducers
-------------------
+Utility Helpers
+---------------
+
+Provider
+Service
+Step
+
+Actions
+-------
+
+FlowActions
+StepActions
+ProviderReducer
+
+Reducers
+--------
+
+flowReducer
+stepReducer
+providersReducer
+
+Selectors
+---------
+
