@@ -33,6 +33,7 @@ beforeEach(() => {
           return {
             pass: actual.classList.contains(className) === !isNot,
             get message() {
+              // tslint:disable-next-line:ter-max-len
               return `Expected ${actual.outerHTML} ${isNot ? 'not ' : ''}to contain the CSS class "${className}"`;
             }
           };

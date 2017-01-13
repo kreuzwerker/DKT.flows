@@ -199,5 +199,11 @@ module.exports = {
     module: false,
     clearImmediate: false,
     setImmediate: false
+  },
+
+  // Turn off warning "Entrypoint size exceess the recommended limit"
+  // See https://github.com/webpack/webpack/issues/3486
+  performance: {
+    hints: false
   }
 };
