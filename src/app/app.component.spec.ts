@@ -21,7 +21,7 @@ describe('App Component', () => {
         ReactiveFormsModule,
         RouterTestingModule.withRoutes(routes),
         StoreDevToolsModule
-        ],
+      ],
       providers: [],
       declarations: [AppComponent, DashboardComponent, NotFound404Component]
     });
