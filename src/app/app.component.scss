@@ -3,11 +3,16 @@
     content: none;
 }
 
-#app-body {
-  min-height: 100%;
-  height:100%;
-}
+#app {
+  height: 100%;
 
-#app-toolbar {
-  background-color: rgb(39, 49, 65);
+  .md-sidenav-content {
+    // Make the content stretch to full height
+    display:flex;
+    flex-direction:column;
+  }
+
+  #app-toolbar {
+    background-color: rgb(39, 49, 65);
+  }
 }

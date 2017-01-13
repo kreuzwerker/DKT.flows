@@ -1,4 +1,4 @@
-<md-sidenav-layout fullscreen>
+<md-sidenav-container id="app" fxLayout="column" fxLayoutAlign="start stretch">
   <md-sidenav [opened]="showSidebar" #sidenav [mode]="sideNavMode">
     <md-nav-list>
       <template ngFor let-view [ngForOf]="views" let-even="even" let-odd="odd" let-rowIndex="index">
@@ -10,6 +10,7 @@
       </template>
     </md-nav-list>
   </md-sidenav>
+
   <md-toolbar color="primary" id="app-toolbar">
     <button md-icon-button (click)="sidenav.toggle()">
       <md-icon>menu</md-icon>
@@ -19,10 +20,10 @@
       <a routerLink="/flows/1" style="color:#999;">First flow</a> | 
       <a routerLink="/flows/2" style="color:#999;">Second flow</a>
     </div>
-
   </md-toolbar>
-<div id="app-body">
-  <router-outlet (activate)="activateEvent($event)" (deactivate)="deactivateEvent($event)"></router-outlet>
-</div>
-</md-sidenav-layout>
+
+  <div id="app-body" fxFlex>
+    <router-outlet (activate)="activateEvent($event)" (deactivate)="deactivateEvent($event)"></router-outlet>
+  </div>
+</md-sidenav-container>
 <my-store-devtools *ngIf="showMonitor"></my-store-devtools>

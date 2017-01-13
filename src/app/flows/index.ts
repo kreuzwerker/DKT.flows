@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { Routes, RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -67,6 +68,7 @@ const routes: Routes = [
     CoreModule,
     RouterModule.forChild(routes),
     MaterialModule.forRoot(),
+    FlexLayoutModule.forRoot(),
     EffectsModule.run(FlowEffects),
     EffectsModule.run(StepEffects),
     EffectsModule.run(ProvidersEffects),

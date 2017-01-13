@@ -1,5 +1,5 @@
-<div class="layout full-height" layout="row" layout-align="left center">
-  <div class="left border-right" layout="column" layout-padding>
+<div class="layout full-height" fxLayout="row" fxLayoutAlign="start start">
+  <div class="left border-right padding" fxLayout="column">
     <dkt-loading-indicator *ngIf="state.isLoadingFlow$ | async" text="Loading flow"></dkt-loading-indicator>
     <dkt-flow-header [flow]="state.flow$ | async"></dkt-flow-header>
 
@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div class="main" flex>
+  <div class="main" fxFlex>
     <router-outlet></router-outlet>
   </div>
 </div>

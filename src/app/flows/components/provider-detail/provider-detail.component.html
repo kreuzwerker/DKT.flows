@@ -4,9 +4,9 @@
   <md-icon class="close" (click)="close()">close</md-icon>
 
   <div class="header" *ngIf="provider">
-    <div layout="row" layout-align="start center">
+    <div fxLayout="row" fxLayoutAlign="start center">
       <dkt-provider-icon icon="{{provider.icon}}"></dkt-provider-icon>
-      <div class="headlines" layout="column">
+      <div class="headlines" fxLayout="column">
         <p class="name">{{provider.name}}</p>
         <p class="group">{{provider.group}}</p>
       </div>

@@ -1,13 +1,13 @@
 <md-card class="flow-step-item">
   <md-card-content>
     <div class="header">
-      <div layout="row" layout-align="start center">
+      <div fxLayout="row" fxLayoutAlign="start center">
         <md-icon>{{headerIcon}}</md-icon>
         <h6>{{headerTitle}}</h6>
       </div>
     </div>
     <ul class="options">
-      <li *ngFor="let option of options" [ngClass]="option.classes" layout="row" layout-align="start center">
+      <li *ngFor="let option of options" [ngClass]="option.classes" fxLayout="row" fxLayoutAlign="start center">
         <md-icon>{{option.icon}}</md-icon>
         <p>
           <a *ngIf="option.link" [routerLink]="option.link" routerLinkActive="active-link">{{option.title}}</a>

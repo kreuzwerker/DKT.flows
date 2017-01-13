@@ -1,5 +1,5 @@
-<div class="full-height" layout="row">
-  <div class="left border-right" layout="column" flex>
+<div class="full-height" fxLayout="row">
+  <div class="left border-right" fxLayout="column" fxFlex>
     <div class="col-header"></div>
 
     <dkt-providers [selectableServiceType]="selectableServiceType" (onChangeService)="flowsApp.saveFlowStep()"></dkt-providers>
@@ -8,9 +8,9 @@
   <div class="right" 
     *ngIf="selectedService"
     [@flyInOut]="selectedService"
-    layout="column">
+    fxLayout="column">
     <dkt-flow-step-config-nav [type]="flowsApp.stepTypeName" [current]="'select'" class="col-header"></dkt-flow-step-config-nav>
-    <div layout-padding>
+    <div class="padding">
       <div class="selected-service-step">
         <dkt-service-item [service]="selectedService"></dkt-service-item>
       </div>
