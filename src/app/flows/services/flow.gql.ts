@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const flowQuery = gql`
+export const getFlow = gql`
   query FlowQuery($id: ID) {
     Flow(id: $id) {
       id,
@@ -19,6 +19,34 @@ export const flowQuery = gql`
             name,
             icon
           }
+        }
+      }
+    }
+  }
+`
+
+export const updateStep = gql`
+  mutation StepMutation(
+    $id: ID!,
+    $position: Int!,
+    $serviceId: ID!,
+  ) {
+    updateStep(
+      id: $id,
+      position: $position,
+      serviceId: $serviceId
+    ) {
+      id,
+      position,
+      service {
+        id,
+        type,
+        name,
+        description
+        provider {
+          id,
+          name,
+          icon
         }
       }
     }

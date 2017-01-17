@@ -14,7 +14,7 @@ import * as state from './../reducers';
 import { Flow, FlowData, Step, StepData, Provider, Service } from './../models';
 import { FlowActions, StepActions, ProvidersActions } from './../actions';
 
-import { flowQuery } from './flow.gql';
+import { getFlow, updateStep } from './flow.gql';
 import { providersQuery } from './provider.gql';
 
 @Injectable()
@@ -41,7 +41,7 @@ export class FlowsStateService {
 
     // Fetches flow data reactively when flowId$ changes
     this.flow$ = this.apollo.watchQuery<any>({
-      query: flowQuery,
+      query: getFlow,
       variables: {
         id: this.flowId$
       }
@@ -68,15 +68,24 @@ export class FlowsStateService {
   }
 
   saveFlow(id: string, flow: FlowData): void {
-    this.store$.dispatch(
-      this.flowActions.saveFlow(id, flow)
-    );
+    // this.store$.dispatch(
+    //   this.flowActions.saveFlow(id, flow)
+    // );
   }
 
   saveFlowStep(flowId: string, stepId: string, step: StepData): void {
-    this.store$.dispatch(
-      this.stepActions.saveStep(flowId, stepId, step)
-    );
+    // this.store$.dispatch(
+    //   this.stepActions.saveStep(flowId, stepId, step)
+    // );
+
+    this.apollo.mutate<any>({
+      mutation: updateStep,
+      variables: {
+        id: stepId,
+        position: step.position,
+        serviceId: step.service.id
+      }
+    });
   }
 
   loadProviders(): void {
