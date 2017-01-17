@@ -17,6 +17,9 @@ import { UserEffects } from './user/user.effects';
 
 // --- DKT vendors ---------------------------------------
 
+import { ApolloModule } from 'angular2-apollo';
+import { provideClient } from './apollo-client';
+
 // --- DKT modules ---------------------------------------
 import { CoreModule } from './core';
 import { FlowsModule } from './flows';
@@ -44,6 +47,7 @@ export const APP_IMPORTS = [
   StoreModule.provideStore(rootReducer),
   STORE_DEV_TOOLS_IMPORTS,
   StoreDevToolsModule,
+  ApolloModule.withClient(provideClient),
 
   CoreModule,
   FlowsModule
