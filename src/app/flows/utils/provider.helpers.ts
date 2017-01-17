@@ -5,9 +5,9 @@ export function getProviderStepsByType(provider: Provider, type: ServiceType): S
 }
 
 export function getProviderTriggerSteps(provider: Provider) {
-  return getProviderStepsByType(provider, ServiceType.Trigger);
+  return getProviderStepsByType(provider, ServiceType.TRIGGER);
 }
 
 export function getProviderActionSteps(provider: Provider) {
-  return getProviderStepsByType(provider, ServiceType.Action);
+  return getProviderStepsByType(provider, ServiceType.ACTION);
 }

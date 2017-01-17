@@ -54,7 +54,7 @@ export class ProviderDetailComponent implements OnChanges {
   }
 
   processSelectableServiceType(type) {
-    this.selectedTabIndex = type === ServiceType.Trigger ? 0 : 1;
+    this.selectedTabIndex = type === ServiceType.TRIGGER ? 0 : 1;
   }
 
   selectService(service) {

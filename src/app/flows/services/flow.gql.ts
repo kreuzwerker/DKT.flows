@@ -1,5 +1,15 @@
 import gql from 'graphql-tag';
 
+export const getFlows = gql`
+  query FlowsQuery {
+    allFlows {
+      id
+      name
+      description
+    }
+  }
+`;
+
 export const getFlow = gql`
   query FlowQuery($id: ID) {
     Flow(id: $id) {
@@ -23,7 +33,7 @@ export const getFlow = gql`
       }
     }
   }
-`
+`;
 
 export const updateStep = gql`
   mutation StepMutation(
@@ -51,4 +61,4 @@ export const updateStep = gql`
       }
     }
   }
-`
+`;

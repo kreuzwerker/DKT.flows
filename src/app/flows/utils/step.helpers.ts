@@ -15,11 +15,11 @@ export function stepIsTested(step: Step): boolean {
 }
 
 export function getStepServiceType(step: Step): ServiceType {
-  return step.position === 0 ? ServiceType.Trigger : ServiceType.Action;
+  return step.position === 0 ? ServiceType.TRIGGER : ServiceType.ACTION;
 }
 
 export function getStepServiceTypeName(step: Step): string {
-  return getStepServiceType(step) === ServiceType.Trigger
+  return getStepServiceType(step) === ServiceType.TRIGGER
     ? 'Trigger'
     : 'Action';
 }

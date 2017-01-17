@@ -1,4 +1,4 @@
-import { Provider, } from './';
+import { Provider } from './';
 
 export class Service {
   id: string;
@@ -9,6 +9,6 @@ export class Service {
 }
 
 export class ServiceType {
-  static Trigger = 'TRIGGER';
-  static Action = 'ACTION';
+  static TRIGGER = 'TRIGGER';
+  static ACTION = 'ACTION';
 }

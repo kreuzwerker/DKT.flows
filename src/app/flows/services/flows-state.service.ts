@@ -20,7 +20,7 @@ import { providersQuery } from './provider.gql';
 @Injectable()
 export class FlowsStateService {
   // Current loaded flow
-  flowId$:Subject<string> = new Subject<string>();
+  flowId$: Subject<string> = new Subject<string>();
   flow$: Observable<Flow>;
   isLoadingFlow$: Observable<Boolean>;
   // Current editing step
