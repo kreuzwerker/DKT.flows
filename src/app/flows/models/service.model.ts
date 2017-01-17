@@ -8,7 +8,7 @@ export class Service {
   provider: Provider;
 }
 
-export enum ServiceType {
-  Trigger = 0,
-  Action = 1
+export class ServiceType {
+  static Trigger = 'TRIGGER';
+  static Action = 'ACTION';
 }

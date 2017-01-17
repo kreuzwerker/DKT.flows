@@ -37,9 +37,11 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Load all providers
     this.state.loadProviders();
-    this.state.providers$.takeUntil(this.ngOnDestroy$).subscribe((providers) => {
-        this.providers = providers;
-      });
+    // TODO make it work with takeUntil
+    // this.state.providers$.takeUntil(this.ngOnDestroy$).subscribe((providers) => {
+    this.state.providers$.subscribe((providers) => {
+      this.providers = providers;
+    });
 
     // Subscribe to current selected provider
     this.state.provider$.takeUntil(this.ngOnDestroy$).subscribe((provider) => {

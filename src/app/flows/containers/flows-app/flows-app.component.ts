@@ -73,7 +73,7 @@ export class FlowsAppComponent implements OnDestroy {
   }
 
   selectRequestedStep() {
-    if (!this.flowsApp.flow.steps.length) {
+    if (!this.flowsApp.flow || !this.flowsApp.flow.steps.length) {
       return;
     }
 

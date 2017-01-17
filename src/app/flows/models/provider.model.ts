@@ -5,6 +5,6 @@ export class Provider {
   group: string;
   description: string;
   icon: string;
-  steps?: Service[];
+  services?: Service[];
   selected?: boolean;
 }

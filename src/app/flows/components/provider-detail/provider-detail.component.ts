@@ -44,7 +44,7 @@ export class ProviderDetailComponent implements OnChanges {
   }
 
   processProvider(provider) {
-    if (provider && provider.steps) {
+    if (provider && provider.services) {
       this.triggerServices = providerHelpers.getProviderTriggerSteps(provider);
       this.actionServices = providerHelpers.getProviderActionSteps(provider);
     } else {

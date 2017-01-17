@@ -15,6 +15,7 @@ import { Flow, FlowData, Step, StepData, Provider, Service } from './../models';
 import { FlowActions, StepActions, ProvidersActions } from './../actions';
 
 import { flowQuery } from './flow.gql';
+import { providersQuery } from './provider.gql';
 
 @Injectable()
 export class FlowsStateService {
@@ -45,9 +46,11 @@ export class FlowsStateService {
         id: this.flowId$
       }
     }).map(({data}) => data.Flow);
+    // TODO loading flag state
     this.isLoadingFlow$      = store$.let(state.isLoadingFlow());
     this.step$               = store$.let(state.getCurrentStep());
-    this.providers$          = store$.let(state.getProviders());
+
+    // TODO loading flag state
     this.isLoadingProviders$ = store$.let(state.isLoadingProviders());
     this.provider$           = store$.let(state.getCurrentProvider());
   }
@@ -77,9 +80,13 @@ export class FlowsStateService {
   }
 
   loadProviders(): void {
-    this.store$.dispatch(
-      this.providersActions.loadProviders()
-    );
+    // TODO remove load flow actions, reducers, effects
+    // this.store$.dispatch(
+    //   this.providersActions.loadProviders()
+    // );
+    this.providers$ = this.apollo.watchQuery<any>({
+      query: providersQuery
+    }).map(({data}) => data.allProviders);
   }
 
   selectStep(step: Step): void {

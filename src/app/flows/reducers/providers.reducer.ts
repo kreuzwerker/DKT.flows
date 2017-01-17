@@ -8,12 +8,14 @@ import { Provider } from '../models';
 
 export interface ProvidersState {
   providers: Provider[];
+  provider: Provider;
   loading: boolean;
   loaded: boolean;
 };
 
 const initialState: ProvidersState = {
   providers: [],
+  provider: null,
   loading: false,
   loaded: true,
 };
@@ -40,15 +42,9 @@ export function providersReducer(state = initialState, action: Action): Provider
       });
 
     case ProvidersActions.SELECT_PROVIDER: {
-      return Object.assign({}, state,
-        {
-          providers: state.providers.map((provider, index) => {
-            return Object.assign({}, provider, {
-              selected: (provider === action.payload ? true : false)
-            });
-          })
-        }
-      );
+      return Object.assign({}, state, {
+        provider: action.payload
+      });
     }
 
     default: {
@@ -70,14 +66,7 @@ export function getProviders(): Selector<AppState, Provider[]> {
 }
 
 export function getCurrentProvider(): Selector<AppState, Provider> {
-  // See http://stackoverflow.com/questions/40720535/get-the-current-selected-item-or-null-from-item-list
-  // 
   return state$ => state$
-    .let(getProviders())
-    .map((providers) => {
-      let selectedProviders = providers.filter(provider => provider.selected);
-      return selectedProviders.length ? selectedProviders : [null];
-    })
-    .flatMap(provider => provider)
+    .map(state => state.providers.provider)
     .distinctUntilChanged();
 }
