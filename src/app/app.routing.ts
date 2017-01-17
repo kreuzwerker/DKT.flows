@@ -5,7 +5,7 @@ import { DashboardComponent } from './features/dashboard.component';
 import { NotFound404Component } from './not-found404.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/flows/1', pathMatch: 'full' },
+  { path: '', redirectTo: '/flows/ciy0ie2q1aoul0179imlh0a73', pathMatch: 'full' },
   { path: 'lazy', loadChildren: './features/lazy/index#LazyModule' },
   { path: 'sync', loadChildren: './features/sync/index#SyncModule?sync=true' },
   { path: '**', component: NotFound404Component }

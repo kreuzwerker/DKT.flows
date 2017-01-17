@@ -23,9 +23,12 @@ export class FlowsAppComponent implements OnDestroy {
     this.onStepRouteChange();
 
     // Current selected flow
-    this.state.flow$.takeUntil(this.ngOnDestroy$).subscribe((flow) => {
+
+    // TODO make it work with takeUntil: transform flow object into data.flow.Flow..
+    //  ..no idea why
+    // this.state.flow$.takeUntil(this.ngOnDestroy$).subscribe((flow) => {
+    this.state.flow$.subscribe((flow) => {
       this.flowsApp.flow = flow;
-      this.flowsApp.steps = flow.steps;
       this.selectRequestedStep();
     });
 
@@ -70,14 +73,14 @@ export class FlowsAppComponent implements OnDestroy {
   }
 
   selectRequestedStep() {
-    if (!this.flowsApp.steps.length) {
+    if (!this.flowsApp.flow.steps.length) {
       return;
     }
 
     let requestedStep;
     if (this.requestedStepId !== null) {
       // Find requested step
-      requestedStep = this.flowsApp.steps.find(step => step.id === this.requestedStepId);
+      requestedStep = this.flowsApp.flow.steps.find(step => step.id === this.requestedStepId);
     } else {
       // Fall back to first step by default
       requestedStep = this.flowsApp.flow.steps[0];

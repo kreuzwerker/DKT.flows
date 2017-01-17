@@ -1,11 +1,11 @@
 <div class="layout full-height" fxLayout="row" fxLayoutAlign="start start">
   <div class="left border-right padding" fxLayout="column">
     <dkt-loading-indicator *ngIf="state.isLoadingFlow$ | async" text="Loading flow"></dkt-loading-indicator>
-    <dkt-flow-header [flow]="state.flow$ | async"></dkt-flow-header>
+    <dkt-flow-header *ngIf="flowsApp.flow" [flow]="flowsApp.flow"></dkt-flow-header>
 
     <!-- Flow steps -->
-    <div class="steps">
-      <div class="step" *ngFor="let step of (state.flow$ | async)?.steps">
+    <div class="steps" *ngIf="flowsApp.flow">
+      <div class="step" *ngFor="let step of flowsApp.flow.steps">
         <dkt-flow-step-item [flow]="flowsApp.flow" [step]="step" [currentActive]="getCurrentActiveStepOption(step)"></dkt-flow-step-item>
       </div>
     </div>

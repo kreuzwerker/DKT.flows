@@ -38,8 +38,8 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
     this.options = this.getStepOptions(this.step, this.currentActive, basePath);
 
     if (stepHelpers.stepHasService(this.step)) {
-      let provider = this.step.provider;
       let service = this.step.service;
+      let provider = this.step.service.provider;
       this.headerIcon = provider.icon;
       this.headerTitle = `${provider.name}: ${service.name}`;
     } else {
