@@ -43,12 +43,9 @@ export class StepActions {
   }
 
   static UPDATE_STEP_SUCCESS = 'UPDATE_STEP_SUCCESS';
-  updateStepFulfilled(step: StepData): Action {
+  updateStepFulfilled(): Action {
     return {
-      type: StepActions.UPDATE_STEP_SUCCESS,
-      payload: {
-        step: step
-      }
+      type: StepActions.UPDATE_STEP_SUCCESS
     };
   }
 

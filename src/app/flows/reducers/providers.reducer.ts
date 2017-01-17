@@ -7,14 +7,12 @@ import { ProvidersActions } from '../actions';
 import { Provider } from '../models';
 
 export interface ProvidersState {
-  providers: Provider[];
   provider: Provider;
   loading: boolean;
   loaded: boolean;
 };
 
 const initialState: ProvidersState = {
-  providers: [],
   provider: null,
   loading: false,
   loaded: true,
@@ -30,7 +28,6 @@ export function providersReducer(state = initialState, action: Action): Provider
 
     case ProvidersActions.FETCH_PROVIDERS_SUCCESS:
       return Object.assign({}, state, {
-        providers: action.payload.providers,
         loading: false,
         loaded: true
       });
@@ -56,12 +53,6 @@ export function providersReducer(state = initialState, action: Action): Provider
 export function isLoadingProviders(): Selector<AppState, Boolean> {
   return state$ => state$
     .map(state => state.providers.loading)
-    .distinctUntilChanged();
-}
-
-export function getProviders(): Selector<AppState, Provider[]> {
-  return state$ => state$
-    .map(state => state.providers.providers)
     .distinctUntilChanged();
 }
 

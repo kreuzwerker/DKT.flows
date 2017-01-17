@@ -24,11 +24,11 @@ export class StepEffects {
   ) {}
 
   // tslint:disable-next-line:member-ordering
-  @Effect()
-  saveStep$ = this.actions$
-    .ofType(StepActions.SAVE_STEP)
-    .switchMap(({payload}) => this.api.updateFlowStep(payload.flowId, payload.stepId, payload.step)
-      .map(data => this.stepActions.updateStepFulfilled(data))
-      .catch(error => Observable.of(this.stepActions.updateStepFailed(error)))
-    );
+  // @Effect()
+  // saveStep$ = this.actions$
+  //   .ofType(StepActions.SAVE_STEP)
+  //   .switchMap(({payload}) => this.api.updateFlowStep(payload.flowId, payload.stepId, payload.step)
+  //     .map(data => this.stepActions.updateStepFulfilled(data))
+  //     .catch(error => Observable.of(this.stepActions.updateStepFailed(error)))
+  //   );
 }

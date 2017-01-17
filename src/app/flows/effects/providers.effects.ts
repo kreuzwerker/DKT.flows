@@ -24,11 +24,11 @@ export class ProvidersEffects {
   ) {}
 
   // tslint:disable-next-line:member-ordering
-  @Effect()
-  loadFlow$ = this.actions$
-    .ofType(ProvidersActions.LOAD_PROVIDERS)
-    .switchMap(({payload}) => this.api.fetchProviders()
-      .map(data => this.providersActions.fetchProvidersFulfilled(data))
-      .catch(error => Observable.of(this.providersActions.fetchProvidersFailed(error)))
-    );
+  // @Effect()
+  // loadFlow$ = this.actions$
+  //   .ofType(ProvidersActions.LOAD_PROVIDERS)
+  //   .switchMap(({payload}) => this.api.fetchProviders()
+  //     .map(data => this.providersActions.fetchProvidersFulfilled(data))
+  //     .catch(error => Observable.of(this.providersActions.fetchProvidersFailed(error)))
+  //   );
 }

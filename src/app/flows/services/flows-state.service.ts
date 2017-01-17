@@ -53,20 +53,23 @@ export class FlowsStateService {
         id: this.flowId$
       }
     }).map(({data}) => data.Flow);
-    // TODO loading flag state
+    this.flow$.subscribe((flow) => {
+      this.store$.dispatch(
+        this.flowActions.fetchFlowFulfilled(flow)
+      );
+    });
+
     this.isLoadingFlow$      = store$.let(state.isLoadingFlow());
     this.step$               = store$.let(state.getCurrentStep());
 
-    // TODO loading flag state
     this.isLoadingProviders$ = store$.let(state.isLoadingProviders());
     this.provider$           = store$.let(state.getCurrentProvider());
   }
 
   loadFlow(id: string): void {
-    // TODO remove load flow actions, reducers, effects
-    // this.store$.dispatch(
-    //   this.flowActions.loadFlow(id)
-    // );
+    this.store$.dispatch(
+      this.flowActions.loadFlow(id)
+    );
 
     // NB setTimeout required for initial call to loadFlow
     setTimeout(() => {
@@ -81,9 +84,9 @@ export class FlowsStateService {
   }
 
   saveFlowStep(flowId: string, stepId: string, step: StepData): void {
-    // this.store$.dispatch(
-    //   this.stepActions.saveStep(flowId, stepId, step)
-    // );
+    this.store$.dispatch(
+      this.stepActions.saveStep(flowId, stepId, step)
+    );
 
     this.apollo.mutate<any>({
       mutation: updateStep,
@@ -92,17 +95,36 @@ export class FlowsStateService {
         position: step.position,
         serviceId: step.service.id
       }
+    }).subscribe((data) => {
+      this.store$.dispatch(
+        this.stepActions.updateStepFulfilled()
+      );
     });
   }
 
   loadProviders(): void {
-    // TODO remove load flow actions, reducers, effects
-    // this.store$.dispatch(
-    //   this.providersActions.loadProviders()
-    // );
+
+    // TODO if apollo was using the same store as ngrx, this could be implemented
+    // via Effects: dispatch "loadProviders" -> Effect: this.apollow.watchQuery -> 
+    // subscribe dispatch "fetchProvidersFulfilled"
+    // 
+    // With MobX:
+    // Store.setProvidersLoading(true)
+    // this.apollow.watchQuery -> subscribe: Store.setProvidersLoading(false)
+
+    this.store$.dispatch(
+      this.providersActions.loadProviders()
+    );
+
     this.providers$ = this.apollo.watchQuery<any>({
       query: getProviders
     }).map(({data}) => data.allProviders);
+
+    this.providers$.subscribe((providers) => {
+      this.store$.dispatch(
+        this.providersActions.fetchProvidersFulfilled(providers)
+      );
+    });
   }
 
   selectStep(step: Step): void {

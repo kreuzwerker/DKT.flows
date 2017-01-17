@@ -24,19 +24,19 @@ export class FlowEffects {
   ) {}
 
   // tslint:disable-next-line:member-ordering
-  @Effect()
-  loadFlow$ = this.actions$
-    .ofType(FlowActions.LOAD_FLOW)
-    .switchMap(({payload}) => this.api.fetchFlow(payload)
-      .map(data => this.flowActions.fetchFlowFulfilled(data))
-      .catch(error => Observable.of(this.flowActions.fetchFlowFailed(error)))
-    );
+  // @Effect()
+  // loadFlow$ = this.actions$
+  //   .ofType(FlowActions.LOAD_FLOW)
+  //   .switchMap(({payload}) => this.api.fetchFlow(payload)
+  //     .map(data => this.flowActions.fetchFlowFulfilled(data))
+  //     .catch(error => Observable.of(this.flowActions.fetchFlowFailed(error)))
+  //   );
 
-  @Effect()
-  saveFlow$ = this.actions$
-    .ofType(FlowActions.SAVE_FLOW)
-    .switchMap(({payload}) => this.api.updateFlow(payload.id, payload.flow)
-      .map(data => this.flowActions.updateFlowFulfilled(data))
-      .catch(error => Observable.of(this.flowActions.updateFlowFailed(error)))
-    );
+  // @Effect()
+  // saveFlow$ = this.actions$
+  //   .ofType(FlowActions.SAVE_FLOW)
+  //   .switchMap(({payload}) => this.api.updateFlow(payload.id, payload.flow)
+  //     .map(data => this.flowActions.updateFlowFulfilled(data))
+  //     .catch(error => Observable.of(this.flowActions.updateFlowFailed(error)))
+  //   );
 }

@@ -51,7 +51,6 @@ export function stepReducer(state = initialState, action: Action): StepState {
 
     case StepActions.UPDATE_STEP_SUCCESS:
       return Object.assign({}, state, {
-        flow: action.payload.flow,
         saving: false,
         saved: true
       });
