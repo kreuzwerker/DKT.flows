@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
 import { MaterialModule } from '@angular/material';
@@ -40,6 +40,7 @@ export const APP_IMPORTS = [
   EffectsModule.run(UserEffects),
   MaterialModule.forRoot(),
   FlexLayoutModule.forRoot(),
+  FormsModule,
   ReactiveFormsModule,
   IdlePreloadModule.forRoot(), // forRoot ensures the providers are only created once
   RouterModule.forRoot(routes, { useHash: false, preloadingStrategy: IdlePreload }),

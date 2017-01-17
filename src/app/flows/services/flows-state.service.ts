@@ -14,11 +14,13 @@ import * as state from './../reducers';
 import { Flow, FlowData, Step, StepData, Provider, Service } from './../models';
 import { FlowActions, StepActions, ProvidersActions } from './../actions';
 
-import { getFlow, updateStep } from './flow.gql';
-import { providersQuery } from './provider.gql';
+import { getFlows, FlowsListData, getFlow, updateStep } from './flow.gql';
+import { getProviders } from './provider.gql';
 
 @Injectable()
 export class FlowsStateService {
+  // Flows list
+  flows$: Observable<FlowsListData[]>;
   // Current loaded flow
   flowId$: Subject<string> = new Subject<string>();
   flow$: Observable<Flow>;
@@ -38,6 +40,11 @@ export class FlowsStateService {
       private providersActions: ProvidersActions,
       private store$: Store<AppState>
     ) {
+
+    // Fetches list of flows
+    this.flows$ = this.apollo.watchQuery<any>({
+      query: getFlows
+    }).map(({data}) => data.allFlows);
 
     // Fetches flow data reactively when flowId$ changes
     this.flow$ = this.apollo.watchQuery<any>({
@@ -94,7 +101,7 @@ export class FlowsStateService {
     //   this.providersActions.loadProviders()
     // );
     this.providers$ = this.apollo.watchQuery<any>({
-      query: providersQuery
+      query: getProviders
     }).map(({data}) => data.allProviders);
   }
 

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const providersQuery = gql`
+export const getProviders = gql`
   query ProvidersQuery {
     allProviders {
       id,

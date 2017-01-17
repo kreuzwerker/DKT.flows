@@ -1,0 +1,17 @@
+md-card {
+  width: 400px;
+  margin: 2em auto;
+  padding: 0px;
+}
+
+md-list {
+  padding-top:0px;
+}
+
+md-list-item{
+  cursor:pointer;
+  
+  &:hover {
+    background-color:#eee;
+  }
+}

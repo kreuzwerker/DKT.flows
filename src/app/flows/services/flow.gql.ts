@@ -10,6 +10,12 @@ export const getFlows = gql`
   }
 `;
 
+export class FlowsListData {
+  id: string;
+  name: string;
+  description: string;
+}
+
 export const getFlow = gql`
   query FlowQuery($id: ID) {
     Flow(id: $id) {
