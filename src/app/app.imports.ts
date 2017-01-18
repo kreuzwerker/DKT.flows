@@ -18,7 +18,7 @@ import { UserEffects } from './user/user.effects';
 // --- DKT vendors ---------------------------------------
 
 import { ApolloModule } from 'angular2-apollo';
-import { provideClient } from './apollo-client';
+import { provideClient } from './apollo-client-store';
 
 // --- DKT modules ---------------------------------------
 import { CoreModule } from './core';
