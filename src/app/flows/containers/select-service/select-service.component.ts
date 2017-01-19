@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
@@ -9,6 +9,7 @@ import { Service, ServiceType } from './../../models';
   selector: 'dkt-select-service',
   templateUrl: 'select-service.component.html',
   styleUrls: ['select-service.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('flyInOut', [
       state('in', style({transform: 'translateX(0)'})),
@@ -20,7 +21,7 @@ import { Service, ServiceType } from './../../models';
         animate('200ms ease-out', style({transform: 'translateX(100%)'}))
       ])
     ])
-  ]
+  ],
 })
 
 export class SelectServiceComponent implements OnDestroy {

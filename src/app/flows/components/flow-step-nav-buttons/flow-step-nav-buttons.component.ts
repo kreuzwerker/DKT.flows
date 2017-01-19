@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'dkt-flow-step-nav-buttons',
   templateUrl: 'flow-step-nav-buttons.component.html',
-  styleUrls: ['flow-step-nav-buttons.component.css']
+  styleUrls: ['flow-step-nav-buttons.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlowStepNavButtonsComponent {
   @Input() backPath: string;

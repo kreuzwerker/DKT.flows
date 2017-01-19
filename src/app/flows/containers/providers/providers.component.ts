@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 import { Provider, Service, ServiceType } from './../../models';
@@ -12,7 +12,8 @@ import { FlowsStateService } from './../../services';
   selector: 'dkt-providers',
   templateUrl: 'providers.component.html',
   styleUrls: ['providers.component.css'],
-  providers: [MdSnackBar]
+  providers: [MdSnackBar],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class ProvidersComponent implements OnInit, OnDestroy {
@@ -27,6 +28,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   @ViewChild(ProviderDetailComponent) serviceDetail: ProviderDetailComponent;
 
   constructor(
+    private cd: ChangeDetectorRef,
     public state: FlowsStateService,
     public snackBar: MdSnackBar
   ) {
@@ -39,6 +41,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     // this.state.providers$.takeUntil(this.ngOnDestroy$).subscribe((providers) => {
     this.state.providers$.subscribe((providers) => {
       this.providers = providers;
+      this.cd.markForCheck()
     });
 
     // Load all providers
@@ -59,6 +62,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
         } else {
           this.serviceDetail.close();
         }
+        this.cd.markForCheck()
       },
       (err) => console.log('error', err)
     );
@@ -70,6 +74,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
       } else {
         this.selectedService = null;
       }
+      this.cd.markForCheck()
     });
   }
 

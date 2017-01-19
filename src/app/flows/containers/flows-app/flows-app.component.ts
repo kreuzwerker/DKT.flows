@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
@@ -7,17 +7,19 @@ import { Step } from './../../models';
 
 @Component({
   templateUrl: 'flows-app.component.html',
-  styleUrls: ['flows-app.component.css']
+  styleUrls: ['flows-app.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlowsAppComponent implements OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   requestedStepId: string = null;
 
   constructor(
+    private cd: ChangeDetectorRef,
     public flowsApp: FlowsAppService,
     public route: ActivatedRoute,
     public router: Router,
-    public state: FlowsStateService
+    public state: FlowsStateService,
   ) {
     this.onFlowRouteChange();
     this.onStepRouteChange();
@@ -30,11 +32,13 @@ export class FlowsAppComponent implements OnDestroy {
     this.state.flow$.subscribe((flow) => {
       this.flowsApp.flow = flow;
       this.selectRequestedStep();
+      this.cd.markForCheck()
     });
 
     // Current selected step
     this.state.select('step').takeUntil(this.ngOnDestroy$).subscribe((step) => {
       this.flowsApp.setStep(step);
+      this.cd.markForCheck()
     });
   }
 
@@ -52,6 +56,7 @@ export class FlowsAppComponent implements OnDestroy {
       .map(params => params['flowId'])
       .subscribe((flowId) => {
         this.state.selectFlow(flowId);
+        this.cd.markForCheck()
       });
   }
 
@@ -66,6 +71,7 @@ export class FlowsAppComponent implements OnDestroy {
             if (params['stepId'] && params['stepId'] !== this.requestedStepId) {
               this.requestedStepId = params['stepId'];
               this.selectRequestedStep();
+              this.cd.markForCheck()
             }
           });
         }

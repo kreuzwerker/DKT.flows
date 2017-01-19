@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
 import { Provider, Service, ServiceType } from './../../models';
@@ -8,6 +8,7 @@ import * as providerHelpers from './../../utils/provider.helpers';
   selector: 'dkt-provider-detail',
   templateUrl: 'provider-detail.component.html',
   styleUrls: ['provider-detail.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('fadeInOut', [
       state('true' , style({ opacity: 1, transform: 'scale(1.0)' })),

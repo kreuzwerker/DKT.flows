@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FlowsAppService } from './../../services';
 
 @Component({
   selector: 'test-step',
   templateUrl: 'test-step.component.html',
-  styleUrls: ['test-step.component.css']
+  styleUrls: ['test-step.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TestStepComponent {
   constructor(
