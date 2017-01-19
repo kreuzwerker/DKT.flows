@@ -1,6 +1,7 @@
 import { Service } from './service.model';
 
 export class Provider {
+  id: string;
   name: string;
   group: string;
   description: string;

@@ -87,9 +87,6 @@ export class FlowsAppComponent implements OnDestroy {
     if (this.requestedStepId !== null) {
       // Find requested step
       requestedStep = this.flowsApp.flow.steps.find(step => step.id === this.requestedStepId);
-    } else {
-      // Fall back to first step by default
-      requestedStep = this.flowsApp.flow.steps[0];
     }
 
     if (requestedStep) {

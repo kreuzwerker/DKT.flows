@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
 import { Provider, Service, ServiceType } from './../../models';
@@ -28,6 +28,10 @@ export class ProviderDetailComponent implements OnChanges {
   actionServices: Service[];
   selectedTabIndex: number = 0;
 
+  constructor(
+    private cd: ChangeDetectorRef,
+  ) { }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['provider'] !== undefined) {
       this.processProvider(changes['provider']['currentValue']);
@@ -38,10 +42,12 @@ export class ProviderDetailComponent implements OnChanges {
 
   open() {
     this.show = true;
+    this.cd.markForCheck();
   }
 
   close() {
     this.show = false;
+    this.cd.markForCheck();
   }
 
   processProvider(provider) {

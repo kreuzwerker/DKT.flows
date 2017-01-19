@@ -18,12 +18,7 @@ export interface FlowsAppState {
 
 const initialState: FlowsAppState = {
   flowId: null,
-  // TODO refactor the code so we no longer require a stub, step should null.
-  step: {
-    id: '0',
-    position: 0,
-    service: null
-  },  
+  step: null,  
   provider: null,
   loadingFlow: false,
   loadingFlows: false,

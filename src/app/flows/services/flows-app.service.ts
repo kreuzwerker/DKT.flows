@@ -23,7 +23,9 @@ export class FlowsAppService {
 
   setStep(step: Step): void {
     this.step = step;
-    this.stepTypeName = stepHelpers.getStepServiceTypeName(step);
+    this.stepTypeName = step
+      ? stepHelpers.getStepServiceTypeName(step)
+      : null;
   }
 
   /*
