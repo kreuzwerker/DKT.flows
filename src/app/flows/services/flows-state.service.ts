@@ -1,5 +1,4 @@
-import 'rxjs/add/operator/let';
-import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/filter'
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -10,84 +9,125 @@ import { Subject } from 'rxjs/Subject';
 import gql from 'graphql-tag';
 
 import { AppState } from './../../reducers';
-import * as state from './../reducers';
 import { Flow, FlowData, Step, StepData, Provider, Service } from './../models';
-import { FlowActions, StepActions, ProvidersActions } from './../actions';
+import { FlowsAppActions } from './../states';
 
 import { getFlows, FlowsListData, getFlow, updateStep } from './flow.gql';
 import { getProviders } from './provider.gql';
 
 @Injectable()
 export class FlowsStateService {
-  // Flows list
+
+  // 
+  // App data state
+  // 
+
+  // All flows list
   flows$: Observable<FlowsListData[]>;
   // Current loaded flow
-  flowId$: Subject<string> = new Subject<string>();
   flow$: Observable<Flow>;
-  isLoadingFlow$: Observable<Boolean>;
-  // Current editing step
-  step$: Observable<Step>;
   // Available providers
   providers$: Observable<Provider[]>;
-  isLoadingProviders$: Observable<Boolean>;
-  // Current provider
-  provider$: Observable<Provider>;
+
+  // 
+  // Internal state
+  // 
+
+  // Flag to initiate loading providers
+  private loadProviders$: Subject<any> = new Subject<any>();
 
   constructor(
       private apollo: Angular2Apollo,
-      private flowActions: FlowActions,
-      private stepActions: StepActions,
-      private providersActions: ProvidersActions,
-      private store$: Store<AppState>
+      private store$: Store<AppState>,
+      private actions: FlowsAppActions
     ) {
+
+    // 
+    // App data queries
+    // 
+
+    // Flows list
+    // ----------
 
     // Fetches list of flows
     this.flows$ = this.apollo.watchQuery<any>({
       query: getFlows
     }).map(({data}) => data.allFlows);
 
-    // Fetches flow data reactively when flowId$ changes
+
+    // Current selected flow
+    // ---------------------
+
+    // Fetches flow data reactively as soon as flowId gets set or changes, i.e.
+    // DOES NOT fetch flow data when flowId is null or unchanged.
     this.flow$ = this.apollo.watchQuery<any>({
       query: getFlow,
       variables: {
-        id: this.flowId$
+        id: this.select('flowId').filter((flowId) => flowId !== null)
       }
     }).map(({data}) => data.Flow);
-    this.flow$.subscribe((flow) => {
-      this.store$.dispatch(
-        this.flowActions.fetchFlowFulfilled(flow)
-      );
-    });
+    // Unset loading flows flag
+    this.flow$.subscribe((flow) => this.dispatch(this.actions.setLoadingFlow(false)) );
 
-    this.isLoadingFlow$      = store$.let(state.isLoadingFlow());
-    this.step$               = store$.let(state.getCurrentStep());
 
-    this.isLoadingProviders$ = store$.let(state.isLoadingProviders());
-    this.provider$           = store$.let(state.getCurrentProvider());
+    // Providers list
+    // --------------
+
+    this.providers$ = this.apollo.watchQuery<any>({
+      query: getProviders,
+      variables: {
+        id: this.loadProviders$
+      }
+    }).map(({data}) => data.allProviders);
+    // Unset loading providers flag
+    this.providers$.subscribe((providers) => this.dispatch(this.actions.setLoadingProviders(false)) );
   }
 
-  loadFlow(id: string): void {
-    this.store$.dispatch(
-      this.flowActions.loadFlow(id)
-    );
+  // 
+  // UI State
+  // 
 
-    // NB setTimeout required for initial call to loadFlow
-    setTimeout(() => {
-      this.flowId$.next(id);
-    }, 1);
+  // Get a UI state property observable
+  select(key: string) {
+    return this.store$
+      .select('flowsApp')
+      .map(state => state[key])
+      .distinctUntilChanged();
+  }
+
+  // Get a current UI state property value
+  get(key: string) {
+    // @see http://stackoverflow.com/questions/35633684/how-to-get-current-value-of-state-object-with-ngrx-store
+    let value;
+    this.store$
+      .select('flowsApp')
+      .map(state => state[key])
+      .take(1)
+      .subscribe(s => value = s);
+
+    return value;
+  }
+
+  // 
+  // API
+  // 
+
+  selectFlow(id: string): void {
+    if(id === this.get('flowId')) {
+      // Requested flow is already selected
+      return;
+    }
+
+    this.dispatch(this.actions.setLoadingFlow(true));
+    this.dispatch(this.actions.selectFlow(id));
   }
 
   saveFlow(id: string, flow: FlowData): void {
-    // this.store$.dispatch(
-    //   this.flowActions.saveFlow(id, flow)
-    // );
+    this.dispatch(this.actions.setSavingFlow(true, false));
   }
 
   saveFlowStep(flowId: string, stepId: string, step: StepData): void {
-    this.store$.dispatch(
-      this.stepActions.saveStep(flowId, stepId, step)
-    );
-
+    this.dispatch(this.actions.setSavingFlow(true, false));
     this.apollo.mutate<any>({
       mutation: updateStep,
       variables: {
@@ -96,52 +136,33 @@ export class FlowsStateService {
         serviceId: step.service.id
       }
     }).subscribe((data) => {
-      this.store$.dispatch(
-        this.stepActions.updateStepFulfilled()
-      );
+      this.dispatch(this.actions.setSavingFlow(false, true));
     });
   }
 
   loadProviders(): void {
-
-    // TODO if apollo was using the same store as ngrx, this could be implemented
-    // via Effects: dispatch "loadProviders" -> Effect: this.apollow.watchQuery -> 
-    // subscribe dispatch "fetchProvidersFulfilled"
-    // 
-    // With MobX:
-    // Store.setProvidersLoading(true)
-    // this.apollow.watchQuery -> subscribe: Store.setProvidersLoading(false)
-
-    this.store$.dispatch(
-      this.providersActions.loadProviders()
-    );
-
-    this.providers$ = this.apollo.watchQuery<any>({
-      query: getProviders
-    }).map(({data}) => data.allProviders);
-
-    this.providers$.subscribe((providers) => {
-      this.store$.dispatch(
-        this.providersActions.fetchProvidersFulfilled(providers)
-      );
-    });
+    this.dispatch(this.actions.setLoadingProviders(true));
+    // Trigger loading the providers
+    this.loadProviders$.next(1);
   }
 
   selectStep(step: Step): void {
-    this.store$.dispatch(
-      this.stepActions.selectStep(step)
-    );
+    this.dispatch(this.actions.selectStep(step));
   }
 
   setStepService(provider: Provider, service: Service): void {
-    this.store$.dispatch(
-      this.stepActions.setStepService(provider, service)
-    );
+    this.dispatch(this.actions.setStepService(provider, service));
   }
 
   selectProvider(provider: Provider): void {
-    this.store$.dispatch(
-      this.providersActions.selectProvider(provider)
-    );
+    this.dispatch(this.actions.selectProvider(provider));
+  }
+
+  // 
+  // Internal methods
+  // 
+
+  private dispatch(action) {
+    this.store$.dispatch(action);
   }
 }

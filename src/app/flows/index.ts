@@ -31,11 +31,8 @@ import { ServiceItemComponent } from './components/service-item/service-item.com
 // Services
 import { FlowsApiService, FlowsAppService, FlowsStateService } from './services';
 
-// Actions
-import { FlowActions, StepActions, ProvidersActions } from './actions';
-
-// Effects
-import { FlowEffects, StepEffects, ProvidersEffects } from './effects';
+// States
+import { FlowsAppActions, FlowsAppEffects } from './states';
 
 const routes: Routes = [
   { path: 'flows', component: FlowsListComponent },
@@ -74,9 +71,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
-    EffectsModule.run(FlowEffects),
-    EffectsModule.run(StepEffects),
-    EffectsModule.run(ProvidersEffects),
+    EffectsModule.run(FlowsAppEffects),
   ],
   exports: [
   ],
@@ -84,9 +79,7 @@ const routes: Routes = [
     FlowsAppService,
     FlowsApiService,
     FlowsStateService,
-    FlowActions,
-    StepActions,
-    ProvidersActions,
+    FlowsAppActions,
   ]
 })
 export class FlowsModule {}

@@ -33,7 +33,7 @@ export class FlowsAppComponent implements OnDestroy {
     });
 
     // Current selected step
-    this.state.step$.takeUntil(this.ngOnDestroy$).subscribe((step) => {
+    this.state.select('step').takeUntil(this.ngOnDestroy$).subscribe((step) => {
       this.flowsApp.setStep(step);
     });
   }
@@ -51,7 +51,7 @@ export class FlowsAppComponent implements OnDestroy {
     this.route.params.takeUntil(this.ngOnDestroy$)
       .map(params => params['flowId'])
       .subscribe((flowId) => {
-        this.state.loadFlow(flowId);
+        this.state.selectFlow(flowId);
       });
   }
 

@@ -11,16 +11,16 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AppState } from '../../reducers';
 import { FlowsApiService } from './../services';
-import { StepActions } from './../actions';
+import { FlowsAppActions } from './';
 
 
 @Injectable()
-export class StepEffects {
+export class FlowsAppEffects {
   constructor(
     private actions$: Actions,
     private api: FlowsApiService,
     private store$: Store<AppState>,
-    private stepActions: StepActions
+    private actions: FlowsAppActions
   ) {}
 
   // tslint:disable-next-line:member-ordering

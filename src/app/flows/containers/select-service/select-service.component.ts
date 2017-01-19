@@ -36,7 +36,7 @@ export class SelectServiceComponent implements OnDestroy {
     this.flowsApp.setStepStage('select');
 
     // Current selected step
-    this.state.step$.takeUntil(this.ngOnDestroy$).subscribe((step) => {
+    this.state.select('step').takeUntil(this.ngOnDestroy$).subscribe((step) => {
       this.selectedService = (step && step.service !== undefined)
         ? step.service
         : null;

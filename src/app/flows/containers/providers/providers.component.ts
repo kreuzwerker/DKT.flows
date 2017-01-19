@@ -35,16 +35,17 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Load all providers
-    this.state.loadProviders();
     // TODO make it work with takeUntil
     // this.state.providers$.takeUntil(this.ngOnDestroy$).subscribe((providers) => {
     this.state.providers$.subscribe((providers) => {
       this.providers = providers;
     });
 
+    // Load all providers
+    this.state.loadProviders();
+
     // Subscribe to current selected provider
-    this.state.provider$.takeUntil(this.ngOnDestroy$).subscribe((provider) => {
+    this.state.select('provider').takeUntil(this.ngOnDestroy$).subscribe((provider) => {
         this.selectedProvider = provider;
 
         if (provider) {
@@ -63,7 +64,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     );
 
     // Subscribe to current selected flow step
-    this.state.step$.takeUntil(this.ngOnDestroy$).subscribe((step) => {
+    this.state.select('step').takeUntil(this.ngOnDestroy$).subscribe((step) => {
       if (step && step.service !== undefined) {
         this.selectedService = step.service;
       } else {

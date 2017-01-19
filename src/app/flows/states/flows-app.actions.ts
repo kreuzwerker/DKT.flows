@@ -1,0 +1,83 @@
+/* tslint:disable: member-ordering */
+import { Injectable } from '@angular/core';
+import { Action } from '@ngrx/store';
+
+import { Step, StepData, Provider, Service } from '../models';
+
+@Injectable()
+export class FlowsAppActions {
+
+  static SELECT_FLOW = 'SELECT_FLOW';
+  selectFlow(flowId: String): Action {
+    return {
+      type: FlowsAppActions.SELECT_FLOW,
+      payload: flowId
+    };
+  }
+
+  static SELECT_STEP = 'SELECT_STEP';
+  selectStep(step: Step): Action {
+    return {
+      type: FlowsAppActions.SELECT_STEP,
+      payload: step
+    };
+  }
+
+  static SET_STEP_SERVICE_STEP = 'SET_STEP_SERVICE_STEP';
+  setStepService(provider: Provider, service: Service): Action {
+    return {
+      type: FlowsAppActions.SET_STEP_SERVICE_STEP,
+      payload: {
+        provider: provider,
+        service: service,
+      }
+    };
+  }
+
+  static SELECT_PROVIDER = 'SELECT_PROVIDER';
+  selectProvider(provider: Provider): Action {
+    return {
+      type: FlowsAppActions.SELECT_PROVIDER,
+      payload: provider
+    };
+  }
+
+  /**
+   * Flags
+   */
+
+  static SET_LOADING_FLOW = 'SET_LOADING_FLOW';
+  setLoadingFlow(loading: boolean): Action {
+    return {
+      type: FlowsAppActions.SET_LOADING_FLOW,
+      payload: loading
+    };
+  }
+
+  static SET_LOADING_FLOWS = 'SET_LOADING_FLOWS';
+  setLoadingFlows(loading: boolean): Action {
+    return {
+      type: FlowsAppActions.SET_LOADING_FLOWS,
+      payload: loading
+    };
+  }
+
+  static SET_LOADING_PROVIDERS = 'SET_LOADING_PROVIDERS';
+  setLoadingProviders(loading: boolean): Action {
+    return {
+      type: FlowsAppActions.SET_LOADING_PROVIDERS,
+      payload: loading
+    };
+  }
+
+  static SET_SAVING_FLOW = 'SET_SAVING_FLOW';
+  setSavingFlow(saving: boolean, saved: boolean): Action {
+    return {
+      type: FlowsAppActions.SET_SAVING_FLOW,
+      payload: {
+        saving: saving,
+        saved: saved
+      }
+    };
+  }
+}
