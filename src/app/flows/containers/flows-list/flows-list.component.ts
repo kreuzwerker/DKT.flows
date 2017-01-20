@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { FlowsStateService } from './../../services';
 import { FlowsListData } from './../../services/flow.gql';
@@ -10,21 +10,9 @@ import { FlowsListData } from './../../services/flow.gql';
   styleUrls: ['flows-list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlowsListComponent implements OnDestroy  {
-  ngOnDestroy$ = new Subject<boolean>();
-  flows: FlowsListData[];
-
+export class FlowsListComponent {
   constructor(
-    private cd: ChangeDetectorRef,
     public state: FlowsStateService,
   ) {
-    this.state.flows$.subscribe((flows) => {
-      this.flows = flows;
-      this.cd.markForCheck()
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.ngOnDestroy$.next(true);
   }
 }

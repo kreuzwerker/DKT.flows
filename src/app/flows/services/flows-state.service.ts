@@ -76,6 +76,7 @@ export class FlowsStateService {
     this.providers$ = this.apollo.watchQuery<any>({
       query: getProviders,
       variables: {
+        // NB fake var to hold back the query until we trigger it via this observable
         id: this.loadProviders$
       }
     }).map(({data}) => data.allProviders);
@@ -112,7 +113,7 @@ export class FlowsStateService {
   // API
   // 
 
-  selectFlow(id: string): void {
+  selectFlow(id: String): void {
     if(id === this.get('flowId')) {
       // Requested flow is already selected
       return;
@@ -122,11 +123,11 @@ export class FlowsStateService {
     this.actions.selectFlow(id);
   }
 
-  saveFlow(id: string, flow: FlowData): void {
+  saveFlow(id: String, flow: FlowData): void {
     this.actions.setSavingFlow(true, false);
   }
 
-  saveFlowStep(flowId: string, stepId: string, step: StepData): void {
+  saveFlowStep(flowId: String, stepId: string, step: StepData): void {
     this.actions.setSavingFlow(true, false);
     this.apollo.mutate<any>({
       mutation: updateStep,

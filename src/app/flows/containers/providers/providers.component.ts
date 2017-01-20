@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import * as _ from 'lodash'
@@ -23,6 +23,8 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   @Output() onChangeService = new EventEmitter();
 
   ngOnDestroy$ = new Subject<boolean>();
+  providersSub$: Subscription;
+
   providers: Array<Provider> = [];
   selectedProvider: Provider;
   selectedService: Service | null;
@@ -41,21 +43,18 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     Observable.combineLatest(
       this.state.providers$,
-      this.state.select('step').filter(step => step !== null),
+      this.state.select('step').filter(step => step !== null && step.service && step.service.provider),
       (providers, step) => ({providers: providers, step: step})
-    )
-    .take(1).subscribe(
+    ).take(1).subscribe(
       this.onInitialLoad.bind(this),
-      err=> console.log(err)
+      (err) => console.log('error', err)
     );
 
-
-    // TODO make it work with takeUntil
-    // this.state.providers$.takeUntil(this.ngOnDestroy$).subscribe((providers) => {
-    this.state.providers$.subscribe((providers) => {
-      this.providers = providers;
-      this.cd.markForCheck()
-    });
+    // Subscribe to list of providers
+    this.providersSub$ = this.state.providers$.subscribe(
+      this.onLoadProviders.bind(this),
+      (err) => console.log('error', err)
+    );
 
     // Load all providers
     this.state.loadProviders();
@@ -75,11 +74,17 @@ export class ProvidersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.ngOnDestroy$.next(true);
+    this.providersSub$.unsubscribe();
   }
 
   onInitialLoad({providers, step}) {
     let provider: Provider = _.find<Provider>(providers, (p) => p.id === step.service.provider.id)
     this.selectProvider(provider);
+  }
+
+  onLoadProviders(providers: Provider[]) {
+    this.providers = providers;
+    this.cd.markForCheck()
   }
 
   onSelectProvider(provider: Provider) {
