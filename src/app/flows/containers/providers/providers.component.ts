@@ -112,7 +112,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   selectProvider(provider: Provider) {
     if(this.state.get('provider') !== provider) {
       // Select a new provider, which will call onSelectProvider reactively
-      this.state.selectProvider(provider);
+      this.state.actions.selectProvider(provider);
     } else {
       // The given provider is already set. Selecting it again would not emit
       // a change event because of distinctUntilChanged() in state.select().
@@ -130,7 +130,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    this.state.setStepService(this.selectedProvider, service);
+    this.state.actions.setStepService(this.selectedProvider, service);
     return true;
   }
 

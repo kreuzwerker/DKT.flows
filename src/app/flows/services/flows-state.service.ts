@@ -39,7 +39,7 @@ export class FlowsStateService {
   constructor(
       private apollo: Angular2Apollo,
       private store$: Store<AppState>,
-      private actions: FlowsAppActions
+      public actions: FlowsAppActions
     ) {
 
     // 
@@ -67,7 +67,7 @@ export class FlowsStateService {
       }
     }).map(({data}) => data.Flow);
     // Unset loading flows flag
-    this.flow$.subscribe((flow) => this.dispatch(this.actions.setLoadingFlow(false)) );
+    this.flow$.subscribe((flow) => this.actions.setLoadingFlow(false) );
 
 
     // Providers list
@@ -80,7 +80,7 @@ export class FlowsStateService {
       }
     }).map(({data}) => data.allProviders);
     // Unset loading providers flag
-    this.providers$.subscribe((providers) => this.dispatch(this.actions.setLoadingProviders(false)) );
+    this.providers$.subscribe((providers) => this.actions.setLoadingProviders(false) );
   }
 
   // 
@@ -118,16 +118,16 @@ export class FlowsStateService {
       return;
     }
 
-    this.dispatch(this.actions.setLoadingFlow(true));
-    this.dispatch(this.actions.selectFlow(id));
+    this.actions.setLoadingFlow(true);
+    this.actions.selectFlow(id);
   }
 
   saveFlow(id: string, flow: FlowData): void {
-    this.dispatch(this.actions.setSavingFlow(true, false));
+    this.actions.setSavingFlow(true, false);
   }
 
   saveFlowStep(flowId: string, stepId: string, step: StepData): void {
-    this.dispatch(this.actions.setSavingFlow(true, false));
+    this.actions.setSavingFlow(true, false);
     this.apollo.mutate<any>({
       mutation: updateStep,
       variables: {
@@ -136,33 +136,13 @@ export class FlowsStateService {
         serviceId: step.service.id
       }
     }).subscribe((data) => {
-      this.dispatch(this.actions.setSavingFlow(false, true));
+      this.actions.setSavingFlow(false, true);
     });
   }
 
   loadProviders(): void {
-    this.dispatch(this.actions.setLoadingProviders(true));
+    this.actions.setLoadingProviders(true);
     // Trigger loading the providers
     this.loadProviders$.next(1);
-  }
-
-  selectStep(step: Step): void {
-    this.dispatch(this.actions.selectStep(step));
-  }
-
-  setStepService(provider: Provider, service: Service): void {
-    this.dispatch(this.actions.setStepService(provider, service));
-  }
-
-  selectProvider(provider: Provider): void {
-    this.dispatch(this.actions.selectProvider(provider));
-  }
-
-  // 
-  // Internal methods
-  // 
-
-  private dispatch(action) {
-    this.store$.dispatch(action);
   }
 }

@@ -90,7 +90,7 @@ export class FlowsAppComponent implements OnDestroy {
     }
 
     if (requestedStep) {
-      this.state.selectStep(requestedStep);
+      this.state.actions.selectStep(requestedStep);
     }
   }
 
