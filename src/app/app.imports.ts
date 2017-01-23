@@ -12,6 +12,7 @@ import { useLogMonitor } from '@ngrx/store-log-monitor';
 
 import { routes } from './app.routing';
 import { rootReducer } from './reducers';
+import { NgReduxModule } from 'ng2-redux';
 import { StoreDevToolsModule } from './features/store-devtools.module';
 import { UserEffects } from './user/user.effects';
 
@@ -48,6 +49,8 @@ export const APP_IMPORTS = [
   StoreModule.provideStore(rootReducer),
   STORE_DEV_TOOLS_IMPORTS,
   StoreDevToolsModule,
+
+  NgReduxModule,
   ApolloModule.withClient(provideClient),
 
   CoreModule,

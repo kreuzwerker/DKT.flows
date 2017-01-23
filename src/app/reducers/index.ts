@@ -5,6 +5,8 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 import { routerReducer, RouterState } from '@ngrx/router-store';
 
+import { client } from './../apollo-client-store';
+
 import * as fromUser from '../user/user.reducer';
 
 
@@ -29,6 +31,9 @@ export interface AppState {
 export const reducers = {
   router: routerReducer,
   user: fromUser.userReducer,
+
+  // DKT Apps data state
+  apollo: client.reducer() as any,
 
   // DKT Apps UI state
   flowsApp: flowsAppReducer,

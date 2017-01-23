@@ -14,6 +14,12 @@ import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularcla
 
 import { Store } from '@ngrx/store';
 
+import { NgRedux, DevToolsExtension } from 'ng2-redux';
+import { Action, combineReducers, applyMiddleware, ReducersMapObject } from 'redux';
+import { createEpicMiddleware, combineEpics } from 'redux-observable';
+import { ApolloClient, createNetworkInterface } from 'apollo-client';
+import { client } from './apollo-client-store';
+
 import { APP_DECLARATIONS } from './app.declarations';
 import { APP_ENTRY_COMPONENTS } from './app.entry-components';
 import { APP_IMPORTS } from './app.imports';
@@ -21,7 +27,7 @@ import { APP_PROVIDERS } from './app.providers';
 
 import { AppComponent } from './app.component';
 
-import { AppState } from './reducers';
+import { AppState, rootReducer } from './reducers';
 
 @NgModule({
   declarations: [
@@ -40,7 +46,26 @@ import { AppState } from './reducers';
 
 export class AppModule {
   constructor(public appRef: ApplicationRef,
-    private _store: Store<AppState>) { }
+    private _store: Store<AppState>,
+    private ngRedux: NgRedux<any>,
+    devTools: DevToolsExtension,
+  ) {
+    ngRedux.configureStore(
+      // Reducers
+      rootReducer,
+      // TODO Initial state
+      {},
+      // Middleware
+      [
+        // createEpicMiddleware(combineEpics(...lionsEpics.epics)),
+      ],
+      // Enhancers
+      [
+        applyMiddleware(client.middleware()),
+        devTools.isEnabled() ? devTools.enhancer() : null
+      ]
+    );
+  }
 
   hmrOnInit(store) {
     if (!store || !store.rootState) return;
