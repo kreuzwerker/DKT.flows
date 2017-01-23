@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const getFlows = gql`
+export const getFlowsQuery = gql`
   query FlowsQuery {
     allFlows {
       id
@@ -16,7 +16,7 @@ export class FlowsListData {
   description: string;
 }
 
-export const getFlow = gql`
+export const getFlowQuery = gql`
   query FlowQuery($id: ID) {
     Flow(id: $id) {
       id,
@@ -41,7 +41,7 @@ export const getFlow = gql`
   }
 `;
 
-export const updateStep = gql`
+export const updateStepMutation = gql`
   mutation StepMutation(
     $id: ID!,
     $position: Int!,

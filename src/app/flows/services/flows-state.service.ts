@@ -2,18 +2,15 @@ import 'rxjs/add/operator/filter'
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
-import { ApolloQueryResult } from 'apollo-client';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
-import gql from 'graphql-tag';
 
 import { AppState } from './../../reducers';
+import { FlowsApiService } from './../services';
 import { Flow, FlowData, Step, StepData, Provider, Service } from './../models';
 import { FlowsAppActions } from './../states';
 
-import { getFlows, FlowsListData, getFlow, updateStep } from './flow.gql';
-import { getProviders } from './provider.gql';
+import { FlowsListData } from './flow.gql';
 
 @Injectable()
 export class FlowsStateService {
@@ -37,9 +34,9 @@ export class FlowsStateService {
   private loadProviders$: Subject<any> = new Subject<any>();
 
   constructor(
-      private apollo: Angular2Apollo,
+      private api: FlowsApiService,
       private store$: Store<AppState>,
-      public actions: FlowsAppActions
+      public actions: FlowsAppActions,
     ) {
 
     // 
@@ -50,9 +47,7 @@ export class FlowsStateService {
     // ----------
 
     // Fetches list of flows
-    this.flows$ = this.apollo.watchQuery<any>({
-      query: getFlows
-    }).map(({data}) => data.allFlows);
+    this.flows$ = this.api.getFlows().map(({data}) => data.allFlows);
 
 
     // Current selected flow
@@ -60,11 +55,9 @@ export class FlowsStateService {
 
     // Fetches flow data reactively as soon as flowId gets set or changes, i.e.
     // DOES NOT fetch flow data when flowId is null or unchanged.
-    this.flow$ = this.apollo.watchQuery<any>({
-      query: getFlow,
-      variables: {
-        id: this.select('flowId').filter((flowId) => flowId !== null)
-      }
+
+    this.flow$ = this.api.getFlow({
+      id: this.select('flowId').filter((flowId) => flowId !== null)
     }).map(({data}) => data.Flow);
     // Unset loading flows flag
     this.flow$.subscribe((flow) => this.actions.setLoadingFlow(false) );
@@ -73,12 +66,9 @@ export class FlowsStateService {
     // Providers list
     // --------------
 
-    this.providers$ = this.apollo.watchQuery<any>({
-      query: getProviders,
-      variables: {
-        // NB fake var to hold back the query until we trigger it via this observable
-        id: this.loadProviders$
-      }
+    this.providers$ = this.api.getProviders({
+      // NB fake var to hold back the query until we trigger it via this observable
+      id: this.loadProviders$
     }).map(({data}) => data.allProviders);
     // Unset loading providers flag
     this.providers$.subscribe((providers) => this.actions.setLoadingProviders(false) );
@@ -129,13 +119,10 @@ export class FlowsStateService {
 
   saveFlowStep(flowId: String, stepId: string, step: StepData): void {
     this.actions.setSavingFlow(true, false);
-    this.apollo.mutate<any>({
-      mutation: updateStep,
-      variables: {
-        id: stepId,
-        position: step.position,
-        serviceId: step.service.id
-      }
+    this.api.updateStep({
+      id: stepId,
+      position: step.position,
+      serviceId: step.service.id
     }).subscribe((data) => {
       this.actions.setSavingFlow(false, true);
     });
