@@ -1,7 +1,5 @@
 /* tslint:disable: no-switch-case-fall-through */
-import { Action } from '@ngrx/store';
-
-import { AppState, Selector } from '../../reducers';
+import { AppState, Action, Selector } from '../../reducers';
 import { FlowsAppActions as Actions } from './flows-app.actions';
 import { Step, Provider } from '../models';
 

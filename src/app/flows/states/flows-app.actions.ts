@@ -1,7 +1,7 @@
 /* tslint:disable: member-ordering */
 import { Injectable } from '@angular/core';
-import { Store, Action } from '@ngrx/store';
-import { AppState } from './../../reducers';
+import { NgRedux } from 'ng2-redux';
+import { AppState, Action } from './../../reducers';
 
 import { Step, StepData, Provider, Service } from '../models';
 
@@ -9,11 +9,11 @@ import { Step, StepData, Provider, Service } from '../models';
 export class FlowsAppActions {
 
   constructor(
-      private store$: Store<AppState>,
+      private store: NgRedux<AppState>,
     ) {}
 
   private dispatch(action: Action) {
-    this.store$.dispatch(action);
+    this.store.dispatch(action);
   }
 
   static SELECT_FLOW = 'SELECT_FLOW';

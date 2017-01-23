@@ -1,10 +1,10 @@
 import 'rxjs/add/operator/filter'
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 
+import { NgRedux, select } from 'ng2-redux';
 import { AppState } from './../../reducers';
 import { FlowsApiService } from './../services';
 import { Flow, FlowData, Step, StepData, Provider, Service } from './../models';
@@ -35,7 +35,7 @@ export class FlowsStateService {
 
   constructor(
       private api: FlowsApiService,
-      private store$: Store<AppState>,
+      private store: NgRedux<AppState>,
       public actions: FlowsAppActions,
     ) {
 
@@ -80,8 +80,7 @@ export class FlowsStateService {
 
   // Get a UI state property observable
   select(key: string) {
-    return this.store$
-      .select('flowsApp')
+    return this.store.select('flowsApp')
       .map(state => state[key])
       .distinctUntilChanged();
   }
@@ -90,8 +89,7 @@ export class FlowsStateService {
   get(key: string) {
     // @see http://stackoverflow.com/questions/35633684/how-to-get-current-value-of-state-object-with-ngrx-store
     let value;
-    this.store$
-      .select('flowsApp')
+    this.store.select('flowsApp')
       .map(state => state[key])
       .take(1)
       .subscribe(s => value = s);

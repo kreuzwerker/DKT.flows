@@ -16,6 +16,11 @@ const modules = {
 
 import { FlowsAppState, flowsAppReducer  } from '../flows/states';
 
+export interface Action {
+  type: string;
+  payload?: any;
+}
+
 export interface Selector<T, V> {
   (observable$: Observable<T>): Observable<V>;
 }
@@ -23,6 +28,9 @@ export interface Selector<T, V> {
 export interface AppState {
   router: RouterState;
   user: fromUser.UserState;
+
+  // DKT Apps data state
+  apollo: any,
 
   // DKT Apps UI state
   flowsApp: FlowsAppState;
