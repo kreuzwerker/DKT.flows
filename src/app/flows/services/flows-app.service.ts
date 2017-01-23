@@ -53,10 +53,10 @@ export class FlowsAppService {
   */
 
   flowPath(): string {
-    return `/flows/${this.flow.id}`;
+    return this.flow ? `/flows/${this.flow.id}` : '';
   }
 
   flowStepPath(): string {
-    return `${this.flowPath()}/steps/${this.step.id}`;
+    return this.step ? `${this.flowPath()}/steps/${this.step.id}` : '';
   }
 }

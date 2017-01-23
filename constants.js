@@ -77,7 +77,6 @@ exports.DEV_SERVER_WATCH_OPTIONS = {
  * your app in dev mode. Options are: monitor | logger | both | none
  */
 // exports.STORE_DEV_TOOLS = 'both'
-exports.STORE_DEV_TOOLS = 'logger'
 
 exports.EXCLUDE_SOURCE_MAPS = [
   // these packages have problems with their sourcemaps

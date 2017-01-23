@@ -12,8 +12,6 @@ import { HttpModule } from '@angular/http';
 
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 
-import { Store } from '@ngrx/store';
-
 import { NgRedux, DevToolsExtension } from 'ng2-redux';
 import { NgReduxRouter } from 'ng2-redux-router';
 import { Action, combineReducers, applyMiddleware, ReducersMapObject } from 'redux';
@@ -47,7 +45,6 @@ import { AppState, rootReducer } from './reducers';
 
 export class AppModule {
   constructor(public appRef: ApplicationRef,
-    private _store: Store<AppState>,
     private ngRedux: NgRedux<any>,
     private ngReduxRouter: NgReduxRouter,
     private devTools: DevToolsExtension,
@@ -75,7 +72,7 @@ export class AppModule {
 
     // restore state by dispatch a SET_ROOT_STATE action
     if (store.rootState) {
-      this._store.dispatch({
+      this.ngRedux.dispatch({
         type: 'SET_ROOT_STATE',
         payload: store.rootState
       });
@@ -87,7 +84,7 @@ export class AppModule {
   }
   hmrOnDestroy(store) {
     const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-    this._store.take(1).subscribe(s => store.rootState = s);
+    this.ngRedux.select().take(1).subscribe(s => store.rootState = s);
     store.disposeOldHosts = createNewHosts(cmpLocation);
     store.restoreInputValues = createInputTransfer();
     removeNgStyles();
