@@ -15,6 +15,7 @@ import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularcla
 import { Store } from '@ngrx/store';
 
 import { NgRedux, DevToolsExtension } from 'ng2-redux';
+import { NgReduxRouter } from 'ng2-redux-router';
 import { Action, combineReducers, applyMiddleware, ReducersMapObject } from 'redux';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
@@ -48,7 +49,8 @@ export class AppModule {
   constructor(public appRef: ApplicationRef,
     private _store: Store<AppState>,
     private ngRedux: NgRedux<any>,
-    devTools: DevToolsExtension,
+    private ngReduxRouter: NgReduxRouter,
+    private devTools: DevToolsExtension,
   ) {
     ngRedux.configureStore(
       // Reducers
@@ -65,6 +67,7 @@ export class AppModule {
         devTools.isEnabled() ? devTools.enhancer() : null
       ]
     );
+    ngReduxRouter.initialize();
   }
 
   hmrOnInit(store) {

@@ -3,12 +3,11 @@ import { compose } from '@ngrx/core/compose';
 import { ActionReducer, combineReducers } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
-import { routerReducer, RouterState } from '@ngrx/router-store';
 
+import { routerReducer } from 'ng2-redux-router';
 import { client } from './../apollo-client-store';
 
 import * as fromUser from '../user/user.reducer';
-
 
 const modules = {
   'user': fromUser
@@ -23,6 +22,10 @@ export interface Action {
 
 export interface Selector<T, V> {
   (observable$: Observable<T>): Observable<V>;
+}
+
+export interface RouterState {
+  path: string;
 }
 
 export interface AppState {
