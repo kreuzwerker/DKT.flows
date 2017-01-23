@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 
 import { Flow, Step } from './../models';
+import { FlowsListData } from './flow.gql';
 import { FlowsStateService } from './';
 import * as stepHelpers from './../utils/step.helpers';
 
 @Injectable()
 export class FlowsAppService {
+  // Flows list
+  flows: FlowsListData[];
   // Current selected flow / flow steps
   flow: Flow = null;
   steps: Step[] = [];
@@ -20,7 +23,9 @@ export class FlowsAppService {
 
   setStep(step: Step): void {
     this.step = step;
-    this.stepTypeName = stepHelpers.getStepServiceTypeName(step);
+    this.stepTypeName = step
+      ? stepHelpers.getStepServiceTypeName(step)
+      : null;
   }
 
   /*
@@ -48,10 +53,10 @@ export class FlowsAppService {
   */
 
   flowPath(): string {
-    return `/flows/${this.flow.id}`;
+    return this.flow ? `/flows/${this.flow.id}` : '';
   }
 
   flowStepPath(): string {
-    return `${this.flowPath()}/steps/${this.step.id}`;
+    return this.step ? `${this.flowPath()}/steps/${this.step.id}` : '';
   }
 }

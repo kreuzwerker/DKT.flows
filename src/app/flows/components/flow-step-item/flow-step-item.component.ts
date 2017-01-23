@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Flow, Step } from '../../models';
 import * as stepHelpers from './../../utils/step.helpers';
 
@@ -13,6 +13,7 @@ export class FlowStepItemOption {
   selector: 'dkt-flow-step-item',
   templateUrl: 'flow-step-item.component.html',
   styleUrls: ['flow-step-item.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlowStepItemComponent implements OnInit, OnChanges {
   @Input() flow: Flow;
@@ -38,8 +39,8 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
     this.options = this.getStepOptions(this.step, this.currentActive, basePath);
 
     if (stepHelpers.stepHasService(this.step)) {
-      let provider = this.step.provider;
       let service = this.step.service;
+      let provider = this.step.service.provider;
       this.headerIcon = provider.icon;
       this.headerTitle = `${provider.name}: ${service.name}`;
     } else {

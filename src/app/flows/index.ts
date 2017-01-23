@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Routes, RouterModule } from '@angular/router';
@@ -9,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from './../core';
 
 // Containers
+import { FlowsListComponent } from './containers/flows-list/flows-list.component';
 import { FlowsAppComponent } from './containers/flows-app/flows-app.component';
 import { FlowHomeComponent } from './containers/flow-home/flow-home.component';
 import { SelectServiceComponent } from './containers/select-service/select-service.component';
@@ -29,13 +31,11 @@ import { ServiceItemComponent } from './components/service-item/service-item.com
 // Services
 import { FlowsApiService, FlowsAppService, FlowsStateService } from './services';
 
-// Actions
-import { FlowActions, StepActions, ProvidersActions } from './actions';
-
-// Effects
-import { FlowEffects, StepEffects, ProvidersEffects } from './effects';
+// States
+import { FlowsAppActions, FlowsAppEffects } from './states';
 
 const routes: Routes = [
+  { path: 'flows', component: FlowsListComponent },
   { path: 'flows/:flowId', component: FlowsAppComponent,
     children: [
       { path: '', component: FlowHomeComponent },
@@ -48,6 +48,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
+    FlowsListComponent,
     FlowsAppComponent,
     FlowHomeComponent,
     SelectServiceComponent,
@@ -66,12 +67,11 @@ const routes: Routes = [
   imports: [
     CommonModule,
     CoreModule,
+    FormsModule,
     RouterModule.forChild(routes),
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
-    EffectsModule.run(FlowEffects),
-    EffectsModule.run(StepEffects),
-    EffectsModule.run(ProvidersEffects),
+    EffectsModule.run(FlowsAppEffects),
   ],
   exports: [
   ],
@@ -79,9 +79,7 @@ const routes: Routes = [
     FlowsAppService,
     FlowsApiService,
     FlowsStateService,
-    FlowActions,
-    StepActions,
-    ProvidersActions,
+    FlowsAppActions,
   ]
 })
 export class FlowsModule {}

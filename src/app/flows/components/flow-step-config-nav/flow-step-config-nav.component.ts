@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 
 @Component({
   selector: 'dkt-flow-step-config-nav',
   templateUrl: 'flow-step-config-nav.component.html',
-  styleUrls: ['flow-step-config-nav.component.css']
+  styleUrls: ['flow-step-config-nav.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlowStepConfigNavComponent {
   @Input() current: string;

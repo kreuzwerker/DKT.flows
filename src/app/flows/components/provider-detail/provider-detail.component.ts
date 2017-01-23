@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
 import { Provider, Service, ServiceType } from './../../models';
@@ -8,6 +8,7 @@ import * as providerHelpers from './../../utils/provider.helpers';
   selector: 'dkt-provider-detail',
   templateUrl: 'provider-detail.component.html',
   styleUrls: ['provider-detail.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('fadeInOut', [
       state('true' , style({ opacity: 1, transform: 'scale(1.0)' })),
@@ -27,6 +28,10 @@ export class ProviderDetailComponent implements OnChanges {
   actionServices: Service[];
   selectedTabIndex: number = 0;
 
+  constructor(
+    private cd: ChangeDetectorRef,
+  ) { }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['provider'] !== undefined) {
       this.processProvider(changes['provider']['currentValue']);
@@ -37,14 +42,16 @@ export class ProviderDetailComponent implements OnChanges {
 
   open() {
     this.show = true;
+    this.cd.markForCheck();
   }
 
   close() {
     this.show = false;
+    this.cd.markForCheck();
   }
 
   processProvider(provider) {
-    if (provider && provider.steps) {
+    if (provider && provider.services) {
       this.triggerServices = providerHelpers.getProviderTriggerSteps(provider);
       this.actionServices = providerHelpers.getProviderActionSteps(provider);
     } else {
@@ -54,7 +61,7 @@ export class ProviderDetailComponent implements OnChanges {
   }
 
   processSelectableServiceType(type) {
-    this.selectedTabIndex = type === ServiceType.Trigger ? 0 : 1;
+    this.selectedTabIndex = type === ServiceType.TRIGGER ? 0 : 1;
   }
 
   selectService(service) {

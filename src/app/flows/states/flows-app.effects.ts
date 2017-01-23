@@ -11,24 +11,24 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { AppState } from '../../reducers';
 import { FlowsApiService } from './../services';
-import { ProvidersActions } from './../actions';
+import { FlowsAppActions } from './';
 
 
 @Injectable()
-export class ProvidersEffects {
+export class FlowsAppEffects {
   constructor(
     private actions$: Actions,
     private api: FlowsApiService,
     private store$: Store<AppState>,
-    private providersActions: ProvidersActions
+    private actions: FlowsAppActions
   ) {}
 
   // tslint:disable-next-line:member-ordering
-  @Effect()
-  loadFlow$ = this.actions$
-    .ofType(ProvidersActions.LOAD_PROVIDERS)
-    .switchMap(({payload}) => this.api.fetchProviders()
-      .map(data => this.providersActions.fetchProvidersFulfilled(data))
-      .catch(error => Observable.of(this.providersActions.fetchProvidersFailed(error)))
-    );
+  // @Effect()
+  // saveStep$ = this.actions$
+  //   .ofType(StepActions.SAVE_STEP)
+  //   .switchMap(({payload}) => this.api.updateFlowStep(payload.flowId, payload.stepId, payload.step)
+  //     .map(data => this.stepActions.updateStepFulfilled(data))
+  //     .catch(error => Observable.of(this.stepActions.updateStepFailed(error)))
+  //   );
 }

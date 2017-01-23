@@ -1,13 +1,13 @@
 import { Provider, Service, ServiceType } from './../models';
 
 export function getProviderStepsByType(provider: Provider, type: ServiceType): Service[] {
-  return provider.steps ? provider.steps.filter(step => step.type === type) : [];
+  return provider.services ? provider.services.filter(service => service.type === type) : [];
 }
 
 export function getProviderTriggerSteps(provider: Provider) {
-  return getProviderStepsByType(provider, ServiceType.Trigger);
+  return getProviderStepsByType(provider, ServiceType.TRIGGER);
 }
 
 export function getProviderActionSteps(provider: Provider) {
-  return getProviderStepsByType(provider, ServiceType.Action);
+  return getProviderStepsByType(provider, ServiceType.ACTION);
 }

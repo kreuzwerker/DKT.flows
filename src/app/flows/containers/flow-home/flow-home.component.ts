@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { FlowsAppService } from './../../services';
 
 @Component({
   selector: 'flow-home',
   templateUrl: 'flow-home.component.html',
-  styleUrls: ['flow-home.component.css']
+  styleUrls: ['flow-home.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlowHomeComponent {
   constructor(

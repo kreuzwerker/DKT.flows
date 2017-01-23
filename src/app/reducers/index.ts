@@ -3,7 +3,9 @@ import { compose } from '@ngrx/core/compose';
 import { ActionReducer, combineReducers } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
-import { routerReducer, RouterState } from '@ngrx/router-store';
+
+import { routerReducer } from 'ng2-redux-router';
+import { client } from './../apollo-client-store';
 
 import * as fromUser from '../user/user.reducer';
 
@@ -11,30 +13,41 @@ const modules = {
   'user': fromUser
 };
 
-import { FlowState, flowReducer, StepState, stepReducer, ProvidersState, providersReducer } from '../flows/reducers';
+import { FlowsAppState, flowsAppReducer  } from '../flows/states';
+
+export interface Action {
+  type: string;
+  payload?: any;
+}
 
 export interface Selector<T, V> {
   (observable$: Observable<T>): Observable<V>;
+}
+
+export interface RouterState {
+  path: string;
 }
 
 export interface AppState {
   router: RouterState;
   user: fromUser.UserState;
 
-  // Flows states
-  flow: FlowState;
-  step: StepState;
-  providers: ProvidersState;
+  // DKT Apps data state
+  apollo: any,
+
+  // DKT Apps UI state
+  flowsApp: FlowsAppState;
 }
 
 export const reducers = {
   router: routerReducer,
   user: fromUser.userReducer,
 
-  // Flows reducers
-  flow: flowReducer,
-  step: stepReducer,
-  providers: providersReducer,
+  // DKT Apps data state
+  apollo: client.reducer() as any,
+
+  // DKT Apps UI state
+  flowsApp: flowsAppReducer,
 };
 
 // Generate a reducer to set the root state in dev mode for HMR

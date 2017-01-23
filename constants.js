@@ -77,12 +77,15 @@ exports.DEV_SERVER_WATCH_OPTIONS = {
  * your app in dev mode. Options are: monitor | logger | both | none
  */
 // exports.STORE_DEV_TOOLS = 'both'
-exports.STORE_DEV_TOOLS = 'logger'
 
 exports.EXCLUDE_SOURCE_MAPS = [
   // these packages have problems with their sourcemaps
   root('node_modules/@angular'),
-  root('node_modules/rxjs')
+  root('node_modules/rxjs'),
+  root('node_modules/apollo-client'),
+  root('node_modules/angular2-apollo'),
+  // Watch https://github.com/angular-redux/ng2-redux/issues/311
+  root('node_modules/ng2-redux'),
 ]
 
 exports.MY_COPY_FOLDERS = [
@@ -101,6 +104,8 @@ exports.MY_VENDOR_DLLS = [
   // list vendors that you want to be included in your dlls files
   // this will speed up initial dev server build and incremental builds.
   // Be sure to run `npm run build:dll` if you make changes to this array.
+  'apollo-client',
+  'angular2-apollo'
 ]
 
 exports.MY_CLIENT_PLUGINS = [
