@@ -3447,13 +3447,13 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-ng2-redux:
-  version "3.3.10"
-  resolved "https://registry.yarnpkg.com/ng2-redux/-/ng2-redux-3.3.10.tgz#0fea879f700558076910c55b1b457e61d5ea6c3e"
-
 ng2-redux-router:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ng2-redux-router/-/ng2-redux-router-2.0.0.tgz#386c1d2d70c85b2a439c75ff5913379cc9632b20"
+
+ng2-redux@5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/ng2-redux/-/ng2-redux-5.1.2.tgz#db26b583fb70cd116d41f825471252a6711cc572"
 
 ngrx-store-freeze@0.1.6:
   version "0.1.6"

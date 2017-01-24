@@ -106,7 +106,7 @@
     "immutable": "^3.8.1",
     "json-server": "^0.9.2",
     "lodash": "^4.17.4",
-    "ng2-redux": "^3.3.10",
+    "ng2-redux": "5.1.2",
     "ng2-redux-router": "^2.0.0",
     "ngrx-store-freeze": "0.1.6",
     "ngrx-store-logger": "0.1.7",
