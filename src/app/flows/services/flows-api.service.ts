@@ -44,7 +44,9 @@ export class FlowsApiService {
     });
   }
 
-  public updateStep({id, position, serviceId}: {id: String, position: Number, serviceId: String}): Observable<ApolloQueryResult<any>> {
+  public updateStep(
+    {id, position, serviceId}: {id: String, position: Number, serviceId: String}
+  ): Observable<ApolloQueryResult<any>> {
     return this.apollo.mutate<any>({
       mutation: updateStepMutation,
       variables: {
@@ -52,7 +54,7 @@ export class FlowsApiService {
         position: position,
         serviceId: serviceId
       }
-    })
+    });
   }
 
   /**

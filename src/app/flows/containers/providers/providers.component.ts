@@ -2,7 +2,7 @@ import { Subject } from 'rxjs/Subject';
 import { Observable, Subscription } from 'rxjs';
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 
 import { Provider, Step, Service, ServiceType } from './../../models';
 import * as providerHelpers from './../../utils/provider.helpers';
@@ -43,7 +43,8 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     Observable.combineLatest(
       this.state.providers$,
-      this.state.select('step').filter(step => step !== null && step.service && step.service.provider),
+      this.state.select('step')
+        .filter(step => step !== null && step.service && step.service.provider),
       (providers, step) => ({providers: providers, step: step})
     ).take(1).subscribe(
       this.onInitialLoad.bind(this),
@@ -78,13 +79,13 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   }
 
   onInitialLoad({providers, step}) {
-    let provider: Provider = _.find<Provider>(providers, (p) => p.id === step.service.provider.id)
+    let provider: Provider = _.find<Provider>(providers, (p) => p.id === step.service.provider.id);
     this.selectProvider(provider);
   }
 
   onLoadProviders(providers: Provider[]) {
     this.providers = providers;
-    this.cd.markForCheck()
+    this.cd.markForCheck();
   }
 
   onSelectProvider(provider: Provider) {
@@ -101,7 +102,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     } else {
       this.providerDetail.close();
     }
-    this.cd.markForCheck()
+    this.cd.markForCheck();
   }
 
   onSelectStep(step: Step) {
@@ -110,12 +111,12 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     } else {
       this.selectedService = null;
     }
-    this.cd.markForCheck()
+    this.cd.markForCheck();
   }
 
   // User initiated selection of provider
   selectProvider(provider: Provider) {
-    if(this.state.get('provider') !== provider) {
+    if (this.state.get('provider') !== provider) {
       // Select a new provider, which will call onSelectProvider reactively
       this.state.actions.selectProvider(provider);
     } else {

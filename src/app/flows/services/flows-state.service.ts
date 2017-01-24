@@ -1,4 +1,4 @@
-import 'rxjs/add/operator/filter'
+import 'rxjs/add/operator/filter';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -102,7 +102,7 @@ export class FlowsStateService {
   // 
 
   selectFlow(id: String): void {
-    if(id === this.get('flowId')) {
+    if (id === this.get('flowId')) {
       // Requested flow is already selected
       return;
     }

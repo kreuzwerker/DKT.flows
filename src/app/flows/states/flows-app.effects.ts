@@ -27,7 +27,8 @@ export class FlowsAppEffects {
   // @Effect()
   // saveStep$ = this.actions$
   //   .ofType(StepActions.SAVE_STEP)
-  //   .switchMap(({payload}) => this.api.updateFlowStep(payload.flowId, payload.stepId, payload.step)
+  //   .switchMap(
+  //     ({payload}) => this.api.updateFlowStep(payload.flowId, payload.stepId, payload.step)
   //     .map(data => this.stepActions.updateStepFulfilled(data))
   //     .catch(error => Observable.of(this.stepActions.updateStepFailed(error)))
   //   );

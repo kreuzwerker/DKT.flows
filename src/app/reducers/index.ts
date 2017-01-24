@@ -33,7 +33,7 @@ export interface AppState {
   user: fromUser.UserState;
 
   // DKT Apps data state
-  apollo: any,
+  apollo: any;
 
   // DKT Apps UI state
   flowsApp: FlowsAppState;

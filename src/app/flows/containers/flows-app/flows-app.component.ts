@@ -71,7 +71,7 @@ export class FlowsAppComponent implements OnDestroy {
 
   onFlowRouteChange(flowId: string) {
     this.state.selectFlow(flowId);
-    this.cd.markForCheck()
+    this.cd.markForCheck();
   }
 
   // Updated requested step ID and select the step if flow steps are loaded
@@ -82,7 +82,7 @@ export class FlowsAppComponent implements OnDestroy {
         if (params['stepId'] && params['stepId'] !== this.requestedStepId) {
           this.requestedStepId = params['stepId'];
           this.selectRequestedStep();
-          this.cd.markForCheck()
+          this.cd.markForCheck();
         }
       });
     }

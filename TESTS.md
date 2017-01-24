@@ -95,20 +95,8 @@ Provider
 Service
 Step
 
-Actions
--------
+State
+-----
 
-FlowActions
-StepActions
-ProviderReducer
-
-Reducers
---------
-
-flowReducer
-stepReducer
-providersReducer
-
-Selectors
----------
-
+FlowAppActions
+flowAppReducer

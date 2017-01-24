@@ -4,19 +4,19 @@ import { FlowsAppActions as Actions } from './flows-app.actions';
 import { Step, Provider } from '../models';
 
 export interface FlowsAppState {
-  flowId: String,
+  flowId: String;
   step: Step;
-  provider: Provider,
-  loadingFlow: boolean,
-  loadingFlows: boolean,
-  loadingProviders: boolean,
-  savingFlow: boolean,
-  savedFlow: boolean,
+  provider: Provider;
+  loadingFlow: boolean;
+  loadingFlows: boolean;
+  loadingProviders: boolean;
+  savingFlow: boolean;
+  savedFlow: boolean;
 };
 
 const initialState: FlowsAppState = {
   flowId: null,
-  step: null,  
+  step: null,
   provider: null,
   loadingFlow: false,
   loadingFlows: false,
