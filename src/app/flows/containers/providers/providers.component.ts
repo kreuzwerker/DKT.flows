@@ -26,8 +26,8 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   providersSub$: Subscription;
 
   providers: Array<Provider> = [];
-  selectedProvider: Provider;
-  selectedService: Service | null;
+  selectedProvider: Provider = null;
+  selectedService: Service | null = null;
 
   @ViewChild(ProviderDetailComponent) providerDetail: ProviderDetailComponent;
 
@@ -35,10 +35,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     public state: FlowsStateService,
     public snackBar: MdSnackBar
-  ) {
-    this.selectedProvider = null;
-    this.selectedService = null;
-  }
+  ) { }
 
   ngOnInit() {
     Observable.combineLatest(

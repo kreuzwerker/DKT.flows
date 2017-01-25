@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
@@ -24,7 +24,7 @@ import { Service, ServiceType, Step } from './../../models';
   ],
 })
 
-export class SelectServiceComponent implements OnDestroy {
+export class SelectServiceComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   selectedService: Service | null = null;
   selectableServiceType: ServiceType = ServiceType.ACTION;
@@ -33,7 +33,9 @@ export class SelectServiceComponent implements OnDestroy {
     private cd: ChangeDetectorRef,
     public flowsApp: FlowsAppService,
     public state: FlowsStateService
-  ) {
+  ) { }
+
+  ngOnInit() {
     // Register current step preparation stage
     this.flowsApp.setStepStage('select');
 

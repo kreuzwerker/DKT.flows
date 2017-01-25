@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FlowsAppService } from './../../services';
 
 @Component({
@@ -8,10 +8,12 @@ import { FlowsAppService } from './../../services';
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class ConfigureStepComponent {
+export class ConfigureStepComponent implements OnInit {
   constructor(
     public flowsApp: FlowsAppService,
-  ) {
+  ) { }
+
+  ngOnInit() {
     // Register current step preparation stage
     this.flowsApp.setStepStage('configure');
   }

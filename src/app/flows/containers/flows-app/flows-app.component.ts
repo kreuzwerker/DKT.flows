@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs';
-import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
@@ -11,7 +11,7 @@ import { Flow, Step } from './../../models';
   styleUrls: ['flows-app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlowsAppComponent implements OnDestroy {
+export class FlowsAppComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   flowSub$: Subscription;
 
@@ -23,7 +23,9 @@ export class FlowsAppComponent implements OnDestroy {
     public route: ActivatedRoute,
     public router: Router,
     public state: FlowsStateService,
-  ) {
+  ) { }
+
+  ngOnInit() {
     this.route.params.takeUntil(this.ngOnDestroy$).map(params => params['flowId'])
     .subscribe(
       this.onFlowRouteChange.bind(this),
