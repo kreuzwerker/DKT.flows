@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 
 import { NgRedux, select } from 'ng2-redux';
-import { AppState } from './../../reducers';
+import { AppState, Action } from './../../reducers';
 import { FlowsApiService } from './../services';
 import { Flow, FlowData, Step, StepData, Provider, Service } from './../models';
 import { FlowsAppActions } from './../states';
@@ -60,7 +60,7 @@ export class FlowsStateService {
       id: this.select('flowId').filter((flowId) => flowId !== null)
     }).map(({data}) => data.Flow);
     // Unset loading flows flag
-    this.flow$.subscribe((flow) => this.actions.setLoadingFlow(false) );
+    this.flow$.subscribe((flow) => this.dispatch(this.actions.setLoadingFlow(false)) );
 
 
     // Providers list
@@ -71,7 +71,9 @@ export class FlowsStateService {
       id: this.loadProviders$
     }).map(({data}) => data.allProviders);
     // Unset loading providers flag
-    this.providers$.subscribe((providers) => this.actions.setLoadingProviders(false) );
+    this.providers$.subscribe((providers) => this.dispatch(
+      this.actions.setLoadingProviders(false)
+    ) );
   }
 
   // 
@@ -101,33 +103,37 @@ export class FlowsStateService {
   // API
   // 
 
+  dispatch(action: Action) {
+    this.store.dispatch(action);
+  }
+
   selectFlow(id: String): void {
     if (id === this.get('flowId')) {
       // Requested flow is already selected
       return;
     }
 
-    this.actions.setLoadingFlow(true);
-    this.actions.selectFlow(id);
+    this.dispatch(this.actions.setLoadingFlow(true));
+    this.dispatch(this.actions.selectFlow(id));
   }
 
   saveFlow(id: String, flow: FlowData): void {
-    this.actions.setSavingFlow(true, false);
+    this.dispatch(this.actions.setSavingFlow(true, false));
   }
 
   saveFlowStep(flowId: String, stepId: string, step: StepData): void {
-    this.actions.setSavingFlow(true, false);
+    this.dispatch(this.actions.setSavingFlow(true, false));
     this.api.updateStep({
       id: stepId,
       position: step.position,
       serviceId: step.service.id
     }).subscribe((data) => {
-      this.actions.setSavingFlow(false, true);
+      this.dispatch(this.actions.setSavingFlow(false, true));
     });
   }
 
   loadProviders(): void {
-    this.actions.setLoadingProviders(true);
+    this.dispatch(this.actions.setLoadingProviders(true));
     // Trigger loading the providers
     this.loadProviders$.next(1);
   }

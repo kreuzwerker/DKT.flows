@@ -102,7 +102,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     }
 
     if (requestedStep) {
-      this.state.actions.selectStep(requestedStep);
+      this.state.dispatch(this.state.actions.selectStep(requestedStep));
     }
   }
 
