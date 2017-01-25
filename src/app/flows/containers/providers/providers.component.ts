@@ -138,7 +138,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   }
 
   selectFirstService(provider: Provider, type: ServiceType = ServiceType.ACTION): void {
-    let triggerServices = providerHelpers.getProviderStepsByType(provider, type);
+    let triggerServices = providerHelpers.getProviderServicesByType(provider, type);
     if (triggerServices.length) {
       this.selectService(triggerServices[0]);
     }
