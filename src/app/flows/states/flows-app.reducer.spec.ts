@@ -1,7 +1,100 @@
+/* tslint:disable: max-line-length */
+import { TestBed } from '@angular/core/testing';
+import { TestUtils } from '../utils/test.helpers';
 import { FlowsAppActions } from './flows-app.actions';
-import { FlowData } from '../models';
 import { flowsAppReducer } from './flows-app.reducer';
-import { testUtils } from '../utils/test.helpers';
+
+describe('Flows App', () => {
+
+  describe('Flows App Reducer', () => {
+    let state;
+    let actions;
+    let utils;
+
+    beforeEach(() => {
+      actions = new FlowsAppActions();
+      utils = new TestUtils();
+    });
+
+    describe('SELECT_FLOW action', () => {
+      it('should set flowId to the given value', () => {
+        let flowId = '1';
+        state = flowsAppReducer(undefined, actions.selectFlow(flowId));
+        expect(state.flowId).toEqual(flowId);
+      });
+    });
+
+    describe('SELECT_STEP action', () => {
+      it('should set step to the given value', () => {
+        let step = utils.createStepData();
+        state = flowsAppReducer(undefined, actions.selectStep(step));
+        expect(state.step).toEqual(step);
+      });
+    });
+
+    describe('SET_STEP_SERVICE_STEP action', () => {
+      it('should set step.provider and step.service to the given values', () => {
+        let provider = utils.createProviderData();
+        let service = utils.createServiceData();
+        state = flowsAppReducer(undefined, actions.setStepService(provider, service));
+        expect(state.step.provider).toEqual(provider);
+        expect(state.step.service).toEqual(service);
+      });
+    });
+
+    describe('SELECT_PROVIDER action', () => {
+      it('should set provider to the given value', () => {
+        let provider = utils.createProviderData();
+        state = flowsAppReducer(undefined, actions.selectProvider(provider));
+        expect(state.provider).toEqual(provider);
+      });
+    });
+
+    describe('SET_LOADING_FLOW action', () => {
+      it('should set the loading flow flag to the given value', () => {
+        state = flowsAppReducer(undefined, actions.setLoadingFlow(true));
+        expect(state.loadingFlow).toBeTruthy();
+        state = flowsAppReducer(undefined, actions.setLoadingFlow(false));
+        expect(state.loadingFlow).toBeFalsy();
+      });
+    });
+
+    describe('SET_LOADING_FLOWS action', () => {
+      it('should set the loading flows flag to the given value', () => {
+        state = flowsAppReducer(undefined, actions.setLoadingFlows(true));
+        expect(state.loadingFlows).toBeTruthy();
+        state = flowsAppReducer(undefined, actions.setLoadingFlows(false));
+        expect(state.loadingFlows).toBeFalsy();
+      });
+    });
+
+    describe('SET_LOADING_PROVIDERS action', () => {
+      it('should set the loading providers flag to the given value', () => {
+        state = flowsAppReducer(undefined, actions.setLoadingProviders(true));
+        expect(state.loadingProviders).toBeTruthy();
+        state = flowsAppReducer(undefined, actions.setLoadingProviders(false));
+        expect(state.loadingProviders).toBeFalsy();
+      });
+    });
+
+    describe('SET_SAVING_FLOW action', () => {
+      it('should set the saving flow flag and saved status to the given values', () => {
+        state = flowsAppReducer(undefined, actions.setSavingFlow(true, true));
+        expect(state.savingFlow).toBeTruthy();
+        expect(state.savedFlow).toBeTruthy();
+        state = flowsAppReducer(undefined, actions.setSavingFlow(false, false));
+        expect(state.savingFlow).toBeFalsy();
+        expect(state.savedFlow).toBeFalsy();
+      });
+    });
+  });
+});
+
+
+// import { FlowsAppActions } from './flows-app.actions';
+// import { FlowData } from '../models';
+// import { flowsAppReducer } from './flows-app.reducer';
+// import { testUtils } from '../utils/test.helpers';
 
 // describe('Flow reducers', () => {
 //   describe('Load flow', () => {

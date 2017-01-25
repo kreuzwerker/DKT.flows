@@ -1,10 +1,45 @@
-import { TestBed, async } from '@angular/core/testing';
-import { ChangeDetectionStrategy } from '@angular/core';
-// import { ComponentFixtureAutoDetect } from '@angular/core/testing';
+/* tslint:disable: ter-max-len */
+describe('Flows App', () => {
 
-import { MaterialModule } from '@angular/material';
+  describe('FlowStepItem Component', () => {
 
-import { FlowStepItemComponent } from './flow-step-item.component';
+    // UI
+    // - should list the available options for the given step
+    //   => test option states: active, locked
+    // - I can select a service step
+
+    xit('should call render() on init', () => {
+    });
+
+    xit('should call render() on changes', () => {
+    });
+
+    describe('render()', () => {
+      xit('should set the options correctly for the current step', () => {
+      });
+
+      xit('should set the header icon and title to step service and provider if the current step has a service set', () => {
+      });
+
+      xit('should set the header icon and title correctly if the current step has no service set', () => {
+      });
+    });
+
+    describe('getStepOptions()', () => {
+      xit('should return the correct step options for the given step', () => {
+      });
+    });
+
+  });
+});
+
+// import { TestBed, async } from '@angular/core/testing';
+// import { ChangeDetectionStrategy } from '@angular/core';
+// // import { ComponentFixtureAutoDetect } from '@angular/core/testing';
+
+// import { MaterialModule } from '@angular/material';
+
+// import { FlowStepItemComponent } from './flow-step-item.component';
 
 // describe('FlowStepItemComponent', () => {
 //     beforeEach(async(() => {

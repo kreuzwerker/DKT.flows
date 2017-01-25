@@ -1,10 +1,47 @@
-import { TestBed, async } from '@angular/core/testing';
-import { ChangeDetectionStrategy } from '@angular/core';
-// import { ComponentFixtureAutoDetect } from '@angular/core/testing';
+/* tslint:disable: ter-max-len */
+describe('Flows App', () => {
 
-import { MaterialModule } from '@angular/material';
+  describe('FlowStepConfigNav Component', () => {
+    describe('showStepNav()', () => {
+      xit('should return true if the current and requested step are both "select"', () => {
+      });
 
-import { FlowStepConfigNavComponent } from './flow-step-config-nav.component';
+      xit('should return false if the current ste is "select" but the requested step is not', () => {
+      });
+
+      xit('should return true if the current step is not "select"', () => {
+      });
+    });
+
+    describe('getStepIconType()', () => {
+      xit('should return "number" if the requested and the current step are both "select"', () => {
+      });
+
+      xit('should return "check" if the requested step is "select" but the current step is not', () => {
+      });
+
+      xit('should return "number" if the requested step is "configure" and the current step is "select" or "configure"', () => {
+      });
+
+      xit('should return "check" if the requested step is "configure" but the current step neither "select" nor "configure"', () => {
+      });
+
+      xit('should return "number" if the requested step is "test"', () => {
+      });
+
+      xit('should return "undefined" if the requested step is neither "select", "configure" nor "test"', () => {
+      });
+    });
+  });
+});
+
+// import { TestBed, async } from '@angular/core/testing';
+// import { ChangeDetectionStrategy } from '@angular/core';
+// // import { ComponentFixtureAutoDetect } from '@angular/core/testing';
+
+// import { MaterialModule } from '@angular/material';
+
+// import { FlowStepConfigNavComponent } from './flow-step-config-nav.component';
 
 // describe('FlowStepConfigNavComponent', () => {
 //     beforeEach(async(() => {
