@@ -485,6 +485,15 @@ awesome-typescript-loader@~3.0.0-beta.17:
     object-assign "^4.1.0"
     source-map-support "^0.4.0"
 
+aws-sdk@2.3.19:
+  version "2.3.19"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.3.19.tgz#d040df16b1880fdf231a8d48139c8956191fc00e"
+  dependencies:
+    jmespath "0.15.0"
+    sax "1.1.5"
+    xml2js "0.4.15"
+    xmlbuilder "2.6.2"
+
 aws-sign2@~0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.6.0.tgz#14342dd38dbcc94d0e5b87d763cd63612c0e794f"
@@ -508,6 +517,21 @@ babel-code-frame@^6.20.0:
     chalk "^1.1.0"
     esutils "^2.0.2"
     js-tokens "^2.0.0"
+
+babel-polyfill@^6.7.2:
+  version "6.22.0"
+  resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.22.0.tgz#1ac99ebdcc6ba4db1e2618c387b2084a82154a3b"
+  dependencies:
+    babel-runtime "^6.22.0"
+    core-js "^2.4.0"
+    regenerator-runtime "^0.10.0"
+
+babel-runtime@^6.22.0:
+  version "6.22.0"
+  resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.22.0.tgz#1cf8b4ac67c77a4ddb0db2ae1f74de52ac4ca611"
+  dependencies:
+    core-js "^2.4.0"
+    regenerator-runtime "^0.10.0"
 
 backo2@1.0.2:
   version "1.0.2"
@@ -875,7 +899,25 @@ clone@^1.0.0, clone@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.2.tgz#260b7a99ebb1edfe247538175f783243cb19d149"
 
-co@^4.6.0:
+co-from-stream@~0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/co-from-stream/-/co-from-stream-0.0.0.tgz#1a5cd8ced77263946094fa39f2499a63297bcaf9"
+  dependencies:
+    co-read "0.0.1"
+
+co-fs-extra@^1.0.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/co-fs-extra/-/co-fs-extra-1.2.1.tgz#3b6ad77cf2614530f677b1cf62664f5ba756b722"
+  dependencies:
+    co-from-stream "~0.0.0"
+    fs-extra "~0.26.5"
+    thunkify-wrap "~1.0.4"
+
+co-read@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/co-read/-/co-read-0.0.1.tgz#f81b3eb8a86675fec51e3d883a7f564e873c9389"
+
+co@^4.5.4, co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
 
@@ -1091,7 +1133,7 @@ copy-webpack-plugin@~4.0.0:
     minimatch "^3.0.0"
     node-dir "^0.1.10"
 
-core-js@^2.2.0, core-js@2.4.1:
+core-js@^2.2.0, core-js@^2.4.0, core-js@2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.4.1.tgz#4de911e667b0eae9124e34254b53aea6fc618d3e"
 
@@ -1520,6 +1562,10 @@ emojis-list@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
 
+enable@1:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/enable/-/enable-1.3.2.tgz#9eba6837d16d0982b59f87d889bf754443d52931"
+
 encodeurl@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/encodeurl/-/encodeurl-1.0.1.tgz#79e3d58655346909fe6f0f45a5de68103b294d20"
@@ -1944,7 +1990,7 @@ fs-access@^1.0.0:
   dependencies:
     null-check "^1.0.0"
 
-fs-extra@^0.26.4:
+fs-extra@^0.26.4, fs-extra@~0.26.5:
   version "0.26.7"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-0.26.7.tgz#9ae1fdd94897798edab76d0918cf42d0c3184fa9"
   dependencies:
@@ -2080,7 +2126,7 @@ glob@^3.2.11:
     inherits "2"
     minimatch "0.3"
 
-glob@^5.0.15, glob@~5.0.0:
+glob@^5.0.12, glob@^5.0.15, glob@~5.0.0:
   version "5.0.15"
   resolved "https://registry.yarnpkg.com/glob/-/glob-5.0.15.tgz#1bc936b9e02f4a603fcc222ecf7633d30b8b93b1"
   dependencies:
@@ -2760,6 +2806,10 @@ jju@^1.1.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/jju/-/jju-1.3.0.tgz#dadd9ef01924bc728b03f2f7979bdbd62f7a2aaa"
 
+jmespath@0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/jmespath/-/jmespath-0.15.0.tgz#a3f222a9aae9f966f5d27c796510e28091764217"
+
 jodid25519@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/jodid25519/-/jodid25519-1.0.2.tgz#06d4912255093419477d425633606e0e90782967"
@@ -3155,7 +3205,7 @@ lodash.templatesettings@^3.0.0:
     lodash._reinterpolate "^3.0.0"
     lodash.escape "^3.0.0"
 
-lodash@^3.10.1, lodash@^3.8.0:
+lodash@^3.10.1, lodash@^3.8.0, lodash@^3.9.3:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
@@ -3166,6 +3216,10 @@ lodash@^4.0.0, lodash@^4.0.1, lodash@^4.11.2, lodash@^4.13.1, lodash@^4.14.0, lo
 lodash@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-1.0.2.tgz#8f57560c83b59fc270bd3d561b690043430e2551"
+
+lodash@~3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.5.0.tgz#19bb3f4d51278f0b8c818ed145c74ecf9fe40e6d"
 
 lodash@~4.16.4:
   version "4.16.6"
@@ -3381,7 +3435,7 @@ minimatch@0.3:
     lru-cache "2"
     sigmund "~1.0.0"
 
-minimist@^1.1.0, minimist@^1.1.3, minimist@^1.2.0:
+minimist@^1.1.0, minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
@@ -4477,6 +4531,10 @@ regenerate@^1.2.1:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.3.2.tgz#d1941c67bad437e1be76433add5b385f95b19260"
 
+regenerator-runtime@^0.10.0:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.10.1.tgz#257f41961ce44558b18f7814af48c17559f9faeb"
+
 regex-cache@^0.4.2:
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/regex-cache/-/regex-cache-0.4.3.tgz#9b1a6c35d4d0dfcef5711ae651e8e9d3d7114145"
@@ -4655,6 +4713,19 @@ rxjs@5.0.0-beta.12:
   dependencies:
     symbol-observable "^1.0.1"
 
+s3-deploy:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/s3-deploy/-/s3-deploy-0.7.3.tgz#6c1fa0c6c329593a62bf622e01d5bd9a3b15f2c1"
+  dependencies:
+    aws-sdk "2.3.19"
+    babel-polyfill "^6.7.2"
+    co "^4.5.4"
+    co-fs-extra "^1.0.1"
+    glob "^5.0.12"
+    lodash "^3.9.3"
+    mime "^1.3.4"
+    minimist "^1.1.1"
+
 sass-graph@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/sass-graph/-/sass-graph-2.1.2.tgz#965104be23e8103cb7e5f710df65935b317da57b"
@@ -4669,13 +4740,17 @@ saucelabs@~1.3.0:
   dependencies:
     https-proxy-agent "^1.0.0"
 
-sax@~1.2.1:
+sax@>=0.6.0, sax@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.1.tgz#7b8e656190b228e81a66aea748480d828cd2d37a"
 
 sax@0.6.x:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/sax/-/sax-0.6.1.tgz#563b19c7c1de892e09bfc4f2fc30e3c27f0952b9"
+
+sax@1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/sax/-/sax-1.1.5.tgz#1da50a8d00cdecd59405659f5ff85349fe773743"
 
 select-hose@^2.0.0:
   version "2.0.0"
@@ -5186,6 +5261,12 @@ through2@2.0.1:
   dependencies:
     readable-stream "~2.0.0"
     xtend "~4.0.0"
+
+thunkify-wrap@~1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/thunkify-wrap/-/thunkify-wrap-1.0.4.tgz#b52be548ddfefda20e00b58c6096762b43dd6880"
+  dependencies:
+    enable "1"
 
 time-stamp@^1.0.0:
   version "1.0.1"
@@ -5760,6 +5841,13 @@ xml-char-classes@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/xml-char-classes/-/xml-char-classes-1.0.0.tgz#64657848a20ffc5df583a42ad8a277b4512bbc4d"
 
+xml2js@0.4.15:
+  version "0.4.15"
+  resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.15.tgz#95cd03ff2dd144ec28bc6273bf2b2890c581ad0c"
+  dependencies:
+    sax ">=0.6.0"
+    xmlbuilder ">=2.4.6"
+
 xml2js@0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.4.tgz#3111010003008ae19240eba17497b57c729c555d"
@@ -5767,9 +5855,15 @@ xml2js@0.4.4:
     sax "0.6.x"
     xmlbuilder ">=1.0.0"
 
-xmlbuilder@>=1.0.0:
+xmlbuilder@>=1.0.0, xmlbuilder@>=2.4.6:
   version "8.2.2"
   resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-8.2.2.tgz#69248673410b4ba42e1a6136551d2922335aa773"
+
+xmlbuilder@2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-2.6.2.tgz#f916f6d10d45dc171b1be2e6e673fb6e0cc35d0a"
+  dependencies:
+    lodash "~3.5.0"
 
 xmlhttprequest-ssl@1.5.1:
   version "1.5.1"

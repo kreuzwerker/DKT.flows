@@ -36,3 +36,4 @@ dll/
 
 # DKT #
 /mock-api/db.json
+.aws
