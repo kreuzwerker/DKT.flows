@@ -42,6 +42,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
       }
 
       p {
+        display:inline-block;
         font-size: 12px;
 
         a {
@@ -49,16 +50,51 @@ https://github.com/jtangelder/sass-loader/issues/211 */
         }
       }
 
+      &:not(.locked) p:hover {
+        cursor: pointer;
+      }
+
       /*
         Status classes
       */
+
+      &.active,
+      &:not(.locked):not(.remove) p:hover {
+        color: $active-color;
+      }
 
       &.locked {
         color: $inactive-color;
       }
 
-      &.active {
-        color: $active-color;
+      &.remove:not(.showingConfirmDialog) p:hover {
+        color: $warning-color;
+      }
+
+      /* 
+        Inline confirm dialog
+      */
+
+      &.showingConfirmDialog {
+        .confirm-dialog {
+          [md-button] {
+            font-size:12px;
+            padding: 0px 5px;
+            line-height: 22px;
+            min-width: initial;
+          }
+
+          [md-button]:last-child {
+            margin-right: 5px;
+          }
+        }
+
+        &.remove {
+          md-icon,
+          .confirm-dialog span.sure {
+              color: $warning-color;
+          }
+        }
       }
     }
   }

@@ -33,6 +33,11 @@ describe('Flows App', () => {
       });
     });
 
+    describe('removeFlowStep()', () => {
+      xit('should delete a flow step and remove it from the flow steps.', () => {
+      });
+    });
+
     describe('createStepObject()', () => {
       xit('should return a new flow step object for the given parameters.', () => {
       });

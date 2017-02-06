@@ -29,7 +29,15 @@ describe('Flows App', () => {
       });
     });
 
-    describe('optimisticNewStep()', () => {
+    describe('removeFlowStep()', () => {
+      xit('should query the API with a mutation of a deleted step', () => {
+      });
+
+      xit('should remove the deleted flow step from the current flow steps', () => {
+      });
+    });
+
+    describe('optimisticallyAddStep()', () => {
       xit('should return an optimistic response object for the given step.', () => {
       });
     });
@@ -38,5 +46,14 @@ describe('Flows App', () => {
       xit('should append the given step to the current list of flow steps.', () => {
       });
     });
-  });
+
+    describe('optimisticallyRemoveStep()', () => {
+      xit('should return an optimistic response object for the given step.', () => {
+      });
+    });
+
+    describe('removeDeletedFlowStep()', () => {
+      xit('should remove the given step from the current list of flow steps.', () => {
+      });
+    });  });
 });

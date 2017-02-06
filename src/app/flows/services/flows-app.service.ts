@@ -56,12 +56,8 @@ export class FlowsAppService {
     this.state.addFlowStep(this.flow.id, newStep);
   }
 
-  createStepObject(position: number = 0, service: Service = undefined): Step {
-    return {
-      id: 'new',
-      position: position,
-      service: service,
-    }
+  removeFlowStep(step: Step): void {
+    this.state.removeFlowStep(this.flow.id, step);
   }
 
   /*
@@ -74,5 +70,13 @@ export class FlowsAppService {
 
   flowStepPath(): string {
     return this.step ? `${this.flowPath()}/steps/${this.step.id}` : '';
+  }
+
+  createStepObject(position: number = 0, service: Service = undefined): Step {
+    return {
+      id: 'new',
+      position: position,
+      service: service,
+    }
   }
 }

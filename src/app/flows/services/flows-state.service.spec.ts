@@ -71,5 +71,16 @@ describe('Flows App', () => {
       xit('should dispatch an action to set the flow saving flag and to unset the flow saved flag when saving was successful', () => {
       });
     });
+
+    describe('removeFlowStep()', () => {
+      xit('should dispatch an action to set the flow saving flag and to unset the flow saved flag', () => {
+      });
+
+      xit('should call the API to remove the current step with the given data', () => {
+      });
+
+      xit('should dispatch an action to set the flow saving flag and to unset the flow saved flag when saving was successful', () => {
+      });
+    });
   });
 });

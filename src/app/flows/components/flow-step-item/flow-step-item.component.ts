@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { FlowsAppService } from './../../services';
 import { Flow, Step } from '../../models';
 import * as stepHelpers from './../../utils/step.helpers';
 
@@ -6,7 +7,11 @@ export class FlowStepItemOption {
   title: string;
   icon?: string;
   classes?: Array<string>;
-  link?: string;
+  link?: string | boolean;
+  action?: Function;
+  confirmAction?: Function;
+  confirmYesLabel?: string;
+  confirmNoLabel?: string;
 }
 
 @Component({
@@ -23,6 +28,11 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
   headerIcon: string;
   headerTitle: string;
   options: FlowStepItemOption[];
+  showConfirmDialog: boolean = false;
+
+  constructor(
+    public flowsApp: FlowsAppService
+  ) { }
 
   ngOnInit() {
     this.render();
@@ -77,7 +87,7 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
     configureOption.classes = conigureLocked ?
       configureOption.classes.concat(['locked']) :
       configureOption.classes;
-    configureOption.link    = conigureLocked ? basePath + 'configure' : null;
+    configureOption.link    = !conigureLocked ? basePath + 'configure' : false;
     options.push(configureOption);
 
     // Test step:
@@ -90,8 +100,18 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
       !stepHelpers.stepIsTested(step));
     testOption.icon    = testLocked ? 'lock' : 'check';
     testOption.classes = testLocked ? testOption.classes.concat(['locked']) : testOption.classes;
-    testOption.link    = testLocked ? basePath + 'test' : null;
+    testOption.link    = !testLocked ? basePath + 'test' : false;
     options.push(testOption);
+
+    // Remove step:
+    let removeOption: FlowStepItemOption = { title: 'Remove ' + typeName};
+    removeOption.icon           = 'cancel';
+    removeOption.classes        = ['remove'];
+    removeOption.link           = false;
+    removeOption.confirmAction  = () => this.flowsApp.removeFlowStep(step);
+    removeOption.confirmYesLabel = 'Yes, remove it';
+    removeOption.confirmNoLabel = 'No, keep it';
+    options.push(removeOption);
 
     return options;
   }

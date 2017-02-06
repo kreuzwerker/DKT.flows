@@ -76,3 +76,13 @@ export const addFlowStepMutation = gql`
 
   ${flowStepFragment}
 `;
+
+export const removeFlowStepMutation = gql`
+  mutation deleteStep($stepId:ID!) {
+    deleteStep(id: $stepId) {
+      ...FlowStep
+    }
+  }
+
+  ${flowStepFragment}
+`;
