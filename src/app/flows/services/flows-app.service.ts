@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import * as _ from 'lodash';
 
 import { Flow, Step, Service } from './../models';
@@ -20,7 +21,10 @@ export class FlowsAppService {
   // Gets set by child component, e.g. FlowHome, SelectService etc.
   stepStage = null;
 
-  constructor(public state: FlowsStateService) {}
+  constructor(
+    public state: FlowsStateService,
+    private router: Router,
+  ) {}
 
   setStep(step: Step): void {
     this.step = step;
@@ -58,6 +62,10 @@ export class FlowsAppService {
 
   removeFlowStep(step: Step): void {
     this.state.removeFlowStep(this.flow.id, step);
+    if(step.id === this.step.id) {
+      // Deselect deleted step
+      this.router.navigate(['/flows', this.flow.id]);
+    }
   }
 
   /*
