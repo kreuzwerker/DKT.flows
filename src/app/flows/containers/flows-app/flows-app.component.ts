@@ -115,4 +115,8 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
       this.flowsApp.stepStage :
       '';
   }
+
+  isSelectedStep(step: Step): boolean {
+    return step.id && this.flowsApp.step && step.id === this.flowsApp.step.id;
+  }
 }

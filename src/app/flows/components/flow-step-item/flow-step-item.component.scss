@@ -47,6 +47,8 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 
         a {
           color: inherit;
+          // Enlarge link height to make link easier to click
+          padding: 6px 0;
         }
       }
 

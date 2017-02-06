@@ -14,7 +14,7 @@ div.layout {
   div.left {
     position: relative;
     // Min width required for inline confirm dialog (see flow-step-item)
-    min-width: 310px;
+    min-width: 350px;
   }
 }
 
@@ -22,8 +22,53 @@ div.layout {
   Flow steps
 */
 
+$steps-line-color: white;
+$steps-line-bg-color: #BDBDBD;
+$step-item-control-top-margin: 0.5rem;
+
 .steps {
+  position: relative;
+
+  // Vertical line
+  &:before {
+    content: '';
+    position: absolute;
+    z-index:0;
+    top: 1em;
+    bottom: 1em;
+    left: 1rem;
+    width: 3px;
+    background-color: $steps-line-bg-color;
+  }
+
   .step {
+    position: relative;
     margin-bottom:1rem;
+    margin-left: 3rem;
+
+    .position {
+      position:absolute;
+      left: -3rem;
+      top: $step-item-control-top-margin;
+      background-color: $steps-line-bg-color;
+      border-radius: 50%;
+      text-align: center;
+      color: $steps-line-color;
+    }
+
+    &.selected {
+      .position {
+        background-color: $active-color;
+      }
+    }
+  }
+
+  button.add {
+    top: $step-item-control-top-margin;
+    background-color: $steps-line-bg-color;
+
+    md-icon {
+      color: $steps-line-color;
+    }
   }
 }
