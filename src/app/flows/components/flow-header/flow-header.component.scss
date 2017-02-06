@@ -1,1 +1,14 @@
-// component css goes here
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+
+h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+p {
+  font-size: 1rem;
+  color: $secondary-text-color;
+  margin-bottom: 1rem;
+}
