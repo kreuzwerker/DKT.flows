@@ -7,8 +7,8 @@
       </div>
     </div>
     <ul class="options">
-      <li *ngFor="let option of options" [ngClass]="option.classes" [class.showingConfirmDialog]="showConfirmDialog" fxLayout="row" fxLayoutAlign="start center">
-        <p>
+      <li *ngFor="let option of options" [ngClass]="option.classes" [class.showingConfirmDialog]="showConfirmDialog">
+        <p fxLayout="row" fxLayoutAlign="start center">
           <md-icon>{{option.icon}}</md-icon>
           <span *ngIf="!option.link && !option.action && !option.confirmAction">{{option.title}}</span>
           <a *ngIf="option.link" [routerLink]="option.link" routerLinkActive="active-link">{{option.title}}</a>

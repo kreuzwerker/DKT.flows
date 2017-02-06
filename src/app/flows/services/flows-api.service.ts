@@ -54,7 +54,7 @@ export class FlowsApiService {
         position: position,
         serviceId: serviceId
       }
-    });
+    }).map(({data}) => data.updateStep);
   }
 
   public addFlowStep(flowId: String, step: Step): Observable<ApolloQueryResult<any>> {
@@ -73,7 +73,7 @@ export class FlowsApiService {
           return this.pushNewFlowStep(previousResult, mutationResult.data.createStep);
         },
       },
-    });
+    }).map(({data}) => data.createStep);
   }
 
   public removeFlowStep(flowId: String, step: Step): Observable<ApolloQueryResult<any>> {

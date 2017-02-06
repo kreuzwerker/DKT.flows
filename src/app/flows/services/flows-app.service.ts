@@ -57,14 +57,17 @@ export class FlowsAppService {
     let lastStep = _.last(this.flow.steps);
     let position = lastStep ? lastStep.position + 1 : 0;
     let newStep = this.createStepObject(position);
-    this.state.addFlowStep(this.flow.id, newStep);
+    this.state.addFlowStep(this.flow.id, newStep).subscribe((step) => {
+      // Select new step
+      this.router.navigate(['flows', this.flow.id, 'steps', step.id, 'select-service']);
+    })
   }
 
   removeFlowStep(step: Step): void {
     this.state.removeFlowStep(this.flow.id, step);
     if(step.id === this.step.id) {
-      // Deselect deleted step
-      this.router.navigate(['/flows', this.flow.id]);
+      // Deselect deleted step by navigating to flow home
+      this.router.navigate(['flows', this.flow.id]);
     }
   }
 
