@@ -20,5 +20,23 @@ describe('Flows App', () => {
       xit('should query the API with a mutation of the given step', () => {
       });
     });
+
+    describe('addFlowStep()', () => {
+      xit('should query the API with a mutation of a new step', () => {
+      });
+
+      xit('should append the new flow step to the current flow steps', () => {
+      });
+    });
+
+    describe('optimisticNewStep()', () => {
+      xit('should return an optimistic response object for the given step.', () => {
+      });
+    });
+
+    describe('pushNewFlowStep()', () => {
+      xit('should append the given step to the current list of flow steps.', () => {
+      });
+    });
   });
 });

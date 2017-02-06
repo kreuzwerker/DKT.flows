@@ -6,10 +6,10 @@ import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
 import { Http, Request, RequestMethod, RequestOptions, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { API_FLOWS_URL, API_PROVIDERS_URL } from './../constants';
-import { FlowData, StepData, Provider } from './../models';
+import { Flow, Step, FlowData, StepData, Provider } from './../models';
 
 // GraphQL queries & mutations
-import { getFlowsQuery, FlowsListData, getFlowQuery, updateStepMutation } from './flow.gql';
+import { getFlowsQuery, FlowsListData, getFlowQuery, updateStepMutation, addFlowStepMutation } from './flow.gql';
 import { getProvidersQuery } from './provider.gql';
 
 @Injectable()
@@ -55,6 +55,51 @@ export class FlowsApiService {
         serviceId: serviceId
       }
     });
+  }
+
+  public addFlowStep(flowId: String, step: Step): Observable<ApolloQueryResult<any>> {
+    return this.apollo.mutate<any>({
+      mutation: addFlowStepMutation,
+      variables: {
+        flowId: flowId,
+        position: step.position,
+        serviceId: step.service ? step.service.id : null,
+      },
+      // ISSUE: do we need to know the id beforehand?
+      // optimisticResponse: this.optimisticNewStep(step),
+
+      updateQueries: {
+        FlowQuery: (previousResult, { mutationResult }: any) => {
+          return this.pushNewFlowStep(previousResult, mutationResult.data.createStep);
+        },
+      },
+    });
+  }
+
+  /**
+   * Helper functions
+   */
+
+  private optimisticNewStep(step: Step): Object {
+    return {
+        __typename: 'Mutation',
+        createStep: {
+          __typename: 'Step',
+          id: 'new-' + (+new Date),
+          position: step.position,
+          createdAt: +new Date,
+          service: step.service,
+        },
+      }
+  }
+
+  private pushNewFlowStep(state, newStep): Object {
+    const prevSteps = state.Flow.steps;
+    return {
+      Flow: Object.assign({}, state.Flow, {
+        steps: [...prevSteps, newStep]
+      })
+    };
   }
 
   /**

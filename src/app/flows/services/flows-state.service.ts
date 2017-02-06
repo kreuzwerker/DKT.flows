@@ -132,6 +132,13 @@ export class FlowsStateService {
     });
   }
 
+  addFlowStep(flowId: String, step: Step) {
+    this.dispatch(this.actions.setSavingFlow(true, false));
+    this.api.addFlowStep(flowId, step).subscribe((data) => {
+      this.dispatch(this.actions.setSavingFlow(false, true));
+    });
+  }
+
   loadProviders(): void {
     this.dispatch(this.actions.setLoadingProviders(true));
     // Trigger loading the providers

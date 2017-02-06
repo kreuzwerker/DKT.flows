@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 
-import { Flow, Step } from './../models';
+import { Flow, Step, Service } from './../models';
 import { FlowsListData } from './flow.gql';
 import { FlowsStateService } from './';
 import * as stepHelpers from './../utils/step.helpers';
@@ -37,7 +38,7 @@ export class FlowsAppService {
   }
 
   /*
-    Persistance
+    CRUD
   */
 
   saveFlow(): void {
@@ -46,6 +47,21 @@ export class FlowsAppService {
 
   saveFlowStep(): void {
     this.state.saveFlowStep(this.flow.id, this.step.id, this.step);
+  }
+
+  addFlowStep(): void {
+    let lastStep = _.last(this.flow.steps);
+    let position = lastStep ? lastStep.position + 1 : 0;
+    let newStep = this.createStepObject(position);
+    this.state.addFlowStep(this.flow.id, newStep);
+  }
+
+  createStepObject(position: number = 0, service: Service = undefined): Step {
+    return {
+      id: 'new',
+      position: position,
+      service: service,
+    }
   }
 
   /*
