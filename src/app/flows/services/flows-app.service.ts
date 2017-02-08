@@ -65,7 +65,7 @@ export class FlowsAppService {
 
   removeFlowStep(step: Step): void {
     this.state.removeFlowStep(this.flow.id, step);
-    if(step.id === this.step.id) {
+    if(this.step && this.step.id === step.id) {
       // Deselect deleted step by navigating to flow home
       this.router.navigate(['flows', this.flow.id]);
     }

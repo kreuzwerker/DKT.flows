@@ -49,6 +49,14 @@ export class AppModule {
     private ngReduxRouter: NgReduxRouter,
     private devTools: DevToolsExtension,
   ) {
+    let enhancers = [
+      applyMiddleware(client.middleware()),
+    ]
+
+    if(devTools.isEnabled()) {
+      enhancers.push(devTools.enhancer());
+    }
+
     ngRedux.configureStore(
       // Reducers
       rootReducer,
@@ -59,10 +67,7 @@ export class AppModule {
         // createEpicMiddleware(combineEpics(...lionsEpics.epics)),
       ],
       // Enhancers
-      [
-        applyMiddleware(client.middleware()),
-        devTools.isEnabled() ? devTools.enhancer() : null
-      ]
+      enhancers
     );
     ngReduxRouter.initialize();
   }
