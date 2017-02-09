@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
-import { Flow, Step } from './../models';
+import { Flow, Step, Service } from './../models';
 import { FlowsListData } from './flow.gql';
 import { FlowsStateService } from './';
 import * as stepHelpers from './../utils/step.helpers';
@@ -19,7 +21,10 @@ export class FlowsAppService {
   // Gets set by child component, e.g. FlowHome, SelectService etc.
   stepStage = null;
 
-  constructor(public state: FlowsStateService) {}
+  constructor(
+    public state: FlowsStateService,
+    private router: Router,
+  ) {}
 
   setStep(step: Step): void {
     this.step = step;
@@ -37,7 +42,7 @@ export class FlowsAppService {
   }
 
   /*
-    Persistance
+    CRUD
   */
 
   saveFlow(): void {
@@ -46,6 +51,24 @@ export class FlowsAppService {
 
   saveFlowStep(): void {
     this.state.saveFlowStep(this.flow.id, this.step.id, this.step);
+  }
+
+  addFlowStep(): void {
+    let lastStep = _.last(this.flow.steps);
+    let position = lastStep ? lastStep.position + 1 : 0;
+    let newStep = this.createStepObject(position);
+    this.state.addFlowStep(this.flow.id, newStep).subscribe((step) => {
+      // Select new step
+      this.router.navigate(['flows', this.flow.id, 'steps', step.id, 'select-service']);
+    })
+  }
+
+  removeFlowStep(step: Step): void {
+    this.state.removeFlowStep(this.flow.id, step);
+    if(this.step && this.step.id === step.id) {
+      // Deselect deleted step by navigating to flow home
+      this.router.navigate(['flows', this.flow.id]);
+    }
   }
 
   /*
@@ -58,5 +81,13 @@ export class FlowsAppService {
 
   flowStepPath(): string {
     return this.step ? `${this.flowPath()}/steps/${this.step.id}` : '';
+  }
+
+  createStepObject(position: number = 0, service: Service = undefined): Step {
+    return {
+      id: 'new',
+      position: position,
+      service: service,
+    }
   }
 }

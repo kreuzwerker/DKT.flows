@@ -1,6 +1,7 @@
 "use strict";
 const root = require('./helpers.js').root
 const ip = require('ip');
+const { DefinePlugin, EnvironmentPlugin } = require('webpack');
 
 exports.HOST = ip.address();
 exports.DEV_PORT = 3000;
@@ -109,7 +110,7 @@ exports.MY_VENDOR_DLLS = [
 ]
 
 exports.MY_CLIENT_PLUGINS = [
-  // use this to import your own webpack config Client plugins.
+  new EnvironmentPlugin(['NODE_ENV']),
 ]
 
 exports.MY_CLIENT_PRODUCTION_PLUGINS = [

@@ -28,6 +28,21 @@ describe('Flows App', () => {
       });
     });
 
+    describe('addFlowStep()', () => {
+      xit('should create a new flow step and add it at the end.', () => {
+      });
+    });
+
+    describe('removeFlowStep()', () => {
+      xit('should delete a flow step and remove it from the flow steps.', () => {
+      });
+    });
+
+    describe('createStepObject()', () => {
+      xit('should return a new flow step object for the given parameters.', () => {
+      });
+    });
+
     describe('flowPath()', () => {
       xit('should return the correct path for the given flow', () => {
       });

@@ -1,6 +1,17 @@
 /* tslint:disable: ter-max-len */
+import { ProviderDetailComponent } from './provider-detail.component';
+import { MockChangeDetectorRef } from '../../utils/test.helpers'
+
 describe('Flows App', () => {
   describe('ProviderDetail Component', () => {
+    let component: ProviderDetailComponent;
+    let cd: MockChangeDetectorRef;
+
+    beforeEach(() => {
+      cd = <any>new MockChangeDetectorRef();
+      component = new ProviderDetailComponent(cd);
+      expect(component).toBeTruthy();
+    })
 
     // UI
     // - should display the service icon, name and description
@@ -26,12 +37,20 @@ describe('Flows App', () => {
     });
 
     describe('open()', () => {
-      xit('should set show to true and trigger change detection', () => {
+      it('should set show to true and trigger change detection', () => {
+        spyOn(cd, 'markForCheck');
+        component.open();
+        expect(component.show).toBeTruthy(); 
+        expect(cd.markForCheck).toHaveBeenCalled();
       });
     });
 
     describe('close()', () => {
-      xit('should set show to false and trigger change detection', () => {
+      it('should set show to false and trigger change detection', () => {
+        spyOn(cd, 'markForCheck');
+        component.close();
+        expect(component.show).toBeFalsy(); 
+        expect(cd.markForCheck).toHaveBeenCalled();
       });
     });
 

@@ -5,9 +5,14 @@
 
     <!-- Flow steps -->
     <div class="steps" *ngIf="flowsApp.flow">
-      <div class="step" *ngFor="let step of flowsApp.flow.steps">
+      <div class="step" *ngFor="let step of flowsApp.flow.steps" [class.selected]="isSelectedStep(step)">
+        <div class="position size-30">{{step.position + 1}}</div>
         <dkt-flow-step-item [flow]="flowsApp.flow" [step]="step" [currentActive]="getCurrentActiveStepOption(step)"></dkt-flow-step-item>
       </div>
+
+      <button md-icon-button class="add size-30" (click)="flowsApp.addFlowStep()">
+        <md-icon>add</md-icon>
+      </button>
     </div>
   </div>
 

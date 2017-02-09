@@ -6,10 +6,10 @@ import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
 import { Http, Request, RequestMethod, RequestOptions, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { API_FLOWS_URL, API_PROVIDERS_URL } from './../constants';
-import { FlowData, StepData, Provider } from './../models';
+import { Flow, Step, FlowData, StepData, Provider } from './../models';
 
 // GraphQL queries & mutations
-import { getFlowsQuery, FlowsListData, getFlowQuery, updateStepMutation } from './flow.gql';
+import { getFlowsQuery, FlowsListData, getFlowQuery, updateStepMutation, addFlowStepMutation, removeFlowStepMutation } from './flow.gql';
 import { getProvidersQuery } from './provider.gql';
 
 @Injectable()
@@ -54,7 +54,88 @@ export class FlowsApiService {
         position: position,
         serviceId: serviceId
       }
+    }).map(({data}) => data.updateStep);
+  }
+
+  public addFlowStep(flowId: String, step: Step): Observable<ApolloQueryResult<any>> {
+    return this.apollo.mutate<any>({
+      mutation: addFlowStepMutation,
+      variables: {
+        flow: flowId,
+        position: step.position,
+        service: step.service ? step.service.id : null,
+      },
+      // ISSUE: do we need to know the id beforehand?
+      // optimisticResponse: this.optimisticallyAddStep(step),
+
+      updateQueries: {
+        FlowQuery: (previousResult, { mutationResult }: any) => {
+          return this.pushNewFlowStep(previousResult, mutationResult.data.createStep);
+        },
+      },
+    }).map(({data}) => data.createStep);
+  }
+
+  public removeFlowStep(flowId: String, step: Step): Observable<ApolloQueryResult<any>> {
+    return this.apollo.mutate<any>({
+      mutation: removeFlowStepMutation,
+      variables: {
+        stepId: step.id,
+      },
+      optimisticResponse: this.optimisticallyRemoveStep(step),
+
+      updateQueries: {
+        FlowQuery: (previousResult, { mutationResult }: any) => {
+          return this.removeDeletedFlowStep(previousResult, mutationResult.data.deleteStep);
+        },
+      },
     });
+  }
+
+  /**
+   * Helper functions
+   */
+
+  private optimisticallyAddStep(step: Step): Object {
+    return {
+        __typename: 'Mutation',
+        createStep: {
+          __typename: 'Step',
+          id: 'new-' + (+new Date),
+          position: step.position,
+          createdAt: +new Date,
+          service: step.service,
+        },
+      }
+  }
+
+  private pushNewFlowStep(state, newStep): Object {
+    const prevSteps = state.Flow.steps;
+    return {
+      Flow: Object.assign({}, state.Flow, {
+        steps: [...prevSteps, newStep]
+      })
+    };
+  }
+
+  private optimisticallyRemoveStep(step: Step): Object {
+    return {
+        __typename: 'Mutation',
+        deleteStep: {
+          __typename: 'Step',
+          id: step.id,
+          position: step.position,
+          service: step.service,
+        },
+      }
+  }
+
+  private removeDeletedFlowStep(state, deleteStep): Object {
+    return {
+      Flow: Object.assign({}, state.Flow, {
+        steps: state.Flow.steps.filter((s) => s.id != deleteStep.id)
+      })
+    };
   }
 
   /**

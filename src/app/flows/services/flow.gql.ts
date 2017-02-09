@@ -16,6 +16,24 @@ export class FlowsListData {
   description: string;
 }
 
+export const flowStepFragment = gql`
+  fragment FlowStep on Step {
+    id,
+    position,
+    service {
+      id,
+      type,
+      name,
+      description
+      provider {
+        id,
+        name,
+        icon
+      }
+    }
+  }
+`;
+
 export const getFlowQuery = gql`
   query FlowQuery($id: ID) {
     Flow(id: $id) {
@@ -23,48 +41,48 @@ export const getFlowQuery = gql`
       name,
       description,
       steps {
-        id,
-        position,
-        service {
-          id,
-          type,
-          name,
-          description
-          provider {
-            id,
-            name,
-            icon
-          }
-        }
+        ...FlowStep
       }
     }
   }
+
+  ${flowStepFragment}
 `;
 
 export const updateStepMutation = gql`
   mutation StepMutation(
     $id: ID!,
     $position: Int!,
-    $serviceId: ID!,
+    $service: ID!,
   ) {
     updateStep(
       id: $id,
       position: $position,
-      serviceId: $serviceId
+      service: $service
     ) {
-      id,
-      position,
-      service {
-        id,
-        type,
-        name,
-        description
-        provider {
-          id,
-          name,
-          icon
-        }
-      }
+      ...FlowStep
     }
   }
+
+  ${flowStepFragment}
+`;
+
+export const addFlowStepMutation = gql`
+  mutation createStep($flow: ID!, $position: Int!, $service: ID) {
+		createStep(flow: $flow, position: $position, service: $service) {
+      ...FlowStep
+    }
+  }
+
+  ${flowStepFragment}
+`;
+
+export const removeFlowStepMutation = gql`
+  mutation deleteStep($stepId:ID!) {
+    deleteStep(id: $stepId) {
+      ...FlowStep
+    }
+  }
+
+  ${flowStepFragment}
 `;

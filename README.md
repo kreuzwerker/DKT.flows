@@ -1,7 +1,29 @@
 DKT flows
 =========
 
-## Mock API
+## Deployment
+
+### Configuration
+
+Create an AWS config file at `~/.aws/credentials` and add the AWS credentials for
+the `dkt` profile:
+
+```
+[dkt]
+[dkt]
+aws_access_key_id=YOUR_AWS_ACCESS_KEY_ID
+aws_secret_access_key=YOUR_AWS_SECRET_ACCESS_KEY
+region=eu-west-1
+```
+
+### Deployment
+
+1. First create a new build with `yarn run build` and check locally that the build works.
+2. Run `yarn run deploy-test` to deploy the new build to the Test environment.
+
+## Local REST Mock API
+
+(current not in use anymore)
 
 1. Run `npm run mock-api:reset` to prepare the Mock API with fixture data
 1. Run `npm run mock-api:serve` to start serving the Mock API at 

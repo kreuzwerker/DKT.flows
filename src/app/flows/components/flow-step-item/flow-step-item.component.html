@@ -7,11 +7,20 @@
       </div>
     </div>
     <ul class="options">
-      <li *ngFor="let option of options" [ngClass]="option.classes" fxLayout="row" fxLayoutAlign="start center">
-        <md-icon>{{option.icon}}</md-icon>
-        <p>
+      <li *ngFor="let option of options" [ngClass]="option.classes" [class.showingConfirmDialog]="showConfirmDialog">
+        <p fxLayout="row" fxLayoutAlign="start center">
+          <md-icon>{{option.icon}}</md-icon>
+          <span *ngIf="!option.link && !option.action && !option.confirmAction">{{option.title}}</span>
           <a *ngIf="option.link" [routerLink]="option.link" routerLinkActive="active-link">{{option.title}}</a>
-          <span *ngIf="!option.link">{{option.title}}</span>
+          <span *ngIf="option.action" class="action" (click)="option.action()">{{option.title}}</span>
+
+          <!-- Inline confirm dialog -->
+          <span *ngIf="option.confirmAction && !showConfirmDialog" class="action" (click)="showConfirmDialog = !showConfirmDialog">{{option.title}}</span>
+          <span *ngIf="option.confirmAction && showConfirmDialog" class="confirm-dialog">
+            <span class="sure" (click)="showConfirmDialog = !showConfirmDialog">Are you sure?</span>
+            <a md-button (click)="option.confirmAction()" class="yes">{{option.confirmYesLabel}}</a>
+            <a md-button (click)="showConfirmDialog = !showConfirmDialog" class="no">{{option.confirmNoLabel}}</a>
+          </span>
         </p>
       </li>
     </ul>
