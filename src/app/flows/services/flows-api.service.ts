@@ -61,9 +61,9 @@ export class FlowsApiService {
     return this.apollo.mutate<any>({
       mutation: addFlowStepMutation,
       variables: {
-        flowId: flowId,
+        flow: flowId,
         position: step.position,
-        serviceId: step.service ? step.service.id : null,
+        service: step.service ? step.service.id : null,
       },
       // ISSUE: do we need to know the id beforehand?
       // optimisticResponse: this.optimisticallyAddStep(step),

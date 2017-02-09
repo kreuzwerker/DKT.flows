@@ -53,12 +53,12 @@ export const updateStepMutation = gql`
   mutation StepMutation(
     $id: ID!,
     $position: Int!,
-    $serviceId: ID!,
+    $service: ID!,
   ) {
     updateStep(
       id: $id,
       position: $position,
-      serviceId: $serviceId
+      service: $service
     ) {
       ...FlowStep
     }
@@ -68,8 +68,8 @@ export const updateStepMutation = gql`
 `;
 
 export const addFlowStepMutation = gql`
-  mutation createStep($flowId: ID!, $position: Int!, $serviceId: ID) {
-		createStep(flowId: $flowId, position: $position, serviceId: $serviceId) {
+  mutation createStep($flow: ID!, $position: Int!, $service: ID) {
+		createStep(flow: $flow, position: $position, service: $service) {
       ...FlowStep
     }
   }
