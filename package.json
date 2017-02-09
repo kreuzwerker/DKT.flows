@@ -35,7 +35,7 @@
     "ci": "npm run e2e:jit && npm run test:once:ci",
     "ci:testall": "npm run e2e:testall && npm run test:once:ci",
     "tslint": "tslint",
-    "lint": "npm run tslint \"src/app/**/*.ts\" ",
+    "lint": " ",
     "clean": "npm cache clean && npm run clean:compile && npm run rimraf -- node_modules doc typings coverage dist .awcache dll",
     "clean:dist": "npm run rimraf -- dist .awcache",
     "clean:dll": "npm run rimraf -- dll",
@@ -71,7 +71,7 @@
     "watch:prod": "npm-run-all -p -r \"build:prod -- --watch\" sass:watch",
     "mock-api:reset": "node mock-api/db.js",
     "mock-api:serve": "json-server mock-api/db.json -p 3001 -w --routes mock-api/routes.json --delay 500",
-    "deploy": "s3-deploy './dist/**' --cwd './dist/' --region eu-west-1 --bucket dkt.flows.test"
+    "deploy-test": "s3-deploy './dist/client/**' --cwd './dist/client/' --profile dkt --region eu-west-1 --bucket dkt.flows.test"
   },
   "dependencies": {
     "@angular/common": "2.4.2",
