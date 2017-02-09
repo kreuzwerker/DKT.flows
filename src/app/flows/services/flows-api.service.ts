@@ -52,7 +52,7 @@ export class FlowsApiService {
       variables: {
         id: id,
         position: position,
-        serviceId: serviceId
+        service: serviceId
       }
     }).map(({data}) => data.updateStep);
   }
