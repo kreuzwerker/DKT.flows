@@ -1,35 +1,64 @@
 /* tslint:disable: ter-max-len */
+import { TestUtils } from './../../utils/test.helpers';
+import { FlowStepConfigNavComponent } from './flow-step-config-nav.component';
 describe('Flows App', () => {
 
   describe('FlowStepConfigNav Component', () => {
+    let component: FlowStepConfigNavComponent;
+    let utils: TestUtils;
+
+    beforeEach(() => {
+      utils = new TestUtils();
+      component = new FlowStepConfigNavComponent();
+      expect(component).toBeTruthy();
+    });
+
     describe('showStepNav()', () => {
-      xit('should return true if the current and requested step are both "select"', () => {
+      it('should return true if the current and requested step are both "select"', () => {
+        component.current = 'select';
+        expect(component.showStepNav('select')).toBeTruthy();
       });
 
-      xit('should return false if the current ste is "select" but the requested step is not', () => {
+      it('should return false if the current step is "select" but the requested step is not', () => {
+        component.current = 'select';
+        expect(component.showStepNav('configure')).toBeFalsy();
       });
 
-      xit('should return true if the current step is not "select"', () => {
+      it('should return true if the current step is not "select"', () => {
+        component.current = 'configure';
+        expect(component.showStepNav('configure')).toBeTruthy();
       });
     });
 
     describe('getStepIconType()', () => {
-      xit('should return "number" if the requested and the current step are both "select"', () => {
+      it('should return "number" if the requested and the current step are both "select"', () => {
+        component.current = 'select';
+        expect(component.getStepIconType('select')).toBe('number');
       });
 
-      xit('should return "check" if the requested step is "select" but the current step is not', () => {
+      it('should return "check" if the requested step is "select" but the current step is not', () => {
+        component.current = 'configure';
+        expect(component.getStepIconType('select')).toBe('check');
       });
 
-      xit('should return "number" if the requested step is "configure" and the current step is "select" or "configure"', () => {
+      it('should return "number" if the requested step is "configure" and the current step is "select" or "configure"', () => {
+        component.current = 'select';
+        expect(component.getStepIconType('configure')).toBe('number');
+        component.current = 'configure';
+        expect(component.getStepIconType('configure')).toBe('number');
       });
 
-      xit('should return "check" if the requested step is "configure" but the current step neither "select" nor "configure"', () => {
+      it('should return "check" if the requested step is "configure" but the current step neither "select" nor "configure"', () => {
+        component.current = 'test';
+        expect(component.getStepIconType('configure')).toBe('check');
       });
 
       xit('should return "number" if the requested step is "test"', () => {
+        expect(component.getStepIconType('test')).toBe('number');
       });
 
       xit('should return "undefined" if the requested step is neither "select", "configure" nor "test"', () => {
+        expect(component.getStepIconType('xxx')).toBe('undefined');
       });
     });
   });
