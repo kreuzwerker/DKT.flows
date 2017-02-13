@@ -60,12 +60,12 @@ export class FlowsAppService {
     this.state.addFlowStep(this.flow.id, newStep).subscribe((step) => {
       // Select new step
       this.router.navigate(['flows', this.flow.id, 'steps', step.id, 'select-service']);
-    })
+    });
   }
 
   removeFlowStep(step: Step): void {
     this.state.removeFlowStep(this.flow.id, step);
-    if(this.step && this.step.id === step.id) {
+    if (this.step && this.step.id === step.id) {
       // Deselect deleted step by navigating to flow home
       this.router.navigate(['flows', this.flow.id]);
     }
@@ -88,6 +88,6 @@ export class FlowsAppService {
       id: 'new',
       position: position,
       service: service,
-    }
+    };
   }
 }

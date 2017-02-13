@@ -1,14 +1,31 @@
 /* tslint:disable: ter-max-len */
+import { TestUtils } from './../../utils/test.helpers';
+import { FlowStepItemComponent } from './flow-step-item.component';
+import { FlowsAppService } from './../../services';
+import { Flow, Step } from '../../models';
+import * as stepHelpers from './../../utils/step.helpers';
+
 describe('Flows App', () => {
 
   describe('FlowStepItem Component', () => {
+    let component: FlowStepItemComponent;
+    let utils: TestUtils;
+
+    beforeEach(() => {
+      utils = new TestUtils();
+      component = new FlowStepItemComponent({} as FlowsAppService);
+      expect(component).toBeTruthy();
+    });
 
     // UI
     // - should list the available options for the given step
     //   => test option states: active, locked
     // - I can select a service step
 
-    xit('should call render() on init', () => {
+    it('should call render() on init', () => {
+      spyOn(component, 'render');
+      component.ngOnInit();
+      expect(component.render).toHaveBeenCalled();
     });
 
     xit('should call render() on changes', () => {

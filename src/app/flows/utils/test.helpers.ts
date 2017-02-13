@@ -87,5 +87,8 @@ export class MockChangeDetectorRef {
 }
 
 export class MockRouter {
-  navigate() {};
+  navigate() { };
+  subscribe() { };
+  isRouteActive() { };
+  generate() { };
 }

@@ -127,7 +127,7 @@ export class FlowsStateService {
       id: stepId,
       position: step.position,
       serviceId: step.service.id
-    }).subscribe((step) => {
+    }).subscribe((_step) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
     });
   }
@@ -135,9 +135,9 @@ export class FlowsStateService {
   addFlowStep(flowId: String, step: Step): Observable<any> {
     let obs$ = new Subject<any>();
     this.dispatch(this.actions.setSavingFlow(true, false));
-    this.api.addFlowStep(flowId, step).subscribe((step) => {
+    this.api.addFlowStep(flowId, step).subscribe((_step) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
-      obs$.next(step);
+      obs$.next(_step);
     });
 
     return obs$;

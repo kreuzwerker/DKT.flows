@@ -106,7 +106,7 @@ export class FlowsApiService {
           createdAt: +new Date,
           service: step.service,
         },
-      }
+      };
   }
 
   private pushNewFlowStep(state, newStep): Object {
@@ -127,13 +127,13 @@ export class FlowsApiService {
           position: step.position,
           service: step.service,
         },
-      }
+      };
   }
 
   private removeDeletedFlowStep(state, deleteStep): Object {
     return {
       Flow: Object.assign({}, state.Flow, {
-        steps: state.Flow.steps.filter((s) => s.id != deleteStep.id)
+        steps: state.Flow.steps.filter((s) => s.id !== deleteStep.id)
       })
     };
   }
@@ -142,22 +142,22 @@ export class FlowsApiService {
    * Legacy REST MockAPI
    */
 
-  fetchFlow(flowId: number): Observable<FlowData> {
-    return this.get(`${API_FLOWS_URL}/${flowId}`);
-  }
+  // fetchFlow(flowId: number): Observable<FlowData> {
+  //   return this.get(`${API_FLOWS_URL}/${flowId}`);
+  // }
 
-  updateFlow(flowId: number, data: FlowData): Observable<FlowData> {
-    return this.patch(`${API_FLOWS_URL}/${flowId}`, data);
-  }
+  // updateFlow(flowId: number, data: FlowData): Observable<FlowData> {
+  //   return this.patch(`${API_FLOWS_URL}/${flowId}`, data);
+  // }
 
-  updateFlowStep(flowId: number, stepId: number, data: StepData): Observable<StepData> {
-    console.log('PATCH step data', data);
-    return this.patch(`${API_FLOWS_URL}/${flowId}/steps/${stepId}`, data);
-  }
+  // updateFlowStep(flowId: number, stepId: number, data: StepData): Observable<StepData> {
+  //   console.log('PATCH step data', data);
+  //   return this.patch(`${API_FLOWS_URL}/${flowId}/steps/${stepId}`, data);
+  // }
 
-  fetchProviders(): Observable<Provider[]> {
-    return this.get(`${API_PROVIDERS_URL}`);
-  }
+  // fetchProviders(): Observable<Provider[]> {
+  //   return this.get(`${API_PROVIDERS_URL}`);
+  // }
 
   private get(url: string): Observable<any> {
     return this.http.get(url)
