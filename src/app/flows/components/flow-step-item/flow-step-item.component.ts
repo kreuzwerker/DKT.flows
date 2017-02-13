@@ -27,7 +27,7 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
 
   headerIcon: string;
   headerTitle: string;
-  options: FlowStepItemOption[];
+  options: FlowStepItemOption[] = [];
   showConfirmDialog: boolean = false;
 
   constructor(

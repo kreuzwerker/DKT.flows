@@ -49,7 +49,7 @@ describe('Flows App', () => {
         expect(component.processSelectableServiceType).not.toHaveBeenCalled();
       });
 
-      xit('should call processSelectableServiceType() when the selectableServiceType input changes', () => {
+      it('should call processSelectableServiceType() when the selectableServiceType input changes', () => {
         spyOn(component, 'processProvider');
         spyOn(component, 'processSelectableServiceType');
         const serviceType = ServiceType.TRIGGER;

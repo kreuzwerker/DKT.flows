@@ -1,4 +1,5 @@
 /* tslint:disable: ter-max-len */
+import { SimpleChange } from '@angular/core';
 import { TestUtils } from './../../utils/test.helpers';
 import { FlowStepItemComponent } from './flow-step-item.component';
 import { FlowsAppService } from './../../services';
@@ -22,23 +23,53 @@ describe('Flows App', () => {
     //   => test option states: active, locked
     // - I can select a service step
 
-    it('should call render() on init', () => {
-      spyOn(component, 'render');
-      component.ngOnInit();
-      expect(component.render).toHaveBeenCalled();
+    describe('ngOnInit()', () => {
+      it('should call render()', () => {
+        spyOn(component, 'render');
+        component.ngOnInit();
+        expect(component.render).toHaveBeenCalled();
+      });
     });
 
-    xit('should call render() on changes', () => {
+    describe('ngOnChanges()', () => {
+      it('should call render() on changes', () => {
+        spyOn(component, 'render');
+        const step = utils.createStepData();
+        component.ngOnChanges({ step: new SimpleChange(null, step)});
+        expect(component.render).toHaveBeenCalled();
+        const active = 'select';
+        component.ngOnChanges({ currentActive: new SimpleChange(null, active)});
+        expect(component.render).toHaveBeenCalled();
+      });
     });
 
     describe('render()', () => {
-      xit('should set the options correctly for the current step', () => {
+      beforeEach(() => {
+        component.flow = utils.createFlowData();
+        component.step = utils.createStepData();
+        component.currentActive = 'select';
       });
 
-      xit('should set the header icon and title to step service and provider if the current step has a service set', () => {
+      it('should set the options correctly for the current step', () => {
+        expect(component.options).toEqual([]);
+        component.render();
+        expect(component.options).not.toEqual([]);
       });
 
-      xit('should set the header icon and title correctly if the current step has no service set', () => {
+      it('should set the header icon and title to step service and provider if the current step has a service set', () => {
+        const service = component.step.service;
+        const provider = service.provider;
+        component.render();
+        expect(component.headerIcon).toBe(provider.icon);
+        const title = `${provider.name}: ${service.name}`;
+        expect(component.headerTitle).toBe(title);
+      });
+
+      it('should set the header icon and title correctly if the current step has no service set', () => {
+        component.step.service = undefined;
+        component.render();
+        expect(component.headerIcon).toBe('settings');
+        expect(component.headerTitle).toBe('Set up this step');
       });
     });
 
@@ -49,84 +80,3 @@ describe('Flows App', () => {
 
   });
 });
-
-// import { TestBed, async } from '@angular/core/testing';
-// import { ChangeDetectionStrategy } from '@angular/core';
-// // import { ComponentFixtureAutoDetect } from '@angular/core/testing';
-
-// import { MaterialModule } from '@angular/material';
-
-// import { FlowStepItemComponent } from './flow-step-item.component';
-
-// describe('FlowStepItemComponent', () => {
-//     beforeEach(async(() => {
-//         TestBed.configureTestingModule({
-//             imports: [
-//                 MaterialModule.forRoot(),
-//             ],
-//             declarations: [FlowStepItemComponent],
-//             providers: [
-//                 // for automatic change detection
-//                 // { provide: ComponentFixtureAutoDetect, useValue: true }
-//             ]
-//         })
-
-//         // this is a temporary workaround, as fixture.detectChanges() isn't working
-//         // for components with ChangeDetectionStrategy.OnPush
-//         .overrideComponent(FlowStepItemComponent, {
-//             set: { changeDetection: ChangeDetectionStrategy.Default }
-//         })
-
-//         // for components with ChangeDetectionStrategy.OnPush, .compileComponents() must
-//         // always be called first
-//         .compileComponents();
-//     }));
-
-//     it('should render step without service', async(() => {
-//         let fixture = TestBed.createComponent(FlowStepItemComponent);
-//         let comp = fixture.componentInstance;
-//         fixture.detectChanges();
-
-//         // example below for an input with a boolean value
-//         // e.g. @Input() isSelected: boolean = false
-//         comp.step = {
-//           id: 2,
-//         };
-
-//         // method below must be called to update DOM for latest changes
-//         // fixture.detectChanges();
-//         comp.render();
-
-//         expect(comp.headerIcon).toBe('settings');
-//         expect(comp.headerTitle).toBe('Set up this step');
-//     }));
-
-//     it('should render step with service', async(() => {
-//         let fixture = TestBed.createComponent(FlowStepItemComponent);
-//         let comp = fixture.componentInstance;
-//         fixture.detectChanges();
-
-//         // example below for an input with a boolean value
-//         // e.g. @Input() isSelected: boolean = false
-//         comp.step = {
-//           id: 2,
-//           service: {
-//             name: 'RSS',
-//             icon: 'rss_feed',
-//             step: {
-//               name: 'New Item in Feed'
-//             }
-//           }
-//         };
-
-//         // method below must be called to update DOM for latest changes
-//         // fixture.detectChanges();
-//         comp.render();
-
-//         expect(comp.headerIcon).toBe('rss_feed');
-//         expect(comp.headerTitle).toBe('RSS: New Item in Feed');
-//     }));
-
-// });
-
-
