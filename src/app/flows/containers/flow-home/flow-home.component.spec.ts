@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { MockFlowsApp } from './../../utils/test.helpers';
+import { mockFlowsApp } from './../../utils/test.helpers';
 import { FlowHomeComponent } from './flow-home.component';
 import { FlowsAppService } from './../../services';
 
@@ -10,7 +10,7 @@ describe('Flows App', () => {
     let flowsApp: FlowsAppService;
 
     beforeEach(() => {
-      flowsApp = MockFlowsApp;
+      flowsApp = mockFlowsApp;
       component = new FlowHomeComponent(flowsApp);
       expect(component).toBeTruthy();
     });

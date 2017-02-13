@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { MockFlowsApp } from './../../utils/test.helpers';
+import { mockFlowsApp } from './../../utils/test.helpers';
 import { ConfigureStepComponent } from './configure-step.component';
 import { FlowsAppService } from './../../services';
 
@@ -10,7 +10,7 @@ describe('Flows App', () => {
     let flowsApp: FlowsAppService;
 
     beforeEach(() => {
-      flowsApp = MockFlowsApp;
+      flowsApp = mockFlowsApp;
       component = new ConfigureStepComponent(flowsApp);
       expect(component).toBeTruthy();
     });

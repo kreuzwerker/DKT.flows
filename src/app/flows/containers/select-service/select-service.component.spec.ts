@@ -1,7 +1,23 @@
 /* tslint:disable: ter-max-len */
+import { MockChangeDetectorRef, mockFlowsApp, mockFlowsState } from './../../utils/test.helpers';
+import { SelectServiceComponent } from './select-service.component';
+import { FlowsAppService, FlowsStateService } from './../../services';
+
 describe('Flows App', () => {
 
   describe('SelectService Component', () => {
+    let component: SelectServiceComponent;
+    let cd: MockChangeDetectorRef;
+    let flowsApp: FlowsAppService;
+    let state: FlowsStateService;
+
+    beforeEach(() => {
+      cd = <any>new MockChangeDetectorRef();
+      flowsApp = mockFlowsApp;
+      state = mockFlowsState;
+      component = new SelectServiceComponent(cd, flowsApp, state);
+      expect(component).toBeTruthy();
+    });
 
     // UI
     // - on select service OR flow step has a service selected:
@@ -12,6 +28,9 @@ describe('Flows App', () => {
 
     describe('ngOnInit()', () => {
       xit('should set current step preparation stage to "select"', () => {
+        spyOn(flowsApp, 'setStepStage');
+        component.ngOnInit();
+        expect(flowsApp.setStepStage).toHaveBeenCalledWith('select');
       });
 
       xit('should call onSelectStep() when the current selected step changes', () => {
