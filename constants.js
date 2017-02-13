@@ -1,7 +1,7 @@
 "use strict";
 const root = require('./helpers.js').root
 const ip = require('ip');
-const { DefinePlugin, EnvironmentPlugin } = require('webpack');
+const { DefinePlugin } = require('webpack');
 
 exports.HOST = ip.address();
 exports.DEV_PORT = 3000;
@@ -110,7 +110,11 @@ exports.MY_VENDOR_DLLS = [
 ]
 
 exports.MY_CLIENT_PLUGINS = [
-  new EnvironmentPlugin(['NODE_ENV']),
+  new DefinePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production'),
+    },
+  })
 ]
 
 exports.MY_CLIENT_PRODUCTION_PLUGINS = [
@@ -126,5 +130,9 @@ exports.MY_TEST_RULES = [
 ]
 
 exports.MY_TEST_PLUGINS = [
-  // use this to import your own Test webpack config plugins.
+  new DefinePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify('test'),
+    },
+  })
 ]
