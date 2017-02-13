@@ -1,5 +1,6 @@
 /* tslint:disable: ter-max-len */
 import { FlowData, StepData, Service, ServiceType, Provider } from '../models';
+import { FlowsAppService } from './../services';
 
 export class TestUtils {
   defaultProviderData: Provider;
@@ -92,3 +93,7 @@ export class MockRouter {
   isRouteActive() { };
   generate() { };
 }
+
+export const MockFlowsApp = {
+  setStepStage(stage: string): void { }
+} as FlowsAppService
