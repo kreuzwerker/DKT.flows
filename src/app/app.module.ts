@@ -51,7 +51,7 @@ export class AppModule {
   ) {
     let enhancers = [
       applyMiddleware(client.middleware()),
-    ]
+    ];
 
     if(devTools.isEnabled()) {
       enhancers.push(devTools.enhancer());

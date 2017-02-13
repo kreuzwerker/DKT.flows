@@ -1,6 +1,15 @@
+/* tslint:disable: ter-max-len */
 import { FlowData, StepData, Service, ServiceType, Provider } from '../models';
 
 export class TestUtils {
+  defaultProviderData: Provider;
+  defaultServiceData: Service;
+
+  constructor() {
+    this.defaultProviderData = this.createProviderData();
+    this.defaultServiceData = this.createServiceData();
+  }
+
   createProviderData(
     id: string = '1',
     name: string = 'Test Provider',
@@ -8,16 +17,22 @@ export class TestUtils {
     description: string = 'Test Provider description',
     icon: string = 'check',
   ): Provider {
+    let services: Service[] = [
+      this.createServiceData('1', 'Trigger service A', 'Trigger service A description', ServiceType.TRIGGER),
+      this.createServiceData('2', 'Trigger service B', 'Trigger service B description', ServiceType.TRIGGER),
+      this.createServiceData('3', 'Action service A', 'Action service A description', ServiceType.ACTION),
+      this.createServiceData('4', 'Action service B', 'Action service B description', ServiceType.ACTION),
+    ];
+
     return {
       id: id,
       name: name,
       group: group,
       description: description,
       icon: icon,
+      services: services,
     };
   };
-
-  defaultProviderData = this.createProviderData();
 
   createServiceData(
     id: string = '1',
@@ -35,13 +50,18 @@ export class TestUtils {
     };
   }
 
-  defaultServiceData = this.createServiceData();
-
   createFlowData(id: string = '1'): FlowData {
+    let steps: StepData[] = [
+      this.createStepData('1', 0),
+      this.createStepData('2', 1),
+      this.createStepData('3', 2),
+    ];
+
     return {
       id: id,
       name: 'First flow',
-      description: 'This is a mocked flow object.'
+      description: 'This is a mocked flow object.',
+      steps: steps,
     };
   }
 

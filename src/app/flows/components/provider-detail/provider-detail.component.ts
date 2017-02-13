@@ -24,8 +24,8 @@ export class ProviderDetailComponent implements OnChanges {
   @Output() onSelectService = new EventEmitter();
 
   show: boolean = false;
-  triggerServices: Service[];
-  actionServices: Service[];
+  triggerServices: Service[] = [];
+  actionServices: Service[] = [];
   selectedTabIndex: number = 0;
 
   constructor(
@@ -50,7 +50,7 @@ export class ProviderDetailComponent implements OnChanges {
     this.cd.markForCheck();
   }
 
-  processProvider(provider) {
+  processProvider(provider: Provider = undefined) {
     if (provider && provider.services) {
       this.triggerServices = providerHelpers.getProviderTriggerSteps(provider);
       this.actionServices = providerHelpers.getProviderActionSteps(provider);
@@ -60,11 +60,11 @@ export class ProviderDetailComponent implements OnChanges {
     }
   }
 
-  processSelectableServiceType(type) {
+  processSelectableServiceType(type: ServiceType) {
     this.selectedTabIndex = type === ServiceType.TRIGGER ? 0 : 1;
   }
 
-  selectService(service) {
+  selectService(service: Service) {
     this.onSelectService.emit({ service: service });
   }
 }
