@@ -1,6 +1,6 @@
 /* tslint:disable: ter-max-len */
 import { FlowStepNavButtonsComponent } from './flow-step-nav-buttons.component';
-import { MockRouter } from '../../utils/test.helpers';
+import { MockRouter } from '../../utils/mocks';
 
 describe('Flows App', () => {
 

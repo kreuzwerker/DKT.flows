@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { mockFlowsApp } from './../../utils/test.helpers';
+import { mockFlowsApp } from './../../utils/mocks';
 import { ConfigureStepComponent } from './configure-step.component';
 import { FlowsAppService } from './../../services';
 

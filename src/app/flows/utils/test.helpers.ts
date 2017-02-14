@@ -1,7 +1,5 @@
 /* tslint:disable: ter-max-len */
 import { FlowData, StepData, Service, ServiceType, Provider } from '../models';
-import { FlowsAppService, FlowsStateService } from './../services';
-import { Observable } from 'rxjs/Observable';
 
 export class TestUtils {
   defaultProviderData: Provider;
@@ -79,28 +77,3 @@ export class TestUtils {
     };
   }
 };
-
-export class MockChangeDetectorRef {
-  markForCheck() {};
-  detach() {};
-  detectChanges() {};
-  checkNoChanges() {};
-  reattach() {};
-}
-
-export class MockRouter {
-  navigate() { };
-  subscribe() { };
-  isRouteActive() { };
-  generate() { };
-}
-
-export const mockFlowsApp = {
-  setStepStage(stage: string): void { }
-} as FlowsAppService;
-
-export const mockFlowsState = {
-  select(key: string) {
-    return new Observable();
-  }
-} as FlowsStateService;

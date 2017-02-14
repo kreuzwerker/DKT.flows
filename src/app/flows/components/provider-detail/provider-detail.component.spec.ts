@@ -3,7 +3,7 @@ import { SimpleChange } from '@angular/core';
 import { Provider, Service, ServiceType } from './../../models';
 import { TestUtils } from './../../utils/test.helpers';
 import { ProviderDetailComponent } from './provider-detail.component';
-import { MockChangeDetectorRef } from '../../utils/test.helpers';
+import { MockChangeDetectorRef } from '../../utils/mocks';
 
 describe('Flows App', () => {
   describe('ProviderDetail Component', () => {
