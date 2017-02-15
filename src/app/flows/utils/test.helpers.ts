@@ -2,8 +2,8 @@
 import { FlowData, StepData, Service, ServiceType, Provider } from '../models';
 
 export class TestUtils {
-  defaultProviderData: Provider;
-  defaultServiceData: Service;
+  defaultProviderData: Provider = null;
+  defaultServiceData: Service = null;
 
   constructor() {
     this.defaultProviderData = this.createProviderData();
@@ -67,8 +67,8 @@ export class TestUtils {
 
     return {
       id: id,
-      name: 'First flow',
-      description: 'This is a mocked flow object.',
+      name: 'Test Flow',
+      description: 'Test Flow description',
       steps: steps,
     };
   }
