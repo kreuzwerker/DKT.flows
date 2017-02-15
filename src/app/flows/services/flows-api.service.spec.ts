@@ -1,8 +1,23 @@
+import { FlowsApiService } from './flows-api.service';
+import { TestUtils } from './../utils/test.helpers';
+import { Angular2Apollo } from 'angular2-apollo';
+import { Http } from '@angular/http';
+
 describe('Flows App', () => {
 
   describe('FlowsApi Service', () => {
+    let service: FlowsApiService;
+    let utils: TestUtils;
+
+    beforeEach(() => {
+      utils = new TestUtils();
+      service = new FlowsApiService({} as Angular2Apollo, {} as Http);
+      expect(service).toBeTruthy();
+    });
+
     describe('getFlow()', () => {
       xit('should query the API for a flow with the requested id', () => {
+        // TODO waiting for https://github.com/apollographql/apollo-test-utils
       });
     });
 
@@ -38,22 +53,54 @@ describe('Flows App', () => {
     });
 
     describe('optimisticallyAddStep()', () => {
-      xit('should return an optimistic response object for the given step.', () => {
+      it('should return an optimistic response object for the given step.', () => {
+        const step = utils.createStepData();
+        const res = service['optimisticallyAddStep'](step);
+        expect(res.__typename).toBe('Mutation');
+        expect(res.createStep.__typename).toBe('Step');
+        expect(res.createStep.id).toMatch(/new-/);
+        expect(res.createStep.position).toBe(step.position);
+        expect(res.createStep.createdAt).toBeDefined();
+        expect(res.createStep.service).toBe(step.service);
       });
     });
 
     describe('pushNewFlowStep()', () => {
-      xit('should append the given step to the current list of flow steps.', () => {
+      it('should append the given step to the current list of flow steps.', () => {
+        const step = utils.createStepData();
+        let state = {
+          Flow: {
+            steps: []
+          }
+        };
+        const newState = service['pushNewFlowStep'](state, step);
+        expect(newState.Flow.steps).toContain(step);
       });
     });
 
     describe('optimisticallyRemoveStep()', () => {
-      xit('should return an optimistic response object for the given step.', () => {
+      it('should return an optimistic response object for the given step.', () => {
+        const step = utils.createStepData();
+        const res = service['optimisticallyRemoveStep'](step);
+        expect(res.__typename).toBe('Mutation');
+        expect(res.deleteStep.__typename).toBe('Step');
+        expect(res.deleteStep.id).toBe(step.id);
+        expect(res.deleteStep.position).toBe(step.position);
+        expect(res.deleteStep.service).toBe(step.service);
       });
     });
 
     describe('removeDeletedFlowStep()', () => {
-      xit('should remove the given step from the current list of flow steps.', () => {
+      it('should remove the given step from the current list of flow steps.', () => {
+        const step = utils.createStepData();
+        let state = {
+          Flow: {
+            steps: [step]
+          }
+        };
+        const newState = service['removeDeletedFlowStep'](state, step);
+        expect(newState.Flow.steps).not.toContain(step);
       });
-    });  });
+    });
+  });
 });

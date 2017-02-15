@@ -96,7 +96,7 @@ export class FlowsApiService {
    * Helper functions
    */
 
-  private optimisticallyAddStep(step: Step): Object {
+  private optimisticallyAddStep(step: Step): any {
     return {
         __typename: 'Mutation',
         createStep: {
@@ -109,7 +109,7 @@ export class FlowsApiService {
       };
   }
 
-  private pushNewFlowStep(state, newStep): Object {
+  private pushNewFlowStep(state, newStep): any {
     const prevSteps = state.Flow.steps;
     return {
       Flow: Object.assign({}, state.Flow, {
@@ -118,7 +118,7 @@ export class FlowsApiService {
     };
   }
 
-  private optimisticallyRemoveStep(step: Step): Object {
+  private optimisticallyRemoveStep(step: Step): any {
     return {
         __typename: 'Mutation',
         deleteStep: {
@@ -130,7 +130,7 @@ export class FlowsApiService {
       };
   }
 
-  private removeDeletedFlowStep(state, deleteStep): Object {
+  private removeDeletedFlowStep(state, deleteStep): any {
     return {
       Flow: Object.assign({}, state.Flow, {
         steps: state.Flow.steps.filter((s) => s.id !== deleteStep.id)
