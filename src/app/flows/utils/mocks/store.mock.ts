@@ -1,5 +1,6 @@
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export const mockStore = {
-  step: new Subject(),
+  step: new BehaviorSubject({}),
+  provider: new BehaviorSubject({}),
 };

@@ -34,6 +34,14 @@ export class TestUtils {
     };
   };
 
+  createProvidersListData(): Provider[] {
+    return [
+      this.createProviderData('1', 'Test Provider 1'),
+      this.createProviderData('2', 'Test Provider 2'),
+      this.createProviderData('3', 'Test Provider 3'),
+    ];
+  }
+
   createServiceData(
     id: string = '1',
     name: string = 'Test Service',
