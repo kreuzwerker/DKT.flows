@@ -49,28 +49,30 @@ describe('Flows App', () => {
     });
 
     describe('onSelectStep()', () => {
+      let step;
+
+      beforeEach(() => {
+        step = utils.createStepData();
+      });
+
       it('should set the current selected service if the given step has a service set', () => {
-        const step = utils.createStepData();
         component.onSelectStep(step);
         expect(component.selectedService).toEqual(step.service);
       });
 
       it('should set the current selected service to null if the given step has no service set', () => {
-        const step = utils.createStepData();
         step.service = undefined;
         component.onSelectStep(step);
         expect(component.selectedService).toBeNull();
       });
 
       it('should set the current selectable type to Trigger if the given step is the first flow step', () => {
-        const step = utils.createStepData();
         step.position = 0;
         component.onSelectStep(step);
         expect(component.selectableServiceType).toBe(ServiceType.TRIGGER);
       });
 
       it('should set the current selectable type to Action if the given step is not the first flow step', () => {
-        const step = utils.createStepData();
         step.position = 1;
         component.onSelectStep(step);
         expect(component.selectableServiceType).toBe(ServiceType.ACTION);
@@ -78,7 +80,6 @@ describe('Flows App', () => {
 
       it('should trigger change detection', () => {
         spyOn(cd, 'markForCheck');
-        const step = utils.createStepData();
         component.onSelectStep(step);
         expect(cd.markForCheck).toHaveBeenCalled();
       });

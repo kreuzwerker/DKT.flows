@@ -92,7 +92,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
 
   selectRequestedStep() {
     if (!this.flowsApp.flow || !this.flowsApp.flow.steps.length) {
-      return;
+      return false;
     }
 
     let requestedStep;

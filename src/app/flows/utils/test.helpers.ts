@@ -71,7 +71,7 @@ export class TestUtils {
     service: Service = this.defaultServiceData
   ): StepData {
     return   {
-      id: '1',
+      id: id,
       position: position,
       service: service,
     };

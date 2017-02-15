@@ -1,3 +1,4 @@
+export * from './apollo-store.mock';
 export * from './change-detector-ref.mock';
 export * from './flows-app.mock';
 export * from './flows-state.mock';
