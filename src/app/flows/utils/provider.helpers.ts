@@ -4,10 +4,10 @@ export function getProviderServicesByType(provider: Provider, type: ServiceType)
   return provider.services ? provider.services.filter(service => service.type === type) : [];
 }
 
-export function getProviderTriggerSteps(provider: Provider) {
+export function getProviderTriggerServices(provider: Provider) {
   return getProviderServicesByType(provider, ServiceType.TRIGGER);
 }
 
-export function getProviderActionSteps(provider: Provider) {
+export function getProviderActionServices(provider: Provider) {
   return getProviderServicesByType(provider, ServiceType.ACTION);
 }
