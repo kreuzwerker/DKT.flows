@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 
-import { Flow, Step, Service } from './../models';
+import { Flow, Step, Service, ServiceType } from './../models';
 import { FlowsListData } from './flow.gql';
 import { FlowsStateService } from './';
 import * as stepHelpers from './../utils/step.helpers';
@@ -64,6 +64,11 @@ export class FlowsAppService {
   }
 
   removeFlowStep(step: Step): void {
+    // Don't allow trigger step to be removed
+    if (stepHelpers.getStepServiceType(step) == ServiceType.TRIGGER) {
+      return;
+    }
+
     this.state.removeFlowStep(this.flow.id, step);
     if (this.step && this.step.id === step.id) {
       // Deselect deleted step by navigating to flow home

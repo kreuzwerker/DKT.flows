@@ -36,6 +36,9 @@ describe('Flows App', () => {
     describe('removeFlowStep()', () => {
       xit('should delete a flow step and remove it from the flow steps.', () => {
       });
+
+      xit('should not remove a flow step if the given step is a trigger step.', () => {
+      });
     });
 
     describe('createStepObject()', () => {

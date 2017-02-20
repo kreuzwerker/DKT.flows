@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FlowsAppService } from './../../services';
-import { Flow, Step } from '../../models';
+import { Flow, Step, ServiceType } from '../../models';
 import * as stepHelpers from './../../utils/step.helpers';
 
 export class FlowStepItemOption {
@@ -103,15 +103,17 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
     testOption.link    = !testLocked ? basePath + 'test' : false;
     options.push(testOption);
 
-    // Remove step:
-    let removeOption: FlowStepItemOption = { title: 'Remove ' + typeName};
-    removeOption.icon           = 'cancel';
-    removeOption.classes        = ['remove'];
-    removeOption.link           = false;
-    removeOption.confirmAction  = () => this.flowsApp.removeFlowStep(step);
-    removeOption.confirmYesLabel = 'Yes, remove it';
-    removeOption.confirmNoLabel = 'No, keep it';
-    options.push(removeOption);
+    // Remove step: (except for trigger steps)
+    if (stepHelpers.getStepServiceType(step) != ServiceType.TRIGGER) {
+      let removeOption: FlowStepItemOption = { title: 'Remove ' + typeName};
+      removeOption.icon           = 'cancel';
+      removeOption.classes        = ['remove'];
+      removeOption.link           = false;
+      removeOption.confirmAction  = () => this.flowsApp.removeFlowStep(step);
+      removeOption.confirmYesLabel = 'Yes, remove it';
+      removeOption.confirmNoLabel = 'No, keep it';
+      options.push(removeOption);
+    }
 
     return options;
   }
