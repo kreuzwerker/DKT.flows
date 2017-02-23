@@ -26,6 +26,22 @@ describe('Flows App', () => {
       });
     });
 
+    describe('createFlow()', () => {
+      xit('should query the API with a mutation of a new flow', () => {
+      });
+
+      xit('should append the new flow to the current flows', () => {
+      });
+    });
+
+    describe('deleteFlow()', () => {
+      xit('should query the API with a mutation of a deleted flow', () => {
+      });
+
+      xit('should remove the deleted flow from the current flows', () => {
+      });
+    });
+
     describe('getProviders()', () => {
       xit('should query the API for a list of providers with services', () => {
       });

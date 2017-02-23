@@ -15,4 +15,12 @@ export class FlowsListComponent {
     public state: FlowsStateService,
   ) {
   }
+
+  createFlow(name: String = 'New test flow', description: String = 'Test flow description') {
+    this.state.createFlow(name, description);
+  }
+
+  deleteFlow(id: String) {
+    this.state.deleteFlow(id);
+  }
 }

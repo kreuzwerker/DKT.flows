@@ -45,6 +45,28 @@ describe('Flows App', () => {
       });
     });
 
+    describe('createFlow()', () => {
+      xit('should dispatch an action to set the flow saving flag and to unset the flow saved flag', () => {
+      });
+
+      xit('should call the API to create a new flow with the given data', () => {
+      });
+
+      xit('should dispatch an action to set the flow saving flag and to unset the flow saved flag when saving was successful', () => {
+      });
+    });
+
+    describe('deleteFlowStep()', () => {
+      xit('should dispatch an action to set the flow saving flag and to unset the flow saved flag', () => {
+      });
+
+      xit('should call the API to delete the given flow.', () => {
+      });
+
+      xit('should dispatch an action to set the flow saving flag and to unset the flow saved flag when saving was successful', () => {
+      });
+    });
+
     describe('saveFlow()', () => {
       xit('should dispatch an action to set the flow saving flag and to unset the flow saved flag', () => {
       });

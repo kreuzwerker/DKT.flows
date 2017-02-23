@@ -122,6 +122,25 @@ export class FlowsStateService {
     this.dispatch(this.actions.selectFlow(id));
   }
 
+  createFlow(name: String, description: String): void {
+    this.dispatch(this.actions.setSavingFlow(true, false));
+    this.api.createFlow({
+      name: name,
+      description: description
+    }).subscribe((_step) => {
+      this.dispatch(this.actions.setSavingFlow(false, true));
+    });
+  }
+
+  deleteFlow(id: String): void {
+    this.dispatch(this.actions.setSavingFlow(true, false));
+    this.api.deleteFlow({
+      flowId: id,
+    }).subscribe((_step) => {
+      this.dispatch(this.actions.setSavingFlow(false, true));
+    });
+  }
+
   saveFlow(id: String, flow: FlowData): void {
     this.dispatch(this.actions.setSavingFlow(true, false));
   }

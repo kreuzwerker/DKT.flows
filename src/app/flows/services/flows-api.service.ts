@@ -9,7 +9,7 @@ import { API_FLOWS_URL, API_PROVIDERS_URL } from './../constants';
 import { Flow, Step, FlowData, StepData, Provider } from './../models';
 
 // GraphQL queries & mutations
-import { getFlowsQuery, FlowsListData, getFlowQuery, updateStepMutation, addFlowStepMutation, removeFlowStepMutation } from './flow.gql';
+import { getFlowsQuery, FlowsListData, getFlowQuery, createFlowMutation, deleteFlowMutation, updateStepMutation, addFlowStepMutation, removeFlowStepMutation } from './flow.gql';
 import { getProvidersQuery } from './provider.gql';
 
 @Injectable()
@@ -32,6 +32,46 @@ export class FlowsApiService {
     return this.apollo.watchQuery<any>({
       query: getFlowsQuery
     });
+  }
+
+  public createFlow(
+    {name, description}: {name: String, description: String}
+  ): Observable<ApolloQueryResult<any>> {
+    return this.apollo.mutate<any>({
+      mutation: createFlowMutation,
+      variables: {
+        name: name,
+        description: description,
+      },
+      // ISSUE: do we need to know the id beforehand?
+      // optimisticResponse: this.optimisticallyAddFlow(flow),
+
+      updateQueries: {
+        FlowsQuery: (previousResult, { mutationResult }: any) => {
+          return this.pushNewFlow(previousResult, mutationResult.data.createFlow);
+        },
+      },
+
+    }).map(({data}) => data.createFlow);
+  }
+
+  public deleteFlow(
+    {flowId}: {flowId: String}
+  ): Observable<ApolloQueryResult<any>> {
+    return this.apollo.mutate<any>({
+      mutation: deleteFlowMutation,
+      variables: {
+        flowId: flowId,
+      },
+      optimisticResponse: this.optimisticallyRemoveFlow(flowId),
+
+      updateQueries: {
+        FlowsQuery: (previousResult, { mutationResult }: any) => {
+          return this.removeDeletedFlow(previousResult, mutationResult.data.deleteFlow);
+        },
+      },
+
+    }).map(({data}) => data.createFlow);
   }
 
   public getProviders({id}: {id: String | Observable<String>}): ApolloQueryObservable<any> {
@@ -95,6 +135,40 @@ export class FlowsApiService {
   /**
    * Helper functions
    */
+
+  private optimisticallyAddFlow(flow: Flow): any {
+    return {
+        __typename: 'Mutation',
+        createFlo: {
+          __typename: 'Flow',
+          id: 'new-' + (+new Date),
+          name: flow.name,
+          description: flow.description,
+        },
+      };
+  }
+
+  private pushNewFlow(state, newFlow): any {
+    return {
+      allFlows: [...state.allFlows, newFlow]
+    };
+  }
+
+  private optimisticallyRemoveFlow(flowId: String): any {
+    return {
+        __typename: 'Mutation',
+        deleteFlow: {
+          __typename: 'Flow',
+          id: flowId,
+        },
+      };
+  }
+
+  private removeDeletedFlow(state, deleteFlow): any {
+    return {
+      allFlows: state.allFlows.filter((f) => f.id !== deleteFlow.id)
+    };
+  }
 
   private optimisticallyAddStep(step: Step): any {
     return {

@@ -1,3 +1,7 @@
+/*
+  Shared functionality in the Flows app
+*/
+
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';

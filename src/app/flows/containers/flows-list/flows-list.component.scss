@@ -9,8 +9,12 @@ md-list {
 }
 
 md-list-item{
-  cursor:pointer;
+  cursor:default;
   
+  md-icon:hover {
+    cursor: pointer;
+  }
+
   &:hover {
     background-color:#eee;
   }
