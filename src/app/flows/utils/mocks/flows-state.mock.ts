@@ -19,9 +19,9 @@ export const mockFlowsState = {
     return value;
   },
 
-  selectFlow(id: String): void { },
-  createFlow(name: String, description: String): void { },
-  deleteFlow(id: String): void { },
+  selectFlow(id: string): void { },
+  createFlow(name: string, description: string): void { },
+  deleteFlow(id: string): void { },
   dispatch(action: Action) { },
 
   // TODO we don't really want to do it this way..

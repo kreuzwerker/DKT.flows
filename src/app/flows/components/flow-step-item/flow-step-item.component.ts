@@ -104,7 +104,7 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
     options.push(testOption);
 
     // Remove step: (except for trigger steps)
-    if (stepHelpers.getStepServiceType(step) != ServiceType.TRIGGER) {
+    if (stepHelpers.getStepServiceType(step) !== ServiceType.TRIGGER) {
       let removeOption: FlowStepItemOption = { title: 'Remove ' + typeName};
       removeOption.icon           = 'cancel';
       removeOption.classes        = ['remove'];

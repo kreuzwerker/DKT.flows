@@ -21,8 +21,8 @@ describe('Flows App', () => {
     describe('createFlow()', () => {
       it('should create a new flow with the given name and description', () => {
         let spy = spyOn(state, 'createFlow');
-        let name = 'new flow name'
-        let description = 'new flow description'
+        let name = 'new flow name';
+        let description = 'new flow description';
         component.createFlow(name, description);
         expect(spy).toHaveBeenCalledWith(name, description);
       });
@@ -31,7 +31,7 @@ describe('Flows App', () => {
     describe('deleteFlow()', () => {
       it('should delete the given flow.', () => {
         let spy = spyOn(state, 'deleteFlow');
-        let id = '1'
+        let id = '1';
         component.deleteFlow(id);
         expect(spy).toHaveBeenCalledWith(id);
       });

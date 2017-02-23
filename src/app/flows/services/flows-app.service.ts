@@ -69,7 +69,7 @@ export class FlowsAppService {
 
   removeFlowStep(step: Step): void {
     // Don't allow trigger step to be removed
-    if (stepHelpers.getStepServiceType(step) == ServiceType.TRIGGER) {
+    if (stepHelpers.getStepServiceType(step) === ServiceType.TRIGGER) {
       return;
     }
 

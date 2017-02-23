@@ -59,10 +59,12 @@ export const getFlowQuery = gql`
 
 export const createFlowMutation = gql`
   mutation createFlow(
+    $id: ID!
     $name: String!,
     $description: String!,
   ) {
     createFlow(
+      id: $id,
       name: $name,
       description: $description,
     ) {

@@ -16,11 +16,15 @@ export class FlowsListComponent {
   ) {
   }
 
-  createFlow(name: String = 'New test flow', description: String = 'Test flow description') {
+  createFlow(name: string = 'New test flow', description: string = 'Test flow description') {
     this.state.createFlow(name, description);
+
+    // Upon successful creation, redirect to /flows/ID/steps/ID/select-service
+    // -> subscribe to state.createdFlow$ -> onCreatedFlow -> redirect
+
   }
 
-  deleteFlow(id: String) {
+  deleteFlow(id: string) {
     this.state.deleteFlow(id);
   }
 }

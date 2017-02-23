@@ -8,7 +8,7 @@ import { Step, StepData, Provider, Service } from '../models';
 export class FlowsAppActions {
 
   static SELECT_FLOW = 'SELECT_FLOW';
-  selectFlow(flowId: String) {
+  selectFlow(flowId: string) {
     return {
       type: FlowsAppActions.SELECT_FLOW,
       payload: flowId
