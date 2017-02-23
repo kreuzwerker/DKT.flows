@@ -30,7 +30,7 @@ export class FlowsStateService {
   // Public events
   // 
 
-  private createdFlow$: Subject<any> = new Subject<any>();
+  createdFlow$: Subject<any> = new Subject<any>();
 
   // 
   // Internal events
@@ -133,8 +133,9 @@ export class FlowsStateService {
     this.api.createFlow({
       name: name,
       description: description
-    }).subscribe((_step) => {
+    }).subscribe((flow) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
+      this.createdFlow$.next(flow);
     });
   }
 

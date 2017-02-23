@@ -1,5 +1,6 @@
 /* tslint:disable: ter-max-len */
 import { mockFlowsState } from './../../utils/mocks';
+import { MockRouter } from '../../utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { FlowsListComponent } from './flows-list.component';
 import { FlowsStateService } from './../../services';
@@ -10,11 +11,13 @@ describe('Flows App', () => {
     let component: FlowsListComponent;
     let utils: TestUtils;
     let state: FlowsStateService;
+    let router;
 
     beforeEach(() => {
       utils = new TestUtils();
       state = mockFlowsState;
-      component = new FlowsListComponent(state);
+      router = <any>new MockRouter();
+      component = new FlowsListComponent(state, router);
       expect(component).toBeTruthy();
     });
 
@@ -25,6 +28,16 @@ describe('Flows App', () => {
         let description = 'new flow description';
         component.createFlow(name, description);
         expect(spy).toHaveBeenCalledWith(name, description);
+      });
+    });
+
+    describe('onCreatedFlow()', () => {
+      it('should navigate to select a trigger service for the new flow.', () => {
+        spyOn(component.router, 'navigate');
+        const flow = utils.createFlowData();
+        component.onCreatedFlow(flow);
+        const route = ['flows', flow.id, 'steps', flow.steps[0].id, 'select-service'];
+        expect(component.router.navigate).toHaveBeenCalledWith(route);
       });
     });
 

@@ -8,6 +8,7 @@ import { Step, Provider, Service } from './../../models';
 
 export const mockFlowsState = {
   flow$: mockApolloStore.flow$.asObservable(),
+  createdFlow$: new Subject<any>(),
 
   select(key: string) {
     return mockStore[key];
