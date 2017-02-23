@@ -60,8 +60,13 @@ export class FlowsStateService {
       id: this.select('flowId').filter((flowId) => flowId !== null)
     }).map(({data}) => data.Flow);
     // Unset loading flows flag
-    this.flow$.subscribe((flow) => this.dispatch(this.actions.setLoadingFlow(false)) );
 
+
+    // TODO THIS IS WRONG: creates another watched query. 
+    // -> right way is to use middleware/thunks/effects:
+    // When a mutation API call is made -> set flag; when API call returns -> unset flag.
+    this.flow$.subscribe((flow) => this.dispatch(this.actions.setLoadingFlow(false)) );
+    // /TODO
 
     // Providers list
     // --------------
