@@ -1,0 +1,31 @@
+/* 
+  --- Mixins -------------------------------------------------------------------
+*/
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+/* 
+  --- Animations ---------------------------------------------------------------
+*/
+
+@keyframes FadeIn {
+  0% {
+    @include opacity(0);
+  }
+  100% {
+    @include opacity(1);
+  } 
+}
+
+@keyframes FadeOut {
+  0% {
+    @include opacity(1);
+  }
+  100% {
+    @include opacity(0);
+  } 
+}

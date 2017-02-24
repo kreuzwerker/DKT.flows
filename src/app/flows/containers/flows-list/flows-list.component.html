@@ -1,10 +1,14 @@
+<button md-raised-button (click)="openNewFlowDialog()"><md-icon>add</md-icon> create flow</button>
+
 <md-card>
   <md-list>
-    <md-list-item *ngFor="let flow of state.flows$ | async" routerLink="/flows/{{flow.id}}" class="padding">
+    <md-list-item *ngFor="let flow of state.flows$ | async" class="padding">
       <h3 md-line>{{flow.name}}</h3>
       <p md-line>
         <span>{{flow.description}}</span>
       </p>
+      <md-icon md-list-icon routerLink="/flows/{{flow.id}}">edit</md-icon>
+      <md-icon md-list-icon (click)="deleteFlow(flow.id)">delete</md-icon>
     </md-list-item>
   </md-list>
 </md-card>

@@ -1,3 +1,7 @@
+/*
+  Shared functionality in the Flows app
+*/
+
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
@@ -65,7 +69,7 @@ export class FlowsAppService {
 
   removeFlowStep(step: Step): void {
     // Don't allow trigger step to be removed
-    if (stepHelpers.getStepServiceType(step) == ServiceType.TRIGGER) {
+    if (stepHelpers.getStepServiceType(step) === ServiceType.TRIGGER) {
       return;
     }
 

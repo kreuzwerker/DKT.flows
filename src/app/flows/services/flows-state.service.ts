@@ -27,7 +27,13 @@ export class FlowsStateService {
   providers$: Observable<Provider[]>;
 
   // 
-  // Internal state
+  // Public events
+  // 
+
+  createdFlow$: Subject<any> = new Subject<any>();
+
+  // 
+  // Internal events
   // 
 
   // Flag to initiate loading providers
@@ -112,7 +118,7 @@ export class FlowsStateService {
     this.store.dispatch(action);
   }
 
-  selectFlow(id: String): void {
+  selectFlow(id: string): void {
     if (id === this.get('flowId')) {
       // Requested flow is already selected
       return;
@@ -122,11 +128,28 @@ export class FlowsStateService {
     this.dispatch(this.actions.selectFlow(id));
   }
 
-  saveFlow(id: String, flow: FlowData): void {
+  createFlow(newFlow: any): void {
+    this.dispatch(this.actions.setSavingFlow(true, false));
+    this.api.createFlow(newFlow).subscribe((flow) => {
+      this.dispatch(this.actions.setSavingFlow(false, true));
+      this.createdFlow$.next(flow);
+    });
+  }
+
+  deleteFlow(id: string): void {
+    this.dispatch(this.actions.setSavingFlow(true, false));
+    this.api.deleteFlow({
+      flowId: id,
+    }).subscribe((_step) => {
+      this.dispatch(this.actions.setSavingFlow(false, true));
+    });
+  }
+
+  saveFlow(id: string, flow: FlowData): void {
     this.dispatch(this.actions.setSavingFlow(true, false));
   }
 
-  saveFlowStep(flowId: String, stepId: string, step: StepData): void {
+  saveFlowStep(flowId: string, stepId: string, step: StepData): void {
     this.dispatch(this.actions.setSavingFlow(true, false));
     this.api.updateStep({
       id: stepId,
@@ -137,7 +160,7 @@ export class FlowsStateService {
     });
   }
 
-  addFlowStep(flowId: String, step: Step): Observable<any> {
+  addFlowStep(flowId: string, step: Step): Observable<any> {
     let obs$ = new Subject<any>();
     this.dispatch(this.actions.setSavingFlow(true, false));
     this.api.addFlowStep(flowId, step).subscribe((_step) => {
@@ -148,7 +171,7 @@ export class FlowsStateService {
     return obs$;
   }
 
-  removeFlowStep(flowId: String, step: Step) {
+  removeFlowStep(flowId: string, step: Step) {
     this.dispatch(this.actions.setSavingFlow(true, false));
     this.api.removeFlowStep(flowId, step).subscribe((data) => {
       this.dispatch(this.actions.setSavingFlow(false, true));

@@ -1,9 +1,11 @@
 /* TODO relative paths are bad. find a way to import variables globally:
 https://github.com/jtangelder/sass-loader/issues/211 */
 @import '../../../variables';
+@import '../../../animations';
 
 .flow-step-item {
   padding: 0px;
+  animation: FadeIn 0.3s;
 
   .header, .options {
     md-icon {

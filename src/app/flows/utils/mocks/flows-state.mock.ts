@@ -8,6 +8,7 @@ import { Step, Provider, Service } from './../../models';
 
 export const mockFlowsState = {
   flow$: mockApolloStore.flow$.asObservable(),
+  createdFlow$: new Subject<any>(),
 
   select(key: string) {
     return mockStore[key];
@@ -19,7 +20,9 @@ export const mockFlowsState = {
     return value;
   },
 
-  selectFlow(id: String): void { },
+  selectFlow(id: string): void { },
+  createFlow(name: string, description: string): void { },
+  deleteFlow(id: string): void { },
   dispatch(action: Action) { },
 
   // TODO we don't really want to do it this way..

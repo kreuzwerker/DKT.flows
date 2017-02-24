@@ -1,13 +1,21 @@
 import gql from 'graphql-tag';
 
+export const flowsItemFragment = gql`
+  fragment FlowsItem on Flow {
+    id
+    name
+    description
+  }
+`;
+
 export const getFlowsQuery = gql`
   query FlowsQuery {
     allFlows {
-      id
-      name
-      description
+      ...FlowsItem
     }
   }
+
+  ${flowsItemFragment}
 `;
 
 export class FlowsListData {
@@ -47,6 +55,36 @@ export const getFlowQuery = gql`
   }
 
   ${flowStepFragment}
+`;
+
+export const createFlowMutation = gql`
+  mutation createFlow(
+    $id: ID!
+    $name: String!,
+    $description: String!,
+  ) {
+    createFlow(
+      id: $id,
+      name: $name,
+      description: $description,
+    ) {
+      ...FlowsItem
+      steps {
+        ...FlowStep
+      }
+    }
+  }
+
+  ${flowsItemFragment}
+  ${flowStepFragment}
+`;
+
+export const deleteFlowMutation = gql`
+  mutation deleteFlow($flowId:ID!) {
+    deleteFlow(id: $flowId) {
+      id
+    }
+  }
 `;
 
 export const updateStepMutation = gql`

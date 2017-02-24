@@ -4,7 +4,7 @@ import { FlowsAppActions as Actions } from './flows-app.actions';
 import { Step, Provider } from '../models';
 
 export interface FlowsAppState {
-  flowId: String;
+  flowId: string;
   step: Step;
   provider: Provider;
   loadingFlow: boolean;
