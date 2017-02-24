@@ -19,6 +19,7 @@ import { TestStepComponent } from './containers/test-step/test-step.component';
 import { ProvidersComponent } from './containers/providers/providers.component';
 
 // Components
+import { NewFlowDialogComponent } from './components/new-flow-dialog/new-flow-dialog.component';
 import { FlowHeaderComponent } from './components/flow-header/flow-header.component';
 import { FlowStepItemComponent } from './components/flow-step-item/flow-step-item.component';
 import { FlowStepConfigNavComponent } from './components/flow-step-config-nav/flow-step-config-nav.component';
@@ -54,6 +55,7 @@ const routes: Routes = [
     SelectServiceComponent,
     ConfigureStepComponent,
     TestStepComponent,
+    NewFlowDialogComponent,
     FlowHeaderComponent,
     FlowStepItemComponent,
     FlowStepConfigNavComponent,
@@ -80,6 +82,7 @@ const routes: Routes = [
     FlowsApiService,
     FlowsStateService,
     FlowsAppActions,
-  ]
+  ],
+  entryComponents: [ NewFlowDialogComponent ],
 })
 export class FlowsModule {}

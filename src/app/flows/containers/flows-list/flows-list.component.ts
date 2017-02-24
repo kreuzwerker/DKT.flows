@@ -1,9 +1,11 @@
 import { Subject } from 'rxjs/Subject';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { MdDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Flow } from '../../models';
 import { FlowsStateService } from './../../services';
 import { FlowsListData } from './../../services/flow.gql';
+import { NewFlowDialogComponent } from './../../components/new-flow-dialog/new-flow-dialog.component';
 
 @Component({
   selector: 'flows-list',
@@ -17,6 +19,7 @@ export class FlowsListComponent {
   constructor(
     public state: FlowsStateService,
     public router: Router,
+    public dialog: MdDialog,
   ) {
     this.state.createdFlow$.takeUntil(this.ngOnDestroy$)
     .subscribe(
@@ -29,8 +32,8 @@ export class FlowsListComponent {
     this.ngOnDestroy$.next(true);
   }
 
-  createFlow(name: string = 'New test flow', description: string = 'Test flow description') {
-    this.state.createFlow(name, description);
+  createFlow(newFlow) {
+    this.state.createFlow(newFlow);
   }
 
   onCreatedFlow(flow: Flow) {
@@ -45,5 +48,14 @@ export class FlowsListComponent {
 
   deleteFlow(id: string) {
     this.state.deleteFlow(id);
+  }
+
+  openNewFlowDialog() {
+    let dialogRef = this.dialog.open(NewFlowDialogComponent);
+    dialogRef.afterClosed().subscribe(newFlow => {
+      if (newFlow) {
+        this.createFlow(newFlow);
+      }
+    });
   }
 }

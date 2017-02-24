@@ -128,12 +128,9 @@ export class FlowsStateService {
     this.dispatch(this.actions.selectFlow(id));
   }
 
-  createFlow(name: string, description: string): void {
+  createFlow(newFlow: any): void {
     this.dispatch(this.actions.setSavingFlow(true, false));
-    this.api.createFlow({
-      name: name,
-      description: description
-    }).subscribe((flow) => {
+    this.api.createFlow(newFlow).subscribe((flow) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
       this.createdFlow$.next(flow);
     });
