@@ -128,7 +128,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     if (service.type !== this.selectableServiceType) {
       let typeName = serviceHelpers.getServiceTypeName(service);
       let config = new MdSnackBarConfig();
-      // TODO implement config.duration=1000 as soon as available in API
+      config.duration = 2000;
       this.snackBar.open(`You can't select ${typeName} steps.`, 'OK', config);
       return false;
     }

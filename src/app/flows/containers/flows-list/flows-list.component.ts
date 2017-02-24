@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs/Subject';
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { MdDialog, MdDialogConfig } from '@angular/material';
+import { MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { Router } from '@angular/router';
 import { Flow } from '../../models';
 import { FlowsStateService } from './../../services';
@@ -22,6 +22,7 @@ export class FlowsListComponent implements OnDestroy {
     public state: FlowsStateService,
     public router: Router,
     public dialog: MdDialog,
+    public snackBar: MdSnackBar,
   ) {
     this.state.createdFlow$.takeUntil(this.ngOnDestroy$)
     .subscribe(
@@ -58,6 +59,7 @@ export class FlowsListComponent implements OnDestroy {
     dialogRef.afterClosed().subscribe(newFlow => {
       if (newFlow) {
         this.createFlow(newFlow);
+        this.showInfoMessage(`Created flow "${newFlow.name}".`);
       }
     });
   }
@@ -68,7 +70,14 @@ export class FlowsListComponent implements OnDestroy {
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm) {
         this.state.deleteFlow(id);
+        this.showInfoMessage(`Deleted flow "${name}".`);
       }
     });
+  }
+
+  showInfoMessage(message: string) {
+    let config = new MdSnackBarConfig();
+    config.duration = 2000;
+    this.snackBar.open(message, 'OK', config);
   }
 }
