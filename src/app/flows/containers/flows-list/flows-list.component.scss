@@ -2,6 +2,23 @@
 https://github.com/jtangelder/sass-loader/issues/211 */
 @import '../../../animations';
 
+/*
+  Layout
+*/
+
+div.layout {
+  div.left {
+    position: relative;
+    background-color: #273142;
+    border-top: 1px solid #354155;
+    padding: 2rem;
+  }
+}
+
+/*
+ Flows list
+ */
+
 md-card {
   width: 400px;
   margin: 2em auto;
