@@ -1,11 +1,12 @@
 import { Subject } from 'rxjs/Subject';
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MdDialog, MdDialogConfig } from '@angular/material';
 import { Router } from '@angular/router';
 import { Flow } from '../../models';
 import { FlowsStateService } from './../../services';
 import { FlowsListData } from './../../services/flow.gql';
 import { NewFlowDialogComponent } from './../../components/new-flow-dialog/new-flow-dialog.component';
+import { DeleteFlowDialogComponent } from './../../components/delete-flow-dialog/delete-flow-dialog.component';
 
 @Component({
   selector: 'flows-list',
@@ -15,6 +16,7 @@ import { NewFlowDialogComponent } from './../../components/new-flow-dialog/new-f
 })
 export class FlowsListComponent implements OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
+  dialogConfig: MdDialogConfig;
 
   constructor(
     public state: FlowsStateService,
@@ -26,6 +28,9 @@ export class FlowsListComponent implements OnDestroy {
       this.onCreatedFlow.bind(this),
       (err) => console.log('error', err)
     );
+
+    this.dialogConfig = new MdDialogConfig();
+    this.dialogConfig.width = '450px';
   }
 
   ngOnDestroy(): void {
@@ -46,15 +51,23 @@ export class FlowsListComponent implements OnDestroy {
     this.router.navigate(route);
   }
 
-  deleteFlow(id: string) {
-    this.state.deleteFlow(id);
-  }
-
   openNewFlowDialog() {
-    let dialogRef = this.dialog.open(NewFlowDialogComponent);
+    let config = new MdDialogConfig();
+    config.width = '450px';
+    let dialogRef = this.dialog.open(NewFlowDialogComponent, this.dialogConfig);
     dialogRef.afterClosed().subscribe(newFlow => {
       if (newFlow) {
         this.createFlow(newFlow);
+      }
+    });
+  }
+
+  openDeleteFlowDialog(id: string, name: string) {
+    let dialogRef = this.dialog.open(DeleteFlowDialogComponent, this.dialogConfig);
+    dialogRef.componentInstance.name = name;
+    dialogRef.afterClosed().subscribe(confirm => {
+      if (confirm) {
+        this.state.deleteFlow(id);
       }
     });
   }

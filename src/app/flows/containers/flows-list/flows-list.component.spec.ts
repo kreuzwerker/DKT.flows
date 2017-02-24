@@ -46,20 +46,20 @@ describe('Flows App', () => {
       });
     });
 
-    describe('deleteFlow()', () => {
-      it('should delete the given flow.', () => {
-        let spy = spyOn(state, 'deleteFlow');
-        let id = '1';
-        component.deleteFlow(id);
-        expect(spy).toHaveBeenCalledWith(id);
-      });
-    });
-
     describe('openNewFlowDialog()', () => {
       xit('should open the dialog to create a new flow.', () => {
         let spy = spyOn(component.dialog, 'open');
         // TODO finish MockDialogRef
         component.openNewFlowDialog();
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('openDeleteFlowDialog()', () => {
+      xit('should open the dialog to delete a flow.', () => {
+        let spy = spyOn(component.dialog, 'open');
+        // TODO finish MockDialogRef
+        component.openDeleteFlowDialog();
         expect(spy).toHaveBeenCalled();
       });
     });
