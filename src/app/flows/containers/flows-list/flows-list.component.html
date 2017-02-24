@@ -8,7 +8,7 @@
         <span>{{flow.description}}</span>
       </p>
       <md-icon md-list-icon routerLink="/flows/{{flow.id}}">edit</md-icon>
-      <md-icon md-list-icon (click)="deleteFlow(flow.id)">delete</md-icon>
+      <md-icon md-list-icon (click)="openDeleteFlowDialog(flow.id, flow.name)">delete</md-icon>
     </md-list-item>
   </md-list>
 </md-card>

@@ -1,0 +1,23 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+
+h1 {
+  md-icon {
+    cursor: pointer;
+  }
+}
+
+p.name {
+  font-size: 1.2rem;
+  padding: 1rem;
+  background-color: #f4f4f4;
+}
+
+p.warning {
+  margin: 1.5rem 0 1rem;
+  
+  md-icon {
+    margin-right: 0.5rem;
+  }
+}

@@ -1,6 +1,6 @@
 /* tslint:disable: ter-max-len */
 import { mockFlowsState } from './../../utils/mocks';
-import { MockRouter, MockMdDialog } from '../../utils/mocks';
+import { MockRouter, MockMdDialog, mockSnackBar } from '../../utils/mocks';
 import { MdDialog } from '@angular/material';
 import { TestUtils } from './../../utils/test.helpers';
 import { FlowsListComponent } from './flows-list.component';
@@ -20,7 +20,7 @@ describe('Flows App', () => {
       state = mockFlowsState;
       router = <any>new MockRouter();
       dialog = new MockMdDialog();
-      component = new FlowsListComponent(state, router, dialog);
+      component = new FlowsListComponent(state, router, dialog, mockSnackBar);
       expect(component).toBeTruthy();
     });
 
@@ -46,21 +46,46 @@ describe('Flows App', () => {
       });
     });
 
-    describe('deleteFlow()', () => {
-      it('should delete the given flow.', () => {
-        let spy = spyOn(state, 'deleteFlow');
-        let id = '1';
-        component.deleteFlow(id);
-        expect(spy).toHaveBeenCalledWith(id);
-      });
-    });
-
     describe('openNewFlowDialog()', () => {
       xit('should open the dialog to create a new flow.', () => {
         let spy = spyOn(component.dialog, 'open');
         // TODO finish MockDialogRef
         component.openNewFlowDialog();
         expect(spy).toHaveBeenCalled();
+      });
+
+      xit('should create the flow if the user confirms', () => {
+
+      })
+
+      xit('should show a message if the user confirms', () => {
+
+      })
+    });
+
+    describe('openDeleteFlowDialog()', () => {
+      xit('should open the dialog to delete a flow.', () => {
+        let spy = spyOn(component.dialog, 'open');
+        // TODO finish MockDialogRef
+        component.openDeleteFlowDialog('1', 'Flow name');
+        expect(spy).toHaveBeenCalled();
+      });
+
+      xit('should delete the flow if the user confirms', () => {
+
+      })
+
+      xit('should show a message if the user confirms', () => {
+
+      })
+    });
+
+    describe('showInfoMessage()', () => {
+      it('should show a snack bar with the given message', () => {
+        let spy = spyOn(component.snackBar, 'open');
+        let message = 'test message';
+        component.showInfoMessage(message);
+        expect(spy).not.toHaveBeenCalledWith(message);
       });
     });
   });
