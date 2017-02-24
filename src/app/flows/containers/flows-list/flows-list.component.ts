@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { MdDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Flow } from '../../models';
@@ -13,7 +13,7 @@ import { NewFlowDialogComponent } from './../../components/new-flow-dialog/new-f
   styleUrls: ['flows-list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlowsListComponent {
+export class FlowsListComponent implements OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
 
   constructor(

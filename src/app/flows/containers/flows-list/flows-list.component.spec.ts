@@ -1,6 +1,7 @@
 /* tslint:disable: ter-max-len */
 import { mockFlowsState } from './../../utils/mocks';
-import { MockRouter } from '../../utils/mocks';
+import { MockRouter, MockMdDialog } from '../../utils/mocks';
+import { MdDialog } from '@angular/material';
 import { TestUtils } from './../../utils/test.helpers';
 import { FlowsListComponent } from './flows-list.component';
 import { FlowsStateService } from './../../services';
@@ -12,22 +13,26 @@ describe('Flows App', () => {
     let utils: TestUtils;
     let state: FlowsStateService;
     let router;
+    let dialog;
 
     beforeEach(() => {
       utils = new TestUtils();
       state = mockFlowsState;
       router = <any>new MockRouter();
-      component = new FlowsListComponent(state, router);
+      dialog = new MockMdDialog();
+      component = new FlowsListComponent(state, router, dialog);
       expect(component).toBeTruthy();
     });
 
     describe('createFlow()', () => {
       it('should create a new flow with the given name and description', () => {
         let spy = spyOn(state, 'createFlow');
-        let name = 'new flow name';
-        let description = 'new flow description';
-        component.createFlow(name, description);
-        expect(spy).toHaveBeenCalledWith(name, description);
+        let flow = {
+          name: 'new flow name',
+          description: 'new flow description'
+        };
+        component.createFlow(flow);
+        expect(spy).toHaveBeenCalledWith(flow);
       });
     });
 
@@ -47,6 +52,15 @@ describe('Flows App', () => {
         let id = '1';
         component.deleteFlow(id);
         expect(spy).toHaveBeenCalledWith(id);
+      });
+    });
+
+    describe('openNewFlowDialog()', () => {
+      xit('should open the dialog to create a new flow.', () => {
+        let spy = spyOn(component.dialog, 'open');
+        // TODO finish MockDialogRef
+        component.openNewFlowDialog();
+        expect(spy).toHaveBeenCalled();
       });
     });
   });
