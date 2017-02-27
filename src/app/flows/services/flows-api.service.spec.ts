@@ -68,6 +68,11 @@ describe('Flows App', () => {
       });
     });
 
+    describe('createFlowRun()', () => {
+      xit('should query the API with a mutation of a new flow run', () => {
+      });
+    });
+
     describe('optimisticallyAddFlow()', () => {
       it('should return an optimistic response object for the given flow.', () => {
         const flow = utils.createFlowData();

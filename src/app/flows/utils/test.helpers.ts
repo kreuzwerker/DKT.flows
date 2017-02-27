@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { FlowData, StepData, Service, ServiceType, Provider } from '../models';
+import { FlowData, StepData, FlowRun, Service, ServiceType, Provider } from '../models';
 
 export class TestUtils {
   defaultProviderData: Provider = null;
@@ -82,6 +82,15 @@ export class TestUtils {
       id: id,
       position: position,
       service: service,
+    };
+  }
+
+  createFlowRunData(id: string = '1', status: string = 'pending'): FlowRun {
+    return {
+      id: '1',
+      status: status,
+      message: 'flow run API message',
+      currentStep: 0,
     };
   }
 };

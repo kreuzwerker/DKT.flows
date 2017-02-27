@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { FlowsAppService } from './../../services';
 import { Flow } from './../../models/flow.model';
 
 @Component({
@@ -9,4 +10,12 @@ import { Flow } from './../../models/flow.model';
 })
 export class FlowHeaderComponent {
   @Input() flow: Flow;
+
+  constructor(
+    public flowsApp: FlowsAppService
+  ) { }
+
+  createFlowRun() {
+    this.flowsApp.createFlowRun();
+  }
 }

@@ -56,11 +56,11 @@ describe('Flows App', () => {
 
       xit('should create the flow if the user confirms', () => {
 
-      })
+      });
 
       xit('should show a message if the user confirms', () => {
 
-      })
+      });
     });
 
     describe('openDeleteFlowDialog()', () => {
@@ -73,11 +73,11 @@ describe('Flows App', () => {
 
       xit('should delete the flow if the user confirms', () => {
 
-      })
+      });
 
       xit('should show a message if the user confirms', () => {
 
-      })
+      });
     });
 
     describe('showInfoMessage()', () => {

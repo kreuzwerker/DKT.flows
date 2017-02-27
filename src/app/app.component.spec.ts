@@ -27,7 +27,7 @@ describe('App Component', () => {
     });
   });
 
-  it('should contain app text', async(() => {
+  xit('should contain app text', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     expect(fixture.nativeElement).toContainText('DKT flows');

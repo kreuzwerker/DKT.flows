@@ -81,6 +81,17 @@ export class FlowsAppService {
   }
 
   /*
+   Flow Runs
+   */
+
+  createFlowRun(): void {
+    // Mock user ID
+    let userId = '1';
+    let payload = {payload: 'hallo'};
+    this.state.createFlowRun(this.flow.id, userId, payload);
+  }
+
+  /*
     Helpers
   */
 

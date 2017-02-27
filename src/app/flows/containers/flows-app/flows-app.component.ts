@@ -4,7 +4,7 @@ import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, OnIni
 import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
-import { Flow, Step } from './../../models';
+import { Flow, Step, FlowRun } from './../../models';
 
 @Component({
   templateUrl: 'flows-app.component.html',
@@ -47,6 +47,12 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     // Current selected step
     this.state.select('step').takeUntil(this.ngOnDestroy$).subscribe(
       this.onSelectStep.bind(this),
+      (err) => console.log('error', err)
+    );
+
+    // Created new flow run
+    this.state.createdFlowRun$.takeUntil(this.ngOnDestroy$).subscribe(
+      this.onCreatedFlowRun.bind(this),
       (err) => console.log('error', err)
     );
   }
@@ -104,6 +110,15 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     if (requestedStep) {
       this.state.dispatch(this.state.actions.selectStep(requestedStep));
     }
+  }
+
+  /*
+    Flow runs
+  */
+
+  onCreatedFlowRun(flowRun: FlowRun) {
+    console.log('TODO notification: created new flow run', flowRun);
+    this.cd.markForCheck();
   }
 
   /*

@@ -80,6 +80,14 @@ describe('Flows App', () => {
         expect(spy).toHaveBeenCalledWith(step);
       });
 
+      it('should call onCreatedFlowRun() when a new flow step got created', () => {
+        let spy = spyOn(component, 'onCreatedFlowRun');
+        component.ngOnInit();
+        const flowRun = utils.createFlowRunData();
+        state.createdFlowRun$.next(flowRun);
+        expect(spy).toHaveBeenCalledWith(flowRun);
+      });
+
       it('ngOnDestroy() should unscribe all subscriptions', () => {
         component.ngOnInit();
         let spy = spyOn(component.flowSub$, 'unsubscribe');
@@ -197,6 +205,24 @@ describe('Flows App', () => {
         let spy = spyOn(state, 'dispatch');
         component.selectRequestedStep();
         expect(spy).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('onCreatedFlowRun()', () => {
+      let flowRun;
+
+      beforeEach(() => {
+        flowRun = utils.createFlowRunData();
+      });
+
+      xit('should show a notification()', () => {
+        // component.onCreatedFlowRun(flowRun);
+      });
+
+      it('should trigger change detection', () => {
+        let spy = spyOn(cd, 'markForCheck');
+        component.onCreatedFlowRun(flowRun);
+        expect(spy).toHaveBeenCalled();
       });
     });
   });

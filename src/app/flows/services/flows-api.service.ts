@@ -10,7 +10,7 @@ import { Flow, Step, FlowData, StepData, Provider } from './../models';
 import { UUID } from 'angular2-uuid';
 
 // GraphQL queries & mutations
-import { getFlowsQuery, FlowsListData, getFlowQuery, createFlowMutation, deleteFlowMutation, updateStepMutation, addFlowStepMutation, removeFlowStepMutation } from './flow.gql';
+import { getFlowsQuery, FlowsListData, getFlowQuery, createFlowMutation, deleteFlowMutation, updateStepMutation, addFlowStepMutation, removeFlowStepMutation, createFlowRunMutation } from './flow.gql';
 import { getProvidersQuery } from './provider.gql';
 
 @Injectable()
@@ -134,6 +134,21 @@ export class FlowsApiService {
         },
       },
     });
+  }
+
+  public createFlowRun(
+    flowId: string,
+    userId: string,
+    payload: Object
+  ): Observable<ApolloQueryResult<any>> {
+    return this.apollo.mutate<any>({
+      mutation: createFlowRunMutation,
+      variables: {
+        id: UUID.UUID(),
+        flowId: flowId,
+        userId: userId,
+      },
+    }).map(({data}) => data.createFlowRun);
   }
 
   /**
