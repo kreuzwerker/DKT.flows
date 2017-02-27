@@ -4,6 +4,8 @@
   </div>
 
   <div class="main" fxFlex>
+    <dkt-loading-indicator *ngIf="state.select('loadingFlows') | async" text="Loading flows"></dkt-loading-indicator>
+
     <md-list>
       <md-list-item *ngFor="let flow of state.flows$ | async" class="padding">
         <h3 md-line>{{flow.name}}</h3>
