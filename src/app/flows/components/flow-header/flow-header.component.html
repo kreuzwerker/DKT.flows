@@ -2,7 +2,9 @@
 <p>{{flow.description}}</p>
 <div class="controls">
   <div class="element">
-    <md-icon class="play active" (click)="createFlowRun()">play_circle_filled</md-icon>
+    <button md-icon-button class="play" [class.locked]="isManualFlowRunLocked()" (click)="createFlowRun()">
+      <md-icon>play_arrow</md-icon>
+    </button>
   </div>
 
   <div class="element">

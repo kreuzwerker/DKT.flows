@@ -6,12 +6,16 @@ export function stepHasService(step: Step): boolean {
 
 export function stepIsConfigured(step: Step): boolean {
   // TODO determine if step has been fully configured
-  return false;
+  return true;
 }
 
 export function stepIsTested(step: Step): boolean {
   // TODO determine if step has been tested successfully
-  return false;
+  return true;
+}
+
+export function stepIsExecutable(step: Step): boolean {
+  return stepHasService(step) && stepIsConfigured(step) && stepIsTested(step);
 }
 
 export function getStepServiceType(step: Step): ServiceType {

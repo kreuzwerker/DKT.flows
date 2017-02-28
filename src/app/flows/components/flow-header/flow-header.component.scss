@@ -35,16 +35,20 @@ div.controls {
     }
   }
 
-  md-icon.play {
-    font-size: 30px;
+  button.play {
     width: 30px;
     height: 30px;
-    margin-top: 5px;
-    cursor: pointer;
-    color: $inactive-button-color;
+    line-height: 30px;
+    margin: 5px 0;
+    background-color: $active-button-color;
 
-    &.active {
-      color: $active-button-color;
+    md-icon {
+      font-size: 20px;
+      color: $element-bg-color;
+    }
+
+    &.locked {
+      background-color: $inactive-button-color;
     }
   }
 }
