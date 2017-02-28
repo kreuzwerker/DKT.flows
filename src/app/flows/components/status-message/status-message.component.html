@@ -1,0 +1,12 @@
+<div class="status-message"
+  [class.success]="type == 'success'"
+  [class.error]="type == 'error'"
+  [class.slide-in]="show"
+  [class.slide-out]="!show">
+  <div class="content" fxLayout="row" fxLayoutAlign="space-between center">
+    <span>{{message}}</span>
+    <button md-icon-button  (click)="onClose.emit()">
+      <md-icon class="close">close</md-icon>
+    </button>
+  </div>
+</div>

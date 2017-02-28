@@ -127,12 +127,10 @@ export const removeFlowStepMutation = gql`
 
 export const createFlowRunMutation = gql`
   mutation createFlowRun(
-    $id: ID,
     $flowId: ID!,
     $userId: ID!,
   ) {
     createFlowRun(
-      id: $id,
       flow: $flowId,
       userId: $userId,
     ) {

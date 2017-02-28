@@ -29,6 +29,7 @@ import { ProviderItemComponent } from './components/provider-item/provider-item.
 import { ProviderDetailComponent } from './components/provider-detail/provider-detail.component';
 import { ProviderIconComponent } from './components/provider-icon/provider-icon.component';
 import { ServiceItemComponent } from './components/service-item/service-item.component';
+import { StatusMessageComponent } from './components/status-message/status-message.component';
 
 // Services
 import { FlowsApiService, FlowsAppService, FlowsStateService } from './services';
@@ -67,6 +68,7 @@ const routes: Routes = [
     ProviderDetailComponent,
     ProviderIconComponent,
     ServiceItemComponent,
+    StatusMessageComponent,
   ],
   imports: [
     CommonModule,

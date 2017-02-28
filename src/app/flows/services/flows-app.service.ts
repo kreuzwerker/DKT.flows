@@ -24,6 +24,10 @@ export class FlowsAppService {
   // Current step preparation stage: select, configure, test
   // Gets set by child component, e.g. FlowHome, SelectService etc.
   stepStage = null;
+  // Status message
+  statusMessageText: string = '';
+  statusMessageType: string = 'success';
+  statusMessageShow: boolean = false;
 
   constructor(
     public state: FlowsStateService,
@@ -81,7 +85,7 @@ export class FlowsAppService {
   }
 
   /*
-   Flow Runs
+    Flow Runs
    */
 
   createFlowRun(): void {
@@ -89,6 +93,20 @@ export class FlowsAppService {
     let userId = '1';
     let payload = {payload: 'hallo'};
     this.state.createFlowRun(this.flow.id, userId, payload);
+  }
+
+  /*
+    Status messages
+  */
+
+  showStatusMessage(message: string, type: string = 'success'): void {
+    this.statusMessageText = message;
+    this.statusMessageType = type;
+    this.statusMessageShow = true;
+  }
+
+  hideStatusMessage(): void {
+    this.statusMessageShow = false;
   }
 
   /*

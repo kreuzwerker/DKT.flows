@@ -144,7 +144,6 @@ export class FlowsApiService {
     return this.apollo.mutate<any>({
       mutation: createFlowRunMutation,
       variables: {
-        id: UUID.UUID(),
         flowId: flowId,
         userId: userId,
       },

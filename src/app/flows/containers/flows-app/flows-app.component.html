@@ -17,6 +17,12 @@
   </div>
 
   <div class="main" fxFlex>
+    <status-message 
+      [message]="flowsApp.statusMessageText"
+      [type]="flowsApp.statusMessageType"
+      [show]="flowsApp.statusMessageShow"
+      (onClose)="flowsApp.hideStatusMessage()"
+    ></status-message>
     <router-outlet></router-outlet>
   </div>
 </div>

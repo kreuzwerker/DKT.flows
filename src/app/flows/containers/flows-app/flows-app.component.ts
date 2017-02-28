@@ -117,7 +117,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   */
 
   onCreatedFlowRun(flowRun: FlowRun) {
-    console.log('TODO notification: created new flow run', flowRun);
+    this.flowsApp.showStatusMessage('Flow successfully triggered');
     this.cd.markForCheck();
   }
 
