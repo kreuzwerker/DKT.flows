@@ -73,6 +73,23 @@ describe('Flows App', () => {
       });
     });
 
+    describe('reduceGetFlow()', () => {
+      it('should sort the steps of the given flow by position.', () => {
+        const flow = utils.createFlowData();
+        // Mix up positions
+        flow.steps[0].position = 2;
+        flow.steps[1].position = 0;
+        flow.steps[2].position = 1;
+        let state = {
+          Flow: flow
+        };
+        const newState = service['reduceGetFlow'](state);
+        expect(newState.Flow.steps[0].position).toEqual(0);
+        expect(newState.Flow.steps[1].position).toEqual(1);
+        expect(newState.Flow.steps[2].position).toEqual(2);
+      });
+    });
+
     describe('optimisticallyAddFlow()', () => {
       it('should return an optimistic response object for the given flow.', () => {
         const flow = utils.createFlowData();

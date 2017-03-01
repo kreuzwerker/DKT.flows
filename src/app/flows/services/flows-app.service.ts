@@ -17,7 +17,6 @@ export class FlowsAppService {
   flows: FlowsListData[];
   // Current selected flow / flow steps
   flow: Flow = null;
-  steps: Step[] = [];
   // Current selected step
   step: Step = null;
   stepTypeName: string = null;
