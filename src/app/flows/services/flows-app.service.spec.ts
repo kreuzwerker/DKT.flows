@@ -116,7 +116,7 @@ describe('Flows App', () => {
 
     describe('createStepObject()', () => {
       it('should return a new flow step object for the given parameters.', () => {
-        const testService = utils.createServiceData()
+        const testService = utils.createServiceData();
         const step = {
           id: 'new',
           position: 0,

@@ -2,6 +2,7 @@
 import { FlowHeaderComponent } from './flow-header.component';
 import { FlowsAppService } from './../../services';
 import { TestUtils } from './../../utils/test.helpers';
+import { Flow } from './../../models';
 
 describe('Flows App', () => {
 
@@ -9,6 +10,7 @@ describe('Flows App', () => {
     let component: FlowHeaderComponent;
     let utils: TestUtils;
     let flowsApp: FlowsAppService;
+    let flow: Flow;
 
     beforeEach(() => {
       utils = new TestUtils();
@@ -17,6 +19,7 @@ describe('Flows App', () => {
       } as FlowsAppService;
       component = new FlowHeaderComponent(flowsApp);
       expect(component).toBeTruthy();
+      component.flow = utils.createFlowData();
     });
 
     describe('createFlowRun()', () => {
@@ -24,6 +27,17 @@ describe('Flows App', () => {
         let spy = spyOn(flowsApp, 'createFlowRun');
         component.createFlowRun();
         expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('isManualFlowRunLocked()', () => {
+      it('should return false if the current flow is executable', () => {
+        expect(component.isManualFlowRunLocked()).toBeFalsy();
+      });
+
+      it('should return true if the current flow is not executable', () => {
+        component.flow.steps = [];
+        expect(component.isManualFlowRunLocked()).toBeTruthy();
       });
     });
   });

@@ -8,7 +8,7 @@ export function flowIsExecutable(flow: Flow): boolean {
   }
 
   // All steps need to be executable
-  for (var step of flow.steps) {
+  for (let step of flow.steps) {
     if  (stepHelpers.stepIsExecutable(step) === false) {
       return false;
     }
