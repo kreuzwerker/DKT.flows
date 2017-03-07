@@ -26,22 +26,34 @@ describe('Flows App', () => {
     });
 
     describe('stepIsConfigured()', () => {
-      xit('should return true if given step is fully configured', () => {
-        // TODO implement logic first
+      it('should return true if given step is fully configured', () => {
+        expect(helpers.stepIsConfigured(step)).toBeTruthy();
       });
 
-      it('should return false if given step is not fully configured', () => {
-        expect(helpers.stepIsConfigured(step)).toBeFalsy();
+      xit('should return false if given step is not fully configured', () => {
+        // TODO implement logic first
       });
     });
 
     describe('stepIsTested()', () => {
-      xit('should return true if given step has been tested successfully', () => {
-        // TODO implement logic first
+      it('should return true if given step has been tested successfully', () => {
+        expect(helpers.stepIsTested(step)).toBeTruthy();
       });
 
-      it('should return false if given step has not been tested successfully', () => {
-        expect(helpers.stepIsTested(step)).toBeFalsy();
+      xit('should return false if given step has not been tested successfully', () => {
+        // TODO implement logic first
+      });
+    });
+
+    describe('stepIsExecutable()', () => {
+      it('should return true if given step is executable', () => {
+        expect(helpers.stepIsExecutable(step)).toBeTruthy();
+      });
+
+      it('should return true if given step is not executable', () => {
+        // Make step unexecutable by removing its service
+        step.service = null;
+        expect(helpers.stepIsExecutable(step)).toBeFalsy();
       });
     });
 

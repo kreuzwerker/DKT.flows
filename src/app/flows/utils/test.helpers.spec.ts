@@ -1,6 +1,6 @@
 /* tslint:disable: ter-max-len */
 import { TestUtils } from './test.helpers';
-import { FlowData, StepData, Service, ServiceType, Provider } from '../models';
+import { FlowData, StepData, Service, ServiceType, Provider, FlowRun } from '../models';
 
 describe('Flows App', () => {
 
@@ -66,6 +66,16 @@ describe('Flows App', () => {
         expect(step.id).toBe('1');
         expect(step.position).toBe(0);
         expect(step.service).toEqual(utils.defaultServiceData);
+      });
+    });
+
+    describe('createFlowRunData()', () => {
+      it('should return a mocked flow run object', () => {
+        const flow = utils.createFlowRunData();
+        expect(flow.id).toBe('1');
+        expect(flow.status).toBe('running');
+        expect(flow.message).toBe('flow run API message');
+        expect(flow.currentStep).toBe(0);
       });
     });
   });

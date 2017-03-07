@@ -1,2 +1,26 @@
 <h3>{{flow.name}}</h3>
 <p>{{flow.description}}</p>
+<div class="controls">
+  <div class="element">
+    <button md-icon-button class="play" [class.locked]="isManualFlowRunLocked()" (click)="onTriggerFlowRun.emit()">
+      <md-icon>play_arrow</md-icon>
+    </button>
+  </div>
+
+  <div class="element">
+    <!-- activate flow -->
+  </div>
+
+  <div class="element">
+    <!-- clone flow -->
+  </div>
+
+  <div class="element">
+    <!-- schedule flow  -->
+  </div>
+
+  <div class="element">
+    <!-- share flow -->
+  </div>
+
+</div>

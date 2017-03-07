@@ -29,6 +29,8 @@ import { ProviderItemComponent } from './components/provider-item/provider-item.
 import { ProviderDetailComponent } from './components/provider-detail/provider-detail.component';
 import { ProviderIconComponent } from './components/provider-icon/provider-icon.component';
 import { ServiceItemComponent } from './components/service-item/service-item.component';
+import { StatusMessageComponent } from './components/status-message/status-message.component';
+import { TriggerFlowRunDialogComponent } from './components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
 
 // Services
 import { FlowsApiService, FlowsAppService, FlowsStateService } from './services';
@@ -67,6 +69,8 @@ const routes: Routes = [
     ProviderDetailComponent,
     ProviderIconComponent,
     ServiceItemComponent,
+    StatusMessageComponent,
+    TriggerFlowRunDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -85,6 +89,6 @@ const routes: Routes = [
     FlowsStateService,
     FlowsAppActions,
   ],
-  entryComponents: [ NewFlowDialogComponent, DeleteFlowDialogComponent ],
+  entryComponents: [ NewFlowDialogComponent, DeleteFlowDialogComponent, TriggerFlowRunDialogComponent ],
 })
 export class FlowsModule {}

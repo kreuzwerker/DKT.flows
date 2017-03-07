@@ -31,6 +31,7 @@ export class FlowsStateService {
   // 
 
   createdFlow$: Subject<any> = new Subject<any>();
+  createdFlowRun$: Subject<any> = new Subject<any>();
 
   // 
   // Internal events
@@ -188,5 +189,12 @@ export class FlowsStateService {
     this.dispatch(this.actions.setLoadingProviders(true));
     // Trigger loading the providers
     this.loadProviders$.next(1);
+  }
+
+  createAndStartFlowRun(flowId: string, userId: string, payload: Object): void {
+    this.createdFlowRun$.next('loading');
+    this.api.createAndStartFlowRun(flowId, userId, payload).subscribe((flowRun) => {
+      this.createdFlowRun$.next(flowRun);
+    });
   }
 }

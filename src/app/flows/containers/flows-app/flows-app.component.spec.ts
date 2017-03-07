@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { MockChangeDetectorRef, mockFlowsState, mockFlowsApp, mockStore, mockApolloStore } from './../../utils/mocks';
+import { MockChangeDetectorRef, mockFlowsState, mockFlowsApp, mockStore, mockApolloStore, MockMdDialog } from './../../utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { FlowsAppComponent } from './flows-app.component';
 import { FlowsAppService, FlowsStateService } from './../../services';
@@ -19,6 +19,7 @@ describe('Flows App', () => {
     let router: Router;
     let state: FlowsStateService;
     let store: any;
+    let dialog;
 
     beforeEach(() => {
       utils = new TestUtils();
@@ -28,7 +29,8 @@ describe('Flows App', () => {
       router = {} as Router;
       state = mockFlowsState;
       store = mockStore;
-      component = new FlowsAppComponent(cd, flowsApp, route, router, state);
+      dialog = new MockMdDialog();
+      component = new FlowsAppComponent(cd, flowsApp, route, router, state, dialog);
       expect(component).toBeTruthy();
     });
 
@@ -78,6 +80,14 @@ describe('Flows App', () => {
         const step = utils.createStepData();
         mockStore.step.next(step);
         expect(spy).toHaveBeenCalledWith(step);
+      });
+
+      it('should call onCreatedFlowRun() when a new flow step got created', () => {
+        let spy = spyOn(component, 'onCreatedFlowRun');
+        component.ngOnInit();
+        const flowRun = utils.createFlowRunData();
+        state.createdFlowRun$.next(flowRun);
+        expect(spy).toHaveBeenCalledWith(flowRun);
       });
 
       it('ngOnDestroy() should unscribe all subscriptions', () => {
@@ -197,6 +207,50 @@ describe('Flows App', () => {
         let spy = spyOn(state, 'dispatch');
         component.selectRequestedStep();
         expect(spy).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('openTriggerFlowRunDialog()', () => {
+      xit('should open a dialog to enter the flow run payload', () => {
+      });
+
+      xit('should create and start a flow run upon clicking ok', () => {
+      });
+
+      xit('should do nothing upon clicking cancel', () => {
+      });
+    });
+
+    describe('onCreatedFlowRun()', () => {
+      let flowRun;
+
+      beforeEach(() => {
+        flowRun = utils.createFlowRunData();
+      });
+
+      it('should show a loading indicator while the flow is starting', () => {
+        let spy = spyOn(flowsApp, 'showStatusMessage');
+        component.onCreatedFlowRun('loading');
+        expect(spy).toHaveBeenCalledWith('Triggering flow', 'loading');
+      });
+
+      it('should show a success message if the flow run got started successfully', () => {
+        let spy = spyOn(flowsApp, 'showStatusMessage');
+        component.onCreatedFlowRun(flowRun);
+        expect(spy).toHaveBeenCalledWith('Flow successfully triggered');
+      });
+
+      it('should show an error message if the flow run did not get started successfully', () => {
+        let spy = spyOn(flowsApp, 'showStatusMessage');
+        flowRun.status = 'error';
+        component.onCreatedFlowRun(flowRun);
+        expect(spy).toHaveBeenCalledWith('Flow could not be triggered', 'error');
+      });
+
+      it('should trigger change detection', () => {
+        let spy = spyOn(cd, 'markForCheck');
+        component.onCreatedFlowRun(flowRun);
+        expect(spy).toHaveBeenCalled();
       });
     });
   });

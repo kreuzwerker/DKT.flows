@@ -8,9 +8,10 @@ import { Observable } from 'rxjs/Observable';
 import { API_FLOWS_URL, API_PROVIDERS_URL } from './../constants';
 import { Flow, Step, FlowData, StepData, Provider } from './../models';
 import { UUID } from 'angular2-uuid';
+import { cloneDeep, sortBy } from 'lodash';
 
 // GraphQL queries & mutations
-import { getFlowsQuery, FlowsListData, getFlowQuery, createFlowMutation, deleteFlowMutation, updateStepMutation, addFlowStepMutation, removeFlowStepMutation } from './flow.gql';
+import { getFlowsQuery, FlowsListData, getFlowQuery, createFlowMutation, deleteFlowMutation, updateStepMutation, addFlowStepMutation, removeFlowStepMutation, createAndStartFlowRunMutation } from './flow.gql';
 import { getProvidersQuery } from './provider.gql';
 
 @Injectable()
@@ -25,7 +26,12 @@ export class FlowsApiService {
       query: getFlowQuery,
       variables: {
         id: id
-      }
+      },
+      reducer: (previousResult, action) => {
+        return previousResult['Flow']
+          ? this.reduceGetFlow(previousResult)
+          : previousResult;
+      },
     });
   }
 
@@ -136,9 +142,37 @@ export class FlowsApiService {
     });
   }
 
+  public createAndStartFlowRun(
+    flowId: string,
+    userId: string,
+    payload: Object
+  ): Observable<ApolloQueryResult<any>> {
+    return this.apollo.mutate<any>({
+      mutation: createAndStartFlowRunMutation,
+      variables: {
+        flowId: flowId,
+        userId: userId,
+        payload: payload,
+      },
+    }).map(({data}) => data.createAndStartFlowRun);
+  }
+
   /**
    * Helper functions
    */
+
+  private reduceGetFlow(state) {
+    if (state.Flow.steps.length === 0) {
+      return state;
+    }
+
+    const newState = cloneDeep(state) as any;
+
+    // Sort flow steps by position
+    newState.Flow.steps = sortBy(newState.Flow.steps, 'position');
+
+    return newState;
+  }
 
   private optimisticallyAddFlow(flow: Flow): any {
     return {

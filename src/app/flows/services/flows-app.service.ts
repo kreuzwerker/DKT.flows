@@ -17,13 +17,16 @@ export class FlowsAppService {
   flows: FlowsListData[];
   // Current selected flow / flow steps
   flow: Flow = null;
-  steps: Step[] = [];
   // Current selected step
   step: Step = null;
   stepTypeName: string = null;
   // Current step preparation stage: select, configure, test
   // Gets set by child component, e.g. FlowHome, SelectService etc.
   stepStage = null;
+  // Status message
+  statusMessageText: string = '';
+  statusMessageType: string = 'success';
+  statusMessageShow: boolean = false;
 
   constructor(
     public state: FlowsStateService,
@@ -78,6 +81,30 @@ export class FlowsAppService {
       // Deselect deleted step by navigating to flow home
       this.router.navigate(['flows', this.flow.id]);
     }
+  }
+
+  /*
+    Flow Runs
+   */
+
+  createAndStartFlowRun(payload: any): void {
+    // Mock user ID
+    let userId = '1';
+    this.state.createAndStartFlowRun(this.flow.id, userId, payload);
+  }
+
+  /*
+    Status messages
+  */
+
+  showStatusMessage(message: string, type: string = 'success'): void {
+    this.statusMessageText = message;
+    this.statusMessageType = type;
+    this.statusMessageShow = true;
+  }
+
+  hideStatusMessage(): void {
+    this.statusMessageShow = false;
   }
 
   /*

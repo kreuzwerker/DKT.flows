@@ -1,0 +1,41 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+@import '../../../animations';
+
+div.status-message {
+  overflow-y: hidden;
+  transition: max-height 0.1s ease-out;
+
+  span {
+    font-weight: bold;
+  }
+
+  &.slide-in {
+    max-height: 100px;
+  }
+
+  &.slide-out {
+    max-height: 0px;
+  }
+
+  &.success {
+    background-color: $success-bg-color;
+  }
+
+  &.error {
+    background-color: $error-bg-color;
+  }
+
+  &.loading {
+    background-color: white;
+    div.content {
+      color: black;
+    }
+  }
+
+  div.content {
+    padding: 1rem 2rem;
+    color: white;
+  }
+}

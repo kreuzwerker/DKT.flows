@@ -12,3 +12,43 @@ p {
   color: $secondary-text-color;
   margin-bottom: 1rem;
 }
+
+$border: 1px solid #eee;
+
+div.controls {
+  background-color: $element-bg-color;
+  border-top: $border;
+  border-bottom: $border;
+  margin: 0 -1rem;
+  padding: 0 1rem;
+
+  div.element {
+    display:inline-block;
+
+    &:not(:first-child) {
+      padding-left: 10px;
+    }
+
+    &:not(:last-child) {
+      padding-right: 10px;
+      border-right: $border;
+    }
+  }
+
+  button.play {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin: 5px 0;
+    background-color: $active-button-color;
+
+    md-icon {
+      font-size: 20px;
+      color: $element-bg-color;
+    }
+
+    &.locked {
+      background-color: $inactive-button-color;
+    }
+  }
+}
