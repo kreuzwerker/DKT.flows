@@ -73,7 +73,7 @@ describe('Flows App', () => {
       it('should return a mocked flow run object', () => {
         const flow = utils.createFlowRunData();
         expect(flow.id).toBe('1');
-        expect(flow.status).toBe('pending');
+        expect(flow.status).toBe('running');
         expect(flow.message).toBe('flow run API message');
         expect(flow.currentStep).toBe(0);
       });

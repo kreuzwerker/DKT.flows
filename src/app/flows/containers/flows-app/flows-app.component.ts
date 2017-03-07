@@ -2,6 +2,8 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs';
 import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
+import { MdDialog, MdDialogConfig } from '@angular/material';
+import { TriggerFlowRunDialogComponent } from './../../components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
 import { Flow, Step, FlowRun } from './../../models';
@@ -13,6 +15,7 @@ import { Flow, Step, FlowRun } from './../../models';
 })
 export class FlowsAppComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
+  dialogConfig: MdDialogConfig;
   flowSub$: Subscription;
 
   requestedStepId: string = null;
@@ -23,7 +26,11 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     public route: ActivatedRoute,
     public router: Router,
     public state: FlowsStateService,
-  ) { }
+    public dialog: MdDialog,
+  ) {
+    this.dialogConfig = new MdDialogConfig();
+    this.dialogConfig.width = '450px';
+  }
 
   ngOnInit() {
     this.route.params.takeUntil(this.ngOnDestroy$).map(params => params['flowId'])
@@ -116,8 +123,21 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     Flow runs
   */
 
+  openTriggerFlowRunDialog() {
+    let dialogRef = this.dialog.open(TriggerFlowRunDialogComponent, this.dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        this.flowsApp.createAndStartFlowRun(data.payload);
+      }
+    });
+  }
+
   onCreatedFlowRun(flowRun: FlowRun) {
-    this.flowsApp.showStatusMessage('Flow successfully triggered');
+    if (flowRun.status === 'running') {
+      this.flowsApp.showStatusMessage('Flow successfully triggered');
+    } else {
+      this.flowsApp.showStatusMessage('Flow could not be triggered', 'error');
+    }
     this.cd.markForCheck();
   }
 

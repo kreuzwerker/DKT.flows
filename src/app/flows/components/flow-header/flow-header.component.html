@@ -2,7 +2,7 @@
 <p>{{flow.description}}</p>
 <div class="controls">
   <div class="element">
-    <button md-icon-button class="play" [class.locked]="isManualFlowRunLocked()" (click)="createFlowRun()">
+    <button md-icon-button class="play" [class.locked]="isManualFlowRunLocked()" (click)="onTriggerFlowRun.emit()">
       <md-icon>play_arrow</md-icon>
     </button>
   </div>

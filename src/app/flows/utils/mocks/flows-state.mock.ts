@@ -25,7 +25,7 @@ export const mockFlowsState = {
   createFlow(name: string, description: string): void { },
   deleteFlow(id: string): void { },
   dispatch(action: Action) { },
-  createFlowRun(flowId: string, userId: string, payload: Object): void {},
+  createAndStartFlowRun(flowId: string, userId: string, payload: Object): void {},
 
   // TODO we don't really want to do it this way..
   // Create mock via class inflection?

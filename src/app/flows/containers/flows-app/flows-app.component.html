@@ -1,7 +1,7 @@
 <div class="layout full-height" fxLayout="row" fxLayoutAlign="start start">
   <div class="left border-right padding" fxLayout="column">
     <dkt-loading-indicator *ngIf="state.select('loadingFlow') | async" text="Loading flow"></dkt-loading-indicator>
-    <dkt-flow-header *ngIf="flowsApp.flow" [flow]="flowsApp.flow"></dkt-flow-header>
+    <dkt-flow-header *ngIf="flowsApp.flow" [flow]="flowsApp.flow" (onTriggerFlowRun)="openTriggerFlowRunDialog()"></dkt-flow-header>
 
     <!-- Flow steps -->
     <div class="steps" *ngIf="flowsApp.flow">

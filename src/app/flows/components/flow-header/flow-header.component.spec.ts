@@ -15,19 +15,11 @@ describe('Flows App', () => {
     beforeEach(() => {
       utils = new TestUtils();
       flowsApp = {
-        createFlowRun() {}
+        createAndStartFlowRun() {}
       } as FlowsAppService;
       component = new FlowHeaderComponent(flowsApp);
       expect(component).toBeTruthy();
       component.flow = utils.createFlowData();
-    });
-
-    describe('createFlowRun()', () => {
-      it('should create a new flow run', () => {
-        let spy = spyOn(flowsApp, 'createFlowRun');
-        component.createFlowRun();
-        expect(spy).toHaveBeenCalled();
-      });
     });
 
     describe('isManualFlowRunLocked()', () => {

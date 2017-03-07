@@ -191,8 +191,8 @@ export class FlowsStateService {
     this.loadProviders$.next(1);
   }
 
-  createFlowRun(flowId: string, userId: string, payload: Object): void {
-    this.api.createFlowRun(flowId, userId, payload).subscribe((flowRun) => {
+  createAndStartFlowRun(flowId: string, userId: string, payload: Object): void {
+    this.api.createAndStartFlowRun(flowId, userId, payload).subscribe((flowRun) => {
       this.createdFlowRun$.next(flowRun);
     });
   }

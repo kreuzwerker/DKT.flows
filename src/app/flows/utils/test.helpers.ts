@@ -85,7 +85,7 @@ export class TestUtils {
     };
   }
 
-  createFlowRunData(id: string = '1', status: string = 'pending'): FlowRun {
+  createFlowRunData(id: string = '1', status: string = 'running'): FlowRun {
     return {
       id: '1',
       status: status,

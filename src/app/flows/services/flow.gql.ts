@@ -125,14 +125,16 @@ export const removeFlowStepMutation = gql`
   ${flowStepFragment}
 `;
 
-export const createFlowRunMutation = gql`
-  mutation createFlowRun(
+export const createAndStartFlowRunMutation = gql`
+  mutation createAndStartFlowRun(
     $flowId: ID!,
     $userId: ID!,
+    $payload: String!,
   ) {
-    createFlowRun(
+    createAndStartFlowRun(
       flow: $flowId,
       userId: $userId,
+      payload: $payload,
     ) {
       id
       status

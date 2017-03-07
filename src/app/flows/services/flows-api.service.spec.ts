@@ -68,7 +68,7 @@ describe('Flows App', () => {
       });
     });
 
-    describe('createFlowRun()', () => {
+    describe('createAndStartFlowRun()', () => {
       xit('should query the API with a mutation of a new flow run', () => {
       });
     });

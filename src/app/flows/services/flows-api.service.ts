@@ -11,7 +11,7 @@ import { UUID } from 'angular2-uuid';
 import { cloneDeep, sortBy } from 'lodash';
 
 // GraphQL queries & mutations
-import { getFlowsQuery, FlowsListData, getFlowQuery, createFlowMutation, deleteFlowMutation, updateStepMutation, addFlowStepMutation, removeFlowStepMutation, createFlowRunMutation } from './flow.gql';
+import { getFlowsQuery, FlowsListData, getFlowQuery, createFlowMutation, deleteFlowMutation, updateStepMutation, addFlowStepMutation, removeFlowStepMutation, createAndStartFlowRunMutation } from './flow.gql';
 import { getProvidersQuery } from './provider.gql';
 
 @Injectable()
@@ -142,18 +142,19 @@ export class FlowsApiService {
     });
   }
 
-  public createFlowRun(
+  public createAndStartFlowRun(
     flowId: string,
     userId: string,
     payload: Object
   ): Observable<ApolloQueryResult<any>> {
     return this.apollo.mutate<any>({
-      mutation: createFlowRunMutation,
+      mutation: createAndStartFlowRunMutation,
       variables: {
         flowId: flowId,
         userId: userId,
+        payload: payload,
       },
-    }).map(({data}) => data.createFlowRun);
+    }).map(({data}) => data.createAndStartFlowRun);
   }
 
   /**

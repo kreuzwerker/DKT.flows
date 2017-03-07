@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FlowsAppService } from './../../services';
 import { Flow } from './../../models/flow.model';
 import * as helpers from './../../utils/flow.helpers';
@@ -11,14 +11,11 @@ import * as helpers from './../../utils/flow.helpers';
 })
 export class FlowHeaderComponent {
   @Input() flow: Flow;
+  @Output() onTriggerFlowRun = new EventEmitter();
 
   constructor(
     public flowsApp: FlowsAppService
   ) { }
-
-  createFlowRun() {
-    this.flowsApp.createFlowRun();
-  }
 
   isManualFlowRunLocked() {
     return !helpers.flowIsExecutable(this.flow);
