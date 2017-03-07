@@ -192,6 +192,7 @@ export class FlowsStateService {
   }
 
   createAndStartFlowRun(flowId: string, userId: string, payload: Object): void {
+    this.createdFlowRun$.next('loading');
     this.api.createAndStartFlowRun(flowId, userId, payload).subscribe((flowRun) => {
       this.createdFlowRun$.next(flowRun);
     });

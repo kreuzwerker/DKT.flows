@@ -228,6 +228,12 @@ describe('Flows App', () => {
         flowRun = utils.createFlowRunData();
       });
 
+      it('should show a loading indicator while the flow is starting', () => {
+        let spy = spyOn(flowsApp, 'showStatusMessage');
+        component.onCreatedFlowRun('loading');
+        expect(spy).toHaveBeenCalledWith('Triggering flow', 'loading');
+      });
+
       it('should show a success message if the flow run got started successfully', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
         component.onCreatedFlowRun(flowRun);

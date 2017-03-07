@@ -132,8 +132,10 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     });
   }
 
-  onCreatedFlowRun(flowRun: FlowRun) {
-    if (flowRun.status === 'running') {
+  onCreatedFlowRun(flowRun: any) {
+    if (flowRun == 'loading') {
+      this.flowsApp.showStatusMessage('Triggering flow', 'loading');
+    } else if (flowRun.status === 'running') {
       this.flowsApp.showStatusMessage('Flow successfully triggered');
     } else {
       this.flowsApp.showStatusMessage('Flow could not be triggered', 'error');

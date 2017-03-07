@@ -27,6 +27,13 @@ div.status-message {
     background-color: $error-bg-color;
   }
 
+  &.loading {
+    background-color: white;
+    div.content {
+      color: black;
+    }
+  }
+
   div.content {
     padding: 1rem 2rem;
     color: white;

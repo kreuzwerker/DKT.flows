@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class LoadingIndicatorComponent {
   @Input() text: string;
+  @Input() center: boolean;
 }

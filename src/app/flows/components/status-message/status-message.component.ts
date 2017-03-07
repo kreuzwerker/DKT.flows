@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'status-message',
+  selector: 'dkt-status-message',
   templateUrl: 'status-message.component.html',
   styleUrls: ['status-message.component.css'],
 })
