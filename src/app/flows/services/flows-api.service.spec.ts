@@ -1,6 +1,6 @@
 import { FlowsApiService } from './flows-api.service';
 import { TestUtils } from './../utils/test.helpers';
-import { Angular2Apollo } from 'angular2-apollo';
+import { Apollo } from 'apollo-angular';
 import { Http } from '@angular/http';
 
 describe('Flows App', () => {
@@ -11,7 +11,7 @@ describe('Flows App', () => {
 
     beforeEach(() => {
       utils = new TestUtils();
-      service = new FlowsApiService({} as Angular2Apollo, {} as Http);
+      service = new FlowsApiService({} as Apollo, {} as Http);
       expect(service).toBeTruthy();
     });
 
