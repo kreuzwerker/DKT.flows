@@ -77,8 +77,8 @@ const routes: Routes = [
     CoreModule,
     FormsModule,
     RouterModule.forChild(routes),
-    MaterialModule.forRoot(),
-    FlexLayoutModule.forRoot(),
+    MaterialModule,
+    FlexLayoutModule,
     EffectsModule.run(FlowsAppEffects),
   ],
   exports: [

@@ -39,7 +39,7 @@ if (ENV === 'development' && !AOT &&
 
 export const APP_IMPORTS = [
   EffectsModule.run(UserEffects),
-  FlexLayoutModule.forRoot(),
+  FlexLayoutModule,
   FormsModule,
   MaterialModule,
   ReactiveFormsModule,
