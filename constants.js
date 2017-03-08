@@ -84,7 +84,7 @@ exports.EXCLUDE_SOURCE_MAPS = [
   root('node_modules/@angular'),
   root('node_modules/rxjs'),
   root('node_modules/apollo-client'),
-  root('node_modules/angular2-apollo'),
+  root('node_modules/apollo-angular'),
   root('node_modules/angular2-uuid'),
   // Watch https://github.com/angular-redux/ng2-redux/issues/311
   root('node_modules/ng2-redux-router'),
@@ -107,7 +107,7 @@ exports.MY_VENDOR_DLLS = [
   // this will speed up initial dev server build and incremental builds.
   // Be sure to run `npm run build:dll` if you make changes to this array.
   'apollo-client',
-  'angular2-apollo'
+  'apollo-angular'
 ]
 
 exports.MY_CLIENT_PLUGINS = [

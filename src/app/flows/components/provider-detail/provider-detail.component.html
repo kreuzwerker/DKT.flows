@@ -16,7 +16,7 @@
 
   <md-tab-group *ngIf="provider" [selectedIndex]="selectedTabIndex" md-dynamic-height>
     <md-tab>
-      <template md-tab-label>Triggers ({{triggerServices.length}})</template>
+      <ng-template md-tab-label>Triggers ({{triggerServices.length}})</ng-template>
       <ul class="service-steps">
         <li 
           *ngFor="let service of triggerServices"
@@ -28,7 +28,7 @@
       <p *ngIf="triggerServices.length == 0" class="no-steps">No triggers available.</p>
     </md-tab>
     <md-tab>
-      <template md-tab-label>Actions ({{actionServices.length}})</template>
+      <ng-template md-tab-label>Actions ({{actionServices.length}})</ng-template>
       <ul class="service-steps">
         <li
           *ngFor="let service of actionServices"

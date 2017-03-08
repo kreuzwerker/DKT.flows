@@ -2,7 +2,7 @@ import 'rxjs/add/operator/map';
 
 import { Injectable } from '@angular/core';
 import { ApolloQueryResult } from 'apollo-client';
-import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
+import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import { Http, Request, RequestMethod, RequestOptions, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { API_FLOWS_URL, API_PROVIDERS_URL } from './../constants';
@@ -17,7 +17,7 @@ import { getProvidersQuery } from './provider.gql';
 @Injectable()
 export class FlowsApiService {
   constructor(
-    private apollo: Angular2Apollo,
+    private apollo: Apollo,
     private http: Http
   ) {}
 
