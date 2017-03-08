@@ -98,7 +98,7 @@
     "@types/chai": "^3.4.34",
     "@types/graphql": "^0.8.6",
     "@types/lodash": "^4.14.50",
-    "@types/node": "^7.0.0",
+    "@types/node": "^7.0.5",
     "angular2-uuid": "^1.1.1",
     "apollo-angular": "^0.11.0",
     "apollo-client": "^0.10.1",
@@ -117,7 +117,7 @@
     "redux-observable": "^0.13.0",
     "rxjs": "5.2.0",
     "s3-deploy": "^0.7.3",
-    "tslint": "^4.3.1",
+    "tslint": "^4.5.1",
     "zone.js": "~0.7.7"
   },
   "devDependencies": {
@@ -126,7 +126,6 @@
     "@types/hammerjs": "~2.0.34",
     "@types/ip": "~0.0.29",
     "@types/jasmine": "~2.5.43",
-    "@types/node": "~7.0.5",
     "@types/selenium-webdriver": "~2.53.40",
     "angular-router-loader": "~0.5.0",
     "angular2-template-loader": "~0.6.2",
@@ -163,7 +162,6 @@
     "to-string-loader": "~1.1.5",
     "ts-helpers": "~1.1.2",
     "ts-node": "~2.1.0",
-    "tslint": "~4.5.1",
     "tslint-eslint-rules": "^3.2.3",
     "tslint-loader": "~3.4.3",
     "typescript": "~2.2.1",
