@@ -39,9 +39,9 @@ if (ENV === 'development' && !AOT &&
 
 export const APP_IMPORTS = [
   EffectsModule.run(UserEffects),
-  MaterialModule.forRoot(),
   FlexLayoutModule.forRoot(),
   FormsModule,
+  MaterialModule,
   ReactiveFormsModule,
   IdlePreloadModule.forRoot(), // forRoot ensures the providers are only created once
   RouterModule.forRoot(routes, { useHash: false, preloadingStrategy: IdlePreload }),

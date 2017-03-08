@@ -4,6 +4,7 @@
  * If more constants should be added file an issue or create PR.
  */
 import 'ts-helpers';
+const path = require('path');
 
 import {
   DEV_PORT, PROD_PORT, EXCLUDE_SOURCE_MAPS, HOST,
@@ -19,7 +20,7 @@ const {
   DllPlugin,
   DllReferencePlugin,
   ProgressPlugin,
-  NoErrorsPlugin
+  NoEmitOnErrorsPlugin
 } = require('webpack');
 
 const CompressionPlugin = require('compression-webpack-plugin');
@@ -134,8 +135,8 @@ const clientConfig = function webpackConfig(): WebpackConfig {
 
   config.plugins = [
     new ContextReplacementPlugin(
-      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-      root('./src')
+      /angular(\\|\/)core(\\|\/)@angular/,
+      path.resolve(__dirname, '../src')
     ),
     new ProgressPlugin(),
     new CheckerPlugin(),
@@ -178,7 +179,7 @@ const clientConfig = function webpackConfig(): WebpackConfig {
 
   if (PROD) {
     config.plugins.push(
-      new NoErrorsPlugin(),
+      new NoEmitOnErrorsPlugin(),
       new UglifyJsPlugin({
         beautify: false,
         comments: false
@@ -194,7 +195,7 @@ const clientConfig = function webpackConfig(): WebpackConfig {
     );
     if (!E2E && !WATCH) {
       config.plugins.push(
-        new BundleAnalyzerPlugin({analyzerPort: 5000})
+        new BundleAnalyzerPlugin({ analyzerPort: 5000 })
       );
     }
   }
