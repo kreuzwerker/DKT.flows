@@ -74,6 +74,7 @@
     "deploy-test": "s3-deploy './dist/client/**' --cwd './dist/client/' --profile dkt --region eu-west-1 --bucket dkt.flows.test"
   },
   "dependencies": {
+    "@angular/animations": "^4.0.0-rc.1",
     "@angular/common": "4.0.0-rc.2",
     "@angular/compiler": "4.0.0-rc.2",
     "@angular/compiler-cli": "4.0.0-rc.2",
