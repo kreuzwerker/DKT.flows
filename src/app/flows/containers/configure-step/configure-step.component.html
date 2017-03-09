@@ -3,7 +3,13 @@
     <dkt-flow-step-config-nav [type]="flowsApp.stepTypeName" [current]="'configure'" class="col-header"></dkt-flow-step-config-nav>
 
     <div class="padding">
-      <div style="border:4px solid #eee; color:#ccc; padding:1rem; min-height:300px; margin-bottom:1rem;">[Config form]</div>
+      <form *ngIf="formModel" [formGroup]="formGroup">
+        <dynamic-form-material-control *ngFor="let controlModel of formModel" 
+          [controlGroup]="formGroup"
+          [model]="controlModel"
+          (change)="saveForm($event)">
+        </dynamic-form-material-control>
+      </form>
 
       <dkt-flow-step-nav-buttons 
         backPath="{{flowsApp.flowStepPath()}}/select-service" backLabel="Back"
