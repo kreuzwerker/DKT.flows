@@ -3,18 +3,18 @@
     <dkt-flow-step-config-nav [type]="flowsApp.stepTypeName" [current]="'configure'" class="col-header"></dkt-flow-step-config-nav>
 
     <div class="padding">
-      <form *ngIf="formModel" [formGroup]="formGroup">
+      <form *ngIf="formModel" [formGroup]="configForm" class="configuration">
         <dynamic-form-material-control *ngFor="let controlModel of formModel" 
-          [controlGroup]="formGroup"
+          [controlGroup]="configForm"
           [model]="controlModel"
           (change)="saveForm($event)">
         </dynamic-form-material-control>
-      </form>
 
-      <dkt-flow-step-nav-buttons 
-        backPath="{{flowsApp.flowStepPath()}}/select-service" backLabel="Back"
-        continuePath="{{flowsApp.flowStepPath()}}/test" continueLabel="Continue"
-        ></dkt-flow-step-nav-buttons>
+        <dkt-flow-step-nav-buttons 
+          backPath="{{flowsApp.flowStepPath()}}/select-service" backLabel="Back"
+          continuePath="{{flowsApp.flowStepPath()}}/test" continueLabel="Continue" [continueDisabled]="!configForm.valid"
+          ></dkt-flow-step-nav-buttons>
+      </form>
     </div>
   </div>
 </div>

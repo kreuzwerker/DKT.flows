@@ -15,7 +15,7 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   step: Step = null;
   formModel: DynamicFormControlModel[];
-  formGroup: FormGroup;
+  configForm: FormGroup;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -55,8 +55,8 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
     // Create form model from service config form schema
     this.formModel = this.formBuilder.createFormModel(schema, values);
 
-    // Create form group
-    this.formGroup = this.formService.createFormGroup(this.formModel);
+    // Create config form
+    this.configForm = this.formService.createFormGroup(this.formModel);
   }
 
   mockFormValues = {}
@@ -64,7 +64,7 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
   saveForm() {
     // MOCK
     // this.step.configParams = values;
-    this.mockFormValues[this.step.id] = this.formGroup.value;
+    this.mockFormValues[this.step.id] = this.configForm.value;
   }
 
   ngOnDestroy(): void {

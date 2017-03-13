@@ -12,6 +12,7 @@ export class FlowStepNavButtonsComponent {
   @Input() backLabel: string;
   @Input() continuePath: string;
   @Input() continueLabel: string;
+  @Input() continueDisabled: boolean = false;
 
   constructor(public router: Router) {}
 
