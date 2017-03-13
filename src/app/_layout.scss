@@ -19,6 +19,10 @@ div.full-height, div.full-height > div {
   height:100%;
 }
 
+.full-width, .full-width > md-input-container {
+  width: 100%;
+}
+
 div.border-right {
   border-right: 1px solid $layout-border-color;
 }

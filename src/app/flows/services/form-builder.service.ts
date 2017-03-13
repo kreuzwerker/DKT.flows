@@ -9,6 +9,12 @@ import {
     DynamicSelectModel,
 } from '@ng2-dynamic-forms/core';
 
+const FORM_ELM_DEFAULT_CLASSES = {
+  element: {
+    container: "full-width"
+  }
+}
+
 @Injectable()
 export class FormBuilderService {
 
@@ -41,22 +47,22 @@ export class FormBuilderService {
   createInputModel(element, value) {
     return new DynamicInputModel({
       id: element.id,
-      label: element.label,
+      placeholder: element.label,
       value: typeof value !== undefined && value || element.defaultValue,
       // maxLength: 42,
       // minLength: 3,
       // placeholder: "example input",
       required: element.required,
-    });
+    }, FORM_ELM_DEFAULT_CLASSES);
   }
 
   createTextareaModel(element, value) {
     return new DynamicTextAreaModel({
       id: element.id,
-      label: element.label,
+      placeholder: element.label,
       value: typeof value !== undefined && value || element.defaultValue,
       required: element.required,
-    });
+    }, FORM_ELM_DEFAULT_CLASSES);
   }
 
   // Schema mocks
@@ -76,7 +82,7 @@ export class FormBuilderService {
         id: 'comment',
         label: 'Comment',
         type: 'textarea',
-        defaultValue: '',
+        defaultValue: 'Sample comment',
         required: false,
       }
     ],
