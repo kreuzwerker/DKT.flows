@@ -12,7 +12,7 @@
 
         <dkt-flow-step-nav-buttons 
           backPath="{{flowsApp.flowStepPath()}}/select-service" backLabel="Back"
-          continuePath="{{flowsApp.flowStepPath()}}/test" continueLabel="Continue" [continueDisabled]="!configForm.valid"
+          continuePath="{{flowsApp.flowStepPath()}}/test" continueLabel="Continue" [continueDisabled]="configForm.invalid"
           ></dkt-flow-step-nav-buttons>
       </form>
     </div>

@@ -1,3 +1,18 @@
 form.configuration {
   max-width: 600px;
+
+  // Give these controls more vertical margin
+  .control {
+    margin-bottom: 1.5rem;
+  }
+
+  label:not(.mat-radio-label) {
+    display: block;
+    color: #999;
+    font-size: 0.9rem;
+  }
+
+  label.mat-radio-label {
+    margin-right: 1rem;
+  }
 }

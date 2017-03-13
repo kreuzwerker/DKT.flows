@@ -1,7 +1,7 @@
 /* tslint:disable: ter-max-len */
 import { Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MockChangeDetectorRef, mockFlowsApp, mockFlowsState, mockStore } from './../../utils/mocks';
+import { mockFlowsApp, mockFlowsState, mockStore } from './../../utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { ConfigureStepComponent } from './configure-step.component';
 import { FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';
@@ -12,7 +12,6 @@ describe('Flows App', () => {
 
   describe('ConfigureStep Component', () => {
     let component: ConfigureStepComponent;
-    let cd: MockChangeDetectorRef;
     let utils: TestUtils;
     let flowsApp: FlowsAppService;
     let state: FlowsStateService;
@@ -28,12 +27,11 @@ describe('Flows App', () => {
 
     beforeEach(() => {
       utils = new TestUtils();
-      cd = <any>new MockChangeDetectorRef();
       flowsApp = mockFlowsApp;
       state = mockFlowsState;
       store = mockStore;
 
-      component = new ConfigureStepComponent(cd, flowsApp, state, mockFormBuilder, mockFormService);
+      component = new ConfigureStepComponent(flowsApp, state, mockFormBuilder, mockFormService);
       expect(component).toBeTruthy();
     });
 
@@ -70,12 +68,6 @@ describe('Flows App', () => {
         component.onSelectStep(step);
         expect(spy).toHaveBeenCalledWith(step.service, step.configParams);
       });
-
-      it('should trigger change detection', () => {
-        spyOn(cd, 'markForCheck');
-        component.onSelectStep(step);
-        expect(cd.markForCheck).toHaveBeenCalled();
-      });
     });
 
     describe('initForm()', () => {
@@ -88,14 +80,14 @@ describe('Flows App', () => {
       xit('should initialize the configuration form with the given schema and values', () => {
         component.initForm(step.service, step.configParams);
         expect(component.formModel).not.toBeNull;
-        expect(component.formGroup).not.toBeNull;
+        expect(component.configForm).not.toBeNull;
       });
     });
 
     describe('saveForm()', () => {
       xit('should save the configuration in the step', () => {
         let values = {};
-        component.formGroup = { value: values} as FormGroup;
+        component.configForm = { value: values} as FormGroup;
         component.saveForm();
         expect(component.step.configParams).not.toEqual(values);
       });

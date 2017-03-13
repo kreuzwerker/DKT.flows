@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';
 import { FormGroup } from '@angular/forms';
 import { DynamicFormService, DynamicFormControlModel } from "@ng2-dynamic-forms/core";
@@ -9,7 +9,9 @@ import { Step } from './../../models';
   selector: 'configure-step',
   templateUrl: 'configure-step.component.html',
   styleUrls: ['configure-step.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
+  // NB make our life easier by not using OnPush for reactive forms, e.g. detect
+  // form validation status after form has finished rendering.
 })
 export class ConfigureStepComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
@@ -18,7 +20,6 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
   configForm: FormGroup;
 
   constructor(
-    private cd: ChangeDetectorRef,
     public flowsApp: FlowsAppService,
     public state: FlowsStateService,
     private formBuilder: FormBuilderService,
@@ -48,7 +49,6 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
     let values = this.mockFormValues[this.step.id] || {};
 
     this.initForm(this.step.service, values);
-    this.cd.markForCheck();
   }
 
   initForm(schema, values) {
