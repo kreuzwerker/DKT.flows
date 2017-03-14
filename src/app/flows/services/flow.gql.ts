@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { serviceConfigSchemaFragment } from './provider.gql';
 
 export const flowsItemFragment = gql`
   fragment FlowsItem on Flow {
@@ -28,11 +29,18 @@ export const flowStepFragment = gql`
   fragment FlowStep on Step {
     id,
     position,
+    configParams {
+      id,
+      value
+    },
     service {
       id,
       type,
       name,
-      description
+      description,
+      configSchema {
+        ...ServiceConfigSchema
+      }
       provider {
         id,
         name,
@@ -40,6 +48,8 @@ export const flowStepFragment = gql`
       }
     }
   }
+
+  ${serviceConfigSchemaFragment}
 `;
 
 export const getFlowQuery = gql`
@@ -92,11 +102,13 @@ export const updateStepMutation = gql`
     $id: ID!,
     $position: Int!,
     $service: ID!,
+    $configParams: [StepConfigParamsInput]
   ) {
     updateStep(
       id: $id,
       position: $position,
-      service: $service
+      service: $service,
+      configParams: $configParams,
     ) {
       ...FlowStep
     }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Service } from './../models';
+import { ServiceConfigSchema } from './../models';
 import * as _ from 'lodash';
 import {
     DynamicFormControlModel,
@@ -21,11 +21,7 @@ export class FormBuilderService {
 
   constructor() { }
 
-  createFormModel(service: Service, values): DynamicFormControlModel[] {
-    if (!this.schemaMocks[service.id]) {
-      return [];
-    }
-
+  createFormModel(schema: ServiceConfigSchema, values): DynamicFormControlModel[] {
     let model = [];
     const elements = _.sortBy(this.schemaMocks[service.id], 'position');
     for (let element of elements as any) {
@@ -56,6 +52,9 @@ export class FormBuilderService {
 
     return model;
   }
+
+  // TODO we use 'label' instead of placeholder because of the focus issue upon
+  // initializing the form: the placeholder doesn't float above the control.
 
   createInputModel(element, value) {
     return new DynamicInputModel({

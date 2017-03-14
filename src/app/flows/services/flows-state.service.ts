@@ -161,7 +161,8 @@ export class FlowsStateService {
     this.api.updateStep({
       id: stepId,
       position: step.position,
-      serviceId: step.service.id
+      serviceId: step.service.id,
+      configParams: step.configParams,
     }).subscribe((_step) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
     });

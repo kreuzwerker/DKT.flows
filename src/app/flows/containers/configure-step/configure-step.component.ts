@@ -24,6 +24,7 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
   step: Step = null;
   formModel: DynamicFormControlModel[];
   configForm: FormGroup;
+  missingConfigSchema: Boolean = false;
 
   constructor(
     public flowsApp: FlowsAppService,
@@ -49,12 +50,14 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
     }
 
     this.step = step;
+    let values = this.step.configParams && this.reduceValues(this.step.configParams) || {};
 
-    // MOCK
-    // let values = this.step.configParams;
-    let values = this.mockFormValues[this.step.id] || {};
-
-    this.initForm(this.step.service, values);
+    if (this.step.service.configSchema) {
+      this.initForm(this.step.service.configSchema, values);
+      this.missingConfigSchema = false;
+    } else {
+      this.missingConfigSchema = true;
+    }
   }
 
   initForm(schema, values) {
@@ -65,12 +68,30 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
     this.configForm = this.formService.createFormGroup(this.formModel);
   }
 
-  mockFormValues = {}
-
   saveForm() {
-    // MOCK
-    // this.step.configParams = values;
-    this.mockFormValues[this.step.id] = this.configForm.value;
+    if (this.configForm.valid) {
+      let values = this.mapValues(this.configForm.value);
+      console.log('config', values);
+      this.state.dispatch(this.state.actions.setStepConfig(values));
+      this.flowsApp.saveFlowStep();
+    }
+  }
+
+  reduceValues(values) {
+    return values.reduce((a, b) => {
+      let val = b.value;
+      // Cast boolean values
+      if (val === 'true' || val === 'false') {
+        val = JSON.parse(val);
+      }
+      return Object.assign(a, { [b.id]: val });
+    }, {});
+  }
+
+  mapValues(values) {
+    return Object.keys(values).map((key) => { 
+      return { id: key, value: values[key] };
+    });
   }
 
   ngOnDestroy(): void {

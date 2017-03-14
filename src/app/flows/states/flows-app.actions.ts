@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 
-import { Step, StepData, Provider, Service } from '../models';
+import { Step, StepData, StepConfigParam, Provider, Service } from '../models';
 
 @Injectable()
 export class FlowsAppActions {
@@ -39,6 +39,16 @@ export class FlowsAppActions {
     return {
       type: FlowsAppActions.SELECT_PROVIDER,
       payload: provider
+    };
+  }
+
+  static SET_STEP_CONFIG = 'SET_STEP_CONFIG';
+  setStepConfig(configParams: StepConfigParam[]) {
+    return {
+      type: FlowsAppActions.SET_STEP_CONFIG,
+      payload: {
+        configParams: configParams,
+      }
     };
   }
 
