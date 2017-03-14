@@ -1,3 +1,9 @@
+// KNOWN ISSUES
+// - warning message "The <template> element is deprecated...":
+//   https://github.com/angular/material2/issues/3301
+// - warning message "It looks like you're using the disabled attribute...":
+//   https://github.com/udos86/ng2-dynamic-forms/issues/293
+
 import { Subject } from 'rxjs/Subject';
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';
