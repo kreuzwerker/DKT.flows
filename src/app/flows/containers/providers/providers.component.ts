@@ -119,7 +119,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     } else {
       // The given provider is already set. Selecting it again would not emit
       // a change event because of distinctUntilChanged() in state.select().
-      // Thus we need to trigger the callback manually. 
+      // Thus we need to trigger the callback manually.
       this.onSelectProvider(provider);
     }
   }
@@ -145,11 +145,11 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * User initiated selection of service: select new service and signal change 
+   * User initiated selection of service: select new service and signal change
    * event (for saving the flow step).
-   * 
+   *
    * @param {Service} service
-   * 
+   *
    * @memberOf ProvidersComponent
    */
   changeService(service: Service): void {

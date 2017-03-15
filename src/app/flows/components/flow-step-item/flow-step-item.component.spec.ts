@@ -35,10 +35,10 @@ describe('Flows App', () => {
       it('should call render() on changes', () => {
         spyOn(component, 'render');
         const step = utils.createStepData();
-        component.ngOnChanges({ step: new SimpleChange(null, step)});
+        component.ngOnChanges({ step: new SimpleChange(null, step, true)});
         expect(component.render).toHaveBeenCalled();
         const active = 'select';
-        component.ngOnChanges({ currentActive: new SimpleChange(null, active)});
+        component.ngOnChanges({ currentActive: new SimpleChange(null, null, false)});
         expect(component.render).toHaveBeenCalled();
       });
     });

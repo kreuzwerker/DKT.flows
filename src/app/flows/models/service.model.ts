@@ -16,7 +16,7 @@ export class Service {
   description: string;
   type: ServiceType;
   provider: Provider;
-  configSchema?: ServiceConfigSchema;
+  configSchema?: ServiceConfigSchema[];
 }
 
 export class ServiceType {

@@ -100,7 +100,7 @@ export function flowsAppReducer(state = initialState, {type, payload}: Action): 
 
 // Example Selector
 // ----------------
-// 
+//
 // NB in this trivial example a custom selector is not necessary.
 // Use store.select('step') instead.
 //

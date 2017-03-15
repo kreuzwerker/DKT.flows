@@ -8,7 +8,7 @@ import { Subject } from 'rxjs/Subject';
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';
 import { FormGroup } from '@angular/forms';
-import { DynamicFormService, DynamicFormControlModel } from "@ng2-dynamic-forms/core";
+import { DynamicFormService, DynamicFormControlModel } from '@ng2-dynamic-forms/core';
 import { Step } from './../../models';
 
 @Component({
@@ -24,7 +24,6 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
   step: Step = null;
   formModel: DynamicFormControlModel[];
   configForm: FormGroup;
-  missingConfigSchema: Boolean = false;
 
   constructor(
     public flowsApp: FlowsAppService,
@@ -45,19 +44,14 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
   }
 
   onSelectStep(step: Step) {
-    if (step === null) {
+    if (typeof step === 'undefined' || typeof step.service === 'undefined') {
       return;
     }
 
     this.step = step;
     let values = this.step.configParams && this.reduceValues(this.step.configParams) || {};
 
-    if (this.step.service.configSchema) {
-      this.initForm(this.step.service.configSchema, values);
-      this.missingConfigSchema = false;
-    } else {
-      this.missingConfigSchema = true;
-    }
+    this.initForm(this.step.service.configSchema, values);
   }
 
   initForm(schema, values) {
@@ -71,7 +65,6 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
   saveForm() {
     if (this.configForm.valid) {
       let values = this.mapValues(this.configForm.value);
-      console.log('config', values);
       this.state.dispatch(this.state.actions.setStepConfig(values));
       this.flowsApp.saveFlowStep();
     }
@@ -89,7 +82,7 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
   }
 
   mapValues(values) {
-    return Object.keys(values).map((key) => { 
+    return Object.keys(values).map((key) => {
       return { id: key, value: values[key] };
     });
   }

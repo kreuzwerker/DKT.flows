@@ -4,7 +4,7 @@ import { mockStore } from './store.mock';
 import { Subject } from 'rxjs/Subject';
 import { Action } from './../../../reducers';
 import { FlowsAppActions } from './../../states';
-import { Step, Provider, Service } from './../../models';
+import { Step, StepConfigParam, Provider, Service } from './../../models';
 
 export const mockFlowsState = {
   flow$: mockApolloStore.flow$.asObservable(),
@@ -33,5 +33,6 @@ export const mockFlowsState = {
     selectStep(step: Step) { },
     selectProvider(provider: Provider) {},
     setStepService(provider: Provider, service: Service) {},
+    setStepConfig(configParams: StepConfigParam[]) {},
   } as FlowsAppActions,
 } as FlowsStateService;

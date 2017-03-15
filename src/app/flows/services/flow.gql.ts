@@ -151,7 +151,6 @@ export const createAndStartFlowRunMutation = gql`
       id
       status
       message
-      currentStep
     }
   }
 `;

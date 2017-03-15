@@ -23,9 +23,9 @@ describe('Flows App', () => {
     });
 
     describe('createFormModel()', () => {
-      xit('should create a formModel array from the given service and form values', () => {
+      it('should create a formModel array from the given service and form values', () => {
         const _service = utils.createServiceData();
-        const values = {element_1: 'test'};
+        const values = utils.defaultStepConfigParams;
         let formModel = service.createFormModel(_service.configSchema, values);
         expect(formModel[0]).toBeAnInstanceOf(DynamicInputModel);
         // TODO check element value
@@ -43,6 +43,23 @@ describe('Flows App', () => {
     });
 
     xdescribe('createTextareaModel()', () => {
+      xit('should create a textarea model', () => {
+      });
+    });
+
+    xdescribe('createCheckboxModel()', () => {
+      xit('should create a checkbox model', () => {
+      });
+    });
+
+    xdescribe('createSelectModel()', () => {
+      xit('should create a select model', () => {
+      });
+    });
+
+    xdescribe('createRadioModel()', () => {
+      xit('should create a radio model', () => {
+      });
     });
 
     describe('ngOnDestroy()', () => {

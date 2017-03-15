@@ -93,7 +93,12 @@ export class FlowsApiService {
   }
 
   public updateStep(
-    {id, position, serviceId, configParams}: {id: string, position: Number, serviceId: string, configParams: StepConfigParam[]}
+    {id, position, serviceId, configParams}: {
+      id: string,
+      position: Number,
+      serviceId: string,
+      configParams: StepConfigParam[]
+    }
   ): Observable<ApolloQueryResult<any>> {
     return this.apollo.mutate<any>({
       mutation: updateStepMutation,

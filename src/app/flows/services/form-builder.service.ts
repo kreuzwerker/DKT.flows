@@ -12,18 +12,25 @@ import {
 
 const FORM_ELM_DEFAULT_CLASSES = {
   element: {
-    container: "control full-width"
+    container: 'control full-width'
   }
-}
+};
 
 @Injectable()
 export class FormBuilderService {
 
   constructor() { }
 
-  createFormModel(schema: ServiceConfigSchema, values): DynamicFormControlModel[] {
+  createFormModel(schema: ServiceConfigSchema[], values): DynamicFormControlModel[] {
+    console.log(schema);
     let model = [];
-    const elements = _.sortBy(this.schemaMocks[service.id], 'position');
+    if (schema === null) {
+      return model;
+    }
+
+    // TODO
+    // const elements = _.sortBy(schema, 'position');
+    const elements = schema;
     for (let element of elements as any) {
       let value = values[element.id];
       switch (element.type) {
@@ -105,81 +112,4 @@ export class FormBuilderService {
       required: element.required,
     }, FORM_ELM_DEFAULT_CLASSES);
   }
-
-  // Schema mocks
-
-  schemaMocks = {
-    ciy0jeruzbb5m01790ymkz7xl: [ // "New kitten in RSS feed."
-      {
-        position: 0,
-        id: 'https',
-        label: 'HTTPS',
-        type: 'checkbox',
-        defaultValue: true,
-        required: true,
-      },
-      {
-        position: 1,
-        id: 'feed_select',
-        label: 'Select example',
-        type: 'select',
-        options: [
-          { label: "Option 1", value: 'option-1' },
-          { label: "Option 2", value: 'option-2' },
-          { label: "Option 3", value: 'option-3' },
-        ],
-        defaultValue: 'option-2',
-        required: true,
-      },
-      {
-        position: 2,
-        id: 'feed_radio',
-        label: 'Radio example',
-        type: 'radio',
-        options: [
-          { label: "Option 1", value: 'option-1' },
-          { label: "Option 2", value: 'option-2' },
-          { label: "Option 3", value: 'option-3' },
-        ],
-        defaultValue: 'option-1',
-        required: true,
-      },
-      {
-        position: 3,
-        id: 'feed_url',
-        label: 'RSS feed URL',
-        type: 'input',
-        // list: ['One', 'Two', 'Three'],
-        defaultValue: 'rss://default',
-        required: true,
-      },
-      {
-        position: 4,
-        id: 'comment',
-        label: 'Comment',
-        type: 'textarea',
-        defaultValue: 'Sample comment',
-        required: false,
-      }
-    ],
-    ciy0jg7bpbbcl01791wvcejt5: [ // "Sing halleluja"
-      {
-        position: 0,
-        id: 'input_1',
-        label: 'Sing what?',
-        type: 'input',
-        defaultValue: 'halleluja',
-        required: true,
-      },
-      {
-        position: 1,
-        id: 'input_2',
-        label: 'How many times?',
-        type: 'input',
-        defaultValue:  '1',
-        required: true,
-      },
-    ]
-  };
-
 }

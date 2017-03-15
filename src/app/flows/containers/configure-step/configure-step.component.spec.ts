@@ -6,7 +6,7 @@ import { TestUtils } from './../../utils/test.helpers';
 import { ConfigureStepComponent } from './configure-step.component';
 import { FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';
 import { DynamicFormService, DynamicFormControlModel } from '@ng2-dynamic-forms/core';
-import { Service } from './../../models';
+import { ServiceConfigSchema } from './../../models';
 
 describe('Flows App', () => {
 
@@ -18,11 +18,13 @@ describe('Flows App', () => {
     let store: any;
 
     const mockFormBuilder = {
-      createFormModel(service: Service, values) {}
+      createFormModel(schema: ServiceConfigSchema[], values) {}
     } as FormBuilderService;
 
     const mockFormService = {
-      createFormGroup(group: DynamicFormControlModel[], groupExtra: {[key: string]: any} | null = null) { }
+      createFormGroup(group: DynamicFormControlModel[], groupExtra: {[key: string]: any} | null = null) {
+        return { } as any;
+      }
     } as DynamicFormService;
 
     beforeEach(() => {
@@ -45,7 +47,7 @@ describe('Flows App', () => {
       it('should call onSelectStep() when the current selected step changes', () => {
         spyOn(component, 'onSelectStep');
         component.ngOnInit();
-        const step = utils.createServiceData();
+        const step = utils.createStepData();
         store.step.next(step);
         expect(component.onSelectStep).toHaveBeenCalledWith(step);
       });
@@ -77,19 +79,48 @@ describe('Flows App', () => {
         step = utils.createStepData();
       });
 
-      xit('should initialize the configuration form with the given schema and values', () => {
-        component.initForm(step.service, step.configParams);
+      it('should initialize the configuration form with the given schema and values', () => {
+        component.initForm(step.service.configSchema, step.configParams);
         expect(component.formModel).not.toBeNull;
         expect(component.configForm).not.toBeNull;
       });
     });
 
     describe('saveForm()', () => {
-      xit('should save the configuration in the step', () => {
-        let values = {};
-        component.configForm = { value: values} as FormGroup;
+      let step;
+
+      beforeEach(() => {
+        step = utils.createStepData();
+        component.initForm(step.service.configSchema, step.configParams);
+      });
+
+      it('should save the configuration if the form is valid', () => {
+        let spy1 = spyOn(state, 'dispatch');
+        let spy2 = spyOn(flowsApp, 'saveFlowStep');
+        component.configForm.value = step.configParams;
+        component.configForm.valid = true;
         component.saveForm();
-        expect(component.step.configParams).not.toEqual(values);
+        expect(spy1).toHaveBeenCalled();
+        expect(spy2).toHaveBeenCalled();
+      });
+
+      it('should not save the configuration if the form is invalid', () => {
+        let spy1 = spyOn(state, 'dispatch');
+        let spy2 = spyOn(flowsApp, 'saveFlowStep');
+        component.configForm.valid = false;
+        component.saveForm();
+        expect(spy1).not.toHaveBeenCalled();
+        expect(spy2).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('reduceValues()', () => {
+      xit('should reduce form values provided from API', () => {
+      });
+    });
+
+    describe('mapValues()', () => {
+      xit('should map form values in preparation for API', () => {
       });
     });
 

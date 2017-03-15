@@ -1,11 +1,15 @@
 import { Step, ServiceType } from './../models';
 
 export function stepHasService(step: Step): boolean {
-  return typeof step !== undefined && step.service != null && typeof step.service === 'object';
+  return typeof step !== undefined
+    && step.service != null
+    && typeof step.service === 'object';
 }
 
 export function stepIsConfigured(step: Step): boolean {
-  return step.configParams !== undefined && step.configParams != null && typeof step.configParams === 'object';
+  return step.configParams !== undefined
+    && step.configParams != null
+    && typeof step.configParams === 'object';
 }
 
 export function stepIsTested(step: Step): boolean {

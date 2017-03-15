@@ -2,6 +2,7 @@
 import { FlowHeaderComponent } from './flow-header.component';
 import { FlowsAppService } from './../../services';
 import { TestUtils } from './../../utils/test.helpers';
+import { mockFlowsApp } from './../../utils/mocks';
 import { Flow } from './../../models';
 
 describe('Flows App', () => {
@@ -14,10 +15,7 @@ describe('Flows App', () => {
 
     beforeEach(() => {
       utils = new TestUtils();
-      flowsApp = {
-        createAndStartFlowRun() {}
-      } as FlowsAppService;
-      component = new FlowHeaderComponent(flowsApp);
+      component = new FlowHeaderComponent(mockFlowsApp);
       expect(component).toBeTruthy();
       component.flow = utils.createFlowData();
     });

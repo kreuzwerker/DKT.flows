@@ -67,7 +67,7 @@ describe('Flows App', () => {
     describe('createAndStartFlowRun()', () => {
       it('should create a flow run of the current selected flow, with the given payload and the current user.', () => {
         let spy = spyOn(state, 'createAndStartFlowRun');
-        service.createAndStartFlowRun();
+        service.createAndStartFlowRun('');
         expect(spy).toHaveBeenCalled();
       });
     });
