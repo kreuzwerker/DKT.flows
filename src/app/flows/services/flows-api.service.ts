@@ -6,7 +6,7 @@ import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import { Http, Request, RequestMethod, RequestOptions, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { API_FLOWS_URL, API_PROVIDERS_URL } from './../constants';
-import { Flow, Step, StepConfigParam, FlowData, StepData, Provider } from './../models';
+import { Flow, Step, StepConfigParamsInput, FlowData, StepData, Provider } from './../models';
 import { UUID } from 'angular2-uuid';
 import { cloneDeep, sortBy } from 'lodash';
 
@@ -97,7 +97,7 @@ export class FlowsApiService {
       id: string,
       position: Number,
       serviceId: string,
-      configParams: StepConfigParam[]
+      configParams: StepConfigParamsInput[]
     }
   ): Observable<ApolloQueryResult<any>> {
     return this.apollo.mutate<any>({

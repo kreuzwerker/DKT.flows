@@ -22,7 +22,6 @@ export class FormBuilderService {
   constructor() { }
 
   createFormModel(schema: ServiceConfigSchema[], values): DynamicFormControlModel[] {
-    console.log(schema);
     let model = [];
     if (schema === null) {
       return model;

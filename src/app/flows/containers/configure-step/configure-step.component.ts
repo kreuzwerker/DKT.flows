@@ -9,7 +9,7 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';
 import { FormGroup } from '@angular/forms';
 import { DynamicFormService, DynamicFormControlModel } from '@ng2-dynamic-forms/core';
-import { Step } from './../../models';
+import { Step, StepConfigParamsInput } from './../../models';
 
 @Component({
   selector: 'configure-step',
@@ -44,13 +44,12 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
   }
 
   onSelectStep(step: Step) {
-    if (typeof step === 'undefined' || typeof step.service === 'undefined') {
+    if (typeof step === 'undefined' || step === null || typeof step.service === 'undefined') {
       return;
     }
 
     this.step = step;
     let values = this.step.configParams && this.reduceValues(this.step.configParams) || {};
-
     this.initForm(this.step.service.configSchema, values);
   }
 
@@ -60,6 +59,10 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
 
     // Create config form
     this.configForm = this.formService.createFormGroup(this.formModel);
+  }
+
+  getContinueLabel() {
+    return this.configForm.dirty ? 'Save and continue' : 'Continue';
   }
 
   saveForm() {

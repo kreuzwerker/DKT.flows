@@ -4,19 +4,26 @@
 
     <div class="padding">
       <form *ngIf="formModel" [formGroup]="configForm" class="configuration">
-        <div *ngIf="formModel.length">
+        <div *ngIf="formModel.length; else noConfigForm">
           <dynamic-form-material-control *ngFor="let controlModel of formModel" 
             [controlGroup]="configForm"
-            [model]="controlModel"
-            (change)="saveForm($event)">
+            [model]="controlModel">
           </dynamic-form-material-control>
         </div>
-        <!--TODO use new if/else template -->
-        <p *ngIf="!formModel.length">Service has no configuration form.</p>
+        <template #noConfigForm>
+          <p class="no-config-form" fxLayout="row" fxLayoutAlign="start center">
+            <md-icon color="primary">info</md-icon>
+            This step does not require configuration. Proceed by clicking on&nbsp;<b>Continue</b>.
+          </p>
+        </template>
 
         <dkt-flow-step-nav-buttons 
-          backPath="{{flowsApp.flowStepPath()}}/select-service" backLabel="Back"
-          continuePath="{{flowsApp.flowStepPath()}}/test" continueLabel="Continue" [continueDisabled]="configForm.invalid"
+          backPath="{{flowsApp.flowStepPath()}}/select-service"
+          backLabel="Back"
+          (onContinue)="saveForm()"
+          continuePath="{{flowsApp.flowStepPath()}}/test"
+          [continueLabel]="getContinueLabel()"
+          [continueDisabled]="configForm.invalid"
           ></dkt-flow-step-nav-buttons>
       </form>
     </div>

@@ -82,7 +82,7 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
     // Active?
     configureOption.classes = (currentActive === 'configure') ? ['active'] : [];
     // Locked?
-    let conigureLocked = !stepHelpers.stepHasService(step) || !stepHelpers.stepIsConfigured(step);
+    let conigureLocked = !stepHelpers.stepHasService(step);
     configureOption.icon    = conigureLocked ? 'lock' : 'settings';
     configureOption.classes = conigureLocked ?
       configureOption.classes.concat(['locked']) :
@@ -95,9 +95,7 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
     // Active?
     testOption.classes = (currentActive === 'test') ? ['active'] : [];
     // Locked?
-    let testLocked = (!stepHelpers.stepHasService(step) ||
-      !stepHelpers.stepIsConfigured(step) ||
-      !stepHelpers.stepIsTested(step));
+    let testLocked = (!stepHelpers.stepHasService(step) || !stepHelpers.stepIsConfigured(step));
     testOption.icon    = testLocked ? 'lock' : 'check';
     testOption.classes = testLocked ? testOption.classes.concat(['locked']) : testOption.classes;
     testOption.link    = !testLocked ? basePath + 'test' : false;

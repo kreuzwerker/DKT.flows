@@ -1,6 +1,6 @@
 import { Service } from './';
 
-export interface StepConfigParam {
+export interface StepConfigParamsInput {
   id: String;
   value: any;
 }
@@ -9,12 +9,12 @@ export class Step {
   id: string;
   position: number;
   service?: Service;
-  configParams?: StepConfigParam[];
+  configParams?: StepConfigParamsInput[];
 }
 
 export class StepData {
   id: string;
   position: number;
   service?: Service;
-  configParams?: StepConfigParam[];
+  configParams?: StepConfigParamsInput[];
 }

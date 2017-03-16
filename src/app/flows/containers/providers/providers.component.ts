@@ -38,6 +38,14 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    // Subscribe to current selected flow step
+    this.state.select('step').takeUntil(this.ngOnDestroy$).subscribe(
+      this.onSelectStep.bind(this),
+      (err) => console.log('error', err)
+    );
+
+    // NB onInitialLoad must be subscribed _after_ onSelectStep so selectedService
+    // gets set before calling onInitialLoad.
     Observable.combineLatest(
       this.state.providers$,
       this.state.select('step')
@@ -62,12 +70,6 @@ export class ProvidersComponent implements OnInit, OnDestroy {
       this.onSelectProvider.bind(this),
       (err) => console.log('error', err)
     );
-
-    // Subscribe to current selected flow step
-    this.state.select('step').takeUntil(this.ngOnDestroy$).subscribe(
-      this.onSelectStep.bind(this),
-      (err) => console.log('error', err)
-    );
   }
 
   ngOnDestroy(): void {
@@ -89,7 +91,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
     this.selectedProvider = provider;
 
     if (provider) {
-      // Upon selecting a service:
+      // Upon selecting a provider:
       // Preselect the first service step if no service step is currently selected
       if (this.selectedService === null) {
         this.selectFirstService(provider, this.selectableServiceType);
@@ -105,8 +107,10 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   onSelectStep(step: Step) {
     if (step && step.service) {
       this.selectedService = step.service;
+      this.providerDetail.open();
     } else {
       this.selectedService = null;
+      this.providerDetail.close();
     }
     this.cd.markForCheck();
   }
@@ -138,9 +142,9 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   }
 
   selectFirstService(provider: Provider, type: ServiceType = ServiceType.ACTION): void {
-    let triggerServices = providerHelpers.getProviderServicesByType(provider, type);
-    if (triggerServices.length) {
-      this.selectService(triggerServices[0]);
+    let services = providerHelpers.getProviderServicesByType(provider, type);
+    if (services.length) {
+      this.changeService(services[0]);
     }
   }
 

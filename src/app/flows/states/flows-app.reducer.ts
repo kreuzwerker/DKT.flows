@@ -49,17 +49,17 @@ export function flowsAppReducer(state = initialState, {type, payload}: Action): 
       });
     }
 
-    case Actions.SELECT_PROVIDER: {
-      return Object.assign({}, state, {
-        provider: payload
-      });
-    }
-
     case Actions.SET_STEP_CONFIG: {
       return Object.assign({}, state, {
         step: Object.assign({}, state.step, {
           configParams: payload.configParams,
         })
+      });
+    }
+
+    case Actions.SELECT_PROVIDER: {
+      return Object.assign({}, state, {
+        provider: payload
       });
     }
 

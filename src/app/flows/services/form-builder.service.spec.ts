@@ -25,7 +25,7 @@ describe('Flows App', () => {
     describe('createFormModel()', () => {
       it('should create a formModel array from the given service and form values', () => {
         const _service = utils.createServiceData();
-        const values = utils.defaultStepConfigParams;
+        const values = utils.defaultStepConfigParamsInputs;
         let formModel = service.createFormModel(_service.configSchema, values);
         expect(formModel[0]).toBeAnInstanceOf(DynamicInputModel);
         // TODO check element value

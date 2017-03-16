@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class FlowStepNavButtonsComponent {
   @Input() backPath: string;
   @Input() backLabel: string;
+  @Output() onContinue = new EventEmitter();
   @Input() continuePath: string;
   @Input() continueLabel: string;
   @Input() continueDisabled: boolean = false;
@@ -21,6 +22,9 @@ export class FlowStepNavButtonsComponent {
   }
 
   continue() {
+    if (this.onContinue) {
+      this.onContinue.emit();
+    }
     this.router.navigate([this.continuePath]);
   }
 }

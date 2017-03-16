@@ -42,6 +42,14 @@ describe('Flows App', () => {
       });
     });
 
+    describe('SET_STEP_CONFIG action', () => {
+      it('should set step configuration params to the given value', () => {
+        let configParams = utils.defaultStepConfigParamsInputs;
+        state = flowsAppReducer(undefined, actions.setStepConfig(configParams));
+        expect(state.step.configParams).toEqual(configParams);
+      });
+    });
+
     describe('SELECT_PROVIDER action', () => {
       it('should set provider to the given value', () => {
         let provider = utils.createProviderData();

@@ -1,6 +1,14 @@
 form.configuration {
   max-width: 600px;
 
+  p.no-config-form {
+    margin: 2rem 0 3rem .5rem;
+
+    md-icon {
+      margin-right: 0.5rem;
+    }
+  }
+
   // Give these controls more vertical margin
   .control {
     margin-bottom: 1.5rem;

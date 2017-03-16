@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { FlowData, StepData, StepConfigParam, FlowRun, Service, ServiceConfigSchema, ServiceType, Provider } from '../models';
+import { FlowData, StepData, StepConfigParamsInput, FlowRun, Service, ServiceConfigSchema, ServiceType, Provider } from '../models';
 
 export class TestUtils {
   defaultProviderData: Provider = null;
@@ -14,7 +14,7 @@ export class TestUtils {
       required: true,
     }
   ];
-  defaultStepConfigParams: StepConfigParam[] = [
+  defaultStepConfigParamsInputs: StepConfigParamsInput[] = [
     {
       id: 'field',
       value: 'field_value',
@@ -95,7 +95,7 @@ export class TestUtils {
     id: string = '1',
     position: number = 0,
     service: Service = this.defaultServiceData,
-    configParams: StepConfigParam[] = this.defaultStepConfigParams,
+    configParams: StepConfigParamsInput[] = this.defaultStepConfigParamsInputs,
   ): StepData {
     return   {
       id: id,
