@@ -30,7 +30,7 @@ export const flowStepFragment = gql`
     id,
     position,
     configParams {
-      id,
+      fieldId,
       value
     },
     service {

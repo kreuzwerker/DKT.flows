@@ -9,7 +9,14 @@ export const client = new ApolloClient({
   }),
   // ID mapping required for automatic updates of objects in the store after
   // mutations.
-  dataIdFromObject: o => o['id'],
+  dataIdFromObject: (result) => {
+    if (result['id'] && result['__typename']) {
+      return result['__typename'] + '_' + result['id'];
+    }
+
+    // Make sure to return null if this object doesn't have an ID
+    return null;
+  },
   // Enable Apollo Dev Tools Extension
   connectToDevTools: true
 });

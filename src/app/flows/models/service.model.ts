@@ -1,7 +1,7 @@
 import { Provider } from './';
 
 export interface ServiceConfigSchema {
-  id: String;
+  fieldId: String;
   type: String;
   label: String;
   position: Number;

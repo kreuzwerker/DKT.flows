@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const serviceConfigSchemaFragment = gql`
   fragment ServiceConfigSchema on ServiceConfigSchema {
-    id,
+    fieldId,
     type,
     label,
     position,

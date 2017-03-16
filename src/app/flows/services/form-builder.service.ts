@@ -31,7 +31,7 @@ export class FormBuilderService {
     // const elements = _.sortBy(schema, 'position');
     const elements = schema;
     for (let element of elements as any) {
-      let value = values[element.id];
+      let value = values[element.fieldId];
       switch (element.type) {
         case 'textarea':
           model.push(this.createTextareaModel(element, value));
@@ -64,7 +64,7 @@ export class FormBuilderService {
 
   createInputModel(element, value) {
     return new DynamicInputModel({
-      id: element.id,
+      id: element.fieldId,
       label: element.label,
       value: typeof value !== undefined && value || element.defaultValue,
       // maxLength: 42,
@@ -76,7 +76,7 @@ export class FormBuilderService {
 
   createTextareaModel(element, value) {
     return new DynamicTextAreaModel({
-      id: element.id,
+      id: element.fieldId,
       label: element.label,
       value: typeof value !== undefined && value || element.defaultValue,
       required: element.required,
@@ -85,7 +85,7 @@ export class FormBuilderService {
 
   createCheckboxModel(element, value) {
     return new DynamicCheckboxModel({
-      id: element.id,
+      id: element.fieldId,
       label: element.label,
       value: typeof value !== undefined && value || element.defaultValue,
       required: element.required,
@@ -94,7 +94,7 @@ export class FormBuilderService {
 
   createSelectModel(element, value) {
     return new DynamicSelectModel({
-      id: element.id,
+      id: element.fieldId,
       label: element.label,
       options: element.options,
       value: typeof value !== undefined && value || element.defaultValue,
@@ -104,7 +104,7 @@ export class FormBuilderService {
 
   createRadioModel(element, value) {
     return new DynamicRadioGroupModel({
-      id: element.id,
+      id: element.fieldId,
       label: element.label,
       options: element.options,
       value: typeof value !== undefined && value || element.defaultValue,

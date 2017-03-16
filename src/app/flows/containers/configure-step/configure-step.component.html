@@ -10,12 +10,12 @@
             [model]="controlModel">
           </dynamic-form-material-control>
         </div>
-        <template #noConfigForm>
+        <ng-template #noConfigForm>
           <p class="no-config-form" fxLayout="row" fxLayoutAlign="start center">
             <md-icon color="primary">info</md-icon>
             This step does not require configuration. Proceed by clicking on&nbsp;<b>Continue</b>.
           </p>
-        </template>
+        </ng-template>
 
         <dkt-flow-step-nav-buttons 
           backPath="{{flowsApp.flowStepPath()}}/select-service"

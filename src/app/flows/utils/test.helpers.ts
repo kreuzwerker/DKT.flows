@@ -7,7 +7,7 @@ export class TestUtils {
   defaultServiceConfigSchema: ServiceConfigSchema[] = [
     {
       position: 0,
-      id: 'field',
+      fieldId: 'field',
       type: 'input',
       defaultValue: 'field_value',
       label: 'input field',
@@ -16,7 +16,7 @@ export class TestUtils {
   ];
   defaultStepConfigParamsInputs: StepConfigParamsInput[] = [
     {
-      id: 'field',
+      fieldId: 'field',
       value: 'field_value',
     }
   ];

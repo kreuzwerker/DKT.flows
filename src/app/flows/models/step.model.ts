@@ -1,7 +1,7 @@
 import { Service } from './';
 
 export interface StepConfigParamsInput {
-  id: String;
+  fieldId: String;
   value: any;
 }
 

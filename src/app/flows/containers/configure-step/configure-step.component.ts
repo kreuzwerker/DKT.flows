@@ -80,13 +80,13 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
       if (val === 'true' || val === 'false') {
         val = JSON.parse(val);
       }
-      return Object.assign(a, { [b.id]: val });
+      return Object.assign(a, { [b.fieldId]: val });
     }, {});
   }
 
   mapValues(values) {
     return Object.keys(values).map((key) => {
-      return { id: key, value: values[key] };
+      return { fieldId: key, value: values[key] };
     });
   }
 
