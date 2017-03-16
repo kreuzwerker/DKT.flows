@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
 import { MdDialog, MdDialogConfig } from '@angular/material';
+import { ApolloError } from 'apollo-client';
 import { TriggerFlowRunDialogComponent } from './../../components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
@@ -133,12 +134,14 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   }
 
   onCreatedFlowRun(flowRun: any) {
-    if (flowRun == 'loading') {
+    if (flowRun === 'loading') {
       this.flowsApp.showStatusMessage('Triggering flow', 'loading');
+    } else if (flowRun instanceof ApolloError) {
+      this.flowsApp.showStatusMessage('An error occured. Flow could not be triggered', 'error');
     } else if (flowRun.status === 'running') {
       this.flowsApp.showStatusMessage('Flow successfully triggered');
     } else {
-      this.flowsApp.showStatusMessage('Flow could not be triggered', 'error');
+      this.flowsApp.showStatusMessage('An error occured. Flow could not be triggered.', 'error');
     }
     this.cd.markForCheck();
   }

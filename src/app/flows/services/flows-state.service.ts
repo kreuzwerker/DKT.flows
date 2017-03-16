@@ -15,9 +15,9 @@ import { FlowsListData } from './flow.gql';
 @Injectable()
 export class FlowsStateService {
 
-  // 
+  //
   // App data state
-  // 
+  //
 
   // All flows list
   flows$: Observable<FlowsListData[]>;
@@ -26,16 +26,16 @@ export class FlowsStateService {
   // Available providers
   providers$: Observable<Provider[]>;
 
-  // 
+  //
   // Public events
-  // 
+  //
 
   createdFlow$: Subject<any> = new Subject<any>();
   createdFlowRun$: Subject<any> = new Subject<any>();
 
-  // 
+  //
   // Internal events
-  // 
+  //
 
   // Flag to initiate loading providers
   private loadProviders$: Subject<any> = new Subject<any>();
@@ -46,9 +46,9 @@ export class FlowsStateService {
       public actions: FlowsAppActions,
     ) {
 
-    // 
+    //
     // App data queries
-    // 
+    //
 
     // Flows list
     // ----------
@@ -58,7 +58,7 @@ export class FlowsStateService {
     this.flows$ = this.api.getFlows().map(({data}) => data.allFlows);
 
     // Unset loading flows flag
-    // TODO THIS IS WRONG: creates another watched query. 
+    // TODO THIS IS WRONG: creates another watched query.
     // -> right way is to use middleware/thunks/effects:
     // When a mutation API call is made -> set flag; when API call returns -> unset flag.
     this.flows$.subscribe((flows) => this.dispatch(this.actions.setLoadingFlows(false)) );
@@ -75,7 +75,7 @@ export class FlowsStateService {
     }).map(({data}) => data.Flow);
 
     // Unset loading flow flag
-    // TODO THIS IS WRONG: creates another watched query. 
+    // TODO THIS IS WRONG: creates another watched query.
     // -> right way is to use middleware/thunks/effects:
     // When a mutation API call is made -> set flag; when API call returns -> unset flag.
     this.flow$.subscribe((flow) => this.dispatch(this.actions.setLoadingFlow(false)) );
@@ -94,9 +94,9 @@ export class FlowsStateService {
     ) );
   }
 
-  // 
+  //
   // UI State
-  // 
+  //
 
   // Get a UI state property observable
   select(key: string) {
@@ -117,9 +117,9 @@ export class FlowsStateService {
     return value;
   }
 
-  // 
+  //
   // API
-  // 
+  //
 
   dispatch(action: Action) {
     this.store.dispatch(action);
@@ -161,7 +161,8 @@ export class FlowsStateService {
     this.api.updateStep({
       id: stepId,
       position: step.position,
-      serviceId: step.service.id
+      serviceId: step.service.id,
+      configParams: step.configParams,
     }).subscribe((_step) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
     });
@@ -195,6 +196,6 @@ export class FlowsStateService {
     this.createdFlowRun$.next('loading');
     this.api.createAndStartFlowRun(flowId, userId, payload).subscribe((flowRun) => {
       this.createdFlowRun$.next(flowRun);
-    });
+    }, (error) => this.createdFlowRun$.next(error));
   }
 }

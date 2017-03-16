@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DynamicFormsCoreModule } from "@ng2-dynamic-forms/core";
+import { DynamicFormsMaterialUIModule } from "@ng2-dynamic-forms/ui-material";
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Routes, RouterModule } from '@angular/router';
@@ -34,7 +36,7 @@ import { StatusMessageComponent } from './components/status-message/status-messa
 import { TriggerFlowRunDialogComponent } from './components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
 
 // Services
-import { FlowsApiService, FlowsAppService, FlowsStateService } from './services';
+import { FlowsApiService, FlowsAppService, FlowsStateService, FormBuilderService } from './services';
 
 // States
 import { FlowsAppActions, FlowsAppEffects } from './states';
@@ -77,6 +79,9 @@ const routes: Routes = [
     CommonModule,
     CoreModule,
     FormsModule,
+    ReactiveFormsModule,
+    DynamicFormsCoreModule.forRoot(),
+    DynamicFormsMaterialUIModule,
     RouterModule.forChild(routes),
     MaterialModule,
     BrowserAnimationsModule,
@@ -90,6 +95,7 @@ const routes: Routes = [
     FlowsApiService,
     FlowsStateService,
     FlowsAppActions,
+    FormBuilderService,
   ],
   entryComponents: [ NewFlowDialogComponent, DeleteFlowDialogComponent, TriggerFlowRunDialogComponent ],
 })

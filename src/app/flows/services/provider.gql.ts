@@ -1,5 +1,20 @@
 import gql from 'graphql-tag';
 
+export const serviceConfigSchemaFragment = gql`
+  fragment ServiceConfigSchema on ServiceConfigSchema {
+    fieldId,
+    type,
+    label,
+    position,
+    defaultValue,
+    required,
+    options {
+      label,
+      value,
+    },
+  }
+`;
+
 export const getProvidersQuery = gql`
   query ProvidersQuery {
     allProviders {
@@ -11,8 +26,13 @@ export const getProvidersQuery = gql`
         id,
         name,
         description,
-        type
+        type,
+        configSchema {
+          ...ServiceConfigSchema
+        }
       }
     }
   }
+
+  ${serviceConfigSchemaFragment}
 `;

@@ -1,4 +1,6 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DynamicFormsCoreModule } from "@ng2-dynamic-forms/core";
+import { DynamicFormsMaterialUIModule } from "@ng2-dynamic-forms/ui-material";
 import { RouterModule } from '@angular/router';
 import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
 import { MaterialModule } from '@angular/material';
@@ -40,11 +42,13 @@ if (ENV === 'development' && !AOT &&
 
 export const APP_IMPORTS = [
   EffectsModule.run(UserEffects),
-  FlexLayoutModule,
-  FormsModule,
   MaterialModule,
+  FlexLayoutModule.forRoot(),
+  FormsModule,
   BrowserAnimationsModule,
   ReactiveFormsModule,
+  DynamicFormsCoreModule.forRoot(),
+  DynamicFormsMaterialUIModule,
   IdlePreloadModule.forRoot(), // forRoot ensures the providers are only created once
   RouterModule.forRoot(routes, { useHash: false, preloadingStrategy: IdlePreload }),
   StoreModule.provideStore(rootReducer),

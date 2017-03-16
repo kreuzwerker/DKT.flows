@@ -35,9 +35,11 @@ export class ProviderDetailComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['provider'] !== undefined) {
       this.processProvider(changes['provider']['currentValue']);
-    } else if (changes['selectableServiceType'] !== undefined) {
+    }
+    if (changes['selectableServiceType'] !== undefined) {
       this.processSelectableServiceType(changes['selectableServiceType']['currentValue']);
     }
+    this.cd.markForCheck();
   }
 
   open() {

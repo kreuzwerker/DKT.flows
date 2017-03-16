@@ -49,6 +49,14 @@ export function flowsAppReducer(state = initialState, {type, payload}: Action): 
       });
     }
 
+    case Actions.SET_STEP_CONFIG: {
+      return Object.assign({}, state, {
+        step: Object.assign({}, state.step, {
+          configParams: payload.configParams,
+        })
+      });
+    }
+
     case Actions.SELECT_PROVIDER: {
       return Object.assign({}, state, {
         provider: payload
@@ -92,7 +100,7 @@ export function flowsAppReducer(state = initialState, {type, payload}: Action): 
 
 // Example Selector
 // ----------------
-// 
+//
 // NB in this trivial example a custom selector is not necessary.
 // Use store.select('step') instead.
 //

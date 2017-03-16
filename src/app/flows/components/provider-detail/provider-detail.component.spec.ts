@@ -44,7 +44,7 @@ describe('Flows App', () => {
         spyOn(component, 'processProvider');
         spyOn(component, 'processSelectableServiceType');
         const provider = utils.createProviderData();
-        component.ngOnChanges({ provider: new SimpleChange(null, provider)});
+        component.ngOnChanges({ provider: new SimpleChange(null, provider, true)});
         expect(component.processProvider).toHaveBeenCalledWith(provider);
         expect(component.processSelectableServiceType).not.toHaveBeenCalled();
       });
@@ -53,7 +53,7 @@ describe('Flows App', () => {
         spyOn(component, 'processProvider');
         spyOn(component, 'processSelectableServiceType');
         const serviceType = ServiceType.TRIGGER;
-        component.ngOnChanges({ selectableServiceType: new SimpleChange(null, serviceType)});
+        component.ngOnChanges({ selectableServiceType: new SimpleChange(null, serviceType, true)});
         expect(component.processSelectableServiceType).toHaveBeenCalledWith(serviceType);
         expect(component.processProvider).not.toHaveBeenCalled();
       });

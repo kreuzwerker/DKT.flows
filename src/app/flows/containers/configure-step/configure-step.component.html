@@ -3,12 +3,29 @@
     <dkt-flow-step-config-nav [type]="flowsApp.stepTypeName" [current]="'configure'" class="col-header"></dkt-flow-step-config-nav>
 
     <div class="padding">
-      <div style="border:4px solid #eee; color:#ccc; padding:1rem; min-height:300px; margin-bottom:1rem;">[Config form]</div>
+      <form *ngIf="formModel" [formGroup]="configForm" class="configuration">
+        <div *ngIf="formModel.length; else noConfigForm">
+          <dynamic-form-material-control *ngFor="let controlModel of formModel" 
+            [controlGroup]="configForm"
+            [model]="controlModel">
+          </dynamic-form-material-control>
+        </div>
+        <ng-template #noConfigForm>
+          <p class="no-config-form" fxLayout="row" fxLayoutAlign="start center">
+            <md-icon color="primary">info</md-icon>
+            This step does not require configuration. Proceed by clicking on&nbsp;<b>Continue</b>.
+          </p>
+        </ng-template>
 
-      <dkt-flow-step-nav-buttons 
-        backPath="{{flowsApp.flowStepPath()}}/select-service" backLabel="Back"
-        continuePath="{{flowsApp.flowStepPath()}}/test" continueLabel="Continue"
-        ></dkt-flow-step-nav-buttons>
+        <dkt-flow-step-nav-buttons 
+          backPath="{{flowsApp.flowStepPath()}}/select-service"
+          backLabel="Back"
+          (onContinue)="saveForm()"
+          continuePath="{{flowsApp.flowStepPath()}}/test"
+          [continueLabel]="getContinueLabel()"
+          [continueDisabled]="configForm.invalid"
+          ></dkt-flow-step-nav-buttons>
+      </form>
     </div>
   </div>
 </div>

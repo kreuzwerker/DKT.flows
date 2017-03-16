@@ -1,9 +1,25 @@
 /* tslint:disable: ter-max-len */
-import { FlowData, StepData, FlowRun, Service, ServiceType, Provider } from '../models';
+import { FlowData, StepData, StepConfigParamsInput, FlowRun, Service, ServiceConfigSchema, ServiceType, Provider } from '../models';
 
 export class TestUtils {
   defaultProviderData: Provider = null;
   defaultServiceData: Service = null;
+  defaultServiceConfigSchema: ServiceConfigSchema[] = [
+    {
+      position: 0,
+      fieldId: 'field',
+      type: 'input',
+      defaultValue: 'field_value',
+      label: 'input field',
+      required: true,
+    }
+  ];
+  defaultStepConfigParamsInputs: StepConfigParamsInput[] = [
+    {
+      fieldId: 'field',
+      value: 'field_value',
+    }
+  ];
 
   constructor() {
     this.defaultProviderData = this.createProviderData();
@@ -47,14 +63,16 @@ export class TestUtils {
     name: string = 'Test Service',
     description: string = 'Test Service description',
     type: ServiceType = ServiceType.TRIGGER,
-    provider: Provider = this.defaultProviderData
+    provider: Provider = this.defaultProviderData,
+    configSchema: ServiceConfigSchema[] = this.defaultServiceConfigSchema,
   ): Service {
     return {
       id: id,
       name: name,
       description: description,
       type: type,
-      provider: provider
+      provider: provider,
+      configSchema: configSchema,
     };
   }
 
@@ -76,12 +94,14 @@ export class TestUtils {
   createStepData(
     id: string = '1',
     position: number = 0,
-    service: Service = this.defaultServiceData
+    service: Service = this.defaultServiceData,
+    configParams: StepConfigParamsInput[] = this.defaultStepConfigParamsInputs,
   ): StepData {
     return   {
       id: id,
       position: position,
       service: service,
+      configParams: configParams,
     };
   }
 
