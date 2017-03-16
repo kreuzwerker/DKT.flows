@@ -196,6 +196,6 @@ export class FlowsStateService {
     this.createdFlowRun$.next('loading');
     this.api.createAndStartFlowRun(flowId, userId, payload).subscribe((flowRun) => {
       this.createdFlowRun$.next(flowRun);
-    });
+    }, (error) => this.createdFlowRun$.next(error));
   }
 }
