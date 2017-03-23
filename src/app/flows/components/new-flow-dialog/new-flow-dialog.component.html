@@ -1,4 +1,4 @@
-<form #newFlowForm="ngForm" (ngSubmit)="this.dialogRef.close(newFlowForm.value)">
+<form #newFlowForm="ngForm" (ngSubmit)="submitForm(newFlowForm)">
   <h1 md-dialog-title fxLayout="row" fxLayoutAlign="space-between center">
     Create flow
     <md-icon class="close" (click)="dialogRef.close(false)">close</md-icon>
@@ -6,16 +6,18 @@
 
   <div md-dialog-content fxLayout="column">
     <md-input-container>
-      <input mdInput placeholder="Name" type="text" name="name" tabindex="1" ngModel required>
+      <input mdInput placeholder="Name" type="text" name="name" tabindex="1" ngModel #name="ngModel" required>
+      <md-hint *ngIf="name.dirty && name.errors?.required">Name is required</md-hint>
     </md-input-container>
 
     <md-input-container>
-      <textarea mdInput placeholder="Description" type="text" name="description" tabindex="2" ngModel required></textarea>
+      <textarea mdInput placeholder="Description" type="text" name="description" tabindex="2" ngModel #description="ngModel" required></textarea>
+      <md-hint *ngIf="description.dirty && description.errors?.required">Description is required</md-hint>
     </md-input-container>
   </div>
 
   <div md-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
     <button md-button type="button" (click)="dialogRef.close(false)" tabIndex="4">Cancel</button>
-    <button md-button type="submit" md-raised-button class="mat-accent" tabIndex="3">Create</button>
+    <button md-button type="submit" [disabled]="newFlowForm.invalid" md-raised-button class="mat-accent" tabIndex="3">Create</button>
   </div>
 </form>
