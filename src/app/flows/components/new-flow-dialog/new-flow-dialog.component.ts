@@ -12,7 +12,7 @@ export class NewFlowDialogComponent {
 
   submitForm(form) {
     if (form.valid) {
-      this.dialogRef.close(form.value)
+      this.dialogRef.close(form.value);
     }
   }
 }

@@ -3,7 +3,7 @@
     <dkt-flow-step-config-nav [type]="flowsApp.stepTypeName" [current]="'configure'" class="col-header"></dkt-flow-step-config-nav>
 
     <div class="padding">
-      <form *ngIf="formModel" [formGroup]="configForm" class="configuration">
+      <form *ngIf="formModel" [formGroup]="configForm" class="step configuration">
         <div *ngIf="formModel.length; else noConfigForm">
           <dynamic-form-material-control *ngFor="let controlModel of formModel" 
             [controlGroup]="configForm"

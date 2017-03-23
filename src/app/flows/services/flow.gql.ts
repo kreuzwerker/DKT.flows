@@ -137,6 +137,16 @@ export const removeFlowStepMutation = gql`
   ${flowStepFragment}
 `;
 
+export const testFlowStepMutation = gql`
+  mutation testStep($stepId:ID!, $payload:String!) {
+    testStep(id: $stepId, payload: $payload) {
+      ...FlowStep
+    }
+  }
+
+  ${flowStepFragment}
+`;
+
 export const createAndStartFlowRunMutation = gql`
   mutation createAndStartFlowRun(
     $flowId: ID!,

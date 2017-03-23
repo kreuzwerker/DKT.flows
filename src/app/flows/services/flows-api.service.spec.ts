@@ -68,6 +68,14 @@ describe('Flows App', () => {
       });
     });
 
+    describe('testFlowStep()', () => {
+      xit('should query the API with a mutation to test a step', () => {
+      });
+
+      xit('should set the step as successfully tested', () => {
+      });
+    });
+
     describe('createAndStartFlowRun()', () => {
       xit('should query the API with a mutation of a new flow run', () => {
       });

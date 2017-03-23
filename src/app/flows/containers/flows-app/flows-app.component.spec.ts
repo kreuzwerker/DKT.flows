@@ -90,6 +90,14 @@ describe('Flows App', () => {
         expect(spy).toHaveBeenCalledWith(flowRun);
       });
 
+      it('should call onTestedFlowStep() when a step got tested', () => {
+        let spy = spyOn(component, 'onTestedFlowStep');
+        component.ngOnInit();
+        const stepTest = utils.createStepTestData();
+        state.testedFlowStep$.next(stepTest);
+        expect(spy).toHaveBeenCalledWith(stepTest);
+      });
+
       it('ngOnDestroy() should unscribe all subscriptions', () => {
         component.ngOnInit();
         let spy = spyOn(component.flowSub$, 'unsubscribe');
@@ -244,12 +252,45 @@ describe('Flows App', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
         flowRun.status = 'error';
         component.onCreatedFlowRun(flowRun);
-        expect(spy).toHaveBeenCalledWith('Flow could not be triggered', 'error');
+        expect(spy).toHaveBeenCalledWith('An error occured. Flow could not be triggered.', 'error');
       });
 
       it('should trigger change detection', () => {
         let spy = spyOn(cd, 'markForCheck');
         component.onCreatedFlowRun(flowRun);
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('onTestedFlowStep()', () => {
+      let stepTest;
+
+      beforeEach(() => {
+        stepTest = utils.createStepTestData();
+      });
+
+      it('should show a loading indicator while the step is being tested', () => {
+        let spy = spyOn(flowsApp, 'showStatusMessage');
+        component.onTestedFlowStep('loading');
+        expect(spy).toHaveBeenCalledWith('Testing step', 'loading');
+      });
+
+      it('should show a success message if the step got tested successfully', () => {
+        let spy = spyOn(flowsApp, 'showStatusMessage');
+        component.onTestedFlowStep(stepTest);
+        expect(spy).toHaveBeenCalledWith('Step successfully tested');
+      });
+
+      it('should show an error message if the step did not get tested successfully', () => {
+        let spy = spyOn(flowsApp, 'showStatusMessage');
+        stepTest.status = 'error';
+        component.onTestedFlowStep(stepTest);
+        expect(spy).toHaveBeenCalledWith('An error occured. Step could not be tested.', 'error');
+      });
+
+      it('should trigger change detection', () => {
+        let spy = spyOn(cd, 'markForCheck');
+        component.onTestedFlowStep(stepTest);
         expect(spy).toHaveBeenCalled();
       });
     });
