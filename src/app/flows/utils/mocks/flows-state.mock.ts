@@ -10,6 +10,7 @@ export const mockFlowsState = {
   flow$: mockApolloStore.flow$.asObservable(),
   createdFlow$: new Subject<any>(),
   createdFlowRun$: new Subject<any>(),
+  testedFlowStep$: new Subject<any>(),
 
   select(key: string) {
     return mockStore[key];
@@ -26,6 +27,7 @@ export const mockFlowsState = {
   deleteFlow(id: string): void { },
   dispatch(action: Action) { },
   createAndStartFlowRun(flowId: string, userId: string, payload: Object): void {},
+  testFlowStep(stepId: string, payload: String): void {},
 
   // TODO we don't really want to do it this way..
   // Create mock via class inflection?

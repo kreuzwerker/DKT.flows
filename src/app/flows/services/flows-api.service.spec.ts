@@ -68,6 +68,14 @@ describe('Flows App', () => {
       });
     });
 
+    describe('testFlowStep()', () => {
+      xit('should query the API with a mutation to test a step', () => {
+      });
+
+      xit('should set the step as successfully tested', () => {
+      });
+    });
+
     describe('createAndStartFlowRun()', () => {
       xit('should query the API with a mutation of a new flow run', () => {
       });
@@ -182,6 +190,21 @@ describe('Flows App', () => {
         };
         const newState = service['removeDeletedFlowStep'](state, step);
         expect(newState.Flow.steps).not.toContain(step);
+      });
+    });
+
+    describe('updateTestedFlowStep()', () => {
+      it('should update the given step\'s tested property with step test\'s result.', () => {
+        let step = utils.createStepData();
+        step.tested = false;
+        let state = {
+          Flow: {
+            steps: [step]
+          }
+        };
+        const stepTest = utils.createStepTestData(step.id);
+        const newState = service['updateTestedFlowStep'](state, stepTest);
+        expect(newState.Flow.steps[0].tested).toBeTruthy();
       });
     });
   });

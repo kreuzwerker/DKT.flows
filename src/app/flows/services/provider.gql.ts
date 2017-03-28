@@ -30,6 +30,7 @@ export const getProvidersQuery = gql`
         configSchema {
           ...ServiceConfigSchema
         }
+        samplePayload
       }
     }
   }

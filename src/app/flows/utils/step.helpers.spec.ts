@@ -40,8 +40,9 @@ describe('Flows App', () => {
         expect(helpers.stepIsTested(step)).toBeTruthy();
       });
 
-      xit('should return false if given step has not been tested successfully', () => {
-        // TODO implement logic first
+      it('should return false if given step has not been tested successfully', () => {
+        step.tested = false;
+        expect(helpers.stepIsTested(step)).toBeFalsy();
       });
     });
 

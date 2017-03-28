@@ -11,7 +11,7 @@ import { UUID } from 'angular2-uuid';
 import { cloneDeep, sortBy } from 'lodash';
 
 // GraphQL queries & mutations
-import { getFlowsQuery, FlowsListData, getFlowQuery, createFlowMutation, deleteFlowMutation, updateStepMutation, addFlowStepMutation, removeFlowStepMutation, createAndStartFlowRunMutation } from './flow.gql';
+import { getFlowsQuery, FlowsListData, getFlowQuery, createFlowMutation, deleteFlowMutation, updateStepMutation, addFlowStepMutation, removeFlowStepMutation, testFlowStepMutation, createAndStartFlowRunMutation } from './flow.gql';
 import { getProvidersQuery } from './provider.gql';
 
 @Injectable()
@@ -148,6 +148,24 @@ export class FlowsApiService {
     });
   }
 
+  public testFlowStep(stepId: String, payload: String): Observable<ApolloQueryResult<any>> {
+    return this.apollo.mutate<any>({
+      mutation: testFlowStepMutation,
+      variables: {
+        id: stepId,
+        payload: payload,
+      },
+      updateQueries: {
+        FlowQuery: (previousResult, { mutationResult }: any) => {
+          return this.updateTestedFlowStep(previousResult, mutationResult.data.testStep);
+        },
+      },
+    }).map(({data}) => {
+      data.testStep.result = JSON.parse(data.testStep.result);
+      return data.testStep;
+    });
+  }
+
   public createAndStartFlowRun(
     flowId: string,
     userId: string,
@@ -252,6 +270,22 @@ export class FlowsApiService {
     return {
       Flow: Object.assign({}, state.Flow, {
         steps: state.Flow.steps.filter((s) => s.id !== deleteStep.id)
+      })
+    };
+  }
+
+  private updateTestedFlowStep(state, stepTest): any {
+    // Updates the 'tested' property of the tested step
+    let steps = state.Flow.steps.map(step => {
+      if (step.id === stepTest.id) {
+        return Object.assign({}, step, {tested: stepTest.tested});
+      }
+      return step;
+    });
+
+    return {
+      Flow: Object.assign({}, state.Flow, {
+        steps: steps
       })
     };
   }

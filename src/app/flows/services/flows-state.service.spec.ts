@@ -104,5 +104,16 @@ describe('Flows App', () => {
       xit('should dispatch an action to set the flow saving flag and to unset the flow saved flag when saving was successful', () => {
       });
     });
+
+    describe('testFlowStep()', () => {
+      xit('should dispatch event: test step is loading', () => {
+      });
+
+      xit('should call the API to test the given step with the given payload', () => {
+      });
+
+      xit('should dispatch event: test step has finished with the given result', () => {
+      });
+    });
   });
 });

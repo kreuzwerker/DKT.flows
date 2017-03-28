@@ -10,6 +10,7 @@ export class Step {
   position: number;
   service?: Service;
   configParams?: StepConfigParamsInput[];
+  tested?: boolean;
 }
 
 export class StepData {
@@ -17,4 +18,14 @@ export class StepData {
   position: number;
   service?: Service;
   configParams?: StepConfigParamsInput[];
+  tested?: boolean;
+}
+
+export class StepTest {
+  id: string;
+  description: string;
+  service?: any;
+  result: string;
+  error: any;
+  tested: boolean;
 }

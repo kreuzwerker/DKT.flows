@@ -9,4 +9,10 @@ import { MdDialogRef } from '@angular/material';
 })
 export class NewFlowDialogComponent {
   constructor(public dialogRef: MdDialogRef<NewFlowDialogComponent>) {}
+
+  submitForm(form) {
+    if (form.valid) {
+      this.dialogRef.close(form.value);
+    }
+  }
 }

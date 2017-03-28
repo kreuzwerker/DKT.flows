@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { FlowData, StepData, StepConfigParamsInput, FlowRun, Service, ServiceConfigSchema, ServiceType, Provider } from '../models';
+import { FlowData, StepData, StepTest, StepConfigParamsInput, FlowRun, Service, ServiceConfigSchema, ServiceType, Provider } from '../models';
 
 export class TestUtils {
   defaultProviderData: Provider = null;
@@ -96,12 +96,14 @@ export class TestUtils {
     position: number = 0,
     service: Service = this.defaultServiceData,
     configParams: StepConfigParamsInput[] = this.defaultStepConfigParamsInputs,
+    tested: boolean = true
   ): StepData {
     return   {
       id: id,
       position: position,
       service: service,
       configParams: configParams,
+      tested: tested,
     };
   }
 
@@ -111,6 +113,17 @@ export class TestUtils {
       status: status,
       message: 'flow run API message',
       currentStep: 0,
+    };
+  }
+
+  createStepTestData(id: string = '1', error: any = null, tested: boolean = true): StepTest {
+    return {
+      id: id,
+      description: '',
+      service: this.defaultServiceData,
+      result: '',
+      error: error,
+      tested: tested,
     };
   }
 };

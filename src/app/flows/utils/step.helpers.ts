@@ -13,8 +13,7 @@ export function stepIsConfigured(step: Step): boolean {
 }
 
 export function stepIsTested(step: Step): boolean {
-  // TODO determine if step has been tested successfully
-  return true;
+  return step.tested === true;
 }
 
 export function stepIsExecutable(step: Step): boolean {

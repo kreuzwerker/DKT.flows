@@ -7,7 +7,7 @@ import { ApolloError } from 'apollo-client';
 import { TriggerFlowRunDialogComponent } from './../../components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
-import { Flow, Step, FlowRun } from './../../models';
+import { Flow, Step, StepTest, FlowRun } from './../../models';
 
 @Component({
   templateUrl: 'flows-app.component.html',
@@ -61,6 +61,12 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     // Created new flow run
     this.state.createdFlowRun$.takeUntil(this.ngOnDestroy$).subscribe(
       this.onCreatedFlowRun.bind(this),
+      (err) => console.log('error', err)
+    );
+
+    // Tested flow step
+    this.state.testedFlowStep$.takeUntil(this.ngOnDestroy$).subscribe(
+      this.onTestedFlowStep.bind(this),
       (err) => console.log('error', err)
     );
   }
@@ -142,6 +148,23 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
       this.flowsApp.showStatusMessage('Flow successfully triggered');
     } else {
       this.flowsApp.showStatusMessage('An error occured. Flow could not be triggered.', 'error');
+    }
+    this.cd.markForCheck();
+  }
+
+  /**
+   * Step tests
+   */
+
+  onTestedFlowStep(stepTest: any) {
+    if (stepTest === 'loading') {
+      this.flowsApp.showStatusMessage('Testing step', 'loading');
+    } else if (stepTest instanceof ApolloError) {
+      this.flowsApp.showStatusMessage('An error occured. Step could not be tested', 'error');
+    } else if (stepTest.tested) {
+      this.flowsApp.showStatusMessage('Step successfully tested');
+    } else {
+      this.flowsApp.showStatusMessage('Step test was not successful.', 'error');
     }
     this.cd.markForCheck();
   }

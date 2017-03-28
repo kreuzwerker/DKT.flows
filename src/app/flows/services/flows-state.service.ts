@@ -32,6 +32,7 @@ export class FlowsStateService {
 
   createdFlow$: Subject<any> = new Subject<any>();
   createdFlowRun$: Subject<any> = new Subject<any>();
+  testedFlowStep$: Subject<any> = new Subject<any>();
 
   //
   // Internal events
@@ -197,5 +198,12 @@ export class FlowsStateService {
     this.api.createAndStartFlowRun(flowId, userId, payload).subscribe((flowRun) => {
       this.createdFlowRun$.next(flowRun);
     }, (error) => this.createdFlowRun$.next(error));
+  }
+
+  testFlowStep(stepId: string, payload: String): void {
+    this.testedFlowStep$.next('loading');
+    this.api.testFlowStep(stepId, payload).subscribe((test) => {
+      this.testedFlowStep$.next(test);
+    }, (error) => this.testedFlowStep$.next(error));
   }
 }

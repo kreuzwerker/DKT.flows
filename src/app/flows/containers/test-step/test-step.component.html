@@ -3,7 +3,16 @@
     <dkt-flow-step-config-nav [type]="flowsApp.stepTypeName" [current]="'test'" class="col-header"></dkt-flow-step-config-nav>
 
     <div class="padding">
-      <div style="border:4px solid #eee; color:#ccc; padding:1rem; min-height:300px; margin-bottom:1rem;">[Test form]</div>
+      <form #testFlowForm="ngForm" (ngSubmit)="testStep(testFlowForm.value.payload)" class="step test">
+        <md-input-container class="full-width">
+          <textarea mdInput [ngModel]="samplePayload" #payload="ngModel" placeholder="Test data" type="text" name="payload" rows="10" required></textarea>
+          <md-hint *ngIf="payload.dirty && payload.errors?.required">Payload is required</md-hint>
+        </md-input-container>
+
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <button md-button type="submit" [disabled]="testFlowForm.invalid" md-raised-button class="mat-accent">Test</button>
+        </div>
+      </form>
 
       <dkt-flow-step-nav-buttons 
         backPath="{{flowsApp.flowStepPath()}}/configure" backLabel="Back"
