@@ -13,7 +13,7 @@ export function stepIsConfigured(step: Step): boolean {
 }
 
 export function stepIsTested(step: Step): boolean {
-  return step.tested;
+  return step.tested === true;
 }
 
 export function stepIsExecutable(step: Step): boolean {

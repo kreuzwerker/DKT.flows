@@ -22,5 +22,10 @@ export class StepData {
 }
 
 export class StepTest {
-  status: string;
+  id: string;
+  description: string;
+  service?: any;
+  result: string;
+  error: any;
+  tested: boolean;
 }

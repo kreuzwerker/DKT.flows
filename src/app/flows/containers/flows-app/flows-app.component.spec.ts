@@ -283,9 +283,9 @@ describe('Flows App', () => {
 
       it('should show an error message if the step did not get tested successfully', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
-        stepTest.status = 'error';
+        stepTest.tested = false;
         component.onTestedFlowStep(stepTest);
-        expect(spy).toHaveBeenCalledWith('An error occured. Step could not be tested.', 'error');
+        expect(spy).toHaveBeenCalledWith('Step test was not successful.', 'error');
       });
 
       it('should trigger change detection', () => {

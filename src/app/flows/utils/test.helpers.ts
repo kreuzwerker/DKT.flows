@@ -116,9 +116,14 @@ export class TestUtils {
     };
   }
 
-  createStepTestData(status: string = 'success'): StepTest {
+  createStepTestData(id: string = '1', error: any = null, tested: boolean = true): StepTest {
     return {
-      status: status
-    }
+      id: id,
+      description: '',
+      service: this.defaultServiceData,
+      result: '',
+      error: error,
+      tested: tested,
+    };
   }
 };

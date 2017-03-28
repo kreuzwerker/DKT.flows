@@ -96,7 +96,11 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
     testOption.classes = (currentActive === 'test') ? ['active'] : [];
     // Locked?
     let testLocked = (!stepHelpers.stepHasService(step) || !stepHelpers.stepIsConfigured(step));
-    testOption.icon    = testLocked ? 'lock' : 'check';
+    if (testLocked) {
+      testOption.icon = 'lock';
+    } else {
+      testOption.icon = stepHelpers.stepIsTested(step) ? 'done_all' : 'done';
+    }
     testOption.classes = testLocked ? testOption.classes.concat(['locked']) : testOption.classes;
     testOption.link    = !testLocked ? basePath + 'test' : false;
     options.push(testOption);

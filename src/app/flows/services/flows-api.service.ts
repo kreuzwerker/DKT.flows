@@ -152,9 +152,17 @@ export class FlowsApiService {
     return this.apollo.mutate<any>({
       mutation: testFlowStepMutation,
       variables: {
-        stepId: stepId,
+        id: stepId,
         payload: payload,
       },
+      updateQueries: {
+        FlowQuery: (previousResult, { mutationResult }: any) => {
+          return this.updateTestedFlowStep(previousResult, mutationResult.data.testStep);
+        },
+      },
+    }).map(({data}) => {
+      data.testStep.result = JSON.parse(data.testStep.result);
+      return data.testStep;
     });
   }
 
@@ -262,6 +270,22 @@ export class FlowsApiService {
     return {
       Flow: Object.assign({}, state.Flow, {
         steps: state.Flow.steps.filter((s) => s.id !== deleteStep.id)
+      })
+    };
+  }
+
+  private updateTestedFlowStep(state, stepTest): any {
+    // Updates the 'tested' property of the tested step
+    let steps = state.Flow.steps.map(step => {
+      if (step.id === stepTest.id) {
+        return Object.assign({}, step, {tested: stepTest.tested});
+      }
+      return step;
+    });
+
+    return {
+      Flow: Object.assign({}, state.Flow, {
+        steps: steps
       })
     };
   }

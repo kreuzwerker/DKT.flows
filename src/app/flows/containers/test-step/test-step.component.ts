@@ -13,7 +13,7 @@ import { Step } from './../../models';
 export class TestStepComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   step: Step = null;
-  testPayload: String = '';
+  samplePayload: String = '';
 
   constructor(
     public flowsApp: FlowsAppService,
@@ -37,8 +37,7 @@ export class TestStepComponent implements OnInit, OnDestroy {
     }
 
     this.step = step;
-    // this.testPayload = this.step.service.testPayload ? this.step.service.testPayload : '';
-    this.testPayload = 'Test payload string';
+    this.samplePayload = this.step.service.samplePayload ? this.step.service.samplePayload : '';
   }
 
   testStep(payload: String) {

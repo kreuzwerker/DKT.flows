@@ -192,5 +192,20 @@ describe('Flows App', () => {
         expect(newState.Flow.steps).not.toContain(step);
       });
     });
+
+    describe('updateTestedFlowStep()', () => {
+      it('should update the given step\'s tested property with step test\'s result.', () => {
+        let step = utils.createStepData();
+        step.tested = false;
+        let state = {
+          Flow: {
+            steps: [step]
+          }
+        };
+        const stepTest = utils.createStepTestData(step.id);
+        const newState = service['updateTestedFlowStep'](state, stepTest);
+        expect(newState.Flow.steps[0].tested).toBeTruthy();
+      });
+    });
   });
 });

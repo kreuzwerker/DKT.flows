@@ -29,6 +29,7 @@ export const flowStepFragment = gql`
   fragment FlowStep on Step {
     id,
     position,
+    tested,
     configParams {
       fieldId,
       value
@@ -40,7 +41,8 @@ export const flowStepFragment = gql`
       description,
       configSchema {
         ...ServiceConfigSchema
-      }
+      },
+      samplePayload,
       provider {
         id,
         name,
@@ -138,13 +140,20 @@ export const removeFlowStepMutation = gql`
 `;
 
 export const testFlowStepMutation = gql`
-  mutation testStep($stepId:ID!, $payload:String!) {
-    testStep(id: $stepId, payload: $payload) {
-      ...FlowStep
+  mutation TestStep($id:ID!, $payload:String!) {
+    testStep(id: $id, payload: $payload) {
+      id
+      description
+      service {
+        id
+        name
+        type
+      }
+      result
+      error
+      tested
     }
   }
-
-  ${flowStepFragment}
 `;
 
 export const createAndStartFlowRunMutation = gql`

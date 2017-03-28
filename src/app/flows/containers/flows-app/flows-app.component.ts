@@ -161,10 +161,10 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
       this.flowsApp.showStatusMessage('Testing step', 'loading');
     } else if (stepTest instanceof ApolloError) {
       this.flowsApp.showStatusMessage('An error occured. Step could not be tested', 'error');
-    } else if (stepTest.status === 'success') {
+    } else if (stepTest.tested) {
       this.flowsApp.showStatusMessage('Step successfully tested');
     } else {
-      this.flowsApp.showStatusMessage('An error occured. Step could not be tested.', 'error');
+      this.flowsApp.showStatusMessage('Step test was not successful.', 'error');
     }
     this.cd.markForCheck();
   }

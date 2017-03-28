@@ -8,7 +8,7 @@ export interface ServiceConfigSchema {
   defaultValue: any;
   required: Boolean;
   options?: Map<string, any>[];
-  testPayload?: String;
+  samplePayload?: String;
 }
 
 export class Service {
@@ -18,7 +18,7 @@ export class Service {
   type: ServiceType;
   provider: Provider;
   configSchema?: ServiceConfigSchema[];
-  testPayload?: String;
+  samplePayload?: String;
 }
 
 export class ServiceType {
