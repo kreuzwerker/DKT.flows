@@ -3,6 +3,8 @@ export declare const DEV_PORT: number;
 export declare const E2E_PORT: number;
 export declare const PROD_PORT: number;
 
+export declare const SHOW_WEBPACK_BUNDLE_ANALYZER: boolean;
+
 export declare const USE_DEV_SERVER_PROXY: boolean;
 export declare const DEV_SERVER_PROXY_CONFIG: any;
 
