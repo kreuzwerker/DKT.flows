@@ -1,0 +1,12 @@
+<md-menu #userMenu="mdMenu" yPosition="below">
+  <button md-menu-item (click)="googleSignOut()">
+    <md-icon>exit_to_app</md-icon>
+    <span>Log out</span>
+  </button>
+</md-menu>
+
+<button md-button [mdMenuTriggerFor]="userMenu">
+  <img *ngIf="getAvatar() " class="avatar" [src]="getAvatar()" alt="">
+  <span class="username">{{getUsername()}}</span>
+  <md-icon>keyboard_arrow_down</md-icon>
+</button>

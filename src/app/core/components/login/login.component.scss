@@ -1,0 +1,45 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../animations';
+
+#login {
+  position:relative;
+  height:100%;
+  animation: FadeIn 0.3s;
+
+  .logo {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -37.5px;
+    top: -37.5px;
+    background: #273142 url('/assets/images/dkt-logo.png') no-repeat top left;
+    background-size: 51px 55px;
+    background-position: 13px 9px;
+    box-shadow: 1px 1px 5px #888888;
+  }
+
+  h2 {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+    color: #666;
+  }
+}
+
+#googleSignInBtn {
+  text-transform: uppercase;
+  font-weight: bold;
+
+  md-icon {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    background-color: white;
+    padding:3px;
+    border-radius: 50%;
+    margin: 8px 8px 8px 0;
+  }
+}

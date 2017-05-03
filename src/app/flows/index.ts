@@ -37,18 +37,19 @@ import { TriggerFlowRunDialogComponent } from './components/trigger-flow-run-dia
 
 // Services
 import { FlowsApiService, FlowsAppService, FlowsStateService, FormBuilderService } from './services';
+import { LoginGuard } from './../core/services/user/login-guard.service';
 
 // States
 import { FlowsAppActions, FlowsAppEffects } from './states';
 
 const routes: Routes = [
-  { path: 'flows', component: FlowsListComponent },
-  { path: 'flows/:flowId', component: FlowsAppComponent,
+  { path: 'flows', component: FlowsListComponent, canActivate: [LoginGuard] },
+  { path: 'flows/:flowId', component: FlowsAppComponent, canActivate: [LoginGuard],
     children: [
-      { path: '', component: FlowHomeComponent },
-      { path: 'steps/:stepId/select-service', component: SelectServiceComponent },
-      { path: 'steps/:stepId/configure', component: ConfigureStepComponent },
-      { path: 'steps/:stepId/test', component: TestStepComponent }
+      { path: '', component: FlowHomeComponent, canActivate: [LoginGuard] },
+      { path: 'steps/:stepId/select-service', component: SelectServiceComponent, canActivate: [LoginGuard] },
+      { path: 'steps/:stepId/configure', component: ConfigureStepComponent, canActivate: [LoginGuard] },
+      { path: 'steps/:stepId/test', component: TestStepComponent, canActivate: [LoginGuard] }
     ]
   }
 ];
