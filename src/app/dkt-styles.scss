@@ -1,5 +1,16 @@
 $element-bg-color: #eee;
 
+body {
+  // Blue Grey 50
+  background-color: #ECEFF1;
+}
+
+// Temporary fix
+// TODO remove md-sidenav component from AppComponent
+.mat-sidenav-container {
+  background-color: transparent;
+}
+
 a {
   text-decoration: none;
 }

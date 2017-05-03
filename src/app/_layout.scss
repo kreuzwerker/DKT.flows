@@ -26,3 +26,10 @@ div.full-height, div.full-height > div {
 div.border-right {
   border-right: 1px solid $layout-border-color;
 }
+
+.centered {
+  position:absolute!important;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%);
+}
