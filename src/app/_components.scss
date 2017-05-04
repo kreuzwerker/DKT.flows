@@ -1,7 +1,59 @@
+@import './variables';
+
 .info-box {
   padding: 3rem;
   background-color: #fff;
   // Grey 100
   border:1px solid #E0E0E0;
   border-radius: 4px; 
+}
+
+/*
+  App loading spinner
+*/
+
+#app-loading-spinner,
+#app-loading-spinner:after {
+  border-radius: 50%;
+}
+
+#app-loading-spinner {
+  width: 44px;
+  height: 44px;
+  font-size: 6px;
+  margin-left:-22px;
+  margin-top:-22px;
+
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid $dkt-blue;
+  border-right: 1.1em solid $dkt-blue;
+  border-bottom: 1.1em solid $dkt-blue;
+  border-left: 1.1em solid #ccc;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: spin 1.1s infinite linear;
+  animation: spin 1.1s infinite linear;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
