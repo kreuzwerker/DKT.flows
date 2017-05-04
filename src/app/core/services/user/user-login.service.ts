@@ -288,6 +288,7 @@ export class UserLoginService {
   }
 
   public static isSignedIn(): boolean {
-    return UserLoginService.getIdToken() != 'null';
+    let token = UserLoginService.getIdToken();
+    return typeof token == 'string' && token != 'null';
   }
 }
