@@ -33,3 +33,13 @@ div.border-right {
   top:50%;
   transform: translate(-50%, -50%);
 }
+
+/*
+  Forms layout
+*/
+
+form.single-column {
+  .mat-input-container {
+    width:100%;
+  }
+}

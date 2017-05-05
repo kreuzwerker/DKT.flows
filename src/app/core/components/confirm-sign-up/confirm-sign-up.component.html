@@ -1,0 +1,12 @@
+<p class="instructions">Please check your e-mail and enter your registration code.</p>
+
+<form #confirmSignUpForm="ngForm" class="single-column">
+  <md-input-container>
+    <input mdInput placeholder="Code" type="text" [(ngModel)]="registrationCode.code" name="code" ngModel #code="ngModel" required>
+    <md-hint *ngIf="code.dirty && code.errors?.required">Registration code is required</md-hint>
+  </md-input-container>
+
+  <button md-button class="full-width" type="submit" [disabled]="confirmSignUpForm.invalid || busy" (click)="onConfirmSignUp(confirmSignUpForm)" md-raised-button color="primary">
+    {{busy ? 'Verifying...' : 'Confirm sign up'}}
+  </button>
+</form>

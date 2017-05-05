@@ -46,10 +46,10 @@ const routes: Routes = [
   { path: 'flows', component: FlowsListComponent, canActivate: [LoginGuard] },
   { path: 'flows/:flowId', component: FlowsAppComponent, canActivate: [LoginGuard],
     children: [
-      { path: '', component: FlowHomeComponent, canActivate: [LoginGuard] },
-      { path: 'steps/:stepId/select-service', component: SelectServiceComponent, canActivate: [LoginGuard] },
-      { path: 'steps/:stepId/configure', component: ConfigureStepComponent, canActivate: [LoginGuard] },
-      { path: 'steps/:stepId/test', component: TestStepComponent, canActivate: [LoginGuard] }
+      { path: '', component: FlowHomeComponent },
+      { path: 'steps/:stepId/select-service', component: SelectServiceComponent },
+      { path: 'steps/:stepId/configure', component: ConfigureStepComponent },
+      { path: 'steps/:stepId/test', component: TestStepComponent }
     ]
   }
 ];

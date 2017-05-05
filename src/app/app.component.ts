@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserLoginService, CognitoUtil } from './core/services';
+import { UserLoginService } from './core/services';
 
 import { views } from './app-nav-views';
 import { MOBILE } from './services/constants';
