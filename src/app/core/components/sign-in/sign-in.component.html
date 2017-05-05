@@ -13,7 +13,11 @@
     <md-hint *ngIf="password.dirty && password.errors?.required">Password is required</md-hint>
   </md-input-container>
 
-  <button md-button class="full-width" type="submit" [disabled]="signInForm.invalid || busy" md-raised-button color="primary">
+  <button md-button class="full-width margin-top" type="button" [hidden]="userData.username.length == 0" [disabled]="busyPassword" (click)="onForgotPassword(signInForm)">
+    {{busyPassword ? 'Please wait...' : 'Forgot your password?'}}
+  </button>
+
+  <button md-button class="full-width margin-top" type="submit" [disabled]="signInForm.invalid || busy" md-raised-button color="primary">
     {{busy ? 'Signing in...' : 'Sign in'}}
   </button>
 </form>

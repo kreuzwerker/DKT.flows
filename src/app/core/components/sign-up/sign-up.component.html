@@ -28,7 +28,7 @@
     <md-hint *ngIf="familyName.dirty && familyName.errors?.required">Last name is required</md-hint>
   </md-input-container>
 
-  <button md-button class="full-width" type="submit" [disabled]="signUpForm.invalid || busy" md-raised-button color="primary">
+  <button md-button class="full-width margin-top" type="submit" [disabled]="signUpForm.invalid || busy" md-raised-button color="primary">
     {{busy ? 'Signing up...' : 'Sign up'}}
   </button>
 </form>

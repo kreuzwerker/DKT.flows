@@ -35,7 +35,7 @@ export class SignUpComponent {
         this.router.navigate(['login', 'confirm']);
       }).catch((err: Error) => {
         this.busy = false;
-        this.loginUi.setLoginCompUIMessage('An error occured. ' + err.message, 'error');
+        this.loginUi.setLoginCompUIMessage(err.message, 'error');
         console.log(err);
       });
     }

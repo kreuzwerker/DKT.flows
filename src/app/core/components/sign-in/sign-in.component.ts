@@ -9,6 +9,7 @@ import { LoginUiState, UserLoginService, IUserLogin } from './../../services';
 })
 export class SignInComponent {
   public busy: boolean = false;
+  public busyPassword: boolean = false;
 
   constructor(
     public router: Router,
@@ -39,6 +40,22 @@ export class SignInComponent {
         this.busy = false;
         this.loginUi.setLoginCompUIMessage('Wrong username or password.', 'error');
         console.log(err);
+      });
+    }
+  }
+
+  onForgotPassword(form) {
+    if (form && this.userData.username != null) {
+      this.busyPassword = true;
+      UserLoginService.forgotPassword(this.userData.username)
+      .then((data) => {
+        this.busyPassword = false;
+        this.loginUi.setLoginCompUIMessage('A verification code has been emailed to you.', 'success');
+        this.router.navigate(['/login/forgot-password']);
+      }).catch((err: any) => {
+        this.busyPassword = false;
+        this.loginUi.setLoginCompUIMessage(err.message, 'error');
+        console.log('Forgot password request failed to initiate', err);
       });
     }
   }

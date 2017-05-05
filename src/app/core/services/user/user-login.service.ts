@@ -291,4 +291,83 @@ export class UserLoginService {
     let token = UserLoginService.getIdToken();
     return typeof token == 'string' && token != 'null';
   }
+
+  /**
+   * Password management
+   */
+
+
+  public static forgotPassword(username: string): Promise<void> {
+    // Set target username
+    CognitoUtil.setUsername(username);
+
+    // Get Cognito User with session
+    let cognitoUser = CognitoUtil.getCognitoUser();
+
+    let promise: Promise<void> = new Promise<void>((resolve, reject) => {
+      cognitoUser.forgotPassword({
+        onSuccess: () => {
+          console.log('Initiated reset password for username ' + username);
+          resolve();
+        },
+        onFailure: (err) => {
+          console.log('Failed to initiate reset password for username ' + username);
+          reject(err);
+          return;
+        },
+        inputVerificationCode() {
+          console.log('Waiting for input of verification code')
+          resolve();
+        }
+      });
+    });
+    return promise;
+  }
+
+  public static confirmForgotPassword(username: string, verificationCode: string, password: string): Promise<void> {
+    // Set target username
+    CognitoUtil.setUsername(username);
+
+    // Get Cognito User with session
+    let cognitoUser = CognitoUtil.getCognitoUser();
+
+    let promise: Promise<void> = new Promise<void>((resolve, reject) => {
+      cognitoUser.confirmPassword(verificationCode, password, {
+        onSuccess: () => {
+          console.log('Password successfully reset for username ' + username);
+          resolve();
+        },
+        onFailure: (err) => {
+          console.log('Password was not reset for username ' + username);
+          console.log(`Error: ${err.name}. ${err.message}`);
+          reject(err);
+          return;
+        }
+      });
+    });
+    return promise;
+  }
+
+  // NB currently there's no UI implemented for this action
+  public static changePassword(previousPassword: string, proposedPassword: string): Promise<void> {
+    let promise: Promise<void> = new Promise<void>((resolve, reject) => {
+      // first, load the valid tokens cached in the local store, if they are available
+      // see: https://github.com/aws/amazon-cognito-identity-js/issues/71
+      let cognitoUser = CognitoUtil.getCognitoUser();
+      cognitoUser.getSession((err: Error, session: any) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        cognitoUser.changePassword(previousPassword, proposedPassword, (err: Error, result: any) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve(result);
+        });
+      });
+    });
+    return promise;
+  }
 }

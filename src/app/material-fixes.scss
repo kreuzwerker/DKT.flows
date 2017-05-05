@@ -1,0 +1,8 @@
+// Fix buttons that should hide when [hidden]="true"
+.mat-button[hidden],
+.mat-fab[hidden],
+.mat-icon-button[hidden],
+.mat-mini-fab[hidden],
+.mat-raised-button[hidden] {
+  display: none;
+}

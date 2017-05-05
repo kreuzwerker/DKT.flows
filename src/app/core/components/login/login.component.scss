@@ -43,6 +43,12 @@ $text-color: #666;
     font-weight: bold;
   }
 
+  button.margin-top {
+    margin-top: 0.5rem;
+  }
+
+  p.instructions{margin-bottom:1rem}
+
   #login-message {
     // Stretch to card borders
     margin: 0px ($padding * -1);
