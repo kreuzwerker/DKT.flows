@@ -19,6 +19,10 @@ import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 import { client } from './apollo-client-store';
 
+import {
+  BrowserTransferStateModule
+} from '../modules/transfer-state/browser-transfer-state.module';
+
 import { APP_DECLARATIONS } from './app.declarations';
 import { APP_ENTRY_COMPONENTS } from './app.entry-components';
 import { APP_IMPORTS } from './app.imports';
@@ -37,6 +41,7 @@ import { AppState, rootReducer } from './reducers';
   imports: [
     APP_IMPORTS,
     BrowserModule,
+    BrowserTransferStateModule,
     HttpModule,
   ],
   bootstrap: [AppComponent],
