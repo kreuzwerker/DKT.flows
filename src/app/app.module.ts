@@ -41,7 +41,7 @@ import { AppState, rootReducer } from './reducers';
   imports: [
     APP_IMPORTS,
     BrowserModule,
-    BrowserTransferStateModule,
+    DEV_SERVER ? BrowserTransferStateModule : [],
     HttpModule,
   ],
   bootstrap: [AppComponent],
