@@ -8,6 +8,7 @@
 
 import { ApplicationRef, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
@@ -41,7 +42,7 @@ import { AppState, rootReducer } from './reducers';
   imports: [
     APP_IMPORTS,
     BrowserModule,
-    DEV_SERVER ? BrowserTransferStateModule : [],
+    DEV_SERVER ? [BrowserAnimationsModule, BrowserTransferStateModule] : [],
     HttpModule,
   ],
   bootstrap: [AppComponent],
