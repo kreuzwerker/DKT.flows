@@ -9,8 +9,13 @@
   </md-input-container>
 
   <md-input-container>
-    <input mdInput placeholder="Password" type="password" [(ngModel)]="userData.password" name="password" ngModel #password="ngModel" required>
+    <input mdInput placeholder="Password" type="password" [(ngModel)]="userData.password" name="password" ngModel #password="ngModel" validateEqualTo="confirmPassword" required>
     <md-hint *ngIf="password.dirty && password.errors?.required">Password is required</md-hint>
+  </md-input-container>
+
+  <md-input-container>
+    <input mdInput placeholder="Confirm password" type="password" name="confirmPassword" ngModel #confirmPassword="ngModel" required>
+    <md-hint *ngIf="confirmPassword.dirty && password.errors?.validateEqual">Passwords don't match</md-hint>
   </md-input-container>
 
   <md-input-container>

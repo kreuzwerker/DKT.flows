@@ -14,6 +14,9 @@ import { LoadingIndicatorComponent } from './components/loading-indicator/loadin
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 
+// Directives
+import { EqualTextValidator } from './directives/equal-text-validator.directive';
+
 // Services
 import { LoginGuard, LoginUiState, UserLoginService, UserRegistrationService } from './services';
 
@@ -33,6 +36,7 @@ const routes: Routes = [
   declarations: [
     AccountComponent,
     ConfirmSignUpComponent,
+    EqualTextValidator,
     ForgotPasswordComponent,
     GoogleSigninComponent,
     LoadingIndicatorComponent,
