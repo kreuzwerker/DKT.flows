@@ -19,8 +19,8 @@
   </md-input-container>
 
   <md-input-container>
-    <input mdInput placeholder="Email" type="email" [(ngModel)]="userData.email" name="email" ngModel #email="ngModel" required>
-    <md-hint *ngIf="email.dirty && email.errors?.required">Email is required</md-hint>
+    <input mdInput placeholder="Email" type="email" email [(ngModel)]="userData.email" name="email" ngModel #email="ngModel" required>
+    <md-hint *ngIf="email.dirty && email.errors?.email">Not a valid email address</md-hint>
   </md-input-container>
 
   <md-input-container>

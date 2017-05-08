@@ -221,14 +221,19 @@ export class UserLoginService {
   }
 
   public static signOut() {
+    if (AWS.config.credentials) {
+      AWS.config.credentials.clearCachedId();
+    }
     // Clear local user state
     UserLoginService.clearUserState();
     // Logout from Cognito service
     CognitoUtil.getCognitoUser().signOut();
-    AWS.config.credentials.clearCachedId();
   }
 
   public static globalSignOut() {
+    if (AWS.config.credentials) {
+      AWS.config.credentials.clearCachedId();
+    }
     // Clear local user state
     UserLoginService.clearUserState();
     // Logout from Cognito service
@@ -236,7 +241,6 @@ export class UserLoginService {
       onSuccess: (msg) => {},
       onFailure: (err) => {}
     });
-    AWS.config.credentials.clearCachedId();
   }
 
   public static getAwsCredentials(): Promise<void> {
@@ -259,8 +263,6 @@ export class UserLoginService {
           IdentityPoolId: CognitoUtil.getIdentityPoolId(),
           Logins: logins
         });
-
-        console.log('AWS.config.credentials', AWS.config.credentials, AWS.CognitoIdentityCredentials)
 
         // Call refresh method to authenticate user and get new temp AWS credentials
         if (AWS.config.credentials.needsRefresh()) {

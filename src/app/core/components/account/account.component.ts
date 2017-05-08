@@ -23,12 +23,15 @@ export class AccountComponent {
     });
   }
 
-  googleSignOut(): void {
-    // Signs out from Google and redirects to login view
+  signOut(): void {
+    // Sign out form Cognito
+    UserLoginService.signOut();
+
+    // Sign out from Google
     try {
       let auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(() => {
-        UserLoginService.clearUserState();
+        // Redirect to login
         this.router.navigate(['/login']);
       });
     } catch (e) {

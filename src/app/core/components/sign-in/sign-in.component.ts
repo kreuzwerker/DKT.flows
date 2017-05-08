@@ -35,7 +35,10 @@ export class SignInComponent {
       .then(() => {
         this.busy = false;
         this.loginUi.clearLoginCompUIMessage();
-        this.router.navigate(['/']);
+        // @see https://github.com/angular/angular/issues/6005
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 1);
       }).catch((err: Error): void => {
         this.busy = false;
         this.loginUi.setLoginCompUIMessage('Wrong username or password.', 'error');
@@ -51,7 +54,10 @@ export class SignInComponent {
       .then((data) => {
         this.busyPassword = false;
         this.loginUi.setLoginCompUIMessage('A verification code has been emailed to you.', 'success');
-        this.router.navigate(['/login/forgot-password']);
+        // @see https://github.com/angular/angular/issues/6005
+        setTimeout(() => {
+          this.router.navigate(['/login/forgot-password']);
+        }, 1);
       }).catch((err: any) => {
         this.busyPassword = false;
         this.loginUi.setLoginCompUIMessage(err.message, 'error');

@@ -15,11 +15,6 @@ export class EqualTextValidator implements Validator {
   private _onChange : () => void;
   oldVal : string;
 
-  constructor() {
-      console.log('register me');
-  }
-
-
   registerOnValidatorChange( fn : () => void ) {
     this._onChange = fn;
   }
