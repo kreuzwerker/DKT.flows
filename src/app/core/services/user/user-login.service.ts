@@ -116,11 +116,11 @@ export class UserLoginService {
 
 
           LocalStorage.set('userTokens.idToken', UserLoginService._userTokens.idToken);
-          console.log('%cCognito User Pools Identity Token: ', Logger.LeadInStyle, UserLoginService.getIdToken());
+          // console.log('%cCognito User Pools Identity Token: ', Logger.LeadInStyle, UserLoginService.getIdToken());
           LocalStorage.set('userTokens.accessToken', UserLoginService._userTokens.accessToken);
-          console.log('%cCognito User Pools Access Token: ', Logger.LeadInStyle, UserLoginService.getAccessToken());
+          // console.log('%cCognito User Pools Access Token: ', Logger.LeadInStyle, UserLoginService.getAccessToken());
           LocalStorage.set('userTokens.refreshToken', UserLoginService._userTokens.refreshToken);
-          console.log('%cCognito User Pools Refresh Token: ', Logger.LeadInStyle, UserLoginService.getRefreshToken());
+          // console.log('%cCognito User Pools Refresh Token: ', Logger.LeadInStyle, UserLoginService.getRefreshToken());
 
           /*
            Extract the user group from the identity token.
@@ -140,8 +140,7 @@ export class UserLoginService {
             userGroup = 'clientGroup';
             LocalStorage.set('userGroup', userGroup);
           }
-          console.log('%cCognito User Pools User Groups :' + '%c%s belongs to group %s', Logger.LeadInStyle, "black",
-            userLogin.username, userGroup);
+          // console.log('%cCognito User Pools User Groups :' + '%c%s belongs to group %s', Logger.LeadInStyle, "black", userLogin.username, userGroup);
 
           // Set user state to authenticated
           CognitoUtil.setUserState(UserState.SignedIn);
@@ -150,13 +149,13 @@ export class UserLoginService {
           UserProfileService.getUserAttributes().then(() => {
             UserLoginService.getAwsCredentials().then(() => {
               LocalStorage.set('userId', CognitoUtil.getCognitoIdentityId());
-              console.log('%cCognito Identity ID: ', Logger.LeadInStyle, CognitoUtil.getCognitoIdentityId());
+              // console.log('%cCognito Identity ID: ', Logger.LeadInStyle, CognitoUtil.getCognitoIdentityId());
               LocalStorage.set('userTokens.awsAccessKeyId', AWS.config.credentials.accessKeyId);
-              console.log('%cAWS Access Key ID: ', Logger.LeadInStyle, AWS.config.credentials.accessKeyId);
+              // console.log('%cAWS Access Key ID: ', Logger.LeadInStyle, AWS.config.credentials.accessKeyId);
               LocalStorage.set('userTokens.awsSecretAccessKey', AWS.config.credentials.secretAccessKey);
-              console.log('%cAWS Secret Access Key: ', Logger.LeadInStyle, AWS.config.credentials.secretAccessKey);
+              // console.log('%cAWS Secret Access Key: ', Logger.LeadInStyle, AWS.config.credentials.secretAccessKey);
               LocalStorage.set('userTokens.awsSessionToken', AWS.config.credentials.sessionToken);
-              console.log('%cAWS Session Token: ', Logger.LeadInStyle, AWS.config.credentials.sessionToken);
+              // console.log('%cAWS Session Token: ', Logger.LeadInStyle, AWS.config.credentials.sessionToken);
             });
             resolve();
           }).catch((err) => {
@@ -185,11 +184,13 @@ export class UserLoginService {
     // Set user name & profile picture
     CognitoUtil.setUsername(profile.getName());
     CognitoUtil.setUserProfile({
-      imageUrl: profile.getImageUrl()
+      imageUrl: profile.getImageUrl(),
+      given_name: profile.getGivenName(),
+      family_name: profile.getFamilyName(),
     });
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail());
+    // console.log('Name: ' + profile.getName());
+    // console.log('Image URL: ' + profile.getImageUrl());
+    // console.log('Email: ' + profile.getEmail());
 
     AWS.config.region = CognitoUtil.getRegion();
 
@@ -203,19 +204,19 @@ export class UserLoginService {
 
     UserLoginService._userTokens.idToken = authResponse['id_token'];
     LocalStorage.set('userTokens.idToken', UserLoginService._userTokens.idToken);
-    console.log('%cCognito User Pools Identity Token: ', Logger.LeadInStyle, UserLoginService.getIdToken());
+    // console.log('%cCognito User Pools Identity Token: ', Logger.LeadInStyle, UserLoginService.getIdToken());
 
     // Obtain AWS credentials
     AWS.config.credentials.refresh(function(err){
       if (!err) {
         LocalStorage.set('userId', CognitoUtil.getCognitoIdentityId());
-        console.log('%cCognito Identity ID: ', Logger.LeadInStyle, CognitoUtil.getCognitoIdentityId());
+        // console.log('%cCognito Identity ID: ', Logger.LeadInStyle, CognitoUtil.getCognitoIdentityId());
         LocalStorage.set('userTokens.awsAccessKeyId', AWS.config.credentials.accessKeyId);
-        console.log('%cAWS Access Key ID: ', Logger.LeadInStyle, AWS.config.credentials.accessKeyId);
+        // console.log('%cAWS Access Key ID: ', Logger.LeadInStyle, AWS.config.credentials.accessKeyId);
         LocalStorage.set('userTokens.awsSecretAccessKey', AWS.config.credentials.secretAccessKey);
-        console.log('%cAWS Secret Access Key: ', Logger.LeadInStyle, AWS.config.credentials.secretAccessKey);
+        // console.log('%cAWS Secret Access Key: ', Logger.LeadInStyle, AWS.config.credentials.secretAccessKey);
         LocalStorage.set('userTokens.awsSessionToken', AWS.config.credentials.sessionToken);
-        console.log('%cAWS Session Token: ', Logger.LeadInStyle, AWS.config.credentials.sessionToken);
+        // console.log('%cAWS Session Token: ', Logger.LeadInStyle, AWS.config.credentials.sessionToken);
       }
     });
   }

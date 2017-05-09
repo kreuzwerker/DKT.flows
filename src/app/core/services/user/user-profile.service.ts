@@ -21,7 +21,7 @@ export class UserProfileService {
           for (var i = 0; i < result.length; i++) {
             userAttributes[result[i].getName()] = result[i].getValue();
           }
-          console.log('%cCognito User Pools User Attributes: ', Logger.LeadInStyle, userAttributes);
+          // console.log('%cCognito User Pools User Attributes: ', Logger.LeadInStyle, userAttributes);
           // Write user profile attributes to local storage
           LocalStorage.setObject('userProfile', userAttributes);
           resolve(userAttributes);

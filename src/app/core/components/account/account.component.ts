@@ -39,7 +39,12 @@ export class AccountComponent {
   }
 
   getUsername(): string {
-    return CognitoUtil.getUsername();
+    let profile = CognitoUtil.getUserProfile();
+    if (!profile) {
+      return CognitoUtil.getUsername();
+    } else {
+      return profile['given_name'] + ' ' + profile['family_name'];
+    }
   }
 
   getAvatar(): string {
