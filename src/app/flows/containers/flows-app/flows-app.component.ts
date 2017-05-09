@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs';
-import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
 import { MdDialog, MdDialogConfig } from '@angular/material';
 import { ApolloError } from 'apollo-client';
@@ -13,6 +13,7 @@ import { Flow, Step, StepTest, FlowRun } from './../../models';
   templateUrl: 'flows-app.component.html',
   styleUrls: ['flows-app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class FlowsAppComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
