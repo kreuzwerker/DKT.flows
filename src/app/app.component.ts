@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserLoginService } from './core/services';
 
 import { views } from './app-nav-views';
 import { MOBILE } from './services/constants';
@@ -26,6 +27,10 @@ export class AppComponent {
     public route: ActivatedRoute,
     public router: Router
   ) { }
+
+  showToolbar() {
+    return UserLoginService.isSignedIn() !== false;
+  }
 
   activateEvent(event) {
     if (ENV === 'development') {

@@ -1,21 +1,4 @@
 #flow-home {
   position:relative;
-  // Blue Grey 50
-  background-color: #ECEFF1;
   height:100%;
-
-  .dialog {
-    padding: 3rem;
-    background-color: #fff;
-    // Grey 100
-    border:1px solid #E0E0E0;
-    border-radius: 4px; 
-  }
-
-  .centered {
-    position:absolute;
-    left:50%;
-    top:50%;
-    transform: translate(-50%, -50%);
-  }
 }

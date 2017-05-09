@@ -1,0 +1,22 @@
+<div id="login" fxLayout="column" fxLayoutAlign="center center">
+  <md-card class="centered">
+    <md-card-content>
+      <div class="logo"></div>
+
+      <h2>{{ui.title}}</h2>
+
+      <div id="login-message" [hidden]="ui.message == ''"
+        [class.error]="ui.messageType == 'error'"
+        [class.success]="ui.messageType == 'success'">
+        {{ui.message}}
+      </div>
+
+      <div class="login-nav">
+        <a routerLink="/login" [class.active]="ui.currentNav == 'logIn'">Log in</a>
+        <a routerLink="/login/sign-up" [class.active]="ui.currentNav == 'signUp'">Sign up</a>
+      </div>
+
+      <router-outlet></router-outlet>
+    </md-card-content>
+  </md-card>
+</div>

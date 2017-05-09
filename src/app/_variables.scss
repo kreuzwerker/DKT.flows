@@ -11,6 +11,8 @@ $break-large: 1200px;
   Colors
 */
 
+$dkt-blue: #2196F3;
+
 // Grey 100
 $element-bg-color: #F5F5F5;
 $element-hover-color: #F5F5F5;
@@ -26,7 +28,7 @@ $inactive-bg-color: #E0E0E0;
 $secondary-text-color: #9E9E9E;
 
 // Blue 500
-$provider-icon-color: #2196F3;
+$provider-icon-color: $dkt-blue;
 
 // Blue A200
 $active-button-color: #448AFF;

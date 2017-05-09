@@ -1,0 +1,23 @@
+<dkt-google-signin action="Log in"></dkt-google-signin>
+
+<div class="separator">Or</div>
+
+<form #signInForm="ngForm" (ngSubmit)="onSignIn(signInForm)" class="single-column">
+  <md-input-container>
+    <input mdInput placeholder="Username" type="text" [(ngModel)]="userData.username" name="username" ngModel #username="ngModel" required>
+    <md-hint *ngIf="username.dirty && username.errors?.required">Username is required</md-hint>
+  </md-input-container>
+
+  <md-input-container>
+    <input mdInput placeholder="Password" type="password" [(ngModel)]="userData.password" name="password" ngModel #password="ngModel" required>
+    <md-hint *ngIf="password.dirty && password.errors?.required">Password is required</md-hint>
+  </md-input-container>
+
+  <button md-button class="full-width margin-top" type="button" [hidden]="userData.username.length == 0" [disabled]="busyPassword" (click)="onForgotPassword(signInForm)">
+    {{busyPassword ? 'Please wait...' : 'Forgot your password?'}}
+  </button>
+
+  <button md-button class="full-width margin-top" type="submit" [disabled]="signInForm.invalid || busy" md-raised-button color="primary">
+    {{busy ? 'Signing in...' : 'Sign in'}}
+  </button>
+</form>

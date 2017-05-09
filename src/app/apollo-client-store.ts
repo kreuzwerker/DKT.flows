@@ -1,12 +1,34 @@
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
+import { UserLoginService } from './core/services';
+
+const networkInterface = createNetworkInterface({
+  // TODO use as soon as server-side authentication works for both UserPool and 
+  // Google SignIn strategies.
+  //
+  // DKT Test API
+  // uri: 'https://x64ywwtnw3.execute-api.eu-west-1.amazonaws.com/Test'
+
+  // DKT Dev API
+  uri: 'https://m0zw22d92f.execute-api.eu-west-1.amazonaws.com/Dev'
+});
+
+networkInterface.use([{
+  applyMiddleware(req, next) {
+    if (!req.options.headers) {
+      req.options.headers = {};  // Create the header object if needed.
+    }
+  
+    // TODO figure out which token to send to the server in case the user has
+    // authenticated with Google SignIn.
+    //
+    // console.log('idToken', UserLoginService.getIdToken());
+    // req.options.headers['authorization'] = UserLoginService.getIdToken();
+    next();
+  }
+}]);
 
 export const client = new ApolloClient({
-  networkInterface: createNetworkInterface({
-    // DKT Mock API
-    // uri: 'https://api.graph.cool/simple/v1/ciy0ib4ja13ay01441ubnmo7z'
-    // DKT Dev API
-    uri: 'https://m0zw22d92f.execute-api.eu-west-1.amazonaws.com/Dev'
-  }),
+  networkInterface,
   // ID mapping required for automatic updates of objects in the store after
   // mutations.
   dataIdFromObject: (result) => {

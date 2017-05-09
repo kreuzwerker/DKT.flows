@@ -1,0 +1,99 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+@import '../../../animations';
+
+$width: 240px;
+$padding: 30px;
+$text-color: #666;
+
+#login {
+  position:relative;
+  height:100%;
+  animation: FadeIn 0.3s;
+
+  md-card {
+    max-width: $width;
+    padding: $padding;
+  }
+
+  .logo {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -37.5px;
+    top: -37.5px;
+    background: #273142 url('/assets/images/dkt-logo.png') no-repeat top left;
+    background-size: 51px 55px;
+    background-position: 13px 9px;
+    box-shadow: 1px 1px 5px #888888;
+  }
+
+  h2 {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+    color: $text-color;
+  }
+
+  button[color="primary"] {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  button.margin-top {
+    margin-top: 0.5rem;
+  }
+
+  p.instructions{margin-bottom:1rem}
+
+  #login-message {
+    // Stretch to card borders
+    margin: 0px ($padding * -1);
+    padding: .7em $padding;
+
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1em;
+
+    &.error {
+      background-color: $error-bg-color;
+    }
+
+    &.success {
+      background-color: $success-bg-color;
+    }
+  }
+
+  div.login-nav {
+    margin: 1rem 0 2rem;
+    border: 1px solid $text-color;
+    border-radius: 3px;
+    white-space: nowrap;
+
+    a {
+      text-transform: uppercase;
+      font-size:0.8rem;
+      line-height: 2.4rem;
+      font-weight: bold;
+      color: $text-color;
+      display: inline-block;
+      width: ($width / 2) - 2px;
+      text-align: center;
+    }
+
+    a.active {
+      color: white;
+      background-color: $text-color;
+    }
+  }
+
+  div.separator {
+    text-align: center;
+    margin: 1em;
+    color: $text-color;
+  }
+}

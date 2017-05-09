@@ -176,6 +176,8 @@ ul, ol {
 // 
 
 @import 'layout';
+@import 'components';
 
 @import "./vendors.scss";
 @import "./dkt-styles.scss";
+@import "./material-fixes.scss"
