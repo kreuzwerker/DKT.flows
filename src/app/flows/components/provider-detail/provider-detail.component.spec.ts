@@ -63,7 +63,7 @@ describe('Flows App', () => {
       it('should set show to true and trigger change detection', () => {
         spyOn(cd, 'markForCheck');
         component.open();
-        expect(component.show).toBeTruthy();
+        expect(component.dialogState).toEqual('showing');
         expect(cd.markForCheck).toHaveBeenCalled();
       });
     });
@@ -72,7 +72,7 @@ describe('Flows App', () => {
       it('should set show to false and trigger change detection', () => {
         spyOn(cd, 'markForCheck');
         component.close();
-        expect(component.show).toBeFalsy();
+        expect(component.dialogState).toEqual('hiding');
         expect(cd.markForCheck).toHaveBeenCalled();
       });
     });

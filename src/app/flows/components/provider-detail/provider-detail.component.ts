@@ -11,8 +11,8 @@ import * as providerHelpers from './../../utils/provider.helpers';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('fadeInOut', [
-      state('true' , style({ opacity: 1, transform: 'scale(1.0)' })),
-      state('false', style({ opacity: 0, transform: 'scale(0.0)'  })),
+      state('showing' , style({ opacity: 1, transform: 'scale(1.0)' })),
+      state('hiding', style({ opacity: 0, transform: 'scale(0.0)' })),
       transition('* <=> *', animate('200ms')),
     ])
   ]
@@ -23,7 +23,7 @@ export class ProviderDetailComponent implements OnChanges {
   @Input() selectableServiceType: ServiceType;
   @Output() onSelectService = new EventEmitter();
 
-  show: boolean = false;
+  dialogState: string = 'hiding';
   triggerServices: Service[] = [];
   actionServices: Service[] = [];
   selectedTabIndex: number = 0;
@@ -43,12 +43,12 @@ export class ProviderDetailComponent implements OnChanges {
   }
 
   open() {
-    this.show = true;
+    this.dialogState = 'showing';
     this.cd.markForCheck();
   }
 
   close() {
-    this.show = false;
+    this.dialogState = 'hiding';
     this.cd.markForCheck();
   }
 
