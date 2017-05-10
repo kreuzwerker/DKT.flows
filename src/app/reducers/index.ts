@@ -4,7 +4,7 @@ import { ActionReducer, combineReducers } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { storeLogger } from 'ngrx-store-logger';
 
-import { routerReducer } from 'ng2-redux-router';
+import { routerReducer } from '@angular-redux/router';
 import { client } from './../apollo-client-store';
 
 import * as fromUser from '../user/user.reducer';

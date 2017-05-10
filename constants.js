@@ -86,8 +86,6 @@ exports.EXCLUDE_SOURCE_MAPS = [
   root('node_modules/apollo-client'),
   root('node_modules/apollo-angular'),
   root('node_modules/angular2-uuid'),
-  // Watch https://github.com/angular-redux/ng2-redux/issues/311
-  root('node_modules/ng2-redux-router'),
 ]
 
 exports.MY_COPY_FOLDERS = [

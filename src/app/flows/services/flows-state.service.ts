@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
+import * as lodash from 'lodash';
 
-import { NgRedux, select } from 'ng2-redux';
+import { NgRedux, select } from '@angular-redux/store';
 import { AppState, Action } from './../../reducers';
 import { FlowsApiService } from './../services';
-import { Flow, FlowData, Step, StepData, Provider, Service } from './../models';
+import { Flow, FlowData, Step, StepData, StepConfigParamsInput, Provider, Service } from './../models';
 import { FlowsAppActions } from './../states';
 
 import { FlowsListData } from './flow.gql';
@@ -159,11 +160,17 @@ export class FlowsStateService {
 
   saveFlowStep(flowId: string, stepId: string, step: StepData): void {
     this.dispatch(this.actions.setSavingFlow(true, false));
+
+    // Remove the __typename property before making the API request
+    let configParams = step.configParams && step.configParams.map(
+      (param) => lodash.omit(param, ['__typename']) as StepConfigParamsInput
+    ) || [];
+
     this.api.updateStep({
       id: stepId,
       position: step.position,
       serviceId: step.service.id,
-      configParams: step.configParams,
+      configParams: configParams,
     }).subscribe((_step) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
     });

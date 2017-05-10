@@ -12,7 +12,7 @@ const networkInterface = createNetworkInterface({
   uri: 'https://m0zw22d92f.execute-api.eu-west-1.amazonaws.com/Dev'
 });
 
-networkInterface.use([{
+const authMiddleware = {
   applyMiddleware(req, next) {
     if (!req.options.headers) {
       req.options.headers = {};  // Create the header object if needed.
@@ -25,7 +25,9 @@ networkInterface.use([{
     // req.options.headers['authorization'] = UserLoginService.getIdToken();
     next();
   }
-}]);
+};
+
+networkInterface.use([authMiddleware]);
 
 export const client = new ApolloClient({
   networkInterface,

@@ -12,8 +12,8 @@ import { HttpModule } from '@angular/http';
 
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 
-import { NgRedux, DevToolsExtension } from 'ng2-redux';
-import { NgReduxRouter } from 'ng2-redux-router';
+import { NgRedux, DevToolsExtension } from '@angular-redux/store';
+import { NgReduxRouter } from '@angular-redux/router';
 import { Action, combineReducers, applyMiddleware, ReducersMapObject } from 'redux';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
