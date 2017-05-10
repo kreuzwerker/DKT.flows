@@ -6,7 +6,7 @@
       <form *ngIf="formModel" [formGroup]="configForm" class="step configuration">
         <div *ngIf="formModel.length; else noConfigForm">
           <dynamic-form-material-control *ngFor="let controlModel of formModel" 
-            [controlGroup]="configForm"
+            [group]="configForm"
             [model]="controlModel">
           </dynamic-form-material-control>
         </div>
