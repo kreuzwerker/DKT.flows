@@ -14,8 +14,8 @@ import { useLogMonitor } from '@ngrx/store-log-monitor';
 
 import { routes } from './app.routing';
 import { rootReducer } from './reducers';
-import { NgReduxModule } from 'ng2-redux';
-import { NgReduxRouterModule } from 'ng2-redux-router';
+import { NgReduxModule } from '@angular-redux/store';
+import { NgReduxRouterModule } from '@angular-redux/router';
 import { StoreDevToolsModule } from './features/store-devtools.module';
 import { UserEffects } from './user/user.effects';
 

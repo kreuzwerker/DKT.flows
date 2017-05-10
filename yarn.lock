@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@angular-redux/router@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@angular-redux/router/-/router-6.2.0.tgz#d5a2f4e0cd966670aa7131524e7f20c665e52c77"
+
+"@angular-redux/store@^6.2.1":
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/@angular-redux/store/-/store-6.2.1.tgz#eac7c5fc1f3647f303625a9f94e735df036eb368"
+
 "@angular/animations@~4.1.0":
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-4.1.1.tgz#1000f8b22dc2031a8c36d225eb2dcf5f6c0d0af5"
@@ -3554,14 +3562,6 @@ ncname@1.0.x:
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
-
-ng2-redux-router@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/ng2-redux-router/-/ng2-redux-router-2.0.0.tgz#386c1d2d70c85b2a439c75ff5913379cc9632b20"
-
-ng2-redux@5.1.2:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/ng2-redux/-/ng2-redux-5.1.2.tgz#db26b583fb70cd116d41f825471252a6711cc572"
 
 ngrx-store-freeze@0.1.9:
   version "0.1.9"

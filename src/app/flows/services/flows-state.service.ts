@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import * as lodash from 'lodash';
 
-import { NgRedux, select } from 'ng2-redux';
+import { NgRedux, select } from '@angular-redux/store';
 import { AppState, Action } from './../../reducers';
 import { FlowsApiService } from './../services';
 import { Flow, FlowData, Step, StepData, StepConfigParamsInput, Provider, Service } from './../models';
