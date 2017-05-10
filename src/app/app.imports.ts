@@ -44,7 +44,7 @@ export const APP_IMPORTS = [
   BrowserAnimationsModule,
   EffectsModule.run(UserEffects),
   MaterialModule,
-  FlexLayoutModule.forRoot(),
+  FlexLayoutModule,
   FormsModule,
   BrowserAnimationsModule,
   ReactiveFormsModule,
