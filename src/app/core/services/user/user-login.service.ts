@@ -1,7 +1,9 @@
+/* tslint:disable: ter-max-len */
+/* tslint:disable-next-line:no-shadowed-variable */
 import { Injectable } from '@angular/core';
 
 import 'aws-sdk/dist/aws-sdk.min.js';
-declare var AWS:any;
+declare var AWS: any;
 import * as AWSCognito from 'amazon-cognito-identity-js';
 
 import { CognitoUtil, UserProfileService, UserState, LocalStorage, Logger } from './../';
@@ -29,7 +31,7 @@ export class UserLoginService {
       UserLoginService._userTokens.accessToken = accessToken;
     }
     return accessToken;
-  };
+  }
 
   public static getIdToken() {
     let idToken: string = UserLoginService._userTokens.idToken;
@@ -39,7 +41,7 @@ export class UserLoginService {
       UserLoginService._userTokens.idToken = idToken;
     }
     return idToken;
-  };
+  }
 
   public static getRefreshToken() {
     let refreshToken: string = UserLoginService._userTokens.refreshToken;
@@ -59,7 +61,8 @@ export class UserLoginService {
   }
 
   public static getAwsSecretAccessKey() {
-    return AWS.config.credentials.secretAccessKey || LocalStorage.get('userTokens.awsSecretAccessKey');
+    return AWS.config.credentials.secretAccessKey
+      || LocalStorage.get('userTokens.awsSecretAccessKey');
   }
 
   public static getAwsSessionToken() {
@@ -90,7 +93,7 @@ export class UserLoginService {
     // Clear username and user ID attributes
     LocalStorage.set('userId', null);
     LocalStorage.set('userName', null);
-  };
+  }
 
   public static signIn(userLogin: IUserLogin): Promise<void> {
     let authenticationData = {
@@ -108,7 +111,6 @@ export class UserLoginService {
     let promise: Promise<void> = new Promise<void>((resolve, reject) => {
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
-          console.debug(result);
           // Save user tokens to local state
           UserLoginService._userTokens.accessToken = result.getAccessToken().getJwtToken();
           UserLoginService._userTokens.idToken = result.getIdToken().getJwtToken();
@@ -116,11 +118,20 @@ export class UserLoginService {
 
 
           LocalStorage.set('userTokens.idToken', UserLoginService._userTokens.idToken);
-          // console.log('%cCognito User Pools Identity Token: ', Logger.LeadInStyle, UserLoginService.getIdToken());
+          // console.log(
+          //   '%cCognito User Pools Identity Token: ',
+          //   Logger.LeadInStyle, UserLoginService.getIdToken()
+          // );
           LocalStorage.set('userTokens.accessToken', UserLoginService._userTokens.accessToken);
-          // console.log('%cCognito User Pools Access Token: ', Logger.LeadInStyle, UserLoginService.getAccessToken());
+          // console.log(
+          //   '%cCognito User Pools Access Token: ',
+          //   Logger.LeadInStyle, UserLoginService.getAccessToken()
+          // );
           LocalStorage.set('userTokens.refreshToken', UserLoginService._userTokens.refreshToken);
-          // console.log('%cCognito User Pools Refresh Token: ', Logger.LeadInStyle, UserLoginService.getRefreshToken());
+          // console.log(
+          //   '%cCognito User Pools Refresh Token: ',
+          //   Logger.LeadInStyle, UserLoginService.getRefreshToken()
+          // );
 
           /*
            Extract the user group from the identity token.
@@ -128,8 +139,10 @@ export class UserLoginService {
            so you can later extract the user group.
            */
           let idTokenPayload = UserLoginService._userTokens.idToken.split('.')[1];
-          let payload = JSON.parse(sjcl.codec.utf8String.fromBits(sjcl.codec.base64url.toBits(idTokenPayload)));
-          let userGroup = payload["cognito:groups"];
+          let payload = JSON.parse(
+            sjcl.codec.utf8String.fromBits(sjcl.codec.base64url.toBits(idTokenPayload))
+          );
+          let userGroup = payload['cognito:groups'];
           if (userGroup && userGroup.length > 0) {
             LocalStorage.set('userGroup', userGroup);
           } else {
@@ -140,7 +153,10 @@ export class UserLoginService {
             userGroup = 'clientGroup';
             LocalStorage.set('userGroup', userGroup);
           }
-          // console.log('%cCognito User Pools User Groups :' + '%c%s belongs to group %s', Logger.LeadInStyle, "black", userLogin.username, userGroup);
+          // console.log(
+          //   '%cCognito User Pools User Groups :' + '%c%s belongs to group %s',
+          //   Logger.LeadInStyle, "black", userLogin.username, userGroup
+          // );
 
           // Set user state to authenticated
           CognitoUtil.setUserState(UserState.SignedIn);
@@ -149,13 +165,24 @@ export class UserLoginService {
           UserProfileService.getUserAttributes().then(() => {
             UserLoginService.getAwsCredentials().then(() => {
               LocalStorage.set('userId', CognitoUtil.getCognitoIdentityId());
-              // console.log('%cCognito Identity ID: ', Logger.LeadInStyle, CognitoUtil.getCognitoIdentityId());
+              // console.log(
+              //   '%cCognito Identity ID: ', Logger.LeadInStyle, CognitoUtil.getCognitoIdentityId()
+              // );
               LocalStorage.set('userTokens.awsAccessKeyId', AWS.config.credentials.accessKeyId);
-              // console.log('%cAWS Access Key ID: ', Logger.LeadInStyle, AWS.config.credentials.accessKeyId);
+              // console.log(
+              //   '%cAWS Access Key ID: ',
+              //   Logger.LeadInStyle, AWS.config.credentials.accessKeyId
+              // );
               LocalStorage.set('userTokens.awsSecretAccessKey', AWS.config.credentials.secretAccessKey);
-              // console.log('%cAWS Secret Access Key: ', Logger.LeadInStyle, AWS.config.credentials.secretAccessKey);
+              // console.log(
+              //   '%cAWS Secret Access Key: ',
+              //   Logger.LeadInStyle, AWS.config.credentials.secretAccessKey
+              // );
               LocalStorage.set('userTokens.awsSessionToken', AWS.config.credentials.sessionToken);
-              // console.log('%cAWS Session Token: ', Logger.LeadInStyle, AWS.config.credentials.sessionToken);
+              // console.log(
+              //   '%cAWS Session Token: ',
+              //   Logger.LeadInStyle, AWS.config.credentials.sessionToken
+              // );
             });
             resolve();
           }).catch((err) => {
@@ -292,7 +319,7 @@ export class UserLoginService {
 
   public static isSignedIn(): boolean {
     let token = UserLoginService.getIdToken();
-    return typeof token == 'string' && token != 'null';
+    return typeof token === 'string' && token !== 'null';
   }
 
   /**
@@ -319,7 +346,7 @@ export class UserLoginService {
           return;
         },
         inputVerificationCode() {
-          console.log('Waiting for input of verification code')
+          console.log('Waiting for input of verification code');
           resolve();
         }
       });

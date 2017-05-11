@@ -2,7 +2,7 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { UserLoginService } from './core/services';
 
 const networkInterface = createNetworkInterface({
-  // TODO use as soon as server-side authentication works for both UserPool and 
+  // TODO use as soon as server-side authentication works for both UserPool and
   // Google SignIn strategies.
   //
   // DKT Test API
@@ -17,7 +17,7 @@ const authMiddleware = {
     if (!req.options.headers) {
       req.options.headers = {};  // Create the header object if needed.
     }
-  
+
     // TODO figure out which token to send to the server in case the user has
     // authenticated with Google SignIn.
     //

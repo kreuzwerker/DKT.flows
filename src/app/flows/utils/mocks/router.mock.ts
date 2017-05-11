@@ -1,6 +1,6 @@
 export class MockRouter {
-  navigate() { };
-  subscribe() { };
-  isRouteActive() { };
-  generate() { };
+  navigate() { }
+  subscribe() { }
+  isRouteActive() { }
+  generate() { }
 }

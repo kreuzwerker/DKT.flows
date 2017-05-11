@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DynamicFormsCoreModule } from "@ng2-dynamic-forms/core";
-import { DynamicFormsMaterialUIModule } from "@ng2-dynamic-forms/ui-material";
+import { DynamicFormsCoreModule } from '@ng2-dynamic-forms/core';
+import { DynamicFormsMaterialUIModule } from '@ng2-dynamic-forms/ui-material';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Routes, RouterModule } from '@angular/router';
@@ -98,6 +98,10 @@ const routes: Routes = [
     FlowsAppActions,
     FormBuilderService,
   ],
-  entryComponents: [ NewFlowDialogComponent, DeleteFlowDialogComponent, TriggerFlowRunDialogComponent ],
+  entryComponents: [
+    NewFlowDialogComponent,
+    DeleteFlowDialogComponent,
+    TriggerFlowRunDialogComponent
+  ],
 })
 export class FlowsModule {}

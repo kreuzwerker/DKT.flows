@@ -53,7 +53,7 @@ export class AppModule {
       applyMiddleware(client.middleware()),
     ];
 
-    if(devTools.isEnabled()) {
+    if (devTools.isEnabled()) {
       enhancers.push(devTools.enhancer());
     }
 

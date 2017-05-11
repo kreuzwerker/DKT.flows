@@ -12,7 +12,7 @@ export class LoginUiState {
   public messageType = 'success';
 
   public setLoginCompUIHeader(type: string): void {
-    if (type == 'login') {
+    if (type === 'login') {
       this.title = 'Log in';
       this.currentNav = 'logIn';
     } else {

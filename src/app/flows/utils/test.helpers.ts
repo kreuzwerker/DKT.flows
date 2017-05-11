@@ -48,7 +48,7 @@ export class TestUtils {
       icon: icon,
       services: services,
     };
-  };
+  }
 
   createProvidersListData(): Provider[] {
     return [
@@ -126,4 +126,4 @@ export class TestUtils {
       tested: tested,
     };
   }
-};
+}

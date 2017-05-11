@@ -36,7 +36,7 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.render();
-  };
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['step'] !== undefined || changes['currentActive'] !== undefined) {
@@ -57,7 +57,7 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
       this.headerIcon = 'settings';
       this.headerTitle = 'Set up this step';
     }
-  };
+  }
 
   getStepOptions(
     step: Step,

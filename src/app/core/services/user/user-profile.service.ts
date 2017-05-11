@@ -10,7 +10,7 @@ export class UserProfileService {
           reject(err);
           return;
         }
-        cognitoUser
+
         cognitoUser.getUserAttributes((err: Error, result: any) => {
           if (err) {
             reject(err);
@@ -18,15 +18,18 @@ export class UserProfileService {
           }
           let userAttributes = {};
 
-          for (var i = 0; i < result.length; i++) {
+          for (let i = 0; i < result.length; i++) {
             userAttributes[result[i].getName()] = result[i].getValue();
           }
-          // console.log('%cCognito User Pools User Attributes: ', Logger.LeadInStyle, userAttributes);
+          // console.log(
+          //   '%cCognito User Pools User Attributes: ',
+          //   Logger.leadInStyle, userAttributes
+          // );
           // Write user profile attributes to local storage
           LocalStorage.setObject('userProfile', userAttributes);
           resolve(userAttributes);
         });
-      })
+      });
     });
     return promise;
   }

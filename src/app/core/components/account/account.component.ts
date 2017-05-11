@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CognitoUtil, UserLoginService } from './../../services';
-import { GoogleSignInConfig } from './../../config';
+import { googleSignInConfig } from './../../config';
 import { FlowsStateService } from './../../../flows/services';
 
 declare var gapi: any;
@@ -11,7 +11,7 @@ declare var gapi: any;
   templateUrl: 'account.component.html',
   styleUrls: ['account.component.css']
 })
-export class AccountComponent {
+export class AccountComponent implements AfterViewInit {
   constructor(
     public state: FlowsStateService,
     public router: Router,
@@ -19,7 +19,7 @@ export class AccountComponent {
 
   ngAfterViewInit() {
     gapi.load('auth2', () => {
-      gapi.auth2.init(GoogleSignInConfig);
+      gapi.auth2.init(googleSignInConfig);
     });
   }
 
@@ -48,7 +48,7 @@ export class AccountComponent {
   }
 
   getAvatar(): string {
-    let profile:any = CognitoUtil.getUserProfile();
+    let profile: any = CognitoUtil.getUserProfile();
     return profile && profile.imageUrl || null;
   }
 }

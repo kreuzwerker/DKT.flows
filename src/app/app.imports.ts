@@ -1,6 +1,6 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DynamicFormsCoreModule } from "@ng2-dynamic-forms/core";
-import { DynamicFormsMaterialUIModule } from "@ng2-dynamic-forms/ui-material";
+import { DynamicFormsCoreModule } from '@ng2-dynamic-forms/core';
+import { DynamicFormsMaterialUIModule } from '@ng2-dynamic-forms/ui-material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';

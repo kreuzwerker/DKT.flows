@@ -81,8 +81,8 @@ describe('Flows App', () => {
 
       it('should initialize the configuration form with the given schema and values', () => {
         component.initForm(step.service.configSchema, step.configParams);
-        expect(component.formModel).not.toBeNull;
-        expect(component.configForm).not.toBeNull;
+        expect(component.formModel).not.toBeNull();
+        expect(component.configForm).not.toBeNull();
       });
     });
 

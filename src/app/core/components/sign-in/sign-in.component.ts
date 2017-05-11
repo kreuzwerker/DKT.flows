@@ -11,6 +11,11 @@ export class SignInComponent {
   public busy: boolean = false;
   public busyPassword: boolean = false;
 
+  public userData: IUserLogin = {
+    username: '',
+    password: ''
+  };
+
   constructor(
     public router: Router,
     private loginUi: LoginUiState
@@ -22,11 +27,6 @@ export class SignInComponent {
   /**
    * AWS UserPool sign in
    */
-
-   public userData: IUserLogin = {
-    username: '',
-    password: ''
-  };
 
   onSignIn(form) {
     if (form && form.valid) {
@@ -53,7 +53,10 @@ export class SignInComponent {
       UserLoginService.forgotPassword(this.userData.username)
       .then((data) => {
         this.busyPassword = false;
-        this.loginUi.setLoginCompUIMessage('A verification code has been emailed to you.', 'success');
+        this.loginUi.setLoginCompUIMessage(
+          'A verification code has been emailed to you.',
+          'success'
+        );
         // @see https://github.com/angular/angular/issues/6005
         setTimeout(() => {
           this.router.navigate(['/login/forgot-password']);

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import 'aws-sdk/dist/aws-sdk.min.js';
-declare var AWS:any;
+declare var AWS: any;
 import * as AWSCognito from 'amazon-cognito-identity-js';
 
-import { AWSConfig as Config } from './../../config';
+import { awsConfig as Config } from './../../config';
 import { LocalStorage } from './../';
 
 export enum UserState {
@@ -68,12 +68,13 @@ export class CognitoUtil {
 
   public static getUserGroup(): string {
     // Retrieve the user group from the local storage
-    return LocalStorage.get("userGroup");
+    return LocalStorage.get('userGroup');
   }
 
   public static getUserState(): UserState {
     // Retrieve user state from local storage. Return null if it does not exist
-    switch (parseInt(LocalStorage.get('userState'))) {
+
+    switch (parseInt(LocalStorage.get('userState'), 10)) {
       case 0:
         return UserState.SignedOut;
       case 1:
@@ -85,7 +86,7 @@ export class CognitoUtil {
       default:
         return null;
     }
-  };
+  }
 
   public static setUserState(userState: UserState) {
     LocalStorage.set('userState', JSON.stringify(userState));
@@ -99,7 +100,7 @@ export class CognitoUtil {
     };
 
     // TODO REMOVE ?
-    // 
+    //
     // AWSCognito.config.region = CognitoUtil._REGION;
     // AWSCognito.config.credentials = new AWS.CognitoIdentityCredentials({
     //   IdentityPoolId: CognitoUtil._IDENTITY_POOL_ID
@@ -111,7 +112,8 @@ export class CognitoUtil {
       IdentityPoolId: CognitoUtil._IDENTITY_POOL_ID
     });
 
-    // Initialize AWS config object with dummy keys - required if unauthenticated access is not enabled for identity pool
+    // Initialize AWS config object with dummy keys - required if unauthenticated
+    // access is not enabled for identity pool
     AWS.config.update({accessKeyId: 'dummyvalue', secretAccessKey: 'dummyvalue'});
     return new AWSCognito.CognitoUserPool(poolData);
   }

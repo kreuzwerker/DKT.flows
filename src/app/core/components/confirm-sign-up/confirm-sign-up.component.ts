@@ -10,6 +10,10 @@ import { LoginUiState, UserLoginService, UserRegistrationService } from './../..
 export class ConfirmSignUpComponent {
   public busy: boolean = false;
 
+  public registrationCode = {
+    code: undefined
+  };
+
   constructor(
     private router: Router,
     private loginUi: LoginUiState
@@ -18,17 +22,16 @@ export class ConfirmSignUpComponent {
     this.loginUi.setLoginCompUIHeader('signup');
   }
 
-  public registrationCode = {
-    code: undefined
-  };
-
   onConfirmSignUp(form) {
     if (form && form.valid) {
       this.busy = true;
       UserRegistrationService.confirmSignUp(this.registrationCode.code.toString())
       .then(() => {
         this.busy = false;
-        this.loginUi.setLoginCompUIMessage('You are now successfully registered! You can now sign-in using your username/password.', 'success');
+        this.loginUi.setLoginCompUIMessage(
+          'You are now successfully registered! You can now sign-in using your username/password.',
+          'success'
+        );
         this.router.navigate(['login']);
       }).catch((err: Error) => {
         this.busy = false;

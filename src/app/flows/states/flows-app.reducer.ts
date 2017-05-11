@@ -12,7 +12,7 @@ export interface FlowsAppState {
   loadingProviders: boolean;
   savingFlow: boolean;
   savedFlow: boolean;
-};
+}
 
 const initialState: FlowsAppState = {
   flowId: null,

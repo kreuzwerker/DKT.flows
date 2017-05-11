@@ -42,21 +42,27 @@ export class UserRegistrationService {
     attributeList.push(attributeFamilyName);
 
     let promise: Promise<void> = new Promise<void>((resolve, reject) => {
-      CognitoUtil.getUserPool().signUp(signUpData.username, signUpData.password, attributeList, undefined, (err, result) => {
-        if (err) {
-          reject(err);
-          return;
+      CognitoUtil.getUserPool().signUp(
+        signUpData.username,
+        signUpData.password,
+        attributeList,
+        undefined,
+        (err, result) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          console.log('Username is ' + result.user.getUsername());
+          console.log('Sign-up successful!');
+
+          // Update user state to 'pendingConfirmation'
+          CognitoUtil.setUsername(signUpData.username);
+          CognitoUtil.setUserState(UserState.PendingConfirmation);
+
+          // Sign-up successful. Callback without error.
+          resolve();
         }
-        console.log('Username is ' + result.user.getUsername());
-        console.log('Sign-up successful!');
-
-        // Update user state to 'pendingConfirmation'
-        CognitoUtil.setUsername(signUpData.username);
-        CognitoUtil.setUserState(UserState.PendingConfirmation);
-
-        // Sign-up successful. Callback without error.
-        resolve();
-      });
+      );
     });
     return promise;
   }
@@ -83,13 +89,16 @@ export class UserRegistrationService {
     };
 
     let promise: Promise<void> = new Promise<void>((resolve, reject) => {
-      new AWS.CognitoIdentityServiceProvider().resendConfirmationCode(cognitoParams, (err: Error, data: any) => {
-        if (err) {
-          reject(err);
-          return;
+      new AWS.CognitoIdentityServiceProvider().resendConfirmationCode(
+        cognitoParams,
+        (err: Error, data: any) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve(data);
         }
-        resolve(data);
-      });
+      );
     });
     return promise;
   }

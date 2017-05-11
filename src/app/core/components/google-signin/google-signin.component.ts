@@ -1,8 +1,8 @@
-import { Component, NgZone, Input } from '@angular/core';
+import { Component, NgZone, Input, AfterViewInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MdIconRegistry } from '@angular/material';
 import { Router } from '@angular/router';
-import { GoogleSignInConfig } from './../../config';
+import { googleSignInConfig } from './../../config';
 import { LoginUiState, UserLoginService } from './../../services';
 
 declare var gapi: any;
@@ -12,7 +12,7 @@ declare var gapi: any;
   templateUrl: 'google-signin.component.html',
   styleUrls: ['google-signin.component.css']
 })
-export class GoogleSigninComponent {
+export class GoogleSigninComponent implements AfterViewInit {
   @Input() action: string = 'Log in';
 
   constructor(
@@ -31,11 +31,11 @@ export class GoogleSigninComponent {
 
   /**
    * Google SignIn
-   */ 
+   */
 
   ngAfterViewInit() {
     gapi.load('auth2', () => {
-      let auth2 = gapi.auth2.init(GoogleSignInConfig);
+      let auth2 = gapi.auth2.init(googleSignInConfig);
 
       auth2.attachClickHandler('googleSignInBtn', {
         scope: 'profile'
@@ -48,13 +48,13 @@ export class GoogleSigninComponent {
       this.loginUi.clearLoginCompUIMessage();
       UserLoginService.signInSocial(user);
       this.router.navigate(['/']);
-    })
+    });
   }
 
   onGoogleSignInFailure(err): void {
     this.zone.run(() => {
       this.loginUi.setLoginCompUIMessage('An error occured.', 'error');
       console.log('Google SignIn error', err);
-    })
+    });
   }
 }

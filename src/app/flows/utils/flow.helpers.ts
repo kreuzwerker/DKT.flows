@@ -12,7 +12,7 @@ export function flowIsExecutable(flow: Flow): boolean {
     if  (stepHelpers.stepIsExecutable(step) === false) {
       return false;
     }
-  };
+  }
 
   return true;
 }
