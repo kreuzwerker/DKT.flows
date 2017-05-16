@@ -16,7 +16,7 @@
 
       <dkt-flow-step-nav-buttons 
         backPath="{{flowsApp.flowStepPath()}}/configure" backLabel="Back"
-        continuePath="{{flowsApp.flowPath()}}" continueLabel="Finish"
+        continuePath="{{flowsApp.flowPath()}}" continueLabel="{{step?.tested ? 'Finish' : 'Skip Test and Finish'}}"
         ></dkt-flow-step-nav-buttons>
     </div>
   </div>
