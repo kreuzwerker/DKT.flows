@@ -3,6 +3,8 @@
     <dkt-flow-step-config-nav [type]="flowsApp.stepTypeName" [current]="'test'" class="col-header"></dkt-flow-step-config-nav>
 
     <div class="padding">
+      <dkt-step-test-result [type]="stepTestResultType" [data]="stepTestResultData" [show]="showTestResults"></dkt-step-test-result>
+
       <form #testFlowForm="ngForm" (ngSubmit)="testStep(testFlowForm.value.payload)" class="step test">
         <md-input-container class="full-width">
           <textarea mdInput [ngModel]="samplePayload" #payload="ngModel" placeholder="Test data" type="text" name="payload" rows="10" required></textarea>

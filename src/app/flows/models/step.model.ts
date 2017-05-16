@@ -29,3 +29,5 @@ export class StepTest {
   error: any;
   tested: boolean;
 }
+
+export enum StepTestResultType { ERROR, TEXT, HTML, JSON }

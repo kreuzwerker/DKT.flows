@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs/Subject';
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { FlowsAppService, FlowsStateService } from './../../services';
-import { Step } from './../../models';
+import { Step, StepTestResultType } from './../../models';
 
 @Component({
   selector: 'test-step',
@@ -14,6 +14,10 @@ export class TestStepComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   step: Step = null;
   samplePayload: String = '';
+
+  showTestResults: Boolean = false;
+  stepTestResultData: String = null;
+  stepTestResultType: StepTestResultType = null;
 
   constructor(
     public flowsApp: FlowsAppService,
@@ -29,6 +33,12 @@ export class TestStepComponent implements OnInit, OnDestroy {
       this.onSelectStep.bind(this),
       (err) => console.log('error', err)
     );
+
+    // Tested flow step
+    this.state.testedFlowStep$.takeUntil(this.ngOnDestroy$).subscribe(
+      this.onTestedFlowStep.bind(this),
+      (err) => console.log('error', err)
+    );
   }
 
   onSelectStep(step: Step) {
@@ -42,6 +52,20 @@ export class TestStepComponent implements OnInit, OnDestroy {
 
   testStep(payload: String) {
     this.state.testFlowStep(this.flowsApp.step.id, payload);
+  }
+
+  onTestedFlowStep(stepTest: any) {
+    if (stepTest === 'loading') {
+      this.showTestResults = false;
+    } else if (stepTest.tested) {
+      this.stepTestResultData = stepTest.result;
+      // TODO result type should be provided by server
+      this.stepTestResultType = StepTestResultType.HTML;
+      this.showTestResults = true;
+    } else {
+      this.stepTestResultData = null;
+      this.stepTestResultType = StepTestResultType.ERROR;
+    }
   }
 
   ngOnDestroy(): void {
