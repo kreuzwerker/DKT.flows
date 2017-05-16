@@ -33,7 +33,6 @@ import { APP_PROVIDERS } from './app.providers';
 import { routes } from './app.routing';
 
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './features/dashboard.component';
 
 import { AppState, rootReducer } from './reducers';
 
