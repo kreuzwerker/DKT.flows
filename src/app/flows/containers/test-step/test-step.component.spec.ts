@@ -37,6 +37,14 @@ describe('Flows App', () => {
         store.step.next(step);
         expect(component.onSelectStep).toHaveBeenCalledWith(step);
       });
+
+      it('should call onTestedFlowStep() when the current step is being tested', () => {
+        spyOn(component, 'onTestedFlowStep');
+        component.ngOnInit();
+        const stepTest = 'loading';
+        state.testedFlowStep$.next(stepTest);
+        expect(component.onTestedFlowStep).toHaveBeenCalledWith(stepTest);
+      });
     });
 
     describe('testStep()', () => {
@@ -46,6 +54,26 @@ describe('Flows App', () => {
         const payload = 'test payload';
         component.testStep(payload);
         expect(spy).toHaveBeenCalledWith('1', payload);
+      });
+    });
+
+    describe('onTestedFlowStep()', () => {
+      it('should hide test results while step test is active', () => {
+        component.onTestedFlowStep('loading');
+        expect(component.showTestResults).toBeFalsy();
+      });
+
+      it('should show test results if step test was successful', () => {
+        let stepTest = utils.createStepTestData();
+        component.onTestedFlowStep(stepTest);
+        expect(component.showTestResults).toBeTruthy();
+      });
+
+      it('should hide test results if step test was unsuccessful', () => {
+        let stepTest = utils.createStepTestData();
+        stepTest.tested = false;
+        component.onTestedFlowStep(stepTest);
+        expect(component.showTestResults).toBeFalsy();
       });
     });
   });
