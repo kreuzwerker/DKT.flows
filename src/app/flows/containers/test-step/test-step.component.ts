@@ -63,6 +63,7 @@ export class TestStepComponent implements OnInit, OnDestroy {
       this.stepTestResultType = StepTestResultType.HTML;
       this.showTestResults = true;
     } else {
+      this.showTestResults = false;
       this.stepTestResultData = null;
       this.stepTestResultType = StepTestResultType.ERROR;
     }
