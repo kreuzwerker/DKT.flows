@@ -13,3 +13,13 @@ export interface FlowData {
   description: string;
   steps?: Array<StepData>;
 }
+
+export enum FlowState {
+  MISSING_TRIGGER,
+  UNFINISHED_TRIGGER,
+  MISSING_ACTION,
+  UNFINISHED_ACTION,
+  NOT_ACTIVATED,
+  NOT_TRIGGERED,
+  TRIGGERED
+}

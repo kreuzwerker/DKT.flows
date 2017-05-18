@@ -4,6 +4,7 @@
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
 import * as _ from 'lodash';
 
 import { Flow, Step, Service, ServiceType } from './../models';
@@ -27,6 +28,8 @@ export class FlowsAppService {
   statusMessageText: string = '';
   statusMessageType: string = 'success';
   statusMessageShow: boolean = false;
+  // Allow children components to control dialogs
+  openTriggerFlowRunDialog$: Subject<any> = new Subject<any>();
 
   constructor(
     public state: FlowsStateService,
@@ -66,7 +69,7 @@ export class FlowsAppService {
     let newStep = this.createStepObject(position);
     this.state.addFlowStep(this.flow.id, newStep).subscribe((step) => {
       // Select new step
-      this.router.navigate(['flows', this.flow.id, 'steps', step.id, 'select-service']);
+      this.selectStep(this.flow.id, step.id);
     });
   }
 
@@ -110,6 +113,14 @@ export class FlowsAppService {
   /*
     Helpers
   */
+
+  showAllFlows() {
+    this.router.navigate(['flows']);
+  }
+
+  selectStep(flowId: string, stepId: string) {
+    this.router.navigate(['flows', this.flow.id, 'steps', stepId, 'select-service']);
+  }
 
   flowPath(): string {
     return this.flow ? `/flows/${this.flow.id}` : '';

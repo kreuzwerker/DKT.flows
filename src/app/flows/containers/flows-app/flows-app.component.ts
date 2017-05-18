@@ -70,6 +70,12 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
       this.onTestedFlowStep.bind(this),
       (err) => console.log('error', err)
     );
+
+    // An external component opens the "trigger flow run" dialog
+    this.flowsApp.openTriggerFlowRunDialog$.takeUntil(this.ngOnDestroy$).subscribe(
+      this.openTriggerFlowRunDialog.bind(this),
+      (err) => console.log('error', err)
+    );
   }
 
   ngOnDestroy(): void {

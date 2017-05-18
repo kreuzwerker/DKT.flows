@@ -1,11 +1,32 @@
 @import './variables';
 
 .info-box {
+  width: 300px;
   padding: 3rem;
   background-color: #fff;
   // Grey 100
-  border:1px solid #E0E0E0;
-  border-radius: 4px; 
+  border:1px solid $element-border-color;
+  border-radius: 4px;
+
+  h6.message {
+    margin: 1rem 0;
+    line-height: 1.3rem;
+    text-align: center;
+  }
+
+  md-icon {
+    color: white;
+  }
+
+  md-icon.box-icon {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    font-size: 50px;
+    background-color: $dkt-blue;
+    padding: 10px;
+    margin-bottom: 1rem;
+  }
 }
 
 /*

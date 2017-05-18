@@ -90,6 +90,16 @@ describe('Flows App', () => {
       });
     });
 
+    xdescribe('showAllFlows()', () => {
+      xit('should redirect to the flows overview', () => {
+      });
+    });
+
+    xdescribe('selectStep()', () => {
+      xit('should redirect to the given flow step\'s select service view', () => {
+      });
+    });
+
     describe('flowPath()', () => {
       it('should return the correct path for the given flow', () => {
         const path = `/flows/${service.flow.id}`;

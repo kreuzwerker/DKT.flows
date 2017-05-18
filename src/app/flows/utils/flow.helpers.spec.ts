@@ -1,7 +1,8 @@
 /* tslint:disable: ter-max-len */
 import { TestUtils } from './test.helpers';
 import * as helpers from './flow.helpers';
-import { Flow } from './../models';
+import * as stepHelpers from './step.helpers';
+import { Flow, ServiceType } from './../models';
 
 describe('Flows App', () => {
 
@@ -12,6 +13,44 @@ describe('Flows App', () => {
     beforeEach(() => {
       utils = new TestUtils();
       flow = utils.createFlowData();
+    });
+
+    describe('getFlowTriggerStep()', () => {
+      it('should return the trigger step from the given flow', () => {
+        let trigger = helpers.getFlowTriggerStep(flow);
+        expect(stepHelpers.getStepServiceType(trigger)).toBe(ServiceType.TRIGGER);
+      });
+    });
+
+    describe('flowHasTriggerStep()', () => {
+      it('should return true if the given flow has a trigger step', () => {
+        expect(helpers.flowHasTriggerStep(flow)).toBeTruthy();
+      });
+    });
+
+    describe('getFlowActionStep()', () => {
+      it('should return the first action step from the given flow', () => {
+        let action = helpers.getFlowActionStep(flow);
+        expect(stepHelpers.getStepServiceType(action)).toBe(ServiceType.ACTION);
+      });
+    });
+
+    describe('flowHasActionStep()', () => {
+      it('should return true if the given flow has an action step', () => {
+        expect(helpers.flowHasActionStep(flow)).toBeTruthy();
+      });
+    });
+
+    describe('flowIsActivated()', () => {
+      it('should return true if the given flow is activated', () => {
+        expect(helpers.flowIsActivated(flow)).toBeTruthy();
+      });
+    });
+
+    describe('flowIsTriggered()', () => {
+      it('should return false if the given flow is not triggered', () => {
+        expect(helpers.flowIsTriggered(flow)).toBeFalsy();
+      });
     });
 
     describe('flowIsExecutable()', () => {
@@ -28,6 +67,11 @@ describe('Flows App', () => {
 
       it('should return true if all flow steps are executable', () => {
         expect(helpers.flowIsExecutable(flow)).toBeTruthy();
+      });
+    });
+
+    xdescribe('getFlowState', () => {
+      xit('should return the appropriate flow state for the given flow', () => {
       });
     });
   });

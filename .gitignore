@@ -9,6 +9,7 @@ Thumbs.db
 /node_modules
 /bower_components
 npm-debug.log
+.node-version
 
 # Typing #
 /src/typings/tsd/

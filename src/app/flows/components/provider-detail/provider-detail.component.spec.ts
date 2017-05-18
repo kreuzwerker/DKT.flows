@@ -33,7 +33,7 @@ describe('Flows App', () => {
     // - I can close the dialog
 
     it('should correctly initialize properties', () => {
-      expect(component.show).toBeFalsy();
+      expect(component.dialogState).toEqual('hiding');
       expect(component.triggerServices).toEqual([]);
       expect(component.actionServices).toEqual([]);
       expect(component.selectedTabIndex).toBe(0);

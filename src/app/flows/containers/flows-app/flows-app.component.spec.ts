@@ -82,7 +82,7 @@ describe('Flows App', () => {
         expect(spy).toHaveBeenCalledWith(step);
       });
 
-      it('should call onCreatedFlowRun() when a new flow step got created', () => {
+      it('should call onCreatedFlowRun() when a new flow run got created', () => {
         let spy = spyOn(component, 'onCreatedFlowRun');
         component.ngOnInit();
         const flowRun = utils.createFlowRunData();
@@ -96,6 +96,13 @@ describe('Flows App', () => {
         const stepTest = utils.createStepTestData();
         state.testedFlowStep$.next(stepTest);
         expect(spy).toHaveBeenCalledWith(stepTest);
+      });
+
+      it('should call openTriggerFlowRunDialog() when the dialog got request externally', () => {
+        let spy = spyOn(component, 'openTriggerFlowRunDialog');
+        component.ngOnInit();
+        flowsApp.openTriggerFlowRunDialog$.next(true);
+        expect(spy).toHaveBeenCalled();
       });
 
       it('ngOnDestroy() should unscribe all subscriptions', () => {
