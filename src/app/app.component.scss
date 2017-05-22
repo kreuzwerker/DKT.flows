@@ -20,5 +20,13 @@
     background: #273142 url('/assets/images/dkt-logo.png') no-repeat top left;
     background-size: 51px 55px;
     background-position: 15px 5px;
+    position:relative;
+
+    dkt-account {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 10px;
+    }
   }
 }

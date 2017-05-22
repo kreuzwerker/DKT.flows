@@ -7,6 +7,6 @@
 
 <button md-button [mdMenuTriggerFor]="userMenu">
   <img *ngIf="getAvatar() " class="avatar" [src]="getAvatar()" alt="">
-  <span class="username">{{getUsername()}}</span>
+  <span class="username" fxHide.sm>{{getUsername()}}</span>
   <md-icon>keyboard_arrow_down</md-icon>
 </button>

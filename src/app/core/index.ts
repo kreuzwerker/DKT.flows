@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@angular/material';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Components
 import { AccountComponent } from './components/account/account.component';
@@ -11,6 +12,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { GoogleSigninComponent } from './components/google-signin/google-signin.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
+import { MainNavComponent } from './components/main-nav/main-nav.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 
@@ -41,11 +43,13 @@ const routes: Routes = [
     GoogleSigninComponent,
     LoadingIndicatorComponent,
     LoginComponent,
+    MainNavComponent,
     SignInComponent,
     SignUpComponent,
   ],
   imports: [
     CommonModule,
+    FlexLayoutModule,
     MaterialModule.forRoot(),
     RouterModule.forChild(routes),
     FormsModule,
@@ -55,6 +59,7 @@ const routes: Routes = [
     AccountComponent,
     LoadingIndicatorComponent,
     LoginComponent,
+    MainNavComponent,
   ],
   providers: [
     UserLoginService,

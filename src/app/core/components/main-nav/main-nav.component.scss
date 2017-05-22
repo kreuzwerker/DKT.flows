@@ -1,0 +1,36 @@
+.main-nav {
+  a {
+    $border-radius: 4px;
+    $border-color: #394863;
+    $border: 1px solid $border-color;
+
+    display: inline-block;
+    border: $border;
+    border-right: none;
+    padding: 4px 15px;
+    font-size: 11px;
+    color: #7F8FA4;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    &:first-child {
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+    }
+
+    &:last-child {
+      border-right: $border;
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+    }
+
+    &:hover, &.active {
+      background-color: $border-color;
+      color:white;
+    }
+
+    md-icon {
+      margin-right:5px;
+    }
+  }
+}
