@@ -1,16 +1,26 @@
 <div class="layout full-height" fxLayout="row" fxLayoutAlign="start start">
   <div class="left border-right padding" fxLayout="column">
-    <button md-raised-button (click)="openNewFlowDialog()"><md-icon>add</md-icon> create flow</button>
+    <button md-raised-button color="primary" (click)="openNewFlowDialog()"><md-icon>add</md-icon> create flow</button>
   </div>
 
   <div class="main" fxFlex>
     <dkt-loading-indicator *ngIf="state.select('loadingFlows') | async" text="Loading flows" center="true"></dkt-loading-indicator>
 
-    <md-list>
+    <md-list class="flows">
       <md-list-item *ngFor="let flow of state.flows$ | async" class="padding">
-        <h3 md-line>{{flow.name}}</h3>
-        <md-icon routerLink="/flows/{{flow.id}}">edit</md-icon>
-        <md-icon (click)="openDeleteFlowDialog(flow.id, flow.name)">delete</md-icon>
+        <!--<md-icon md-list-icon class="first-step">rss_feed</md-icon>-->
+        <!--<md-icon md-list-icon class="chevron">chevron_right</md-icon>-->
+        <!--<div md-list-icon class="steps-count">1</div>-->
+        <!--<md-icon md-list-icon class="chevron">chevron_right</md-icon>-->
+        <!--<md-icon md-list-icon class="last-step">description</md-icon>-->
+        <!--<div md-list-icon class="seperator"></div>-->
+        <h3 md-line>
+          <span *ngIf="flowHasError(flow)" class="label error">error</span>
+          <span *ngIf="flowIsInDraft(flow)" class="label error">error</span>
+          {{flow.name}}
+        </h3>
+        <md-icon class="option" routerLink="/flows/{{flow.id}}">edit</md-icon>
+        <md-icon class="option" (click)="openDeleteFlowDialog(flow.id, flow.name)">delete</md-icon>
       </md-list-item>
     </md-list>
   </div>

@@ -1,5 +1,6 @@
 /* TODO relative paths are bad. find a way to import variables globally:
 https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
 @import '../../../animations';
 
 /*
@@ -23,33 +24,66 @@ div.layout {
  Flows list
  */
 
-md-list {
+md-list.flows {
   width: 100%;
   max-width: 900px;
   margin: 2rem;
   padding-top:0px;
 }
 
-$list-item-color: #e6e6e6;
+$list-item-border-color: #E6EAEE;
 
-md-list-item {
+md-list.flows md-list-item {
   margin: 0 0 1rem 0;
-  border: 1px solid $list-item-color;
+  border: 1px solid $list-item-border-color;
   border-left-width:5px;
   border-radius: 3px;
   cursor:default;
   background-color: white;
   animation: FadeIn 0.3s;
 
-  md-icon:hover {
+  &:hover {
+    background-color:#f7f7f7;
+  }
+
+  .mat-list-text {
+    padding:0!important;
+  }
+
+  div.seperator {
+    min-width: 1px!important;
+    max-width: 1px!important;
+    height: 100%!important;
+    background-color: $list-item-border-color;
+    border-radius: 0!important;
+    padding:0!important;
+    margin: 0 1rem!important;
+  }
+
+  md-icon.chevron {
+    color: #999;
+  }
+
+  div.steps-count {
+    display: inline-block;
+    background-color: $list-item-border-color;
+    color: #666;
+    font-weight: bold;
+    text-align: center;
+    font-size:1rem;
+    min-width: 28px!important;
+    max-width: 28px!important;
+    min-height: 28px!important;
+    max-height: 28px!important;
+    line-height: 28px;
+    padding: 0;
+  }
+
+  md-icon.option:hover {
     cursor: pointer;
   }
 
-  md-icon {
+  md-icon.option {
     margin-left:1rem;
-  }
-
-  &:hover {
-    background-color:$list-item-color;
   }
 }
