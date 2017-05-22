@@ -12,6 +12,7 @@ $break-large: 1200px;
 */
 
 $dkt-blue: #2196F3;
+$warning-color: #D35847;
 
 // Grey 100
 $element-bg-color: #F5F5F5;
@@ -37,9 +38,7 @@ $inactive-button-color: #E0E0E0;
 
 // Green A700
 $success-bg-color: $active-color;
-$error-bg-color: #D35847;
-
-$warning-color: red;
+$error-bg-color: $warning-color;
 
 /*
   --- Flows app ----------------------------------------------------------------

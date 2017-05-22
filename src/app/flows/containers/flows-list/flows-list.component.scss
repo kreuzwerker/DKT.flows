@@ -82,8 +82,14 @@ md-list.flows md-list-item {
   md-icon.option:hover {
     cursor: pointer;
   }
+}
 
-  md-icon.option {
-    margin-left:1rem;
+/*
+  Options menu
+*/
+
+div.flow-list-item-options {
+  button.delete, button.delete .mat-icon {
+    color: $warning-color;
   }
 }

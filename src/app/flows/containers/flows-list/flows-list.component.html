@@ -19,8 +19,22 @@
           <span *ngIf="flowIsInDraft(flow)" class="label error">error</span>
           {{flow.name}}
         </h3>
-        <md-icon class="option" routerLink="/flows/{{flow.id}}">edit</md-icon>
-        <md-icon class="option" (click)="openDeleteFlowDialog(flow.id, flow.name)">delete</md-icon>
+
+        <div class="seperator"></div>
+
+        <button md-icon-button [mdMenuTriggerFor]="optionsMenu">
+          <md-icon>more_vert</md-icon>
+        </button>
+        <md-menu #optionsMenu="mdMenu" class="flow-list-item-options">
+          <button md-menu-item routerLink="/flows/{{flow.id}}">
+            <md-icon>edit</md-icon>
+            <span>Edit</span>
+          </button>
+          <button md-menu-item class="delete" (click)="openDeleteFlowDialog(flow.id, flow.name)">
+            <md-icon>delete</md-icon>
+            <span>Delete</span>
+          </button>
+        </md-menu>
       </md-list-item>
     </md-list>
   </div>
