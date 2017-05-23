@@ -1,26 +1,6 @@
 @import './variables';
 
 /*
-  Labels
- */
-
-.label {
-  border-radius: 3px;
-  padding: 3px 0.5rem;
-  text-transform: uppercase;
-  margin-right: 1rem;
-  font-size:0.8rem;
-  font-weight: bold;
-  background-color: #e6e6e6;
-  color: #666;
-
-  &.error {
-    background-color: $error-bg-color;
-    color: white;
-  }
-}
-
-/*
   Info box
  */
 
