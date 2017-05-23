@@ -5,7 +5,7 @@
     <dkt-providers [selectableServiceType]="selectableServiceType" (onChangeService)="flowsApp.saveFlowStep()"></dkt-providers>
   </div>
 
-  <div class="right" 
+  <div class="right"
     *ngIf="selectedService"
     [@flyInOut]="selectedService"
     fxLayout="column">

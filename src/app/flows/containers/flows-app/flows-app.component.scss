@@ -15,6 +15,7 @@ div.layout {
     position: relative;
     // Min width required for inline confirm dialog (see flow-step-item)
     min-width: 350px;
+    max-width: 350px;
   }
 
   div.sidebar-left, div.right {

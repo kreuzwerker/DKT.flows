@@ -9,14 +9,18 @@ div.layout {
     border-bottom: 1px solid $layout-border-color;
     height:4rem;
   }
+
 }
 
 .padding {
   padding:1em;
 }
 
-div.full-height, div.full-height > div {
-  height:100%;
+// Make container elements grow to full height
+.full-height, body, dkt-app, ng-component, router-outlet + * {
+  display: flex;
+  flex-direction: column;
+  flex:1;
 }
 
 .full-width, .full-width > md-input-container {

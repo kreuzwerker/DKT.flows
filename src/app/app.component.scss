@@ -4,18 +4,6 @@
 }
 
 #app {
-  height: 100%;
-
-  .md-sidenav-content {
-    // Make the content stretch to full height
-    display:flex;
-    flex-direction:column;
-  }
-
-  #app-body {
-    height: 100%;
-  }
-
   #app-toolbar {
     background: #273142 url('/assets/images/dkt-logo.png') no-repeat top left;
     background-size: 51px 55px;

@@ -1,5 +1,5 @@
-<div class="layout full-height" fxLayout="row" fxLayoutAlign="start start">
-  <div class="sidebar-left border-right padding" fxLayout="column">
+<div class="layout full-height" fxLayout="row" fxLayoutAlign="start stretch">
+  <div class="sidebar-left border-right padding full-height" fxLayout="column" fxFlex>
     <dkt-loading-indicator *ngIf="state.select('loadingFlow') | async" text="Loading flow" center="true"></dkt-loading-indicator>
     <dkt-flow-header *ngIf="flowsApp.flow" [flow]="flowsApp.flow" (onTriggerFlowRun)="openTriggerFlowRunDialog()"></dkt-flow-header>
 
@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <div class="main" fxFlex>
+  <div class="main full-height" fxFlex>
     <dkt-status-message 
       [message]="flowsApp.statusMessageText"
       [type]="flowsApp.statusMessageType"
