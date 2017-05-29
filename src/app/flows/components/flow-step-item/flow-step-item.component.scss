@@ -35,6 +35,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 
     li {
       list-style: none;
+      color: $dark-grey;
 
       md-icon {
         font-size: .9rem;
@@ -48,8 +49,15 @@ https://github.com/jtangelder/sass-loader/issues/211 */
         display:inline-block;
         font-size: 12px;
 
+        &, a {
+          font-weight: 600;
+        }
+
         a {
           color: inherit;
+        }
+
+        a, span {
           // Enlarge link height to make link easier to click
           padding: 6px 0;
         }
@@ -69,7 +77,9 @@ https://github.com/jtangelder/sass-loader/issues/211 */
       }
 
       &.locked {
-        color: $inactive-color;
+        &, p {
+          color: $inactive-color;
+        }
       }
 
       &.remove:not(.showingConfirmDialog) p:hover {

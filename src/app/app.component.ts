@@ -1,6 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserLoginService } from './core/services';
+import { MdIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'dkt-app',
@@ -15,8 +17,21 @@ export class AppComponent {
 
   constructor(
     public route: ActivatedRoute,
-    public router: Router
-  ) { }
+    public router: Router,
+    private mdIconRegistry: MdIconRegistry,
+    private sanitizer: DomSanitizer
+  ) {
+    // Register custom DKT icons
+    mdIconRegistry.addSvgIcon(
+      'flow', sanitizer.bypassSecurityTrustResourceUrl('/assets/icon/flow.svg')
+    );
+    mdIconRegistry.addSvgIcon(
+      'sort_asc', sanitizer.bypassSecurityTrustResourceUrl('/assets/icon/sort_asc.svg')
+    );
+    mdIconRegistry.addSvgIcon(
+      'sort_desc', sanitizer.bypassSecurityTrustResourceUrl('/assets/icon/sort_desc.svg')
+    );
+  }
 
   showToolbar() {
     return UserLoginService.isSignedIn() !== false;

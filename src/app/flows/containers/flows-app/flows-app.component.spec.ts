@@ -39,7 +39,7 @@ describe('Flows App', () => {
     // - should show loading indicator if flow is loading
     // - should show flow header
 
-    describe('Subscriptions', () => {
+    xdescribe('Subscriptions', () => {
       let routeParams: Subject<any>;
       let routeEvents: Subject<any>;
 

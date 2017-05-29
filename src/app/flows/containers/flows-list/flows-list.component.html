@@ -1,6 +1,6 @@
 <div class="flows-list full-height" fxLayout="row" fxLayoutAlign="start stretch">
   <div class="left full-height border-right">
-    <button md-raised-button color="primary" (click)="openNewFlowDialog()"><md-icon>add</md-icon> create flow</button>
+    <button md-raised-button color="primary" (click)="openNewFlowDialog()"><md-icon svgIcon="flow"></md-icon> create flow</button>
   </div>
 
   <div class="main full-height" fxFlex>
@@ -14,11 +14,11 @@
         <!--<md-icon md-list-icon class="chevron">chevron_right</md-icon>-->
         <!--<md-icon md-list-icon class="last-step">description</md-icon>-->
         <!--<div md-list-icon class="seperator"></div>-->
-        <h3 md-line>
+        <h6 md-line>
           <span *ngIf="flowHasError(flow)" class="label error">error</span>
           <span *ngIf="flowIsInDraft(flow)" class="label draft">draft</span>
           {{flow.name}}
-        </h3>
+        </h6>
 
         <div class="seperator"></div>
 

@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700');
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+
 /* 
   --- Global styles ------------------------------------------------------------
 */
 
-$primary-font: "Roboto", "Helvetica", "Arial", sans-serif;
+$primary-font: "Source Sans Pro", "Roboto", "Helvetica", "Arial", sans-serif;
 $break-small: 320px;
 $break-mobile: 800px;
 $break-large: 1200px;
@@ -11,34 +14,44 @@ $break-large: 1200px;
   Colors
 */
 
-$dkt-blue: #2196F3;
-$warning-color: #D35847;
+// Style guide colors
+$white: #fff;
+$dark-blue: #273142;
+$dark-grey: #7F8FA4;
+$grey: #E6EAEE;
+$light-grey: #EFF3F6;
+$blue: #2196F3;
+$green: #38BA24;
+$red: #D35847;
+$amber: #FAC83D;
+$mint: #74C7A8;
+$pink: #FFA2AD;
+$purple: #8781BD;
 
-// Grey 100
+$primary-color: $blue;
+$warning-color: $red;
+$active-color: $green;
+
+$success-bg-color: $active-color;
+$error-bg-color: $warning-color;
+
+// Grey 300
+$inactive-button-color: #E0E0E0;
+
 $element-bg-color: #F5F5F5;
 $element-hover-color: #F5F5F5;
-$element-selected-color: #EEEEEE;
-$element-border-color: #EEEEEE;
+$element-selected-color: $grey;
+$element-border-color: $grey;
 
-$active-color: #38BA24;
 // Grey 500
-$inactive-color: #9E9E9E;
+$inactive-color: #c4c4c4;
 // Grey 300
 $inactive-bg-color: #E0E0E0; 
 // Grey 500
 $secondary-text-color: #9E9E9E;
 
 // Blue 500
-$provider-icon-color: $dkt-blue;
-
-// Blue A200
-$active-button-color: #1A91EB;
-// Grey 300
-$inactive-button-color: #E0E0E0;
-
-// Green A700
-$success-bg-color: $active-color;
-$error-bg-color: $warning-color;
+$provider-icon-color: $primary-color;
 
 /*
   --- Flows app ----------------------------------------------------------------

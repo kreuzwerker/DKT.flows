@@ -62,7 +62,7 @@ export class FlowHomeComponent implements OnInit, OnDestroy {
   setInfoBoxContents(state, flow: Flow) {
     switch (state) {
       case FlowState.MISSING_TRIGGER:
-        this.infoBoxIcon = 'arrow_downward';
+        this.infoBoxIcon = 'flow';
         this.infoBoxMessage = 'Please add a trigger.';
         this.infoBoxActionIcon = null;
         this.infoBoxActionLabel = 'Add Trigger';
@@ -70,7 +70,7 @@ export class FlowHomeComponent implements OnInit, OnDestroy {
         break;
 
       case FlowState.UNFINISHED_TRIGGER:
-        this.infoBoxIcon = 'arrow_downward';
+        this.infoBoxIcon = 'flow';
         this.infoBoxMessage = 'Please finish configuring the Trigger.';
         this.infoBoxActionIcon = null;
         this.infoBoxActionLabel = 'Configure Trigger';
@@ -78,7 +78,7 @@ export class FlowHomeComponent implements OnInit, OnDestroy {
         break;
 
       case FlowState.MISSING_ACTION:
-        this.infoBoxIcon = 'arrow_downward';
+        this.infoBoxIcon = 'flow';
         this.infoBoxMessage = 'This Flow requires at least one more action to be successfully configured.';
         this.infoBoxActionIcon = null;
         this.infoBoxActionLabel = 'Add Action';
@@ -86,7 +86,7 @@ export class FlowHomeComponent implements OnInit, OnDestroy {
         break;
 
       case FlowState.UNFINISHED_ACTION:
-        this.infoBoxIcon = 'arrow_downward';
+        this.infoBoxIcon = 'flow';
         this.infoBoxMessage = 'Please finish configuring an action.';
         this.infoBoxActionIcon = null;
         this.infoBoxActionLabel = 'Configure Action';
@@ -114,7 +114,7 @@ export class FlowHomeComponent implements OnInit, OnDestroy {
       case FlowState.TRIGGERED:
         this.infoBoxIcon = 'done_all';
         this.infoBoxMessage = 'This flow has been successfully triggered and is now running.';
-        this.infoBoxActionIcon = 'arrow_downward';
+        this.infoBoxActionIcon = 'flow';
         this.infoBoxActionLabel = 'Flows Overview';
         this.infoBoxAction = () => this.flowsApp.showAllFlows();
         break;
