@@ -7,8 +7,8 @@
     <div fxLayout="row" fxLayoutAlign="start center">
       <dkt-provider-icon icon="{{provider.icon}}"></dkt-provider-icon>
       <div class="headlines" fxLayout="column">
-        <p class="name">{{provider.name}}</p>
-        <p class="group">{{provider.group}}</p>
+        <h5 class="name">{{provider.name}}</h5>
+        <p class="group">{{provider.group ? provider.group : '[group]'}}</p>
       </div>
     </div>
     <p class="description">{{provider.description}}</p>
