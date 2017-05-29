@@ -1,10 +1,12 @@
 <div id="flow-home" fxLayout="column" fxLayoutAlign="center center">
   <div *ngIf="infoBoxMessage != null" class="info-box centered" fxLayout="column" fxLayoutAlign="center center">
-    <md-icon class="box-icon">{{infoBoxIcon}}</md-icon>
+    <md-icon class="box-icon" svgIcon="flow"></md-icon>
+    <md-icon *ngIf="infoBoxIcon != 'flow'" class="box-icon">{{infoBoxIcon}}</md-icon>
     <p class="message">{{infoBoxMessage}}</p>
 
     <button (click)="infoBoxAction()" md-raised-button color="primary">
-      <md-icon *ngIf="infoBoxActionIcon" class="action-icon">{{infoBoxActionIcon}}</md-icon>
+      <md-icon *ngIf="infoBoxActionIcon && infoBoxActionIcon == 'flow'" class="action-icon" svgIcon="flow"></md-icon>
+      <md-icon *ngIf="infoBoxActionIcon && infoBoxActionIcon != 'flow'" class="action-icon">{{infoBoxActionIcon}}</md-icon>
       {{infoBoxActionLabel}}
     </button>
   </div>
