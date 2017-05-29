@@ -1,7 +1,7 @@
 <div id="flow-home" fxLayout="column" fxLayoutAlign="center center">
   <div *ngIf="infoBoxMessage != null" class="info-box centered" fxLayout="column" fxLayoutAlign="center center">
     <md-icon class="box-icon">{{infoBoxIcon}}</md-icon>
-    <h6 class="message">{{infoBoxMessage}}</h6>
+    <p class="message">{{infoBoxMessage}}</p>
 
     <button (click)="infoBoxAction()" md-raised-button color="primary">
       <md-icon *ngIf="infoBoxActionIcon" class="action-icon">{{infoBoxActionIcon}}</md-icon>

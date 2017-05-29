@@ -15,6 +15,10 @@ div.flows-list {
     padding: 2rem;
     min-width: 130px;
     max-width: 130px;
+
+    button[color="primary"] {
+      text-transform: uppercase;
+    }
   }
 
   div.main {
