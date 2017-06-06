@@ -1,0 +1,20 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+
+/*
+  Layout
+*/
+
+div.layout {
+  div.sidebar-left {
+    position: relative;
+    // Min width required for inline confirm dialog (see flow-step-item)
+    min-width: 350px;
+    max-width: 350px;
+  }
+
+  div.sidebar-left, div.right {
+    background-color: #fafafa;
+  }
+}

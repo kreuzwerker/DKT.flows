@@ -27,6 +27,7 @@ import { provideClient } from './apollo-client-store';
 // --- DKT modules ---------------------------------------
 import { CoreModule } from './core';
 import { FlowsModule } from './flows';
+import { TasksModule } from './tasks';
 
 const STORE_DEV_TOOLS_IMPORTS = [];
 if (ENV === 'development' && !AOT &&
@@ -61,6 +62,7 @@ export const APP_IMPORTS = [
   ApolloModule.withClient(provideClient),
 
   CoreModule,
-  FlowsModule
+  FlowsModule,
+  TasksModule
 ];
 
