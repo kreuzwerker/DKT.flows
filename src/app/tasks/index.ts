@@ -16,6 +16,8 @@ import { CoreModule } from './../core';
 import { TasksAppComponent } from './containers/tasks-app/tasks-app.component';
 
 // Components
+import { TasksFilterComponent } from './components/tasks-filter/tasks-filter.component';
+import { TaskItemComponent } from './components/task-item/task-item.component';
 
 // Services
 import { TasksApiService, TasksAppService, TasksStateService } from './services';
@@ -31,6 +33,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     TasksAppComponent,
+    TasksFilterComponent,
+    TaskItemComponent,
   ],
   imports: [
     CommonModule,

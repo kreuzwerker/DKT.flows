@@ -18,3 +18,31 @@ div.layout {
     background-color: #fafafa;
   }
 }
+
+/*
+  Header
+*/
+
+h4.tasks-app-header {
+  margin: 0;
+  font-size: 20px;
+
+  span.tasks-count {
+    border-radius: 50%;
+    padding: 0.4rem;
+    font-size: 1rem;
+    line-height: 1rem;
+    width: 1rem;
+    height: 1rem;
+    text-align: center;
+    display: inline-block;
+    color: $white;
+    font-weight: 900;
+    background-color: $blue;
+    margin-right: 1rem;
+  }
+
+  md-icon.close {
+    color: $dark-grey;
+  }
+}

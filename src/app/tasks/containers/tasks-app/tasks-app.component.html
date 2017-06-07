@@ -1,19 +1,42 @@
 <div class="layout full-height" fxLayout="row" fxLayoutAlign="start stretch">
-  <div class="sidebar-left border-right padding full-height" fxLayout="column" fxFlex>
+  <div class="sidebar-left border-right full-height" fxLayout="column" fxFlex>
     <!--<dkt-loading-indicator *ngIf="state.select('loadingTasks') | async" text="Loading tasks" center="true"></dkt-loading-indicator>-->
 
     <!-- Header-->
-    <h2>97 Tasks Remaining</h2>
+    <div class="padding border-bottom">
+      <h4 class="tasks-app-header" fxLayout="row" fxLayoutAlign="start center">
+        <span class="tasks-count">97</span>
+        <span fxFlex>Tasks Remaining</span>
+        <md-icon class="close">close</md-icon>
+      </h4>
+    </div>
 
     <!-- Filters -->
+    <dkt-tasks-filter class="padding border-bottom"></dkt-tasks-filter>
 
     <!-- Tasks -->
-    <!--<div class="steps" *ngIf="flowsApp.flow">
-      <div class="step" *ngFor="let step of flowsApp.flow.steps" [class.selected]="isSelectedStep(step)">
-        <div class="position size-30">{{step.position + 1}}</div>
-        <dkt-flow-step-item [flow]="flowsApp.flow" [step]="step" [currentActive]="getCurrentActiveStepOption(step)"></dkt-flow-step-item>
-      </div>
-    </div>-->
+    <div class="padding">
+      <h5>In progress (4)</h5>
+    </div>
+
+    <div class="padding border-bottom">
+      <dkt-task-item></dkt-task-item>
+    </div>
+    <div class="padding border-bottom">
+      <dkt-task-item></dkt-task-item>
+    </div>
+    <div class="padding border-bottom">
+      <dkt-task-item></dkt-task-item>
+    </div>
+    <div class="padding border-bottom">
+      <dkt-task-item></dkt-task-item>
+    </div>
+    <div class="padding border-bottom">
+      <dkt-task-item></dkt-task-item>
+    </div>
+    <div class="padding border-bottom">
+      <dkt-task-item></dkt-task-item>
+    </div>
   </div>
 
   <div class="main full-height" fxFlex>
