@@ -14,6 +14,7 @@ import { CoreModule } from './../core';
 
 // Containers
 import { TasksAppComponent } from './containers/tasks-app/tasks-app.component';
+import { TasksListComponent } from './containers/tasks-list/tasks-list.component';
 
 // Components
 import { TasksFilterComponent } from './components/tasks-filter/tasks-filter.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
     TasksAppComponent,
     TasksFilterComponent,
     TaskItemComponent,
+    TasksListComponent,
   ],
   imports: [
     CommonModule,
