@@ -1,9 +1,15 @@
 export class Task {
   id: string;
-  name: string;
+  title: string;
+  date: string;
+  state: string;
+  progress: boolean;
 }
 
 export interface TaskData {
   id: string;
-  name: string;
+  title: string;
+  date: string;
+  state: string;
+  progress: boolean;
 }

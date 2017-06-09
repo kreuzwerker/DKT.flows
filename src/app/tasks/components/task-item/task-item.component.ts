@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Task } from '../../models';
 
 @Component({
   selector: 'dkt-task-item',
@@ -6,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['task-item.component.css']
 })
 export class TaskItemComponent {
-  @Input() state: String;
+  @Input() task: Task;
 }

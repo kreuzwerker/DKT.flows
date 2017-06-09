@@ -12,7 +12,7 @@
     </div>
 
     <dkt-tasks-filter class="padding border-bottom"></dkt-tasks-filter>
-    <dkt-tasks-list></dkt-tasks-list>
+    <dkt-tasks-list [tasks]="tasks"></dkt-tasks-list>
   </div>
 
   <div class="sidebar-left-collapsed full-height" [class.expanded]="collapsed" (click)="collapsed = false">
