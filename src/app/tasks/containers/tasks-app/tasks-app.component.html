@@ -1,5 +1,5 @@
 <div class="layout full-height" fxLayout="row" fxLayoutAlign="start stretch">
-  <div class="sidebar-left border-right full-height" fxLayout="column" fxFlex>
+  <div class="sidebar-left border-right full-height" [class.collapsed]="collapsed" fxLayout="column" fxFlex>
     <!--<dkt-loading-indicator *ngIf="state.select('loadingTasks') | async" text="Loading tasks" center="true"></dkt-loading-indicator>-->
 
     <!-- Header-->
@@ -7,12 +7,16 @@
       <h4 class="tasks-app-header" fxLayout="row" fxLayoutAlign="start center">
         <span class="tasks-count">97</span>
         <span fxFlex>Tasks Remaining</span>
-        <md-icon class="close">close</md-icon>
+        <md-icon class="close" (click)="collapsed = true">close</md-icon>
       </h4>
     </div>
 
     <dkt-tasks-filter class="padding border-bottom"></dkt-tasks-filter>
     <dkt-tasks-list></dkt-tasks-list>
+  </div>
+
+  <div class="sidebar-left-collapsed full-height" [class.expanded]="collapsed" (click)="collapsed = false">
+    <span class="tasks-count">97</span>
   </div>
 
   <div class="main full-height" fxFlex>
