@@ -1,4 +1,4 @@
 <div class="tasks-filter" fxLayout="row" fxLayoutAlign="start center">
   <input type="text" placeholder="Search" fxFlex />
-  <md-icon svgIcon="sort_desc"></md-icon>
+  <md-icon svgIcon="{{sortingDir == 'asc' ? 'sort_asc' : 'sort_desc'}}" (click)="toggleSortingDir()" mdTooltip="Sort {{sortingDir == 'asc' ? 'descending' : 'ascending'}}" mdTooltipShowDelay="500"></md-icon>
 </div>
