@@ -1,5 +1,6 @@
 /* tslint:disable: ter-max-len */
-import { mockFlowsApp, mockFlowsState, mockApolloStore, MockChangeDetectorRef } from './../../utils/mocks';
+import { mockApolloStore, MockChangeDetectorRef } from './../../../core/utils/mocks';
+import { mockFlowsApp, mockFlowsState } from './../../utils/mocks';
 import { FlowHomeComponent } from './flow-home.component';
 import { FlowsAppService, FlowsStateService } from './../../services';
 import { Flow, FlowState } from './../../models';

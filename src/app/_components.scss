@@ -1,6 +1,34 @@
 @import './variables';
 
 /*
+  Label
+*/
+
+span.label {
+  padding: 3px 13px;
+  border-radius: 4px;
+  background-color: #d9d9d9;
+  color: #666;
+  font-size: 1rem;
+  white-space: nowrap;
+
+  &.correct {
+    background-color: $pink;
+    color: $white;
+  }
+
+  &.approve {
+    background-color: $mint;
+    color: $white;
+  }
+
+  &.review {
+    background-color: $purple;
+    color: $white;
+  }
+}
+
+/*
   Info box
  */
 

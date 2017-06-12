@@ -1,7 +1,8 @@
 /* tslint:disable: ter-max-len */
 import { Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { mockFlowsApp, mockFlowsState, mockStore } from './../../utils/mocks';
+import { mockStore } from './../../../core/utils/mocks';
+import { mockFlowsApp, mockFlowsState } from './../../utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { ConfigureStepComponent } from './configure-step.component';
 import { FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';

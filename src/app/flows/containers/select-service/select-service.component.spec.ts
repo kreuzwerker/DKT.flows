@@ -1,5 +1,6 @@
 /* tslint:disable: ter-max-len */
-import { MockChangeDetectorRef, mockFlowsApp, mockFlowsState, mockStore } from './../../utils/mocks';
+import { MockChangeDetectorRef, mockStore } from './../../../core/utils/mocks';
+import { mockFlowsApp, mockFlowsState } from './../../utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { ServiceType } from './../../models';
 import { SelectServiceComponent } from './select-service.component';

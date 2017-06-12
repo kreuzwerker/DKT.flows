@@ -38,6 +38,11 @@ div.border-right {
   transform: translate(-50%, -50%);
 }
 
+.border-bottom {
+  border-bottom: 1px solid;
+  border-color: $element-border-color;
+}
+
 /*
   Forms layout
 */

@@ -1,0 +1,17 @@
+<div class="tasks-list">
+  <div class="padding">
+    <h5>In progress ({{tasksInProgress.length}})</h5>
+  </div>
+
+  <div class="padding border-bottom" *ngFor="let task of tasksInProgress">
+    <dkt-task-item [task]="task"></dkt-task-item>
+  </div>
+
+  <div class="padding">
+    <h5>Everything else ({{tasksMisc.length}})</h5>
+  </div>
+
+  <div class="padding border-bottom" *ngFor="let task of tasksMisc">
+    <dkt-task-item [task]="task"></dkt-task-item>
+  </div>
+</div>

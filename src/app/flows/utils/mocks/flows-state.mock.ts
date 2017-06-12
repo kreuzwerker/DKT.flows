@@ -1,6 +1,6 @@
 import { FlowsStateService } from './../../services';
-import { mockApolloStore } from './apollo-store.mock';
-import { mockStore } from './store.mock';
+import { mockApolloStore } from './../../../core/utils/mocks/apollo-store.mock';
+import { mockStore } from './../../../core/utils/mocks/store.mock';
 import { Subject } from 'rxjs/Subject';
 import { Action } from './../../../reducers';
 import { FlowsAppActions } from './../../states';

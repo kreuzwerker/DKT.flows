@@ -1,5 +1,6 @@
 /* tslint:disable: ter-max-len */
-import { MockChangeDetectorRef, mockFlowsState, mockFlowsApp, mockStore, mockApolloStore, MockMdDialog } from './../../utils/mocks';
+import { MockChangeDetectorRef, mockStore, mockApolloStore, MockMdDialog } from './../../../core/utils/mocks';
+import { mockFlowsState, mockFlowsApp } from './../../utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { FlowsAppComponent } from './flows-app.component';
 import { FlowsAppService, FlowsStateService } from './../../services';
