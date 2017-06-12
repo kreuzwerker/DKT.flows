@@ -7,7 +7,7 @@ import { Task } from '../../models';
   encapsulation: ViewEncapsulation.None,
 })
 export class TasksAppComponent {
-
+  collapsed: boolean = false;
   sortingDir: string = 'desc';
 
   tasks: Task[] = [
