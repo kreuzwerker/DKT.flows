@@ -1,5 +1,6 @@
 /* tslint:disable: ter-max-len */
-import { MockRouter, mockFlowsState } from './../utils/mocks';
+import { MockRouter } from './../../core/utils/mocks';
+import { mockFlowsState } from './../utils/mocks';
 import { TestUtils } from './../utils/test.helpers';
 import { FlowsAppService, FlowsStateService } from './../services';
 

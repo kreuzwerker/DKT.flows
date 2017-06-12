@@ -1,6 +1,6 @@
 /* tslint:disable: ter-max-len */
 import { mockFlowsState } from './../../utils/mocks';
-import { MockRouter, MockMdDialog, mockSnackBar } from '../../utils/mocks';
+import { MockRouter, MockMdDialog, mockSnackBar } from './../../../core/utils/mocks';
 import { MdDialog } from '@angular/material';
 import { TestUtils } from './../../utils/test.helpers';
 import { FlowsListComponent } from './flows-list.component';

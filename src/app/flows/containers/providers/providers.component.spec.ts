@@ -1,6 +1,7 @@
 /* tslint:disable: ter-max-len */
 import { Provider, Step, Service, ServiceType } from './../../models';
-import { MockChangeDetectorRef, mockFlowsState, mockFlowsApp, mockStore, mockApolloStore, mockSnackBar } from './../../utils/mocks';
+import { mockFlowsState, mockFlowsApp } from './../../utils/mocks';
+import { MockChangeDetectorRef, mockStore, mockApolloStore, mockSnackBar } from './../../../core/utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { ProvidersComponent } from './providers.component';
 import { ProviderDetailComponent } from './../../components/provider-detail/provider-detail.component';
