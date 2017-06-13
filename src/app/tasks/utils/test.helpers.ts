@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { Task } from '../models';
+import { Task, TaskType } from '../models';
 
 export class TestUtils {
   defaultTaskData: Task = null;
@@ -12,7 +12,7 @@ export class TestUtils {
     id: string = '1',
     title: string = 'Test Task',
     date: string = '1491989405',
-    type: string = 'approve',
+    type: TaskType = TaskType.APPROVE,
     progress: boolean = true,
   ): Task {
     return {
@@ -26,11 +26,11 @@ export class TestUtils {
 
   createTasksListData(): Task[] {
     return [
-      this.createTaskData('1', 'Test Task 1', '1491989405', 'approve', true),
-      this.createTaskData('2', 'Test Task 2', '1493989405', 'correct', true),
-      this.createTaskData('3', 'Test Task 3', '1494989405', 'approve', true),
-      this.createTaskData('4', 'Test Task 4', '1495989405', 'review', false),
-      this.createTaskData('5', 'Test Task 5', '1496989405', 'review', false),
+      this.createTaskData('1', 'Test Task 1', '1491989405', TaskType.APPROVE, true),
+      this.createTaskData('2', 'Test Task 2', '1493989405', TaskType.CORRECT, true),
+      this.createTaskData('3', 'Test Task 3', '1494989405', TaskType.APPROVE, true),
+      this.createTaskData('4', 'Test Task 4', '1495989405', TaskType.REVIEW, false),
+      this.createTaskData('5', 'Test Task 5', '1496989405', TaskType.REVIEW, false),
     ];
   }
 }

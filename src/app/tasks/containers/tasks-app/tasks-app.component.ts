@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Task } from '../../models';
+import { Task, TaskType } from '../../models';
 
 @Component({
   templateUrl: 'tasks-app.component.html',
@@ -15,49 +15,49 @@ export class TasksAppComponent {
       id: '1',
       title: 'Task 1',
       date: '1489311005',
-      type: 'correct',
+      type: TaskType.CORRECT,
       progress: true
     },
     {
       id: '2',
       title: 'Task 2',
       date: '1491989405',
-      type: 'approve',
+      type: TaskType.APPROVE,
       progress: true
     },
     {
       id: '3',
       title: 'Task 3',
       date: '1494581405',
-      type: 'review',
+      type: TaskType.REVIEW,
       progress: true
     },
     {
       id: '4',
       title: 'Task 4',
       date: '1497259805',
-      type: 'correct',
+      type: TaskType.CORRECT,
       progress: true
     },
     {
       id: '5',
       title: 'Task 5',
       date: '1486891805',
-      type: 'approve',
+      type: TaskType.APPROVE,
       progress: false
     },
     {
       id: '6',
       title: 'Task 6',
       date: '1484213405',
-      type: 'correct',
+      type: TaskType.CORRECT,
       progress: false
     },
     {
       id: '7',
       title: 'Task 7',
       date: '1483263005',
-      type: 'correct',
+      type: TaskType.CORRECT,
       progress: false
     },
   ];
