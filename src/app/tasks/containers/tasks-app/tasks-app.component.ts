@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Task, TaskType } from '../../models';
+import { Task, TaskType, TaskState } from '../../models';
 
 @Component({
   templateUrl: 'tasks-app.component.html',
@@ -16,49 +16,49 @@ export class TasksAppComponent {
       title: 'Task 1',
       date: '1489311005',
       type: TaskType.CORRECT,
-      progress: true
+      state: TaskState.STARTED
     },
     {
       id: '2',
       title: 'Task 2',
       date: '1491989405',
       type: TaskType.APPROVE,
-      progress: true
+      state: TaskState.STARTED
     },
     {
       id: '3',
       title: 'Task 3',
       date: '1494581405',
       type: TaskType.REVIEW,
-      progress: true
+      state: TaskState.STARTED
     },
     {
       id: '4',
       title: 'Task 4',
       date: '1497259805',
       type: TaskType.CORRECT,
-      progress: true
+      state: TaskState.STARTED
     },
     {
       id: '5',
       title: 'Task 5',
       date: '1486891805',
       type: TaskType.APPROVE,
-      progress: false
+      state: TaskState.NOT_STARTED
     },
     {
       id: '6',
       title: 'Task 6',
       date: '1484213405',
       type: TaskType.CORRECT,
-      progress: false
+      state: TaskState.NOT_STARTED
     },
     {
       id: '7',
       title: 'Task 7',
       date: '1483263005',
       type: TaskType.CORRECT,
-      progress: false
+      state: TaskState.NOT_STARTED
     },
   ];
 }

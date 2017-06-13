@@ -1,6 +1,6 @@
 /* tslint:disable: ter-max-len */
 import { TestUtils } from './test.helpers';
-import { Task, TaskType } from '../models';
+import { Task, TaskType, TaskState } from '../models';
 
 describe('Tasks App', () => {
 
@@ -22,7 +22,7 @@ describe('Tasks App', () => {
         expect(task.title).toBe('Test Task');
         expect(task.date).toBe('1491989405');
         expect(task.type).toBe(TaskType.APPROVE);
-        expect(task.progress).toBeTruthy();
+        expect(task.state).toBe(TaskState.STARTED);
       });
     });
   });

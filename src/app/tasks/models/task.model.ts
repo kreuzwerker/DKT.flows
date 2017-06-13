@@ -3,7 +3,7 @@ export class Task {
   title: string;
   date: string;
   type: TaskType;
-  progress: boolean;
+  state: TaskState;
 }
 
 export interface TaskData {
@@ -11,11 +11,17 @@ export interface TaskData {
   title: string;
   date: string;
   type: TaskType;
-  progress: boolean;
+  state: TaskState;
 }
 
 export enum TaskType {
   REVIEW = <any>'review',
   APPROVE = <any>'approve',
   CORRECT = <any>'correct'
+}
+
+export enum TaskState {
+  NOT_STARTED,
+  STARTED,
+  FINISHED
 }

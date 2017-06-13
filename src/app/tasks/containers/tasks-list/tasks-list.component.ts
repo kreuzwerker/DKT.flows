@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { Task } from '../../models';
+import { Task, TaskState } from '../../models';
 
 @Component({
   selector: 'dkt-tasks-list',
@@ -30,8 +30,8 @@ export class TasksListComponent implements OnInit, OnChanges {
   }
 
   splitTasks() {
-    this.tasksInProgress = this.tasks.filter(task => task.progress === true);
-    this.tasksMisc = this.tasks.filter(task => task.progress === false);
+    this.tasksInProgress = this.tasks.filter(task => task.state === TaskState.STARTED);
+    this.tasksMisc = this.tasks.filter(task => task.state === TaskState.NOT_STARTED);
   }
 
   sortTasks(dir) {
