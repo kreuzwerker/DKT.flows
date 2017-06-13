@@ -21,7 +21,7 @@ describe('Tasks App', () => {
         expect(task.id).toBe('1');
         expect(task.title).toBe('Test Task');
         expect(task.date).toBe('1491989405');
-        expect(task.state).toBe('approve');
+        expect(task.type).toBe('approve');
         expect(task.progress).toBeTruthy();
       });
     });

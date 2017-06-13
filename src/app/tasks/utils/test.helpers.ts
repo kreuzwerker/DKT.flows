@@ -12,14 +12,14 @@ export class TestUtils {
     id: string = '1',
     title: string = 'Test Task',
     date: string = '1491989405',
-    state: string = 'approve',
+    type: string = 'approve',
     progress: boolean = true,
   ): Task {
     return {
       id: id,
       title: title,
       date: date,
-      state: state,
+      type: type,
       progress: progress,
     };
   }
