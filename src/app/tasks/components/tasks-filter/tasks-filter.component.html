@@ -1,11 +1,18 @@
 <div class="tasks-filter">
   <div fxLayout="row" fxLayoutAlign="start center">
-    <input type="text" placeholder="Search" fxFlex />
+    <input mdInput class="search" placeholder="Search" [mdAutocomplete]="auto" [formControl]="filterCtrl" fxFlex>
+
+    <md-autocomplete #auto="mdAutocomplete">
+      <md-option (onSelectionChange)="selectFilter($event, filter)" *ngFor="let filter of filteredFilters | async" [value]="filter">
+        {{getFilterLabel(filter)}}
+      </md-option>
+    </md-autocomplete>
+
     <md-icon class="sortingDir" svgIcon="{{sortingDir == 'asc' ? 'sort_asc' : 'sort_desc'}}" (click)="toggleSortingDir()" mdTooltip="Sort {{sortingDir == 'asc' ? 'descending' : 'ascending'}}" mdTooltipShowDelay="500"></md-icon>
   </div>
   <div *ngIf="filters.length" class="filters" fxLayout="row" fxLayoutAlign="start center">
     <span class="label filter" *ngFor="let filter of filters" fxLayout="row" fxLayoutAlign="start center">
-      {{getFilterLabel(filter)}}
+      {{getFilterLabel(filter, true)}}
       <md-icon class="close" (click)="unsetFilter.emit(filter)">close</md-icon>
     </span>
     <a md-button (click)="unsetAllFilters.emit()">Reset</a>

@@ -14,6 +14,8 @@
     <dkt-tasks-filter
       [(sortingDir)]="tasksApp.sortingDir"
       [filters]="tasksApp.filters"
+      [filtersList]="tasksApp.filtersList"
+      (setFilter)="tasksApp.setFilter($event)"
       (unsetFilter)="tasksApp.unsetFilter($event)"
       (unsetAllFilters)="tasksApp.unsetAllFilters()"
       class="padding border-bottom"

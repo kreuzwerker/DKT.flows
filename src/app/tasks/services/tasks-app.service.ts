@@ -16,6 +16,15 @@ export class TasksAppService {
   // Tasks list
   tasks: Task[] = TASKS_DATA;
 
+  filtersList = [
+    {type: 'taskType', taskType: TaskType.APPROVE},
+    {type: 'taskType', taskType: TaskType.REVIEW},
+    {type: 'taskType', taskType: TaskType.CORRECT},
+    {type: 'flowId', flowId: '1', flowName: 'Test flow 1'},
+    {type: 'flowId', flowId: '2', flowName: 'Test flow 2'},
+    {type: 'flowId', flowId: '3', flowName: 'Test flow 3'},
+  ];
+
   /**
    * Task filters
    */
