@@ -1,4 +1,13 @@
-<div class="tasks-filter" fxLayout="row" fxLayoutAlign="start center">
-  <input type="text" placeholder="Search" fxFlex />
-  <md-icon svgIcon="{{sortingDir == 'asc' ? 'sort_asc' : 'sort_desc'}}" (click)="toggleSortingDir()" mdTooltip="Sort {{sortingDir == 'asc' ? 'descending' : 'ascending'}}" mdTooltipShowDelay="500"></md-icon>
+<div class="tasks-filter">
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <input type="text" placeholder="Search" fxFlex />
+    <md-icon class="sortingDir" svgIcon="{{sortingDir == 'asc' ? 'sort_asc' : 'sort_desc'}}" (click)="toggleSortingDir()" mdTooltip="Sort {{sortingDir == 'asc' ? 'descending' : 'ascending'}}" mdTooltipShowDelay="500"></md-icon>
+  </div>
+  <div *ngIf="tasksApp.filters.length" class="filters" fxLayout="row" fxLayoutAlign="start center">
+    <span class="label filter" *ngFor="let filter of tasksApp.filters" fxLayout="row" fxLayoutAlign="start center">
+      {{getFilterLabel(filter)}}
+      <md-icon class="close" (click)="tasksApp.unsetFilter(filter)">close</md-icon>
+    </span>
+    <a md-button (click)="tasksApp.unsetAllFilters()">Reset</a>
+  </div>
 </div>

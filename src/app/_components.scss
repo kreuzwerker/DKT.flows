@@ -26,6 +26,11 @@ span.label {
     background-color: $purple;
     color: $white;
   }
+
+  &.filter {
+    background-color: $blue;
+    color: $white;
+  }
 }
 
 /*

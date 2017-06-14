@@ -1,0 +1,60 @@
+import { Task, TaskType, TaskState } from './../models';
+
+export let TASKS_DATA = [
+  {
+    id: '1',
+    title: 'Task 1',
+    date: '1489311005',
+    type: TaskType.CORRECT,
+    state: TaskState.STARTED,
+    flow: {id: '1', name: 'Test flow 1 with a very long that needs to be truncated'},
+  },
+  {
+    id: '2',
+    title: 'Task 2',
+    date: '1491989405',
+    type: TaskType.APPROVE,
+    state: TaskState.STARTED,
+    flow: {id: '1', name: 'Test flow 1 with a very long that needs to be truncated'},
+  },
+  {
+    id: '3',
+    title: 'Task 3',
+    date: '1494581405',
+    type: TaskType.REVIEW,
+    state: TaskState.STARTED,
+    flow: {id: '2', name: 'Test flow 2'},
+  },
+  {
+    id: '4',
+    title: 'Task 4',
+    date: '1497259805',
+    type: TaskType.CORRECT,
+    state: TaskState.STARTED,
+    flow: {id: '2', name: 'Test flow 2'},
+  },
+  {
+    id: '5',
+    title: 'Task 5',
+    date: '1486891805',
+    type: TaskType.APPROVE,
+    state: TaskState.NOT_STARTED,
+    flow: {id: '1', name: 'Test flow 1 with a very long that needs to be truncated'},
+  },
+  {
+    id: '6',
+    title: 'Task 6',
+    date: '1484213405',
+    type: TaskType.CORRECT,
+    state: TaskState.NOT_STARTED,
+    flow: {id: '3', name: 'Test flow 3'},
+  },
+  {
+    id: '7',
+    title: 'Task 7',
+    date: '1483263005',
+    type: TaskType.CORRECT,
+    state: TaskState.NOT_STARTED,
+    flow: {id: '3', name: 'Test flow 3'},
+  },
+];

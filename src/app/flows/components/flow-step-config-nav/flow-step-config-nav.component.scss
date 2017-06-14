@@ -23,7 +23,7 @@ div.flow-step-config-nav {
       display:inline;
       margin-left: 2rem;
 
-      span.icon, span.label {
+      span.icon, span.name {
         vertical-align: middle;
       }
 
@@ -48,7 +48,7 @@ div.flow-step-config-nav {
         }
       }
 
-      span.label {
+      span.name {
         margin-left: .3rem;
         color: $inactive-color;
         font-weight: 900;
@@ -61,7 +61,7 @@ div.flow-step-config-nav {
           color: white;
         }
 
-        span.label {
+        span.name {
           color: $active-color;
         }
       }

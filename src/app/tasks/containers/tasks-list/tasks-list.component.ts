@@ -21,6 +21,11 @@ export class TasksListComponent implements OnInit, OnChanges {
     if (changes['sortingDir'] !== undefined) {
       this.sortTasks(changes['sortingDir']['currentValue']);
     }
+    if (changes['tasks'] !== undefined) {
+      this.tasks = changes['tasks']['currentValue'];
+      this.splitTasks();
+      this.sortTasks(this.sortingDir);
+    }
     this.cd.markForCheck();
   }
 

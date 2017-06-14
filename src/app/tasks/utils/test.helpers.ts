@@ -14,6 +14,7 @@ export class TestUtils {
     date: string = '1491989405',
     type: TaskType = TaskType.APPROVE,
     state: TaskState = TaskState.STARTED,
+    flow: object = {id: '1', name: 'Flow 1'},
   ): Task {
     return {
       id: id,
@@ -21,6 +22,7 @@ export class TestUtils {
       date: date,
       type: type,
       state: state,
+      flow: flow,
     };
   }
 

@@ -1,6 +1,6 @@
 <div class="task-item">
   <h6>{{task.title}}</h6>
   <p class="date">{{task.date * 1000 | date:'short'}}</p>
-  <span class="label {{task.type}}">{{task.type}}</span>
-  <span class="label">Flow name</span>
+  <span class="label {{task.type}}" (click)="filterByType()">{{task.type}}</span>
+  <span class="label" (click)="filterByFlow()">{{truncate(task.flow.name)}}</span>
 </div>

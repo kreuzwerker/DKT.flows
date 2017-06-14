@@ -4,6 +4,7 @@ export class Task {
   date: string;
   type: TaskType;
   state: TaskState;
+  flow: any;
 }
 
 export interface TaskData {
@@ -12,6 +13,7 @@ export interface TaskData {
   date: string;
   type: TaskType;
   state: TaskState;
+  flow: any;
 }
 
 export enum TaskType {
