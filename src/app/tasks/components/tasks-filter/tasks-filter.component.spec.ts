@@ -22,5 +22,14 @@ describe('Tasks App', () => {
         expect(spy).toHaveBeenCalledWith('desc');
       });
     });
+
+    describe('getFilterLabel()', () => {
+      xit('should generate a filter label for the given flow filter', () => {
+      });
+      xit('should generate a filter label for the given task filter', () => {
+      });
+      xit('should truncate a filter label for the given flow filter', () => {
+      });
+    });
   });
 });

@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { TasksAppService } from './../../services';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../models';
 
 @Component({
@@ -9,13 +8,12 @@ import { Task } from '../../models';
 })
 export class TaskItemComponent {
   @Input() task: Task;
+  @Output() setFilter: EventEmitter<Object> = new EventEmitter<Object>();
 
-  constructor(
-    public tasksApp: TasksAppService,
-  ) {}
+  constructor() {}
 
   filterByFlow() {
-    this.tasksApp.setFilter({
+    this.setFilter.emit({
       type: 'flowId',
       flowId: this.task.flow.id,
       flowName: this.task.flow.name
@@ -23,10 +21,10 @@ export class TaskItemComponent {
   }
 
   filterByType() {
-    this.tasksApp.setFilter({type: 'taskType', taskType: this.task.type});
+    this.setFilter.emit({type: 'taskType', taskType: this.task.type});
   }
 
-  truncate(str) {
+  truncate(str: string): string {
     return (str.length > 30) ? str.substring(0, 30) + '...' : str;
   }
 }

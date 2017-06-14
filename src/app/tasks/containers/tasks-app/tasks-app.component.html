@@ -11,7 +11,13 @@
       </h4>
     </div>
 
-    <dkt-tasks-filter [(sortingDir)]="tasksApp.sortingDir" class="padding border-bottom"></dkt-tasks-filter>
+    <dkt-tasks-filter
+      [(sortingDir)]="tasksApp.sortingDir"
+      [filters]="tasksApp.filters"
+      (unsetFilter)="tasksApp.unsetFilter($event)"
+      (unsetAllFilters)="tasksApp.unsetAllFilters()"
+      class="padding border-bottom"
+    ></dkt-tasks-filter>
     <dkt-tasks-list [tasks]="tasksApp.tasks" [sortingDir]="tasksApp.sortingDir"></dkt-tasks-list>
   </div>
 

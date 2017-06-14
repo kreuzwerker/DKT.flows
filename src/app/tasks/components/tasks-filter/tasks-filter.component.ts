@@ -8,11 +8,12 @@ import { TasksAppService } from './../../services';
 })
 export class TasksFilterComponent {
   @Input() sortingDir: String;
+  @Input() filters: any[];
   @Output() sortingDirChange: EventEmitter<String> = new EventEmitter<String>();
+  @Output() unsetFilter: EventEmitter<Object> = new EventEmitter<Object>();
+  @Output() unsetAllFilters: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(
-    public tasksApp: TasksAppService,
-  ) {}
+  constructor() {}
 
   toggleSortingDir() {
     this.sortingDir = this.sortingDir === 'asc' ? 'desc' : 'asc';

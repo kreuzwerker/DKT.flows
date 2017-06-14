@@ -2,25 +2,22 @@
 import { Task } from './../../models';
 import { TestUtils } from './../../utils/test.helpers';
 import { TaskItemComponent } from './task-item.component';
-import { mockTasksApp } from './../../utils/mocks';
 import { TasksAppService } from './../../services';
 
 describe('Tasks App', () => {
   describe('TaskItem Component', () => {
     let component: TaskItemComponent;
     let utils: TestUtils;
-    let tasksApp: TasksAppService;
 
     beforeEach(() => {
       utils = new TestUtils();
-      tasksApp = mockTasksApp;
-      component = new TaskItemComponent(tasksApp);
+      component = new TaskItemComponent();
       expect(component).toBeTruthy();
     });
 
     describe('filterByFlow()', () => {
       it('should set a filter for the current task\'s flow', () => {
-        let spy = spyOn(component.tasksApp, 'setFilter');
+        let spy = spyOn(component.setFilter, 'emit');
         component.task = utils.createTaskData();
         component.filterByFlow();
         const params = {
@@ -34,7 +31,7 @@ describe('Tasks App', () => {
 
     describe('filterByType()', () => {
       it('should set a filter for the current task\'s type', () => {
-        let spy = spyOn(component.tasksApp, 'setFilter');
+        let spy = spyOn(component.setFilter, 'emit');
         component.task = utils.createTaskData();
         component.filterByType();
         const params = {

@@ -1,5 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Task, TaskState } from '../../models';
+import { TasksAppService } from './../../services';
 
 @Component({
   selector: 'dkt-tasks-list',
@@ -15,6 +16,7 @@ export class TasksListComponent implements OnInit, OnChanges {
 
   constructor(
     private cd: ChangeDetectorRef,
+    public tasksApp: TasksAppService,
   ) { }
 
   ngOnChanges(changes: SimpleChanges) {
