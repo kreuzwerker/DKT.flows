@@ -49,7 +49,7 @@ export class TasksAppService {
   }
 
   applyFilters() {
-    this.tasks = TASKS_DATA.filter((task) => {
+    this.tasks = this.filters.length ? TASKS_DATA.filter((task) => {
       // Validate against current filters (locical OR):
       let valid = false;
       this.filters.forEach((filter) => {
@@ -58,7 +58,7 @@ export class TasksAppService {
       });
 
       return valid;
-    });
+    }) : TASKS_DATA;
   }
 
   filterExists(params) {
