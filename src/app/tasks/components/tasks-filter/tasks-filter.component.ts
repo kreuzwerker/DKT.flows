@@ -29,7 +29,7 @@ export class TasksFilterComponent {
       .map(name => this.filterFilters(name));
   }
 
-  filterFilters(val: string) {
+  filterFilters(val: string): any[] {
     return val ? this.filtersList.filter((filter) => {
       const label = this.getFilterLabel(filter);
       return new RegExp(`${val}`, 'gi').test(label);

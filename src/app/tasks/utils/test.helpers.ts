@@ -35,4 +35,35 @@ export class TestUtils {
       this.createTaskData('5', 'Test Task 5', '1496989405', TaskType.REVIEW, TaskState.NOT_STARTED),
     ];
   }
+
+  createTaskTypeFilterData(
+    taskType: TaskType = TaskType.APPROVE
+  ): any {
+    return {
+      type: 'taskType',
+      taskType: taskType,
+    };
+  }
+
+  createTaskFlowFilterData(
+    flowId: String = '1',
+    flowName: String = 'Test Flow 1',
+  ): any {
+    return {
+      type: 'flowId',
+      flowId: flowId,
+      flowName: flowName,
+    };
+  }
+
+  createTaskFiltersData(): any[] {
+    return [
+      this.createTaskTypeFilterData(TaskType.APPROVE),
+      this.createTaskTypeFilterData(TaskType.REVIEW),
+      this.createTaskTypeFilterData(TaskType.CORRECT),
+      this.createTaskFlowFilterData('1', 'Test Flow 1'),
+      this.createTaskFlowFilterData('2', 'Test Flow 2'),
+      this.createTaskFlowFilterData('3', 'Test Flow 3'),
+    ];
+  }
 }
