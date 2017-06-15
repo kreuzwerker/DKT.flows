@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TasksAppService } from './../../services';
+import { TaskFilter } from './../../models';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
@@ -12,8 +13,8 @@ import 'rxjs/add/operator/map';
 })
 export class TasksFilterComponent {
   @Input() sortingDir: String;
-  @Input() filters: any[];
-  @Input() filtersList: any[];
+  @Input() filters: TaskFilter[];
+  @Input() filtersList: TaskFilter[];
   @Output() sortingDirChange: EventEmitter<String> = new EventEmitter<String>();
   @Output() setFilter: EventEmitter<Object> = new EventEmitter<Object>();
   @Output() unsetFilter: EventEmitter<Object> = new EventEmitter<Object>();
@@ -36,18 +37,18 @@ export class TasksFilterComponent {
     }) : this.filtersList;
   }
 
-  selectFilter(event, filter) {
+  selectFilter(event, filter: TaskFilter): void {
     this.setFilter.emit(filter);
     // Clear search input field
     this.filterCtrl.setValue('');
   }
 
-  toggleSortingDir() {
+  toggleSortingDir(): void {
     this.sortingDir = this.sortingDir === 'asc' ? 'desc' : 'asc';
     this.sortingDirChange.emit(this.sortingDir);
   }
 
-  getFilterLabel(filter, trunc = false) {
+  getFilterLabel(filter: TaskFilter, trunc = false): string {
     function truncate(str) {
       return (trunc && str.length > 10) ? str.substring(0, 10) + '...' : str;
     }

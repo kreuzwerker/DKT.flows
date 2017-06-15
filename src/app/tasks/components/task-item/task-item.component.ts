@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from '../../models';
+import { Task, TaskFilter } from '../../models';
 
 @Component({
   selector: 'dkt-task-item',
@@ -8,7 +8,7 @@ import { Task } from '../../models';
 })
 export class TaskItemComponent {
   @Input() task: Task;
-  @Output() setFilter: EventEmitter<Object> = new EventEmitter<Object>();
+  @Output() setFilter: EventEmitter<TaskFilter> = new EventEmitter<TaskFilter>();
 
   constructor() {}
 

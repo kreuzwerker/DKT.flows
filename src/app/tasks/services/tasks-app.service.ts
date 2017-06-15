@@ -3,7 +3,7 @@
 */
 
 import { Injectable } from '@angular/core';
-import { Task, TaskType, TaskState } from './../models';
+import { Task, TaskType, TaskState, TaskFilter } from './../models';
 
 import { TASKS_DATA } from './tasks.data';
 
@@ -16,10 +16,11 @@ export class TasksAppService {
   // Tasks list
   tasks: Task[] = TASKS_DATA;
 
-  filtersList = [
+  filtersList: TaskFilter[] = [
     {type: 'taskType', taskType: TaskType.APPROVE},
     {type: 'taskType', taskType: TaskType.REVIEW},
     {type: 'taskType', taskType: TaskType.CORRECT},
+    // TODO retrieve flows list from API and append to filtersList asynchronously
     {type: 'flowId', flowId: '1', flowName: 'Test flow 1'},
     {type: 'flowId', flowId: '2', flowName: 'Test flow 2'},
     {type: 'flowId', flowId: '3', flowName: 'Test flow 3'},

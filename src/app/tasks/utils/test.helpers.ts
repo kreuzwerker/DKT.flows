@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { Task, TaskType, TaskState } from '../models';
+import { Task, TaskType, TaskState, TaskFilter } from '../models';
 
 export class TestUtils {
   defaultTaskData: Task = null;
@@ -46,9 +46,9 @@ export class TestUtils {
   }
 
   createTaskFlowFilterData(
-    flowId: String = '1',
-    flowName: String = 'Test Flow 1',
-  ): any {
+    flowId: string = '1',
+    flowName: string = 'Test Flow 1',
+  ): TaskFilter {
     return {
       type: 'flowId',
       flowId: flowId,
@@ -56,7 +56,7 @@ export class TestUtils {
     };
   }
 
-  createTaskFiltersData(): any[] {
+  createTaskFiltersData(): TaskFilter[] {
     return [
       this.createTaskTypeFilterData(TaskType.APPROVE),
       this.createTaskTypeFilterData(TaskType.REVIEW),
