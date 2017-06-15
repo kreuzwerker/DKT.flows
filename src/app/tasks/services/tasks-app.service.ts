@@ -49,14 +49,14 @@ export class TasksAppService {
 
   applyFilters() {
     this.tasks = TASKS_DATA.filter((task) => {
-      // Validate against current filters
-      let invalid = false;
+      // Validate against current filters (locical OR):
+      let valid = false;
       this.filters.forEach((filter) => {
-        if (filter.type === 'flowId' && task.flow.id !== filter.flowId) invalid = true;
-        if (filter.type === 'taskType' && task.type !== filter.taskType) invalid = true;
+        if (filter.type === 'flowId' && task.flow.id === filter.flowId) valid = true;
+        if (filter.type === 'taskType' && task.type === filter.taskType) valid = true;
       });
 
-      return invalid === false;
+      return valid;
     });
   }
 
