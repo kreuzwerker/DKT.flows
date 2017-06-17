@@ -22,8 +22,10 @@ export class FlowsStateService {
 
   // All flows list
   flows$: Observable<FlowsListData[]>;
+  flowsSub$: Subscription;
   // Current loaded flow
   flow$: Observable<Flow>;
+  flowSub$: Subscription;
   // Available providers
   providers$: Observable<Provider[]>;
 
@@ -60,11 +62,10 @@ export class FlowsStateService {
     this.flows$ = this.api.getFlows().map(({data}) => data.allFlows);
 
     // Unset loading flows flag
-    // TODO THIS IS WRONG: creates another watched query.
-    // -> right way is to use middleware/thunks/effects:
-    // When a mutation API call is made -> set flag; when API call returns -> unset flag.
-    this.flows$.subscribe((flows) => this.dispatch(this.actions.setLoadingFlows(false)) );
-    // /TODO
+    this.flowsSub$ = this.flows$.subscribe((flows) => {
+      this.dispatch(this.actions.setLoadingFlows(false));
+      this.flowsSub$.unsubscribe();
+    });
 
     // Current selected flow
     // ---------------------
@@ -77,11 +78,10 @@ export class FlowsStateService {
     }).map(({data}) => data.Flow);
 
     // Unset loading flow flag
-    // TODO THIS IS WRONG: creates another watched query.
-    // -> right way is to use middleware/thunks/effects:
-    // When a mutation API call is made -> set flag; when API call returns -> unset flag.
-    this.flow$.subscribe((flow) => this.dispatch(this.actions.setLoadingFlow(false)) );
-    // /TODO
+    this.flowSub$ = this.flow$.subscribe((flow) => {
+      this.dispatch(this.actions.setLoadingFlow(false));
+      this.flowSub$.unsubscribe();
+    });
 
     // Providers list
     // --------------
