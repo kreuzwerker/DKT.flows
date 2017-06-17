@@ -1,5 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { Task } from '../../models';
+import { Task, TaskState } from '../../models';
+import { TasksAppService } from './../../services';
 
 @Component({
   selector: 'dkt-tasks-list',
@@ -15,11 +16,17 @@ export class TasksListComponent implements OnInit, OnChanges {
 
   constructor(
     private cd: ChangeDetectorRef,
+    public tasksApp: TasksAppService,
   ) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['sortingDir'] !== undefined) {
       this.sortTasks(changes['sortingDir']['currentValue']);
+    }
+    if (changes['tasks'] !== undefined) {
+      this.tasks = changes['tasks']['currentValue'];
+      this.splitTasks();
+      this.sortTasks(this.sortingDir);
     }
     this.cd.markForCheck();
   }
@@ -30,8 +37,8 @@ export class TasksListComponent implements OnInit, OnChanges {
   }
 
   splitTasks() {
-    this.tasksInProgress = this.tasks.filter(task => task.progress === true);
-    this.tasksMisc = this.tasks.filter(task => task.progress === false);
+    this.tasksInProgress = this.tasks.filter(task => task.state === TaskState.STARTED);
+    this.tasksMisc = this.tasks.filter(task => task.state === TaskState.NOT_STARTED);
   }
 
   sortTasks(dir) {

@@ -4,7 +4,7 @@
   </div>
 
   <div class="padding border-bottom" *ngFor="let task of tasksInProgress">
-    <dkt-task-item [task]="task"></dkt-task-item>
+    <dkt-task-item [task]="task" (setFilter)="tasksApp.setFilter($event)"></dkt-task-item>
   </div>
 
   <div class="padding">
@@ -12,6 +12,6 @@
   </div>
 
   <div class="padding border-bottom" *ngFor="let task of tasksMisc">
-    <dkt-task-item [task]="task"></dkt-task-item>
+    <dkt-task-item [task]="task" (setFilter)="tasksApp.setFilter($event)"></dkt-task-item>
   </div>
 </div>

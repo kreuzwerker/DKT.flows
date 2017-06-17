@@ -5,18 +5,26 @@
     <!-- Header-->
     <div class="padding border-bottom">
       <h4 class="tasks-app-header" fxLayout="row" fxLayoutAlign="start center">
-        <span class="tasks-count">97</span>
+        <span class="tasks-count">{{tasksApp.tasks.length}}</span>
         <span fxFlex>Tasks Remaining</span>
         <md-icon class="close" (click)="collapsed = true">close</md-icon>
       </h4>
     </div>
 
-    <dkt-tasks-filter [(sortingDir)]="sortingDir" class="padding border-bottom"></dkt-tasks-filter>
-    <dkt-tasks-list [tasks]="tasks" [sortingDir]="sortingDir"></dkt-tasks-list>
+    <dkt-tasks-filter
+      [(sortingDir)]="tasksApp.sortingDir"
+      [filters]="tasksApp.filters"
+      [filtersList]="tasksApp.filtersList"
+      (setFilter)="tasksApp.setFilter($event)"
+      (unsetFilter)="tasksApp.unsetFilter($event)"
+      (unsetAllFilters)="tasksApp.unsetAllFilters()"
+      class="padding border-bottom"
+    ></dkt-tasks-filter>
+    <dkt-tasks-list [tasks]="tasksApp.tasks" [sortingDir]="tasksApp.sortingDir"></dkt-tasks-list>
   </div>
 
   <div class="sidebar-left-collapsed full-height" [class.expanded]="collapsed" (click)="collapsed = false">
-    <span class="tasks-count">97</span>
+    <span class="tasks-count">{{tasksApp.tasks.length}}</span>
   </div>
 
   <div class="main full-height" fxFlex>

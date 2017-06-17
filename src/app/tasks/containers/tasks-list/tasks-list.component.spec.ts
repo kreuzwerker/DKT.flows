@@ -4,17 +4,21 @@ import { Task } from './../../models';
 import { TasksListComponent } from './tasks-list.component';
 import { TestUtils } from './../../utils/test.helpers';
 import { MockChangeDetectorRef } from './../../../core/utils/mocks';
+import { mockTasksApp } from './../../utils/mocks';
+import { TasksAppService } from './../../services';
 
 describe('Tasks App', () => {
   describe('TasksList Component', () => {
     let component: TasksListComponent;
     let cd: MockChangeDetectorRef;
     let utils: TestUtils;
+    let tasksApp: TasksAppService;
 
     beforeEach(() => {
       utils = new TestUtils();
       cd = <any>new MockChangeDetectorRef();
-      component = new TasksListComponent(cd);
+      tasksApp = mockTasksApp;
+      component = new TasksListComponent(cd, tasksApp);
       expect(component).toBeTruthy();
     });
 
