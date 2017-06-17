@@ -3,32 +3,55 @@
 */
 
 import { Injectable } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { Task, TaskType, TaskState, TaskFilter } from './../models';
 
+// Flows app
+import { FlowsApiService } from './../../flows/services';
+import { Flow } from './../../flows/models';
+
+// Tasks mock data
 import { TASKS_DATA } from './tasks.data';
 
 @Injectable()
 export class TasksAppService {
   // Tasks list filters
   filters = [];
+  // Filters list
+  filtersList: TaskFilter[];
   // Tasks list sorting order
   sortingDir: string = 'desc';
   // Tasks list
   tasks: Task[] = TASKS_DATA;
+  // Flows list
+  flowsSub$: Subscription;
 
-  filtersList: TaskFilter[] = [
-    {type: 'taskType', taskType: TaskType.APPROVE},
-    {type: 'taskType', taskType: TaskType.REVIEW},
-    {type: 'taskType', taskType: TaskType.CORRECT},
-    // TODO retrieve flows list from API and append to filtersList asynchronously
-    {type: 'flowId', flowId: '1', flowName: 'Test flow 1'},
-    {type: 'flowId', flowId: '2', flowName: 'Test flow 2'},
-    {type: 'flowId', flowId: '3', flowName: 'Test flow 3'},
-  ];
+
+  constructor(
+    private api: FlowsApiService,
+  ) {
+    this.filtersList = [
+      {type: 'taskType', taskType: TaskType.APPROVE},
+      {type: 'taskType', taskType: TaskType.REVIEW},
+      {type: 'taskType', taskType: TaskType.CORRECT},
+    ];
+
+    // Load flows and register as filters
+    this.flowsSub$ = this.api.getFlows().map(({data}) => data.allFlows).subscribe((flows) => {
+      this.registerFlowFilters(flows);
+      this.flowsSub$.unsubscribe();
+    });
+  }
 
   /**
    * Task filters
    */
+
+  registerFlowFilters(flows: Flow[]) {
+    flows.forEach(flow => {
+      this.filtersList.push({type: 'flowId', flowId: flow.id, flowName: flow.name});
+    });
+  }
 
   setFilter(params) {
     if (this.filterExists(params)) return;

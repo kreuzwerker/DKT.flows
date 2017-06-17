@@ -7,7 +7,7 @@ export let TASKS_DATA = [
     date: '1489311005',
     type: TaskType.CORRECT,
     state: TaskState.STARTED,
-    flow: {id: '1', name: 'Test flow 1 with a very long that needs to be truncated'},
+    flow: {id: 'ciy0ie2q1aoul0179imlh0a73', name: 'first flow'},
   },
   {
     id: '2',
@@ -15,7 +15,7 @@ export let TASKS_DATA = [
     date: '1491989405',
     type: TaskType.APPROVE,
     state: TaskState.STARTED,
-    flow: {id: '1', name: 'Test flow 1 with a very long that needs to be truncated'},
+    flow: {id: 'ciy0ie2q1aoul0179imlh0a73', name: 'first flow'},
   },
   {
     id: '3',
@@ -23,7 +23,7 @@ export let TASKS_DATA = [
     date: '1494581405',
     type: TaskType.REVIEW,
     state: TaskState.STARTED,
-    flow: {id: '2', name: 'Test flow 2'},
+    flow: {id: '080d3ee8-a303-476a-c0bf-c6cd3ce988dc', name: 'New flow'},
   },
   {
     id: '4',
@@ -31,7 +31,7 @@ export let TASKS_DATA = [
     date: '1497259805',
     type: TaskType.CORRECT,
     state: TaskState.STARTED,
-    flow: {id: '2', name: 'Test flow 2'},
+    flow: {id: '080d3ee8-a303-476a-c0bf-c6cd3ce988dc', name: 'New flow'},
   },
   {
     id: '5',
@@ -39,7 +39,7 @@ export let TASKS_DATA = [
     date: '1486891805',
     type: TaskType.APPROVE,
     state: TaskState.NOT_STARTED,
-    flow: {id: '1', name: 'Test flow 1 with a very long that needs to be truncated'},
+    flow: {id: 'ciy0ie2q1aoul0179imlh0a73', name: 'first flow'},
   },
   {
     id: '6',
@@ -47,7 +47,7 @@ export let TASKS_DATA = [
     date: '1484213405',
     type: TaskType.CORRECT,
     state: TaskState.NOT_STARTED,
-    flow: {id: '3', name: 'Test flow 3'},
+    flow: {id: '080d3ee8-a303-476a-c0bf-c6cd3ce988dc', name: 'New flow'},
   },
   {
     id: '7',
@@ -55,6 +55,6 @@ export let TASKS_DATA = [
     date: '1483263005',
     type: TaskType.CORRECT,
     state: TaskState.NOT_STARTED,
-    flow: {id: '3', name: 'Test flow 3'},
+    flow: {id: '080d3ee8-a303-476a-c0bf-c6cd3ce988dc', name: 'New flow'},
   },
 ];
