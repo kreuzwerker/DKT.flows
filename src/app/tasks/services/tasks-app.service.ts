@@ -30,16 +30,12 @@ export class TasksAppService {
   constructor(
     private api: FlowsApiService,
   ) {
-    this.filtersList = [
-      {type: 'taskType', taskType: TaskType.APPROVE},
-      {type: 'taskType', taskType: TaskType.REVIEW},
-      {type: 'taskType', taskType: TaskType.CORRECT},
-    ];
+    this.initFlowFilters();
 
     // Load flows and register as filters
     // NB updates the filters list on every change to the flows list (added/removed)
     this.flowsSub$ = this.api.getFlows().map(({data}) => data.allFlows).subscribe((flows) => {
-      this.registerFlowFilters(flows);
+      this.initFlowFilters(flows);
     });
   }
 
@@ -47,8 +43,15 @@ export class TasksAppService {
    * Task filters list
    */
 
-  registerFlowFilters(flows: Flow[]) {
-    this.filtersList = [];
+  initFlowFilters(flows: Flow[] = []) {
+    // Register type filters
+    this.filtersList = [
+      {type: 'taskType', taskType: TaskType.APPROVE},
+      {type: 'taskType', taskType: TaskType.REVIEW},
+      {type: 'taskType', taskType: TaskType.CORRECT},
+    ];
+
+    // Register flow filters
     flows.forEach(flow => {
       this.filtersList.push({type: 'flowId', flowId: flow.id, flowName: flow.name});
     });

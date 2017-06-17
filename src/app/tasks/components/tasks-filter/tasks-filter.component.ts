@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TasksAppService } from './../../services';
 import { TaskFilter } from './../../models';
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
   templateUrl: 'tasks-filter.component.html',
   styleUrls: ['tasks-filter.component.css']
 })
-export class TasksFilterComponent {
+export class TasksFilterComponent implements OnChanges {
   @Input() sortingDir: String;
   @Input() filters: TaskFilter[];
   @Input() filtersList: TaskFilter[];
@@ -28,6 +28,15 @@ export class TasksFilterComponent {
     this.filteredFilters = this.filterCtrl.valueChanges
       .startWith(null)
       .map(name => this.filterFilters(name));
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // NB The flow filters in filtersList get loaded asynchronously. We need to
+    // emit a stream event in order to re-populate filteredFilters with the new
+    // flow filters.
+    if (changes['filtersList'] !== undefined) {
+      this.filterCtrl.setValue('');
+    }
   }
 
   filterFilters(val: string): any[] {
