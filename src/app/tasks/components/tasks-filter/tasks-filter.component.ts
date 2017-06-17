@@ -47,6 +47,8 @@ export class TasksFilterComponent implements OnChanges {
   }
 
   selectFilter(event, filter: TaskFilter): void {
+    // Only act upon user initiated selections
+    if (!event.isUserInput) return;
     this.setFilter.emit(filter);
     // Clear search input field
     this.filterCtrl.setValue('');

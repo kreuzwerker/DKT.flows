@@ -26,9 +26,18 @@ describe('Tasks App', () => {
       it('should set the given filter and clear the search field', () => {
         let spy = spyOn(component.setFilter, 'emit');
         const filter = utils.createTaskTypeFilterData();
-        component.selectFilter({}, filter);
+        const event = {isUserInput: true};
+        component.selectFilter(event, filter);
         expect(spy).toHaveBeenCalledWith(filter);
         expect(component.filterCtrl.value).toEqual('');
+      });
+
+      it('should not set the given filter if the change was not triggered by the user', () => {
+        let spy = spyOn(component.setFilter, 'emit');
+        const filter = utils.createTaskTypeFilterData();
+        const event = {isUserInput: false};
+        component.selectFilter(event, filter);
+        expect(spy).not.toHaveBeenCalledWith(filter);
       });
     });
 
