@@ -37,21 +37,26 @@ export class TasksAppService {
     ];
 
     // Load flows and register as filters
+    // NB updates the filters list on every change to the flows list (added/removed)
     this.flowsSub$ = this.api.getFlows().map(({data}) => data.allFlows).subscribe((flows) => {
       this.registerFlowFilters(flows);
-      this.flowsSub$.unsubscribe();
+    });
+  }
+
+  /**
+   * Task filters list
+   */
+
+  registerFlowFilters(flows: Flow[]) {
+    this.filtersList = [];
+    flows.forEach(flow => {
+      this.filtersList.push({type: 'flowId', flowId: flow.id, flowName: flow.name});
     });
   }
 
   /**
    * Task filters
    */
-
-  registerFlowFilters(flows: Flow[]) {
-    flows.forEach(flow => {
-      this.filtersList.push({type: 'flowId', flowId: flow.id, flowName: flow.name});
-    });
-  }
 
   setFilter(params) {
     if (this.filterExists(params)) return;
