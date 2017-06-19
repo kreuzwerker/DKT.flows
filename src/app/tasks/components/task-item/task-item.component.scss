@@ -1,4 +1,14 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+
 .task-item {
+  &:hover, &.active-link {
+    background-color: $element-selected-color;
+    cursor: pointer;
+    outline: none;
+  }
+
   p.date {
     margin: 5px 0 0.5rem;
   }

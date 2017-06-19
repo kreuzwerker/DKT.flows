@@ -15,6 +15,8 @@ import { TASKS_DATA } from './tasks.data';
 
 @Injectable()
 export class TasksAppService {
+  // Current selected task
+  task: Task = null;
   // Tasks list filters
   filters = [];
   // Filters list
@@ -26,7 +28,6 @@ export class TasksAppService {
   // Flows list
   flowsSub$: Subscription;
 
-
   constructor(
     private api: FlowsApiService,
   ) {
@@ -37,6 +38,10 @@ export class TasksAppService {
     this.flowsSub$ = this.api.getFlows().map(({data}) => data.allFlows).subscribe((flows) => {
       this.initFlowFilters(flows);
     });
+  }
+
+  setTask(task: Task): void {
+    this.task = task;
   }
 
   /**

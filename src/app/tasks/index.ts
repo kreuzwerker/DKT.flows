@@ -29,6 +29,12 @@ import { TasksAppActions, TasksAppEffects } from './states';
 
 const routes: Routes = [
   { path: 'tasks', component: TasksAppComponent, canActivate: [LoginGuard] },
+  { path: 'tasks/:taskId', component: TasksAppComponent, canActivate: [LoginGuard],
+    // children: [
+    //   { path: 'description', component: TaskDescriptionComponent },
+    //   { path: 'comments', component: TaskCommentsComponent },
+    // ]
+  }
 ];
 
 @NgModule({

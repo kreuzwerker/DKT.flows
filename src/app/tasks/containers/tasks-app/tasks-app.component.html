@@ -28,6 +28,11 @@
   </div>
 
   <div class="main full-height" fxFlex>
+    <h4>{{tasksApp.task?.title}}</h4>
+  </div>
+
+  <div class="sidebar-right full-height" fxFlex>
+    <!-- Outlet for task description, comments -->
     <router-outlet></router-outlet>
   </div>
 </div>

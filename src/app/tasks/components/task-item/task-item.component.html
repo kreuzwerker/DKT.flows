@@ -1,4 +1,4 @@
-<div class="task-item">
+<div class="task-item padding border-bottom" [routerLink]="'/tasks/' + task.id" routerLinkActive="active-link">
   <h6>{{task.title}}</h6>
   <p class="date">{{task.date * 1000 | date:'short'}}</p>
   <span class="label {{task.type}}" (click)="filterByType()">{{task.type}}</span>
