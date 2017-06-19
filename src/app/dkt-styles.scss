@@ -45,6 +45,9 @@ h6 {
 button {
   font-size: 13px!important;
   font-weight: 600!important;
+  &:not(.mat-icon-button) {
+    border-radius: 4px!important;
+  }
 }
 
 button, div {

@@ -7,6 +7,14 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 */
 
 div.layout {
+  .topbar-height {
+    height: 32px;
+  }
+
+  div.sidebar-left, div.main, div.sidebar-right {
+    background-color: #fafafa;
+  }
+
   div.sidebar-left {
     position: relative;
     max-width: 350px;
@@ -15,10 +23,6 @@ div.layout {
     &.collapsed {
       margin-left: -350px;
     }
-  }
-
-  div.sidebar-left, div.right {
-    background-color: #fafafa;
   }
 
   div.sidebar-left-collapsed {
@@ -32,6 +36,10 @@ div.layout {
     &.expanded {
       display:inline-block;
     }
+  }
+
+  div.sidebar-right {
+    max-width: 350px;
   }
 }
 

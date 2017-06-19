@@ -1,0 +1,51 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+
+div.task-controls {
+  div.nav {
+    button {
+      padding: 0;
+      min-width: 40px;
+
+      &:first-child {
+        border-top-right-radius: 0!important;
+        border-bottom-right-radius: 0!important;
+      }
+
+      &:last-child {
+        border-top-left-radius: 0!important;
+        border-bottom-left-radius: 0!important;
+      }
+
+      md-icon {
+        color: $dark-grey;
+      }
+    }
+  }
+
+  button.state {
+    md-icon {
+      margin-left: -10px;
+    }
+  }
+
+  h5.task-title {
+    margin-right: 1rem;
+  }
+
+  div.icons {
+    md-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      color: $dark-grey;
+      cursor: pointer;
+
+      &:first-child {
+        margin-right: 1rem;
+      }
+    }
+  }
+}

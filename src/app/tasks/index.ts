@@ -17,6 +17,7 @@ import { TasksAppComponent } from './containers/tasks-app/tasks-app.component';
 import { TasksListComponent } from './containers/tasks-list/tasks-list.component';
 
 // Components
+import { TaskControlsComponent } from './components/task-controls/task-controls.component';
 import { TasksFilterComponent } from './components/tasks-filter/tasks-filter.component';
 import { TaskItemComponent } from './components/task-item/task-item.component';
 
@@ -40,6 +41,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     TasksAppComponent,
+    TaskControlsComponent,
     TasksFilterComponent,
     TaskItemComponent,
     TasksListComponent,

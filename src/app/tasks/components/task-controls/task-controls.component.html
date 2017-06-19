@@ -1,0 +1,23 @@
+<div class="task-controls" fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="nav" fxLayout="row" fxLayoutAlign="center center">
+    <button md-raised-button>
+      <md-icon>chevron_left</md-icon>
+    </button>
+    <button md-raised-button>
+      <md-icon>chevron_right</md-icon>
+    </button>
+  </div>
+  
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h5 class="task-title">{{task.title}}</h5>
+    <button md-raised-button color="primary" class="state">
+      <md-icon>play_arrow</md-icon>
+      <span>Start</span>
+    </button>
+  </div>
+
+  <div class="icons" fxLayout="row" fxLayoutAlign="center center">
+    <md-icon>comment</md-icon>
+    <md-icon>assignment</md-icon>
+  </div>
+</div>

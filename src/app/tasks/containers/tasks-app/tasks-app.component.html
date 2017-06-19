@@ -3,7 +3,7 @@
     <!--<dkt-loading-indicator *ngIf="state.select('loadingTasks') | async" text="Loading tasks" center="true"></dkt-loading-indicator>-->
 
     <!-- Header-->
-    <div class="padding border-bottom">
+    <div class="padding border-bottom topbar-height">
       <h4 class="tasks-app-header" fxLayout="row" fxLayoutAlign="start center">
         <span class="tasks-count">{{tasksApp.tasks.length}}</span>
         <span fxFlex>Tasks Remaining</span>
@@ -28,10 +28,10 @@
   </div>
 
   <div class="main full-height" fxFlex>
-    <h4>{{tasksApp.task?.title}}</h4>
+    <dkt-task-controls *ngIf="tasksApp.task" class="padding border-bottom topbar-height" [task]="tasksApp.task" flex></dkt-task-controls>
   </div>
 
-  <div class="sidebar-right full-height" fxFlex>
+  <div class="sidebar-right border-left full-height" fxFlex>
     <!-- Outlet for task description, comments -->
     <router-outlet></router-outlet>
   </div>
