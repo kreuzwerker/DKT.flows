@@ -15,7 +15,7 @@ export class TasksFilterComponent implements OnChanges {
   @Input() sortingDir: String;
   @Input() filters: TaskFilter[];
   @Input() filtersList: TaskFilter[];
-  @Output() sortingDirChange: EventEmitter<String> = new EventEmitter<String>();
+  @Output() setSortingDir: EventEmitter<String> = new EventEmitter<String>();
   @Output() setFilter: EventEmitter<Object> = new EventEmitter<Object>();
   @Output() unsetFilter: EventEmitter<Object> = new EventEmitter<Object>();
   @Output() unsetAllFilters: EventEmitter<void> = new EventEmitter<void>();
@@ -56,7 +56,7 @@ export class TasksFilterComponent implements OnChanges {
 
   toggleSortingDir(): void {
     this.sortingDir = this.sortingDir === 'asc' ? 'desc' : 'asc';
-    this.sortingDirChange.emit(this.sortingDir);
+    this.setSortingDir.emit(this.sortingDir);
   }
 
   getFilterLabel(filter: TaskFilter, trunc = false): string {

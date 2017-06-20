@@ -4,16 +4,16 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 
 div.task-controls {
   div.nav {
-    button {
+    button:not(.mat-icon-button) {
       padding: 0;
       min-width: 40px;
 
-      &:first-child {
+      &:first-of-type {
         border-top-right-radius: 0!important;
         border-bottom-right-radius: 0!important;
       }
 
-      &:last-child {
+      &:last-of-type {
         border-top-left-radius: 0!important;
         border-bottom-left-radius: 0!important;
       }
@@ -21,6 +21,11 @@ div.task-controls {
       md-icon {
         color: $dark-grey;
       }
+    }
+
+    span.position {
+      color: $dark-grey;
+      margin-left: 1rem;
     }
   }
 

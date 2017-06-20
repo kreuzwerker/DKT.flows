@@ -1,11 +1,13 @@
 <div class="task-controls" fxLayout="row" fxLayoutAlign="space-between center">
   <div class="nav" fxLayout="row" fxLayoutAlign="center center">
-    <button md-raised-button>
+    <button md-raised-button [disabled]="!getPrevTaskRoute()" [routerLink]="getPrevTaskRoute()">
       <md-icon>chevron_left</md-icon>
     </button>
-    <button md-raised-button>
+    <button md-raised-button [disabled]="!getNextTaskRoute()" [routerLink]="getNextTaskRoute()">
       <md-icon>chevron_right</md-icon>
     </button>
+
+    <span class="position">{{getCurrentTaskIndex() + 1}} of {{tasks.length}}</span>
   </div>
   
   <div fxLayout="row" fxLayoutAlign="center center">

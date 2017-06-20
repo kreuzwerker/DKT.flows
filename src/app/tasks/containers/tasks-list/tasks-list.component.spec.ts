@@ -28,23 +28,21 @@ describe('Tasks App', () => {
     });
 
     describe('ngOnChanges()', () => {
-      it('should call sortTasks() when the sorting direction input changes', () => {
-        spyOn(component, 'sortTasks');
+      it('should call splitTasks() when tasks change', () => {
+        spyOn(component, 'splitTasks');
         spyOn(cd, 'markForCheck');
-        const sortingDir = 'asc';
-        component.ngOnChanges({ sortingDir: new SimpleChange(null, sortingDir, true)});
-        expect(component.sortTasks).toHaveBeenCalledWith(sortingDir);
+        const tasks = utils.createTasksListData();
+        component.ngOnChanges({ tasks: new SimpleChange(null, tasks, true)});
+        expect(component.splitTasks).toHaveBeenCalled();
         expect(cd.markForCheck).toHaveBeenCalled();
       });
     });
 
     describe('ngOnInit()', () => {
-      it('should split and sort the task lists', () => {
+      it('should split the task lists', () => {
         let spySplit = spyOn(component, 'splitTasks');
-        let spySort = spyOn(component, 'sortTasks');
         component.ngOnInit();
         expect(spySplit).toHaveBeenCalled();
-        expect(spySort).toHaveBeenCalledWith(component.sortingDir);
       });
     });
 
@@ -56,19 +54,6 @@ describe('Tasks App', () => {
         component.splitTasks();
         expect(component.tasksInProgress.length).toEqual(3);
         expect(component.tasksMisc.length).toEqual(2);
-      });
-    });
-
-    describe('sortTasks()', () => {
-      it('should sort the given tasks in the given direction', () => {
-        component.tasks = utils.createTasksListData();
-        component.splitTasks();
-        component.sortTasks('asc');
-        expect(component.tasksInProgress[0].id).toBe('1');
-        expect(component.tasksMisc[0].id).toBe('4');
-        component.sortTasks('desc');
-        expect(component.tasksInProgress[0].id).toBe('3');
-        expect(component.tasksMisc[0].id).toBe('5');
       });
     });
   });

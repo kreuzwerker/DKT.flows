@@ -4,6 +4,7 @@
 
 import { Injectable } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import * as _ from 'lodash';
 import { Task, TaskType, TaskState, TaskFilter } from './../models';
 
 // Flows app
@@ -24,13 +25,14 @@ export class TasksAppService {
   // Tasks list sorting order
   sortingDir: string = 'desc';
   // Tasks list
-  tasks: Task[] = TASKS_DATA;
+  tasks: Task[];
   // Flows list
   flowsSub$: Subscription;
 
   constructor(
     private api: FlowsApiService,
   ) {
+    this.loadTasks();
     this.initFlowFilters();
 
     // Load flows and register as filters
@@ -40,8 +42,37 @@ export class TasksAppService {
     });
   }
 
+  loadTasks(): void {
+    this.tasks = TASKS_DATA;
+    this.sortTasks(this.sortingDir);
+  }
+
   setTask(task: Task): void {
     this.task = task;
+  }
+
+  /**
+   * Tasks sorting
+   */
+
+  sortTasks(dir) {
+    let tasksInProgress = this.tasks.filter(task => task.state === TaskState.STARTED);
+    let tasksMisc = this.tasks.filter(task => task.state === TaskState.NOT_STARTED);
+
+    tasksInProgress = _.sortBy(tasksInProgress, 'date');
+    tasksMisc = _.sortBy(tasksMisc, 'date');
+
+    if (dir === 'desc') {
+      tasksInProgress = tasksInProgress.reverse();
+      tasksMisc = tasksMisc.reverse();
+    }
+
+    this.tasks = tasksInProgress.concat(tasksMisc);
+  }
+
+  setSortingDir(dir: string) {
+    this.sortingDir = dir;
+    this.sortTasks(this.sortingDir);
   }
 
   /**

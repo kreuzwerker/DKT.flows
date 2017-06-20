@@ -43,7 +43,7 @@ describe('Tasks App', () => {
 
     describe('toggleSortingDir()', () => {
       it('should change the sorting direction and emit a change event', () => {
-        let spy = spyOn(component.sortingDirChange, 'emit');
+        let spy = spyOn(component.setSortingDir, 'emit');
         component.sortingDir = 'asc';
         component.toggleSortingDir();
         expect(spy).toHaveBeenCalledWith('desc');
