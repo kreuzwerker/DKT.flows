@@ -25,5 +25,15 @@ export enum TaskType {
 export enum TaskState {
   NOT_STARTED,
   STARTED,
-  FINISHED
+  PAUSED,
+  FINISHED,
+  APPROVED,
+  REJECTED,
+  REVIEWED
+}
+
+export enum TaskStateType {
+  TRANSITIONAL,
+  APPROVE,
+  REVIEW
 }

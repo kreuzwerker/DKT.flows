@@ -29,7 +29,7 @@
   </div>
 
   <div class="main full-height" fxFlex>
-    <dkt-task-controls *ngIf="tasksApp.task" class="padding border-bottom topbar-height" [tasks]="tasksApp.tasks" [task]="tasksApp.task" flex></dkt-task-controls>
+    <dkt-task-controls *ngIf="tasksApp.task" class="padding border-bottom topbar-height" [tasks]="tasksApp.tasks" [task]="tasksApp.task" (setState)="state.setTaskState(tasksApp.task, $event)" flex></dkt-task-controls>
   </div>
 
   <div class="sidebar-right border-left full-height" fxFlex>

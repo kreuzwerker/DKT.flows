@@ -10,12 +10,11 @@
     <span class="position">{{getCurrentTaskIndex() + 1}} of {{tasks.length}}</span>
   </div>
   
-  <div fxLayout="row" fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutAlign="center center" [ngSwitch]="getStateType()">
     <h5 class="task-title">{{task.title}}</h5>
-    <button md-raised-button color="primary" class="state">
-      <md-icon>play_arrow</md-icon>
-      <span>Start</span>
-    </button>
+    <dkt-task-controls-review *ngSwitchCase="stateType.REVIEW" [state]="task.state" (setState)="setState.emit($event)"></dkt-task-controls-review>
+    <dkt-task-controls-approve *ngSwitchCase="stateType.APPROVE" [state]="task.state" (setState)="setState.emit($event)"></dkt-task-controls-approve>
+    <dkt-task-controls-transitional *ngSwitchCase="stateType.TRANSITIONAL" [state]="task.state" (setState)="setState.emit($event)"></dkt-task-controls-transitional>
   </div>
 
   <div class="icons" fxLayout="row" fxLayoutAlign="center center">

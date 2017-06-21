@@ -14,7 +14,7 @@ export let TASKS_DATA = [
     title: 'Task 2',
     date: '1491989405',
     type: TaskType.APPROVE,
-    state: TaskState.STARTED,
+    state: TaskState.NOT_STARTED,
     flow: {id: 'ciy0ie2q1aoul0179imlh0a73', name: 'first flow'},
   },
   {
@@ -22,7 +22,7 @@ export let TASKS_DATA = [
     title: 'Task 3',
     date: '1494581405',
     type: TaskType.REVIEW,
-    state: TaskState.STARTED,
+    state: TaskState.NOT_STARTED,
     flow: {id: '080d3ee8-a303-476a-c0bf-c6cd3ce988dc', name: 'New flow'},
   },
   {

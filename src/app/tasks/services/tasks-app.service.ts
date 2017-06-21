@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 import { Task, TaskType, TaskState, TaskFilter } from './../models';
 
 // Flows app
-import { FlowsApiService } from './../../flows/services';
+import { FlowsApiService, FlowsStateService } from './../../flows/services';
 import { Flow } from './../../flows/models';
 
 // Tasks mock data
@@ -57,7 +57,7 @@ export class TasksAppService {
 
   sortTasks(dir) {
     let tasksInProgress = this.tasks.filter(task => task.state === TaskState.STARTED);
-    let tasksMisc = this.tasks.filter(task => task.state === TaskState.NOT_STARTED);
+    let tasksMisc = this.tasks.filter(task => task.state !== TaskState.STARTED);
 
     tasksInProgress = _.sortBy(tasksInProgress, 'date');
     tasksMisc = _.sortBy(tasksMisc, 'date');

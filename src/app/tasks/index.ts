@@ -18,6 +18,9 @@ import { TasksListComponent } from './containers/tasks-list/tasks-list.component
 
 // Components
 import { TaskControlsComponent } from './components/task-controls/task-controls.component';
+import { TaskControlsApproveComponent } from './components/task-controls-approve/task-controls-approve.component';
+import { TaskControlsReviewComponent } from './components/task-controls-review/task-controls-review.component';
+import { TaskControlsTransitionalComponent } from './components/task-controls-transitional/task-controls-transitional.component';
 import { TasksFilterComponent } from './components/tasks-filter/tasks-filter.component';
 import { TaskItemComponent } from './components/task-item/task-item.component';
 
@@ -42,6 +45,9 @@ const routes: Routes = [
   declarations: [
     TasksAppComponent,
     TaskControlsComponent,
+    TaskControlsApproveComponent,
+    TaskControlsReviewComponent,
+    TaskControlsTransitionalComponent,
     TasksFilterComponent,
     TaskItemComponent,
     TasksListComponent,

@@ -33,6 +33,6 @@ export class TasksListComponent implements OnInit, OnChanges {
 
   splitTasks() {
     this.tasksInProgress = this.tasks.filter(task => task.state === TaskState.STARTED);
-    this.tasksMisc = this.tasks.filter(task => task.state === TaskState.NOT_STARTED);
+    this.tasksMisc = this.tasks.filter(task => task.state !== TaskState.STARTED);
   }
 }

@@ -23,5 +23,6 @@ export const mockTasksState = {
   // Create mock via class inflection?
   actions: {
     selectTask(task: Task) { },
+    updateTask(task: Task) { },
   } as TasksAppActions,
 } as TasksStateService;

@@ -14,4 +14,12 @@ export class TasksAppActions {
       payload: task
     };
   }
+
+  static UPDATE_TASK = 'UPDATE_TASK';
+  updateTask(task: Task) {
+    return {
+      type: TasksAppActions.UPDATE_TASK,
+      payload: task
+    };
+  }
 }
