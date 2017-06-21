@@ -65,6 +65,11 @@ div.task-controls {
       color: $dark-grey;
       cursor: pointer;
       margin-left: 1rem;
+      outline:none;
+
+      &.active {
+        color: $blue;
+      }
     }
   }
 }

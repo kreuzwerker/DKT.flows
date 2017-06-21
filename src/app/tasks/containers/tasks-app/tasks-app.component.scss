@@ -15,6 +15,14 @@ div.layout {
     background-color: #fafafa;
   }
 
+  div.sidebar-left, div.sidebar-right {
+    md-icon.close {
+      color: $dark-grey;
+      cursor: pointer;
+      outline: none;
+    }
+  }
+
   div.sidebar-left {
     position: relative;
     max-width: 350px;
@@ -39,12 +47,23 @@ div.layout {
   }
 
   div.sidebar-right {
+    position: relative;
     max-width: 350px;
+    transition: margin 0.2s ease-out;
+
+    .topbar-height {
+      // TEMPORARY fix
+      min-height: 62px;
+    }
+
+    &.collapsed {
+      margin-right: -350px;
+    }
   }
 }
 
 /*
-  Header
+  Sidebar Left Header
 */
 
 h4.tasks-app-header {
@@ -53,11 +72,6 @@ h4.tasks-app-header {
 
   span.tasks-count {
     margin-right: 1rem;
-  }
-
-  md-icon.close {
-    color: $dark-grey;
-    cursor: pointer;
   }
 }
 

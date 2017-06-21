@@ -18,7 +18,7 @@
   </div>
 
   <div class="icons" fxLayout="row" fxLayoutAlign="center center">
-    <md-icon>comment</md-icon>
-    <md-icon>assignment</md-icon>
+    <md-icon [routerLink]="'/tasks/' + task.id + '/comments'" routerLinkActive="active">comment</md-icon>
+    <md-icon [routerLink]="'/tasks/' + task.id + '/description'" routerLinkActive="active">assignment</md-icon>
   </div>
 </div>

@@ -12,7 +12,8 @@ import { Task } from './../../models';
 })
 export class TasksAppComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
-  collapsed: boolean = false;
+  leftCollapsed: boolean = false;
+  rightCollapsed: boolean = true;
 
   requestedTaskId: string = null;
 
@@ -44,6 +45,9 @@ export class TasksAppComponent implements OnInit, OnDestroy {
 
   // Updated requested task ID and select the task if tasks are loaded
   onTaskRouteChange() {
+    this.rightCollapsed = !(this.route.children[0]
+      && ['comments', 'description'].indexOf(this.route.children[0].snapshot.url[0].path) !== -1);
+
     this.route.params.forEach((params: Params) => {
       if (params['taskId'] && params['taskId'] !== this.requestedTaskId) {
         this.requestedTaskId = params['taskId'];
