@@ -3,7 +3,7 @@
 $element-bg-color: #eee;
 
 // Font family
-button, select, html, textarea, input, a, ul,
+button, select, html, textarea, input, p, a, ul,
 .mat-button, .mat-toolbar, .mat-tab-label, .mat-tab-group {
   font-family: $primary-font!important;
 }
@@ -21,6 +21,12 @@ p {
   color: $dark-grey;
   font-size:12px!important;
   line-height: 16px!important;
+
+  &.body {
+    color: $dark-blue;
+    font-size: 13px!important;
+    line-height: 20px!important;
+  }
 }
 
 h1, h2, h3, h4, h5, h6, input, button {

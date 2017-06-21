@@ -23,6 +23,7 @@ import { TaskControlsReviewComponent } from './components/task-controls-review/t
 import { TaskControlsTransitionalComponent } from './components/task-controls-transitional/task-controls-transitional.component';
 import { TasksFilterComponent } from './components/tasks-filter/tasks-filter.component';
 import { TaskItemComponent } from './components/task-item/task-item.component';
+import { TaskTextWidgetComponent } from './components/task-text-widget/task-text-widget.component';
 
 // Services
 import { TasksApiService, TasksAppService, TasksStateService } from './services';
@@ -51,6 +52,7 @@ const routes: Routes = [
     TasksFilterComponent,
     TaskItemComponent,
     TasksListComponent,
+    TaskTextWidgetComponent,
   ],
   imports: [
     CommonModule,
