@@ -3,18 +3,14 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 @import '../../../variables';
 
 .task-item {
+  outline: none;
+
   &:hover, &.active-link {
     background-color: $element-selected-color;
     cursor: pointer;
-    outline: none;
   }
 
-  p.date {
-    margin: 5px 0 0.5rem;
-  }
-
-  span.label {
-    margin-right: 0.5rem;
-    cursor: pointer;
+  h6 {
+    margin-bottom: 5px!important;
   }
 }

@@ -4,7 +4,7 @@
 
     <!-- Header-->
     <div class="padding border-bottom topbar-height">
-      <h4 class="tasks-app-header" fxLayout="row" fxLayoutAlign="start center">
+      <h4 class="header" fxLayout="row" fxLayoutAlign="start center">
         <span class="tasks-count">{{tasksApp.tasks.length}}</span>
         <span fxFlex>Tasks Remaining</span>
         <md-icon class="close" (click)="leftCollapsed = true">close</md-icon>
@@ -34,11 +34,6 @@
   </div>
 
   <div class="sidebar-right border-left full-height" [class.collapsed]="rightCollapsed" fxFlex>
-    <!-- Header-->
-    <div class="padding border-bottom topbar-height" fxLayout="row" fxLayoutAlign="start center">
-      <md-icon class="close" [routerLink]="'/tasks/' + tasksApp.task?.id">close</md-icon>
-    </div>
-
     <!-- Outlet for task description, comments -->
     <router-outlet></router-outlet>
   </div>

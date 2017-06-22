@@ -53,7 +53,7 @@ div.layout {
 
     .topbar-height {
       // TEMPORARY fix
-      min-height: 62px;
+      min-height: 61px;
     }
 
     &.collapsed {
@@ -66,10 +66,12 @@ div.layout {
   Sidebar Left Header
 */
 
-h4.tasks-app-header {
+h4.header {
   margin: 0;
   font-size: 20px;
+}
 
+h4 {
   span.tasks-count {
     margin-right: 1rem;
   }

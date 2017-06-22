@@ -25,6 +25,7 @@ import { TaskControlsTransitionalComponent } from './components/task-controls-tr
 import { TaskDescriptionComponent } from './components/task-description/task-description.component';
 import { TasksFilterComponent } from './components/tasks-filter/tasks-filter.component';
 import { TaskItemComponent } from './components/task-item/task-item.component';
+import { TaskItemLabelsComponent } from './components/task-item-labels/task-item-labels.component';
 import { TaskTextWidgetComponent } from './components/task-text-widget/task-text-widget.component';
 
 // Services
@@ -55,6 +56,7 @@ const routes: Routes = [
     TaskDescriptionComponent,
     TasksFilterComponent,
     TaskItemComponent,
+    TaskItemLabelsComponent,
     TasksListComponent,
     TaskTextWidgetComponent,
   ],

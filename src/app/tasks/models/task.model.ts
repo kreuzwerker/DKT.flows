@@ -1,6 +1,7 @@
 export class Task {
   id: string;
   title: string;
+  description: string;
   date: string;
   type: TaskType;
   state: TaskState;
@@ -10,6 +11,7 @@ export class Task {
 export interface TaskData {
   id: string;
   title: string;
+  description: string;
   date: string;
   type: TaskType;
   state: TaskState;

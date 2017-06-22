@@ -1,1 +1,7 @@
-<p>task description</p>
+<!-- Header-->
+<div class="padding border-bottom topbar-height" fxLayout="row" fxLayoutAlign="start center">
+  <dkt-task-item-labels *ngIf="tasksApp.task" [task]="tasksApp.task" (setFilter)="tasksApp.setFilter($event)" fxFlex></dkt-task-item-labels>
+  <md-icon class="close" [routerLink]="'/tasks/' + tasksApp.task?.id">close</md-icon>
+</div>
+
+<p class="body description">{{tasksApp.task?.description}}</p>

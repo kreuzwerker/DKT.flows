@@ -9,22 +9,4 @@ import { Task, TaskFilter } from '../../models';
 export class TaskItemComponent {
   @Input() task: Task;
   @Output() setFilter: EventEmitter<TaskFilter> = new EventEmitter<TaskFilter>();
-
-  constructor() {}
-
-  filterByFlow() {
-    this.setFilter.emit({
-      type: 'flowId',
-      flowId: this.task.flow.id,
-      flowName: this.task.flow.name
-    });
-  }
-
-  filterByType() {
-    this.setFilter.emit({type: 'taskType', taskType: this.task.type});
-  }
-
-  truncate(str: string): string {
-    return (str.length > 30) ? str.substring(0, 30) + '...' : str;
-  }
 }

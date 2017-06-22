@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Task } from './../../models';
+import { TasksAppService } from './../../services';
 
 @Component({
-  moduleId: module.id,
   selector: 'task-description',
   templateUrl: 'task-description.component.html',
   styleUrls: ['task-description.component.css']
 })
 export class TaskDescriptionComponent {
+  @Input() task: Task;
 
+  constructor(
+    public tasksApp: TasksAppService,
+  ) {}
 }
