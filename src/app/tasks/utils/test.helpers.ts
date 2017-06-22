@@ -11,6 +11,7 @@ export class TestUtils {
   createTaskData(
     id: string = '1',
     title: string = 'Test Task',
+    description: string = 'Test Task description',
     date: string = '1491989405',
     type: TaskType = TaskType.APPROVE,
     state: TaskState = TaskState.STARTED,
@@ -19,6 +20,7 @@ export class TestUtils {
     return {
       id: id,
       title: title,
+      description: description,
       date: date,
       type: type,
       state: state,
@@ -28,11 +30,11 @@ export class TestUtils {
 
   createTasksListData(): Task[] {
     return [
-      this.createTaskData('1', 'Test Task 1', '1491989405', TaskType.APPROVE, TaskState.STARTED),
-      this.createTaskData('2', 'Test Task 2', '1493989405', TaskType.CORRECT, TaskState.STARTED),
-      this.createTaskData('3', 'Test Task 3', '1494989405', TaskType.APPROVE, TaskState.STARTED),
-      this.createTaskData('4', 'Test Task 4', '1495989405', TaskType.REVIEW, TaskState.NOT_STARTED),
-      this.createTaskData('5', 'Test Task 5', '1496989405', TaskType.REVIEW, TaskState.NOT_STARTED),
+      this.createTaskData('1', 'Test Task 1', 'Test Task 1 description', '1491989405', TaskType.APPROVE, TaskState.STARTED),
+      this.createTaskData('2', 'Test Task 2', 'Test Task 2 description', '1493989405', TaskType.CORRECT, TaskState.STARTED),
+      this.createTaskData('3', 'Test Task 3', 'Test Task 3 description', '1494989405', TaskType.APPROVE, TaskState.STARTED),
+      this.createTaskData('4', 'Test Task 4', 'Test Task 4 description', '1495989405', TaskType.REVIEW, TaskState.NOT_STARTED),
+      this.createTaskData('5', 'Test Task 5', 'Test Task 5 description', '1496989405', TaskType.REVIEW, TaskState.NOT_STARTED),
     ];
   }
 
