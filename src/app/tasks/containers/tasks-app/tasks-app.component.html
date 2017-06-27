@@ -1,18 +1,19 @@
 <div class="layout full-height" fxLayout="row" fxLayoutAlign="start stretch">
-  <div class="sidebar-left border-right full-height" [class.collapsed]="collapsed" fxLayout="column" fxFlex>
+  <div class="sidebar-left border-right full-height" [class.collapsed]="leftCollapsed" fxLayout="column" fxFlex>
     <!--<dkt-loading-indicator *ngIf="state.select('loadingTasks') | async" text="Loading tasks" center="true"></dkt-loading-indicator>-->
 
     <!-- Header-->
-    <div class="padding border-bottom">
-      <h4 class="tasks-app-header" fxLayout="row" fxLayoutAlign="start center">
+    <div class="padding border-bottom topbar-height">
+      <h4 class="header" fxLayout="row" fxLayoutAlign="start center">
         <span class="tasks-count">{{tasksApp.tasks.length}}</span>
         <span fxFlex>Tasks Remaining</span>
-        <md-icon class="close" (click)="collapsed = true">close</md-icon>
+        <md-icon class="close" (click)="leftCollapsed = true">close</md-icon>
       </h4>
     </div>
 
     <dkt-tasks-filter
-      [(sortingDir)]="tasksApp.sortingDir"
+      [sortingDir]="tasksApp.sortingDir"
+      (setSortingDir)="tasksApp.setSortingDir($event)"
       [filters]="tasksApp.filters"
       [filtersList]="tasksApp.filtersList"
       (setFilter)="tasksApp.setFilter($event)"
@@ -23,11 +24,17 @@
     <dkt-tasks-list [tasks]="tasksApp.tasks" [sortingDir]="tasksApp.sortingDir"></dkt-tasks-list>
   </div>
 
-  <div class="sidebar-left-collapsed full-height" [class.expanded]="collapsed" (click)="collapsed = false">
+  <div class="sidebar-left-collapsed full-height" [class.expanded]="leftCollapsed" (click)="leftCollapsed = false">
     <span class="tasks-count">{{tasksApp.tasks.length}}</span>
   </div>
 
   <div class="main full-height" fxFlex>
+    <dkt-task-controls *ngIf="tasksApp.task" class="padding border-bottom topbar-height" [tasks]="tasksApp.tasks" [task]="tasksApp.task" (setState)="state.setTaskState(tasksApp.task, $event)" flex></dkt-task-controls>
+    <dkt-task-text-widget *ngIf="tasksApp.task"></dkt-task-text-widget>
+  </div>
+
+  <div class="sidebar-right border-left full-height" [class.collapsed]="rightCollapsed" fxFlex>
+    <!-- Outlet for task description, comments -->
     <router-outlet></router-outlet>
   </div>
 </div>

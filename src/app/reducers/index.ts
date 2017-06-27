@@ -14,6 +14,7 @@ const modules = {
 };
 
 import { FlowsAppState, flowsAppReducer  } from '../flows/states';
+import { TasksAppState, tasksAppReducer  } from '../tasks/states';
 
 export interface Action {
   type: string;
@@ -37,6 +38,7 @@ export interface AppState {
 
   // DKT Apps UI state
   flowsApp: FlowsAppState;
+  tasksApp: TasksAppState;
 }
 
 export const reducers = {
@@ -48,6 +50,7 @@ export const reducers = {
 
   // DKT Apps UI state
   flowsApp: flowsAppReducer,
+  tasksApp: tasksAppReducer,
 };
 
 // Generate a reducer to set the root state in dev mode for HMR

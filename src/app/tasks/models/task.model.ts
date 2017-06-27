@@ -1,6 +1,7 @@
 export class Task {
   id: string;
   title: string;
+  description: string;
   date: string;
   type: TaskType;
   state: TaskState;
@@ -10,6 +11,7 @@ export class Task {
 export interface TaskData {
   id: string;
   title: string;
+  description: string;
   date: string;
   type: TaskType;
   state: TaskState;
@@ -25,5 +27,15 @@ export enum TaskType {
 export enum TaskState {
   NOT_STARTED,
   STARTED,
-  FINISHED
+  PAUSED,
+  FINISHED,
+  APPROVED,
+  REJECTED,
+  REVIEWED
+}
+
+export enum TaskStateType {
+  TRANSITIONAL,
+  APPROVE,
+  REVIEW
 }

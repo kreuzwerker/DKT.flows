@@ -4,10 +4,12 @@
 
 import { Injectable } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import * as _ from 'lodash';
 import { Task, TaskType, TaskState, TaskFilter } from './../models';
 
 // Flows app
-import { FlowsApiService } from './../../flows/services';
+import { FlowsApiService, FlowsStateService } from './../../flows/services';
 import { Flow } from './../../flows/models';
 
 // Tasks mock data
@@ -15,6 +17,10 @@ import { TASKS_DATA } from './tasks.data';
 
 @Injectable()
 export class TasksAppService {
+  // Current child path e.g. 'description', 'comments'
+  currentTaskRoute: string = null;
+  // Current selected task
+  task: Task = null;
   // Tasks list filters
   filters = [];
   // Filters list
@@ -22,14 +28,15 @@ export class TasksAppService {
   // Tasks list sorting order
   sortingDir: string = 'desc';
   // Tasks list
-  tasks: Task[] = TASKS_DATA;
+  tasks: Task[];
   // Flows list
   flowsSub$: Subscription;
 
-
   constructor(
     private api: FlowsApiService,
+    public router: Router,
   ) {
+    this.loadTasks();
     this.initFlowFilters();
 
     // Load flows and register as filters
@@ -37,6 +44,71 @@ export class TasksAppService {
     this.flowsSub$ = this.api.getFlows().map(({data}) => data.allFlows).subscribe((flows) => {
       this.initFlowFilters(flows);
     });
+
+    this.router.events.filter(event => event instanceof NavigationEnd)
+    .subscribe(
+      this.onRouteChange.bind(this),
+      (err) => console.log('error', err)
+    );
+  }
+
+  onRouteChange() {
+    this.currentTaskRoute =
+      this.router.routerState.root.children[0].children[0]
+      ? this.router.routerState.root.children[0].children[0].snapshot.url[0].path
+      : null;
+  }
+
+  loadTasks(): void {
+    this.tasks = TASKS_DATA;
+    this.sortTasks(this.sortingDir);
+  }
+
+  setTask(task: Task): void {
+    this.task = task;
+  }
+
+  /**
+   * Tasks routing
+   */
+
+  // Navigates to the given task's route and keeps the current child route
+  // e.g. /tasks/1/description
+  goToTaskRoute(task) {
+    let path = ['tasks', task.id];
+    if (this.currentTaskRoute) {
+      path.push(this.currentTaskRoute);
+    }
+
+    this.router.navigate(path);
+  }
+
+  isActiveTask(task) {
+    return this.task && this.task.id === task.id;
+  }
+
+  /**
+   * Tasks sorting
+   */
+
+  sortTasks(dir) {
+    let tasksInProgress = this.tasks.filter(task => task.state === TaskState.STARTED);
+    let tasksMisc = this.tasks.filter(task => task.state !== TaskState.STARTED);
+
+    tasksInProgress = _.sortBy(tasksInProgress, 'date');
+    tasksMisc = _.sortBy(tasksMisc, 'date');
+
+    if (dir === 'desc') {
+      tasksInProgress = tasksInProgress.reverse();
+      tasksMisc = tasksMisc.reverse();
+    }
+
+    this.tasks = tasksInProgress.concat(tasksMisc);
+  }
+
+  setSortingDir(dir: string) {
+    this.sortingDir = dir;
+    this.sortTasks(this.sortingDir);
   }
 
   /**

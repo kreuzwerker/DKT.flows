@@ -3,15 +3,11 @@
     <h5>In progress ({{tasksInProgress.length}})</h5>
   </div>
 
-  <div class="padding border-bottom" *ngFor="let task of tasksInProgress">
-    <dkt-task-item [task]="task" (setFilter)="tasksApp.setFilter($event)"></dkt-task-item>
-  </div>
+  <dkt-task-item *ngFor="let task of tasksInProgress" [task]="task" (setFilter)="tasksApp.setFilter($event)"></dkt-task-item>
 
   <div class="padding">
     <h5>Everything else ({{tasksMisc.length}})</h5>
   </div>
 
-  <div class="padding border-bottom" *ngFor="let task of tasksMisc">
-    <dkt-task-item [task]="task" (setFilter)="tasksApp.setFilter($event)"></dkt-task-item>
-  </div>
+  <dkt-task-item *ngFor="let task of tasksMisc" [task]="task" (setFilter)="tasksApp.setFilter($event)"></dkt-task-item>
 </div>

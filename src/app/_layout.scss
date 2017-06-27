@@ -31,6 +31,10 @@ div.border-right {
   border-right: 1px solid $layout-border-color;
 }
 
+div.border-left {
+  border-left: 1px solid $layout-border-color;
+}
+
 .centered {
   position:absolute!important;
   left:50%;

@@ -7,6 +7,7 @@ import * as lodash from 'lodash';
 
 import { NgRedux, select } from '@angular-redux/store';
 import { AppState, Action } from './../../reducers';
+import { StateService } from './../../core/services';
 import { FlowsApiService } from './../services';
 import { Flow, FlowData, Step, StepData, StepConfigParamsInput, Provider, Service } from './../models';
 import { FlowsAppActions } from './../states';
@@ -14,7 +15,8 @@ import { FlowsAppActions } from './../states';
 import { FlowsListData } from './flow.gql';
 
 @Injectable()
-export class FlowsStateService {
+export class FlowsStateService extends StateService {
+  storeKey = 'flowsApp';
 
   //
   // App data state
@@ -46,9 +48,10 @@ export class FlowsStateService {
 
   constructor(
       private api: FlowsApiService,
-      private store: NgRedux<AppState>,
+      public store: NgRedux<AppState>,
       public actions: FlowsAppActions,
     ) {
+    super(store);
 
     //
     // App data queries
@@ -97,35 +100,8 @@ export class FlowsStateService {
   }
 
   //
-  // UI State
-  //
-
-  // Get a UI state property observable
-  select(key: string) {
-    return this.store.select('flowsApp')
-      .map(state => state[key])
-      .distinctUntilChanged();
-  }
-
-  // Get a current UI state property value
-  get(key: string) {
-    // @see http://stackoverflow.com/questions/35633684/how-to-get-current-value-of-state-object-with-ngrx-store
-    let value;
-    this.store.select('flowsApp')
-      .map(state => state[key])
-      .take(1)
-      .subscribe(s => value = s);
-
-    return value;
-  }
-
-  //
   // API
   //
-
-  dispatch(action: Action) {
-    this.store.dispatch(action);
-  }
 
   selectFlow(id: string): void {
     if (id === this.get('flowId')) {

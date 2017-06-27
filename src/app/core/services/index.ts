@@ -1,4 +1,5 @@
 export * from './local-storage.service';
+export * from './state.service';
 export * from './user/cognito-util.service';
 export * from './user/logger.service';
 export * from './user/login-ui-state.service';

@@ -1,9 +1,11 @@
+/* tslint:disable: ter-max-len */
 import { Task, TaskType, TaskState } from './../models';
 
 export let TASKS_DATA = [
   {
     id: '1',
     title: 'Task 1',
+    description: 'Task 1 description: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
     date: '1489311005',
     type: TaskType.CORRECT,
     state: TaskState.STARTED,
@@ -12,22 +14,25 @@ export let TASKS_DATA = [
   {
     id: '2',
     title: 'Task 2',
+    description: 'Task 2 description: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
     date: '1491989405',
     type: TaskType.APPROVE,
-    state: TaskState.STARTED,
+    state: TaskState.NOT_STARTED,
     flow: {id: 'ciy0ie2q1aoul0179imlh0a73', name: 'first flow'},
   },
   {
     id: '3',
     title: 'Task 3',
+    description: 'Task 3 description: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
     date: '1494581405',
     type: TaskType.REVIEW,
-    state: TaskState.STARTED,
+    state: TaskState.NOT_STARTED,
     flow: {id: '080d3ee8-a303-476a-c0bf-c6cd3ce988dc', name: 'New flow'},
   },
   {
     id: '4',
     title: 'Task 4',
+    description: 'Task 4 description: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
     date: '1497259805',
     type: TaskType.CORRECT,
     state: TaskState.STARTED,
@@ -36,6 +41,7 @@ export let TASKS_DATA = [
   {
     id: '5',
     title: 'Task 5',
+    description: 'Task 5 description: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
     date: '1486891805',
     type: TaskType.APPROVE,
     state: TaskState.NOT_STARTED,
@@ -44,6 +50,7 @@ export let TASKS_DATA = [
   {
     id: '6',
     title: 'Task 6',
+    description: 'Task 6 description: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
     date: '1484213405',
     type: TaskType.CORRECT,
     state: TaskState.NOT_STARTED,
@@ -52,6 +59,7 @@ export let TASKS_DATA = [
   {
     id: '7',
     title: 'Task 7',
+    description: 'Task 7 description: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
     date: '1483263005',
     type: TaskType.CORRECT,
     state: TaskState.NOT_STARTED,

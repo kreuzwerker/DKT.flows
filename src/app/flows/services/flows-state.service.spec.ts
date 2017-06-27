@@ -24,16 +24,6 @@ describe('Flows App', () => {
       });
     });
 
-    describe('select()', () => {
-      xit('should return a state from the store as an observable for the given key', () => {
-      });
-    });
-
-    describe('get()', () => {
-      xit('should return the current value of state from the store for the given key', () => {
-      });
-    });
-
     describe('selectFlow()', () => {
       xit('should dispatch an action to set the flow loading flag', () => {
       });

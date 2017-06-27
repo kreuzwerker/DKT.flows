@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task, TaskFilter } from '../../models';
+import { TasksAppService } from './../../services';
 
 @Component({
   selector: 'dkt-task-item',
@@ -10,21 +11,7 @@ export class TaskItemComponent {
   @Input() task: Task;
   @Output() setFilter: EventEmitter<TaskFilter> = new EventEmitter<TaskFilter>();
 
-  constructor() {}
-
-  filterByFlow() {
-    this.setFilter.emit({
-      type: 'flowId',
-      flowId: this.task.flow.id,
-      flowName: this.task.flow.name
-    });
-  }
-
-  filterByType() {
-    this.setFilter.emit({type: 'taskType', taskType: this.task.type});
-  }
-
-  truncate(str: string): string {
-    return (str.length > 30) ? str.substring(0, 30) + '...' : str;
-  }
+  constructor(
+    public tasksApp: TasksAppService
+  ) {}
 }
