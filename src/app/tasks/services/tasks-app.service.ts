@@ -162,6 +162,7 @@ export class TasksAppService {
 
       return valid;
     }) : TASKS_DATA;
+    this.sortTasks(this.sortingDir);
   }
 
   filterExists(params) {

@@ -9,7 +9,7 @@
 
     <span class="position">{{getCurrentTaskIndex() + 1}} of {{tasks.length}}</span>
   </div>
-  
+
   <div fxLayout="row" fxLayoutAlign="center center" [ngSwitch]="getStateType()">
     <h5 class="task-title">{{task.title}}</h5>
     <dkt-task-controls-review *ngSwitchCase="stateType.REVIEW" [state]="task.state" (setState)="setState.emit($event)"></dkt-task-controls-review>
