@@ -21,7 +21,7 @@
       (unsetAllFilters)="tasksApp.unsetAllFilters()"
       class="padding border-bottom"
     ></dkt-tasks-filter>
-    <dkt-tasks-list [tasks]="tasksApp.tasks" [sortingDir]="tasksApp.sortingDir"></dkt-tasks-list>
+    <dkt-tasks-list [tasks]="tasksApp.tasks" [task]="tasksApp.task" [sortingDir]="tasksApp.sortingDir"></dkt-tasks-list>
   </div>
 
   <div class="sidebar-left-collapsed full-height" [class.expanded]="leftCollapsed" (click)="leftCollapsed = false">

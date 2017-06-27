@@ -6,8 +6,10 @@ import { TasksAppService } from './../../services';
   selector: 'dkt-tasks-list',
   templateUrl: 'tasks-list.component.html',
   styleUrls: ['tasks-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksListComponent implements OnInit, OnChanges {
+  @Input() task: Task;
   @Input() tasks: Task[];
   @Input() sortingDir: String;
   tasksInProgress = [];
@@ -22,6 +24,9 @@ export class TasksListComponent implements OnInit, OnChanges {
     if (changes['tasks'] !== undefined) {
       this.tasks = changes['tasks']['currentValue'];
       this.splitTasks();
+      this.cd.markForCheck();
+    } else if (changes['task'] !== undefined) {
+      // The current selected task change
       this.cd.markForCheck();
     }
   }
