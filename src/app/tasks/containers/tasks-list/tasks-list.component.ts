@@ -6,7 +6,6 @@ import { TasksAppService } from './../../services';
   selector: 'dkt-tasks-list',
   templateUrl: 'tasks-list.component.html',
   styleUrls: ['tasks-list.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TasksListComponent implements OnInit, OnChanges {
   @Input() tasks: Task[];

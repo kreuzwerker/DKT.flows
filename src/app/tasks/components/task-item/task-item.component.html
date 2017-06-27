@@ -1,4 +1,4 @@
-<div class="task-item padding border-bottom" [routerLink]="makePath()" routerLinkActive="active-link">
+<div class="task-item padding border-bottom" (click)="tasksApp.goToTaskRoute(task)" [class.active-link]="tasksApp.isActiveTask(task)">
   <h6>{{task.title}}</h6>
   <dkt-task-item-labels [task]="task" (setFilter)="setFilter.emit($event)"></dkt-task-item-labels>
 </div>

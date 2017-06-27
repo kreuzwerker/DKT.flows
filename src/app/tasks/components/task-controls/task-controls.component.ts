@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { Task, TaskState, TaskStateType } from './../../models';
+import { TasksAppService } from './../../services';
 import * as taskHelpers from './../../utils/task.helpers';
 
 @Component({
@@ -15,19 +16,23 @@ export class TaskControlsComponent {
   @Output() setState = new EventEmitter<TaskState>();
   stateType = TaskStateType;
 
+  constructor(
+    public tasksApp: TasksAppService,
+  ) {}
+
   getCurrentTaskIndex() {
     if (!this.task) return 0;
     return this.tasks.findIndex((t) => t.id === this.task.id);
   }
 
-  getPrevTaskRoute() {
+  getPrevTask() {
     const index = this.getCurrentTaskIndex() - 1;
-    return (index >= 0) ? '/tasks/' + this.tasks[index].id : null;
+    return (index >= 0) ? this.tasks[index] : null;
   }
 
-  getNextTaskRoute() {
+  getNextTask() {
     const index = this.getCurrentTaskIndex() + 1;
-    return (index < this.tasks.length) ? '/tasks/' + this.tasks[index].id : null;
+    return (index < this.tasks.length) ? this.tasks[index] : null;
   }
 
   getStateType() {

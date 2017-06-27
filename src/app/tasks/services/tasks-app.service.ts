@@ -4,6 +4,7 @@
 
 import { Injectable } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import * as _ from 'lodash';
 import { Task, TaskType, TaskState, TaskFilter } from './../models';
 
@@ -16,6 +17,8 @@ import { TASKS_DATA } from './tasks.data';
 
 @Injectable()
 export class TasksAppService {
+  // Current child path e.g. 'description', 'comments'
+  currentTaskRoute: string = null;
   // Current selected task
   task: Task = null;
   // Tasks list filters
@@ -31,6 +34,7 @@ export class TasksAppService {
 
   constructor(
     private api: FlowsApiService,
+    public router: Router,
   ) {
     this.loadTasks();
     this.initFlowFilters();
@@ -40,6 +44,19 @@ export class TasksAppService {
     this.flowsSub$ = this.api.getFlows().map(({data}) => data.allFlows).subscribe((flows) => {
       this.initFlowFilters(flows);
     });
+
+    this.router.events.filter(event => event instanceof NavigationEnd)
+    .subscribe(
+      this.onRouteChange.bind(this),
+      (err) => console.log('error', err)
+    );
+  }
+
+  onRouteChange() {
+    this.currentTaskRoute =
+      this.router.routerState.root.children[0].children[0]
+      ? this.router.routerState.root.children[0].children[0].snapshot.url[0].path
+      : null;
   }
 
   loadTasks(): void {
@@ -49,6 +66,25 @@ export class TasksAppService {
 
   setTask(task: Task): void {
     this.task = task;
+  }
+
+  /**
+   * Tasks routing
+   */
+
+  // Navigates to the given task's route and keeps the current child route
+  // e.g. /tasks/1/description
+  goToTaskRoute(task) {
+    let path = ['tasks', task.id];
+    if (this.currentTaskRoute) {
+      path.push(this.currentTaskRoute);
+    }
+
+    this.router.navigate(path);
+  }
+
+  isActiveTask(task) {
+    return this.task && this.task.id === task.id;
   }
 
   /**

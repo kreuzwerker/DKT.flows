@@ -1,9 +1,9 @@
 <div class="task-controls" fxLayout="row" fxLayoutAlign="space-between center">
   <div class="nav" fxLayout="row" fxLayoutAlign="center center">
-    <button md-raised-button [disabled]="!getPrevTaskRoute()" [routerLink]="getPrevTaskRoute()">
+    <button md-raised-button [disabled]="!getPrevTask()" (click)="tasksApp.goToTaskRoute(getPrevTask())">
       <md-icon>chevron_left</md-icon>
     </button>
-    <button md-raised-button [disabled]="!getNextTaskRoute()" [routerLink]="getNextTaskRoute()">
+    <button md-raised-button [disabled]="!getNextTask()" (click)="tasksApp.goToTaskRoute(getNextTask())">
       <md-icon>chevron_right</md-icon>
     </button>
 
@@ -18,7 +18,7 @@
   </div>
 
   <div class="icons" fxLayout="row" fxLayoutAlign="center center">
-    <md-icon [routerLink]="'/tasks/' + task.id + '/comments'" routerLinkActive="active">comment</md-icon>
-    <md-icon [routerLink]="'/tasks/' + task.id + '/description'" routerLinkActive="active">assignment</md-icon>
+    <md-icon [routerLink]="'/tasks/' + task.id + '/comments'" [class.active]="tasksApp.currentTaskRoute === 'comments'">comment</md-icon>
+    <md-icon [routerLink]="'/tasks/' + task.id + '/description'" [class.active]="tasksApp.currentTaskRoute === 'description'">assignment</md-icon>
   </div>
 </div>
