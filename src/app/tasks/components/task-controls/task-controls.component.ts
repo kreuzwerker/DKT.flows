@@ -7,7 +7,6 @@ import * as taskHelpers from './../../utils/task.helpers';
   selector: 'dkt-task-controls',
   templateUrl: 'task-controls.component.html',
   styleUrls: ['task-controls.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class TaskControlsComponent {
