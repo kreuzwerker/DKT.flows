@@ -31,7 +31,9 @@ describe('Tasks App', () => {
         utils.createTaskData('3', 'Test Task 3'),
       ];
 
-      route = {} as ActivatedRoute;
+      route = {
+        children: []
+      } as ActivatedRoute;
       router = {} as Router;
       state = mockTasksState;
       store = mockStore;

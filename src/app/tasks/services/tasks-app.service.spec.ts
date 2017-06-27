@@ -2,6 +2,7 @@
 import { TestUtils } from '../utils/test.helpers';
 import { TasksAppService } from './../services';
 import { mockFlowsApi } from './../../flows/utils/mocks';
+import { MockRouter } from './../../core/utils/mocks';
 import { TASKS_DATA } from './../services/tasks.data';
 
 describe('Tasks App', () => {
@@ -9,12 +10,19 @@ describe('Tasks App', () => {
   xdescribe('TasksApp Service', () => {
     let utils;
     let service;
+    let router;
 
     beforeEach(() => {
       // TODO a working Flows API mock: getFlows() isn't mocked properly, breaking
       // instantiation of TasksAppService
-      service = new TasksAppService(mockFlowsApi);
+      router = <any>new MockRouter();
+      service = new TasksAppService(mockFlowsApi, router);
       utils = new TestUtils();
+    });
+
+    describe('onRouteChange()', () => {
+      xit('should store the current task child route', () => {
+      });
     });
 
     describe('loadTask()', () => {
@@ -35,6 +43,27 @@ describe('Tasks App', () => {
         const task = utils.createTaskData();
         service.setTask(task);
         expect(service.task).toEqual(task);
+      });
+    });
+
+    describe('goToTaskRoute()', () => {
+      it('should navigate to the given task\'s route and keep the current child route', () => {
+      service.currentTaskRoute = 'description';
+      let task = utils.createTaskData();
+      let path = ['tasks', task.id, 'description'];
+      let spy = spyOn(router, 'navigate');
+      service.goToTaskRoute(task);
+      expect(spy).toHaveBeenCalledWith(path);
+      });
+    });
+
+    describe('isActiveTask()', () => {
+      it('should correctly determine if the given task is the current set task', () => {
+        let task = utils.createTaskData();
+        service.setTask(task);
+        expect(service.isActiveTask(task)).toBeTruthy();
+        task = utils.createTaskData('2');
+        expect(service.isActiveTask(task)).toBeFalsy();
       });
     });
 
