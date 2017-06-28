@@ -10,6 +10,10 @@ export let TASKS_DATA = [
     type: TaskType.CORRECT,
     state: TaskState.STARTED,
     flow: {id: 'ciy0ie2q1aoul0179imlh0a73', name: 'first flow'},
+    comments: [
+      { date: '1489311005', user: { id: '1', name: 'Joe Doe', pictureUrl: 'https://randomuser.me/api/portraits/thumb/men/83.jpg'}, text: 'Comment 1: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.' },
+      { date: '1491989405', user: { id: '2', name: 'Jane Mae', pictureUrl: 'https://randomuser.me/api/portraits/thumb/women/82.jpg'}, text: 'Comment 2: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.' },
+    ]
   },
   {
     id: '2',
@@ -19,6 +23,7 @@ export let TASKS_DATA = [
     type: TaskType.APPROVE,
     state: TaskState.NOT_STARTED,
     flow: {id: 'ciy0ie2q1aoul0179imlh0a73', name: 'first flow'},
+    comments: []
   },
   {
     id: '3',
@@ -28,6 +33,7 @@ export let TASKS_DATA = [
     type: TaskType.REVIEW,
     state: TaskState.NOT_STARTED,
     flow: {id: '080d3ee8-a303-476a-c0bf-c6cd3ce988dc', name: 'New flow'},
+    comments: []
   },
   {
     id: '4',
@@ -37,6 +43,7 @@ export let TASKS_DATA = [
     type: TaskType.CORRECT,
     state: TaskState.STARTED,
     flow: {id: '080d3ee8-a303-476a-c0bf-c6cd3ce988dc', name: 'New flow'},
+    comments: []
   },
   {
     id: '5',
@@ -46,6 +53,7 @@ export let TASKS_DATA = [
     type: TaskType.APPROVE,
     state: TaskState.NOT_STARTED,
     flow: {id: 'ciy0ie2q1aoul0179imlh0a73', name: 'first flow'},
+    comments: []
   },
   {
     id: '6',
@@ -55,6 +63,7 @@ export let TASKS_DATA = [
     type: TaskType.CORRECT,
     state: TaskState.NOT_STARTED,
     flow: {id: '080d3ee8-a303-476a-c0bf-c6cd3ce988dc', name: 'New flow'},
+    comments: []
   },
   {
     id: '7',
@@ -64,5 +73,6 @@ export let TASKS_DATA = [
     type: TaskType.CORRECT,
     state: TaskState.NOT_STARTED,
     flow: {id: '080d3ee8-a303-476a-c0bf-c6cd3ce988dc', name: 'New flow'},
+    comments: []
   },
 ];
