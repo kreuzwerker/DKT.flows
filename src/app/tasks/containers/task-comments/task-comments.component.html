@@ -4,4 +4,26 @@
   <md-icon class="close" [routerLink]="'/tasks/' + tasksApp.task?.id">close</md-icon>
 </div>
 
-<p>task comments</p>
+<div class="padding">
+  <!-- Comment form -->
+  <div fxLayout="row" fxLayoutAlign="start start">
+    <img class="avatar" [src]="'https://randomuser.me/api/portraits/thumb/men/83.jpg'" alt="User profile image">
+    <div fxLayout="column" fxFlex>
+      <form #newCommentForm="ngForm" class="new-comment-form" (ngSubmit)="submitForm(newCommentForm)">
+        <md-input-container>
+          <textarea mdInput rows="4" placeholder="Enter your comment" type="text" name="comment" tabindex="2" ngModel #comment="ngModel" required></textarea>
+        </md-input-container>
+
+
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <button md-raised-button type="submit" [disabled]="newCommentForm.invalid" tabIndex="3">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Comments -->
+  <div *ngFor="let comment of tasksApp.task?.comments" class="task-comment-item-wrapper">
+    <dkt-task-comment-item [comment]="comment"></dkt-task-comment-item>
+  </div>
+</div>

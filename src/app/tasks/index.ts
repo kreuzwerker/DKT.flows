@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DynamicFormsCoreModule } from '@ng2-dynamic-forms/core';
-import { DynamicFormsMaterialUIModule } from '@ng2-dynamic-forms/ui-material';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Routes, RouterModule } from '@angular/router';
@@ -18,6 +16,7 @@ import { TaskCommentsComponent } from './containers/task-comments/task-comments.
 import { TasksListComponent } from './containers/tasks-list/tasks-list.component';
 
 // Components
+import { TaskCommentItemComponent } from './components/task-comment-item/task-comment-item.component';
 import { TaskControlsComponent } from './components/task-controls/task-controls.component';
 import { TaskControlsApproveComponent } from './components/task-controls-approve/task-controls-approve.component';
 import { TaskControlsReviewComponent } from './components/task-controls-review/task-controls-review.component';
@@ -48,6 +47,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     TasksAppComponent,
+    TaskCommentItemComponent,
     TaskCommentsComponent,
     TaskControlsComponent,
     TaskControlsApproveComponent,

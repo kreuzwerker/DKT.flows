@@ -1,0 +1,8 @@
+<div fxLayout="row" fxLayoutAlign="start start">
+  <img class="avatar" [src]="comment.user.pictureUrl" alt="User profile image">
+  <div fxLayout="column">
+    <span class="username">{{comment.user.name}}</span>
+    <p class="date">{{comment.date * 1000 | date:'short'}}</p>
+    <p class="body">{{comment.text}}</p>
+  </div>
+</div>

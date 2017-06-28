@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { Task, TaskType, TaskState, TaskFilter } from '../models';
+import { Task, TaskType, TaskState, TaskFilter, TaskComment } from '../models';
 
 export class TestUtils {
   defaultTaskData: Task = null;
@@ -16,6 +16,9 @@ export class TestUtils {
     type: TaskType = TaskType.APPROVE,
     state: TaskState = TaskState.STARTED,
     flow: object = {id: '1', name: 'Flow 1'},
+    comments: TaskComment[] = [
+      this.createTaskComment()
+    ],
   ): Task {
     return {
       id: id,
@@ -25,6 +28,7 @@ export class TestUtils {
       type: type,
       state: state,
       flow: flow,
+      comments: comments,
     };
   }
 
@@ -67,5 +71,13 @@ export class TestUtils {
       this.createTaskFlowFilterData('2', 'Test Flow 2'),
       this.createTaskFlowFilterData('3', 'Test Flow 3'),
     ];
+  }
+
+  createTaskComment(user = {id: '1', name: 'John Doe'}, text = 'Comment text 1', date = '1491989405'): TaskComment {
+    return {
+      user: user,
+      text: text,
+      date: date,
+    };
   }
 }

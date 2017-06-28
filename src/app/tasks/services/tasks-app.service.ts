@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import * as _ from 'lodash';
-import { Task, TaskType, TaskState, TaskFilter } from './../models';
+import { Task, TaskType, TaskState, TaskFilter, TaskComment } from './../models';
 
 // Flows app
 import { FlowsApiService, FlowsStateService } from './../../flows/services';
@@ -55,6 +55,7 @@ export class TasksAppService {
   onRouteChange() {
     this.currentTaskRoute =
       this.router.routerState.root.children[0].children[0]
+      && this.router.routerState.root.children[0].children[0].snapshot.url[0]
       ? this.router.routerState.root.children[0].children[0].snapshot.url[0].path
       : null;
   }
@@ -173,5 +174,14 @@ export class TasksAppService {
       }
     });
     return exists;
+  }
+
+  /**
+   * Task comments
+   */
+
+  addTaskComment(comment: string) {
+    // TODO implement with Apollo
+    alert(`TODO persist new comment: ${comment}`);
   }
 }

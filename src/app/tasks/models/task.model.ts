@@ -1,3 +1,5 @@
+import { User } from '../../user/user.model';
+
 export class Task {
   id: string;
   title: string;
@@ -6,6 +8,7 @@ export class Task {
   type: TaskType;
   state: TaskState;
   flow: any;
+  comments: TaskComment[];
 }
 
 export interface TaskData {
@@ -16,6 +19,7 @@ export interface TaskData {
   type: TaskType;
   state: TaskState;
   flow: any;
+  comments: TaskComment[];
 }
 
 export enum TaskType {
@@ -38,4 +42,10 @@ export enum TaskStateType {
   TRANSITIONAL,
   APPROVE,
   REVIEW
+}
+
+export class TaskComment {
+  text: string;
+  date: string;
+  user: User;
 }

@@ -1,1 +1,26 @@
-// component css goes here
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+
+.avatar {
+  margin-right: 10px;
+}
+
+form.new-comment-form {
+  md-input-container {
+    width: 100%;
+  }
+
+  .mat-input-wrapper {
+    margin-top: 0;
+  }
+}
+
+.task-comment-item-wrapper {
+  border-bottom: 1px solid $element-border-color;
+  padding: 0.5rem 0;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
