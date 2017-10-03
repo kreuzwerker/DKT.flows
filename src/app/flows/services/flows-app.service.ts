@@ -14,8 +14,6 @@ import * as stepHelpers from './../utils/step.helpers';
 
 @Injectable()
 export class FlowsAppService {
-  // Flows list
-  flows: FlowsListData[];
   // Current selected flow / flow steps
   flow: Flow = null;
   // Current selected step

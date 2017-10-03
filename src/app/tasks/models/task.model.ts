@@ -23,19 +23,19 @@ export interface TaskData {
 }
 
 export enum TaskType {
-  REVIEW = <any>'review',
-  APPROVE = <any>'approve',
-  CORRECT = <any>'correct'
+  REVIEW = <any>'REVIEW',
+  APPROVE = <any>'APPROVE',
+  CORRECT = <any>'CORRECT'
 }
 
 export enum TaskState {
-  NOT_STARTED,
-  STARTED,
-  PAUSED,
-  FINISHED,
-  APPROVED,
-  REJECTED,
-  REVIEWED
+  NOT_STARTED = <any>'NOT_STARTED',
+  STARTED = <any>'STARTED',
+  PAUSED = <any>'PAUSED',
+  FINISHED = <any>'FINISHED',
+  APPROVED = <any>'APPROVED',
+  REJECTED = <any>'REJECTED',
+  REVIEWED = <any>'REVIEWED'
 }
 
 export enum TaskStateType {

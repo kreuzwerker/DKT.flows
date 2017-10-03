@@ -13,8 +13,8 @@ export class TaskItemLabelsComponent {
   filterByFlow() {
     this.setFilter.emit({
       type: 'flowId',
-      flowId: this.task.flow.id,
-      flowName: this.task.flow.name
+      flowId: this.task.flow.flow.id,
+      flowName: this.task.flow.flow.name
     });
   }
 

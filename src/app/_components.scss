@@ -28,17 +28,17 @@ span.label {
   font-size: 13px;
   white-space: nowrap;
 
-  &.correct {
+  &.CORRECT {
     background-color: $pink;
     color: $white;
   }
 
-  &.approve {
+  &.APPROVE {
     background-color: $mint;
     color: $white;
   }
 
-  &.review {
+  &.REVIEW {
     background-color: $purple;
     color: $white;
   }
