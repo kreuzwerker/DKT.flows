@@ -6,14 +6,12 @@ import { Injectable } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import * as _ from 'lodash';
+import { TasksStateService } from './../../tasks/services';
 import { Task, TaskType, TaskState, TaskFilter, TaskComment } from './../models';
 
 // Flows app
-import { FlowsApiService, FlowsStateService } from './../../flows/services';
+import { FlowsApiService } from './../../flows/services';
 import { Flow } from './../../flows/models';
-
-// Tasks mock data
-import { TASKS_DATA } from './tasks.data';
 
 @Injectable()
 export class TasksAppService {
@@ -28,15 +26,16 @@ export class TasksAppService {
   // Tasks list sorting order
   sortingDir: string = 'desc';
   // Tasks list
-  tasks: Task[];
+  tasksSub$: Subscription;
+  tasks: Task[] = [];
   // Flows list
   flowsSub$: Subscription;
 
   constructor(
     private api: FlowsApiService,
     public router: Router,
+    public state: TasksStateService
   ) {
-    this.loadTasks();
     this.initFlowFilters();
 
     // Load flows and register as filters
@@ -60,8 +59,8 @@ export class TasksAppService {
       : null;
   }
 
-  loadTasks(): void {
-    this.tasks = TASKS_DATA;
+  onLoadTasks(tasks): void {
+    this.tasks = tasks;
     this.sortTasks(this.sortingDir);
   }
 
@@ -153,7 +152,7 @@ export class TasksAppService {
   }
 
   applyFilters() {
-    this.tasks = this.filters.length ? TASKS_DATA.filter((task) => {
+    this.tasks = this.filters.length ? this.tasks.filter((task) => {
       // Validate against current filters (locical OR):
       let valid = false;
       this.filters.forEach((filter) => {
@@ -162,7 +161,7 @@ export class TasksAppService {
       });
 
       return valid;
-    }) : TASKS_DATA;
+    }) : this.tasks;
     this.sortTasks(this.sortingDir);
   }
 

@@ -32,7 +32,14 @@ export class TasksAppComponent implements OnInit, OnDestroy {
       (err) => console.log('error', err)
     );
 
+    // Load tasks
+    this.tasksApp.tasksSub$ = this.state.tasks$.subscribe((tasks) => {
+      this.cd.markForCheck();
+      this.tasksApp.onLoadTasks(tasks);
+    });
+
     // Current selected task
+    // TODO + require "on load tasks"
     this.state.select('task').takeUntil(this.ngOnDestroy$).subscribe(
       this.onSelectTask.bind(this),
       (err) => console.log('error', err)
