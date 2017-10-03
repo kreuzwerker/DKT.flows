@@ -156,7 +156,7 @@ export class TasksAppService {
       // Validate against current filters (locical OR):
       let valid = false;
       this.filters.forEach((filter) => {
-        if (filter.type === 'flowId' && task.flow.id === filter.flowId) valid = true;
+        if (filter.type === 'flowId' && task.flow.flow.id === filter.flowId) valid = true;
         if (filter.type === 'taskType' && task.type === filter.taskType) valid = true;
       });
 
