@@ -38,13 +38,15 @@ export class TasksStateService extends StateService {
   }
 
   setTaskState(task: Task, state: TaskState) {
-    this.updateTask(Object.assign({}, task, {
+    // this.dispatch(this.actions.setSavingTask(true, false));
+    this.api.updateTaskState({
+      id: task.id,
       state: state
-    }));
-  }
-
-  updateTask(task: Task) {
-    // REPLACE with Apollo mutation
-    this.dispatch(this.actions.updateTask(task));
+    }).subscribe((_task) => {
+      this.dispatch(this.actions.updateTask(Object.assign({}, task, {
+        state: state
+      })));
+      // this.dispatch(this.actions.setSavingTask(false, true));
+    });
   }
 }

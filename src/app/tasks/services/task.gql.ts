@@ -47,6 +47,21 @@ export const getTasksQuery = gql`
   }
 `;
 
+export const updateTaskMutation = gql`
+  mutation UpdateTask($id: ID!, $state: String) {
+    updateTask(id: $id, state: $state) {
+      id
+      state
+      flow {
+        id
+      }
+      comments {
+        comment
+      }
+    }
+  }
+`;
+
 // TODO use taskItemFragment
 // export const getTasksQuery = gql`
 //   query TasksQuery {
