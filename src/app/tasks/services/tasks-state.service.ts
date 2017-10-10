@@ -29,11 +29,12 @@ export class TasksStateService extends StateService {
     public actions: TasksAppActions,
   ) {
     super(store);
+  }
 
-    // Fetches list of tasks
-    // this.dispatch(this.actions.setLoadingTasks(true));
+  loadTasks() {
+    // Fetches an up-to-date list of tasks
     this.tasks$ = this.api.getTasks().map(({data}) => {
-      return data.allTasks;
+      return data ? data.allTasks : [];
     });
   }
 

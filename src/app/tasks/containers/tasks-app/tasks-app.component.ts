@@ -33,6 +33,7 @@ export class TasksAppComponent implements OnInit, OnDestroy {
     );
 
     // Load tasks
+    this.state.loadTasks();
     this.tasksApp.tasksSub$ = this.state.tasks$.subscribe((tasks) => {
       this.cd.markForCheck();
       this.tasksApp.onLoadTasks(tasks);

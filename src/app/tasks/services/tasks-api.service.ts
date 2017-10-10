@@ -17,7 +17,9 @@ export class TasksApiService {
 
   public getTasks(): ApolloQueryObservable<any> {
     return this.apollo.watchQuery<any>({
-      query: getTasksQuery
+      query: getTasksQuery,
+      // Always fetch an up-to-date list of tasks from the server
+      fetchPolicy: 'cache-and-network'
     });
   }
 
