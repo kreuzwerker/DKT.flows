@@ -12,18 +12,6 @@ const initialState: TasksAppState = {
 
 export function tasksAppReducer(state = initialState, {type, payload}: Action): TasksAppState {
   switch (type) {
-    case Actions.SELECT_TASK: {
-      return Object.assign({}, state, {
-        task: payload
-      });
-    }
-
-    case Actions.UPDATE_TASK: {
-      return Object.assign({}, state, {
-        task: payload
-      });
-    }
-
     default: {
       return state;
     }

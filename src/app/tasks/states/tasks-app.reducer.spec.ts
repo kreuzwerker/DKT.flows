@@ -16,13 +16,13 @@ describe('Tasks App', () => {
       utils = new TestUtils();
     });
 
-    describe('SELECT_TASK action', () => {
-      it('should set the current selected task', () => {
-        let task = utils.createTaskData();
-        state = tasksAppReducer(undefined, actions.selectTask(task));
-        expect(state.task).toEqual(task);
-      });
-    });
+    // describe('SELECT_TASK action', () => {
+    //   it('should set the current selected task', () => {
+    //     let task = utils.createTaskData();
+    //     state = tasksAppReducer(undefined, actions.selectTask(task));
+    //     expect(state.task).toEqual(task);
+    //   });
+    // });
 
   });
 });

@@ -22,7 +22,6 @@ export const mockTasksState = {
   // TODO we don't really want to do it this way..
   // Create mock via class inflection?
   actions: {
-    selectTask(task: Task) { },
-    updateTask(task: Task) { },
+    // selectTask(task: Task) { },
   } as TasksAppActions,
 } as TasksStateService;
