@@ -32,19 +32,15 @@ export class TasksAppComponent implements OnInit, OnDestroy {
       (err) => console.log('error', err)
     );
 
-    // Load tasks
+    // Load tasks data
     this.state.loadTasks();
-    this.tasksApp.tasksSub$ = this.state.tasks$.subscribe((tasks) => {
+    // ..and watch changes to tasks data
+    this.tasksApp.tasksSub$ = this.state.tasks$.takeUntil(this.ngOnDestroy$).subscribe((tasks) => {
+      this.tasksApp.setTasks(tasks);
+      // Set/update the data of the current selected step on every change event
+      this.selectRequestedTask();
       this.cd.markForCheck();
-      this.tasksApp.onLoadTasks(tasks);
     });
-
-    // Current selected task
-    // TODO + require "on load tasks"
-    this.state.select('task').takeUntil(this.ngOnDestroy$).subscribe(
-      this.onSelectTask.bind(this),
-      (err) => console.log('error', err)
-    );
   }
 
   ngOnDestroy(): void {
@@ -77,12 +73,8 @@ export class TasksAppComponent implements OnInit, OnDestroy {
     }
 
     if (requestedTask) {
-      this.state.dispatch(this.state.actions.selectTask(requestedTask));
+      this.tasksApp.setTask(requestedTask);
+      this.cd.markForCheck();
     }
-  }
-
-  onSelectTask(task: Task) {
-    this.tasksApp.setTask(task);
-    this.cd.markForCheck();
   }
 }

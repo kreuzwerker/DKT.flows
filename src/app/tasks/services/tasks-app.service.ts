@@ -59,7 +59,7 @@ export class TasksAppService {
       : null;
   }
 
-  onLoadTasks(tasks): void {
+  setTasks(tasks): void {
     this.tasks = tasks;
     this.sortTasks(this.sortingDir);
   }

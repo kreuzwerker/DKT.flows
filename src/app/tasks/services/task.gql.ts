@@ -52,12 +52,6 @@ export const updateTaskMutation = gql`
     updateTask(id: $id, state: $state) {
       id
       state
-      flow {
-        id
-      }
-      comments {
-        comment
-      }
     }
   }
 `;

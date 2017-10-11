@@ -44,9 +44,6 @@ export class TasksStateService extends StateService {
       id: task.id,
       state: state
     }).subscribe((_task) => {
-      this.dispatch(this.actions.updateTask(Object.assign({}, task, {
-        state: state
-      })));
       // this.dispatch(this.actions.setSavingTask(false, true));
     });
   }
