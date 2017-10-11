@@ -37,7 +37,9 @@ export class FlowsApiService {
 
   public getFlows(): ApolloQueryObservable<any> {
     return this.apollo.watchQuery<any>({
-      query: getFlowsQuery
+      query: getFlowsQuery,
+      // Always fetch an up-to-date list of tasks from the server
+      fetchPolicy: 'cache-and-network'
     });
   }
 

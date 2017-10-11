@@ -6,8 +6,8 @@
   <div class="main full-height" fxFlex>
     <dkt-loading-indicator *ngIf="state.select('loadingFlows') | async" text="Loading flows" center="true"></dkt-loading-indicator>
 
-    <md-list class="flows">
-      <md-list-item *ngFor="let flow of state.flows$ | async" class="padding">
+    <md-list class="flows" *ngIf="state.flows$ | async as flows">
+      <md-list-item *ngFor="let flow of flows.data" class="padding">
         <!--<md-icon md-list-icon class="first-step">rss_feed</md-icon>-->
         <!--<md-icon md-list-icon class="chevron">chevron_right</md-icon>-->
         <!--<div md-list-icon class="steps-count">1</div>-->

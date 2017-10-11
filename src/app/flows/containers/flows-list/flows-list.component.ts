@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
-import { Component, ChangeDetectionStrategy, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { Router } from '@angular/router';
 import { Flow } from '../../models';
@@ -16,7 +16,7 @@ import { DeleteFlowDialogComponent } from './../../components/delete-flow-dialog
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class FlowsListComponent implements OnDestroy {
+export class FlowsListComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   dialogConfig: MdDialogConfig;
 
@@ -34,6 +34,11 @@ export class FlowsListComponent implements OnDestroy {
 
     this.dialogConfig = new MdDialogConfig();
     this.dialogConfig.width = '450px';
+  }
+
+  ngOnInit() {
+    // Load flows data
+    this.state.loadFlows();
   }
 
   ngOnDestroy(): void {

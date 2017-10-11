@@ -24,6 +24,14 @@ describe('Flows App', () => {
       expect(component).toBeTruthy();
     });
 
+    describe('ngOnInit()', () => {
+      it('should call loadFlows()', () => {
+        let spy = spyOn(state, 'loadFlows');
+        component.ngOnInit();
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
     describe('createFlow()', () => {
       it('should create a new flow with the given name and description', () => {
         let spy = spyOn(state, 'createFlow');

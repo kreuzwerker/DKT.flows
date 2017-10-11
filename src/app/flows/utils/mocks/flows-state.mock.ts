@@ -22,6 +22,7 @@ export const mockFlowsState = {
     return value;
   },
 
+  loadFlows(): void { },
   selectFlow(id: string): void { },
   createFlow(name: string, description: string): void { },
   deleteFlow(id: string): void { },

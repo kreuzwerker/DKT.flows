@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 import * as lodash from 'lodash';
 
+import { ApolloQueryResult } from 'apollo-client';
 import { NgRedux, select } from '@angular-redux/store';
 import { AppState, Action } from './../../reducers';
 import { StateService } from './../../core/services';
@@ -23,7 +24,7 @@ export class FlowsStateService extends StateService {
   //
 
   // All flows list
-  flows$: Observable<FlowsListData[]>;
+  flows$: Observable<ApolloQueryResult<FlowsListData>>;
   flowsSub$: Subscription;
   // Current loaded flow
   flow$: Observable<Flow>;
@@ -57,19 +58,6 @@ export class FlowsStateService extends StateService {
     // App data queries
     //
 
-    // Flows list
-    // ----------
-
-    // Fetches list of flows
-    this.dispatch(this.actions.setLoadingFlows(true));
-    this.flows$ = this.api.getFlows().map(({data}) => data.allFlows);
-
-    // Unset loading flows flag
-    this.flowsSub$ = this.flows$.subscribe((flows) => {
-      this.dispatch(this.actions.setLoadingFlows(false));
-      this.flowsSub$.unsubscribe();
-    });
-
     // Current selected flow
     // ---------------------
 
@@ -102,6 +90,28 @@ export class FlowsStateService extends StateService {
   //
   // API
   //
+
+  loadFlows(): void {
+    // Fetch an up-to-date list of flows
+    this.dispatch(this.actions.setLoadingFlows(true));
+    this.flows$ = this.api.getFlows().map((response) => {
+      // Flatten the data object to array of flows
+      const data = response.data && response.data.allFlows ? response.data.allFlows : [];
+      // Return the full response including the loading flag
+      return Object.assign({}, response, {data: data});
+    });
+
+    // Unset loading flows flag
+    this.flowsSub$ = this.flows$.subscribe((response) => {
+      // The first response will contain cached data. Keep showing the loading
+      // indicator until the response contains data fetched via network.
+      // NB see getFlows() fetch policy 'cache-and-network' property
+      if (!response.loading) {
+        this.dispatch(this.actions.setLoadingFlows(false));
+        this.flowsSub$.unsubscribe();
+      }
+    });
+  }
 
   selectFlow(id: string): void {
     if (id === this.get('flowId')) {

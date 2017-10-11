@@ -34,10 +34,14 @@ export class TasksAppComponent implements OnInit, OnDestroy {
 
     // Load tasks data
     this.state.loadTasks();
-    // ..and watch changes to tasks data
+    // ..and watch changes to tasks data e.g. approving the current selected task
+    // NB the current selected task is referenced directly from 'allTasks' in the
+    // Apollo store, instead of using a copy. This makes optimistic updates pos-
+    // sible, so changes to the data of the current selected task are reflected
+    // immediately.
     this.tasksApp.tasksSub$ = this.state.tasks$.takeUntil(this.ngOnDestroy$).subscribe((tasks) => {
       this.tasksApp.setTasks(tasks);
-      // Set/update the data of the current selected step on every change event
+      // Update the current selected step data on every change event
       this.selectRequestedTask();
       this.cd.markForCheck();
     });
