@@ -3,6 +3,8 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 @import '../../../variables';
 @import '../../../animations';
 
+$list-container-width: 900px;
+
 /*
   Layout
 */
@@ -27,12 +29,60 @@ div.flows-list {
 }
 
 /*
+ Options
+ */
+
+div.flows-list div.options {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid $element-border-color;
+  background-color: white;
+
+  div.inner {
+    width: 100%;
+    max-width: $list-container-width;
+  }
+
+  div.loader {
+    margin-right: 40px;
+  }
+
+  md-input-container.search {
+    margin-left: 30px;
+    width: 200px;
+
+    div.mat-input-wrapper {
+      margin: 0;
+    }
+
+    div.mat-input-suffix md-icon {
+      color: $dark-grey;
+    }
+  }
+
+  md-icon.option {
+    color: $dark-grey;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      color: $dark-blue;
+    }
+  }
+
+  md-spinner {
+    display: inline-block;
+    width: 24px!important;
+    height: 24px!important;
+  }
+}
+
+/*
  Flows list
  */
 
 md-list.flows {
   width: 100%;
-  max-width: 900px;
+  max-width: $list-container-width;
   margin: 2rem;
   padding-top:0px;
 }

@@ -45,6 +45,10 @@ export class FlowsListComponent implements OnInit, OnDestroy {
     this.ngOnDestroy$.next(true);
   }
 
+  reloadFlows() {
+    this.state.loadFlows();
+  }
+
   createFlow(newFlow) {
     this.state.createFlow(newFlow);
   }

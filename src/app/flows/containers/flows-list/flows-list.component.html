@@ -4,7 +4,19 @@
   </div>
 
   <div class="main full-height" fxFlex>
-    <dkt-loading-indicator *ngIf="state.select('loadingFlows') | async" text="Loading flows" center="true"></dkt-loading-indicator>
+    <div class="options">
+      <div class="inner" fxLayout="row" fxLayoutAlign="space-between center">
+        <md-input-container class="search">
+          <input mdInput placeholder="Search" type="text">
+          <md-icon mdSuffix>search</md-icon>
+        </md-input-container>
+
+        <div class="loader">
+          <md-spinner *ngIf="state.select('loadingFlows') | async"></md-spinner>
+          <md-icon *ngIf="!(state.select('loadingFlows') | async)" class="option" (click)="reloadFlows()">refresh</md-icon>
+        </div>
+      </div>
+    </div>
 
     <md-list class="flows" *ngIf="state.flows$ | async as flows">
       <md-list-item *ngFor="let flow of flows.data" class="padding">
