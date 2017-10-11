@@ -260,7 +260,10 @@ describe('Flows App', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
         flowRun.status = 'error';
         component.onCreatedFlowRun(flowRun);
-        expect(spy).toHaveBeenCalledWith('An error occured. Flow could not be triggered.', 'error');
+        expect(spy).toHaveBeenCalledWith(
+          jasmine.stringMatching(/An error occured. Flow could not be triggered./),
+          'error'
+        );
       });
 
       it('should trigger change detection', () => {

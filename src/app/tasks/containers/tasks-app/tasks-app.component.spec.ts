@@ -74,26 +74,6 @@ describe('Tasks App', () => {
       });
     });
 
-    describe('onSelectTask()', () => {
-      let task;
-
-      beforeEach(() => {
-        task = utils.createTaskData();
-      });
-
-      it('should set current task in tasksApp', () => {
-        let spy = spyOn(tasksApp, 'setTask');
-        component.onSelectTask(task);
-        expect(spy).toHaveBeenCalled();
-      });
-
-      it('should trigger change detection', () => {
-        let spy = spyOn(cd, 'markForCheck');
-        component.onSelectTask(task);
-        expect(spy).toHaveBeenCalled();
-      });
-    });
-
     describe('onTaskRouteChange()', () => {
       let taskId: string = '1';
 
@@ -122,26 +102,31 @@ describe('Tasks App', () => {
     });
 
     describe('selectRequestedTask()', () => {
-      it('should return false if there are no tasks', () => {
+      it('should select no task if there are no tasks', () => {
         const orgTasks = _.cloneDeep(tasksApp.tasks);
         tasksApp.tasks = [];
-        expect(component.selectRequestedTask()).toBeFalsy();
+        let spy = spyOn(tasksApp, 'setTask');
+        component.selectRequestedTask();
+        expect(spy).toHaveBeenCalledWith(null);
         // Restore original state
         tasksApp.tasks = orgTasks;
       });
 
-      it('should select the current requested task if it can find the task', () => {
-        component.requestedTaskId = '1';
-        let spy = spyOn(state, 'dispatch');
+      it('should select no task if it cannot find the task', () => {
+        component.requestedTaskId = '999';
+        let spy = spyOn(tasksApp, 'setTask');
+        let spyCd = spyOn(cd, 'markForCheck');
         component.selectRequestedTask();
-        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith(null);
+        expect(spyCd).toHaveBeenCalled();
       });
 
-      it('should not select the current requested task if it cannot find the task', () => {
-        component.requestedTaskId = '999';
-        let spy = spyOn(state, 'dispatch');
+      it('should select the current requested task if it can find the task', () => {
+        component.requestedTaskId = '1';
+        const task = tasksApp.tasks.find(task => task.id === component.requestedTaskId);
+        let spy = spyOn(tasksApp, 'setTask');
         component.selectRequestedTask();
-        expect(spy).not.toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith(task);
       });
     });
   });

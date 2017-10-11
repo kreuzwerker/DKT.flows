@@ -62,19 +62,13 @@ export class TasksAppComponent implements OnInit, OnDestroy {
   }
 
   selectRequestedTask() {
-    if (!this.tasksApp.tasks.length) {
-      return false;
-    }
-
-    let requestedTask;
+    let requestedTask = null;
     if (this.requestedTaskId !== null) {
       // Find requested task
-      requestedTask = this.tasksApp.tasks.find(task => task.id === this.requestedTaskId);
+      requestedTask = this.tasksApp.tasks.find(task => task.id === this.requestedTaskId) || null;
     }
 
-    if (requestedTask) {
-      this.tasksApp.setTask(requestedTask);
-      this.cd.markForCheck();
-    }
+    this.tasksApp.setTask(requestedTask);
+    this.cd.markForCheck();
   }
 }

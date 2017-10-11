@@ -15,7 +15,9 @@ export class TestUtils {
     date: string = '1491989405',
     type: TaskType = TaskType.APPROVE,
     state: TaskState = TaskState.STARTED,
-    flow: object = {id: '1', name: 'Flow 1'},
+    flow: object = {
+      flow: {id: '1', name: 'Flow 1'}
+    },
     comments: TaskComment[] = [
       this.createTaskComment()
     ],
