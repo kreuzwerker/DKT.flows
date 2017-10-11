@@ -1,13 +1,16 @@
 <div class="layout full-height" fxLayout="row" fxLayoutAlign="start stretch">
   <div class="sidebar-left border-right full-height" [class.collapsed]="leftCollapsed" fxLayout="column" fxFlex>
-    <dkt-loading-indicator *ngIf="state.select('loadingTasks') | async" text="Loading tasks" center="true"></dkt-loading-indicator>
 
     <!-- Header-->
     <div class="padding border-bottom topbar-height">
       <h4 class="header" fxLayout="row" fxLayoutAlign="start center">
         <span class="tasks-count">{{tasksApp.tasks.length}}</span>
         <span fxFlex>Tasks Remaining</span>
-        <md-icon class="close" (click)="leftCollapsed = true">close</md-icon>
+
+        <md-spinner *ngIf="state.select('loadingTasks') | async"></md-spinner>
+        <md-icon *ngIf="!(state.select('loadingTasks') | async)" class="option" (click)="reloadTasks()">refresh</md-icon>
+
+        <md-icon class="option" (click)="leftCollapsed = true">close</md-icon>
       </h4>
     </div>
 

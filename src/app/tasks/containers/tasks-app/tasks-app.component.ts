@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRe
 import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { ApolloQueryResult } from 'apollo-client';
 import { TasksAppService, TasksStateService } from './../../services';
 import { Task } from './../../models';
 
@@ -41,16 +42,22 @@ export class TasksAppComponent implements OnInit, OnDestroy {
     // Apollo store, instead of using a copy. This makes optimistic updates pos-
     // sible, so changes to the data of the current selected task are reflected
     // immediately.
-    this.tasksSub$ = this.state.tasks$.takeUntil(this.ngOnDestroy$).subscribe((response) => {
-      this.tasksApp.setTasks(response.data);
-      // Update the current selected step data on every change event
-      this.selectRequestedTask();
-      this.cd.markForCheck();
-    });
+    this.tasksSub$ = this.state.tasks$.takeUntil(this.ngOnDestroy$)
+    .subscribe(
+      this.onUpdateTasks.bind(this),
+      (err) => console.log('error', err)
+    );
   }
 
   ngOnDestroy(): void {
     this.ngOnDestroy$.next(true);
+  }
+
+  onUpdateTasks(response: ApolloQueryResult<any>) {
+    this.tasksApp.setTasks(response.data);
+    // Update the current selected step data on every change event
+    this.selectRequestedTask();
+    this.cd.markForCheck();
   }
 
   // Updated requested task ID and select the task if tasks are loaded
@@ -76,5 +83,9 @@ export class TasksAppComponent implements OnInit, OnDestroy {
 
     this.tasksApp.setTask(requestedTask);
     this.cd.markForCheck();
+  }
+
+  reloadTasks() {
+    this.state.loadTasks();
   }
 }
