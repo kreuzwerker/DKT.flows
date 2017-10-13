@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { Task, TaskType, TaskState, TaskFilter, TaskComment } from '../models';
+import { Task, TaskType, TaskState, TaskFilter, TaskComment, TaskItem } from '../models';
 
 export class TestUtils {
   defaultTaskData: Task = null;
@@ -80,6 +80,14 @@ export class TestUtils {
       user: user,
       text: text,
       date: date,
+    };
+  }
+
+  createTaskItem(id = '1', data = '<p>Task item data</p>', type = 'html'): TaskItem {
+    return {
+      id: id,
+      data: data,
+      type: type,
     };
   }
 }

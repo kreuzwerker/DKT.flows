@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { ApolloQueryResult } from 'apollo-client';
 import { TasksAppService, TasksStateService, TasksApiService } from './../../services';
-import { Task } from './../../models';
+import { Task, TaskItem } from './../../models';
 
 @Component({
   templateUrl: 'tasks-app.component.html',
@@ -106,7 +106,7 @@ export class TasksAppComponent implements OnInit, OnDestroy {
     this.state.loadTasks();
   }
 
-  onLoadTaskItem(taskItem) {
+  onLoadTaskItem(taskItem: TaskItem) {
     this.tasksApp.setTaskItem(taskItem);
     this.cd.markForCheck();
   }

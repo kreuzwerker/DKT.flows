@@ -1,5 +1,5 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { Task } from '../../models';
+import { Task, TaskItem } from '../../models';
 import { StepTestResultType } from '../../../flows/models';
 
 @Component({
@@ -9,5 +9,5 @@ import { StepTestResultType } from '../../../flows/models';
   encapsulation: ViewEncapsulation.None
 })
 export class TaskTextWidgetComponent {
-  @Input() taskItem: any;
+  @Input() taskItem: TaskItem;
 }

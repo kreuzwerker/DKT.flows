@@ -8,7 +8,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import * as _ from 'lodash';
 import { TasksApiService } from './';
 import { TasksStateService } from './../../tasks/services';
-import { Task, TaskType, TaskState, TaskFilter, TaskComment } from './../models';
+import { Task, TaskType, TaskState, TaskFilter, TaskComment, TaskItem } from './../models';
 
 // Flows app
 import { FlowsApiService } from './../../flows/services';
@@ -30,7 +30,7 @@ export class TasksAppService {
   tasksSub$: Subscription;
   tasks: Task[] = [];
   // Task item
-  taskItem: any;
+  taskItem: TaskItem;
   // Flows list
   flowsSub$: Subscription;
 
@@ -72,7 +72,7 @@ export class TasksAppService {
     this.task = task;
   }
 
-  setTaskItem(taskItem): void {
+  setTaskItem(taskItem: TaskItem): void {
     this.taskItem = taskItem;
   }
 

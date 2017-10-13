@@ -4,6 +4,7 @@ import { mockTasksState, mockTasksApp, mockTasksApi } from './../../utils/mocks'
 import { TestUtils } from './../../utils/test.helpers';
 import { TasksAppComponent } from './tasks-app.component';
 import { TasksAppService, TasksStateService } from './../../services';
+import { TaskItem } from './../../models';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -148,15 +149,16 @@ describe('Tasks App', () => {
 
     describe('onLoadTaskItem()', () => {
       it('should set the current task item', () => {
-        const taskItem = {};
+        const taskItem = utils.createTaskItem();
         let spy = spyOn(tasksApp, 'setTaskItem');
         component.onLoadTaskItem(taskItem);
         expect(spy).toHaveBeenCalledWith(taskItem);
       });
 
       it('should trigger change detection', () => {
+        const taskItem = utils.createTaskItem();
         let spy = spyOn(cd, 'markForCheck');
-        component.onLoadTaskItem({});
+        component.onLoadTaskItem(taskItem);
         expect(spy).toHaveBeenCalled();
       });
     });
