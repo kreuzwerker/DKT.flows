@@ -18,7 +18,23 @@ export class RenderComponent implements OnChanges {
   renderHtml(html: String) {
     let document = this.frame.nativeElement.contentWindow.document;
     document.open();
-    document.write(html);
+    document.write(this.getIframeStyles() + html);
     document.close();
+  }
+
+  getIframeStyles() {
+    return `
+      <style>
+        body {
+          font-family: "Source Sans Pro", "Roboto", "Helvetica", "Arial", sans-serif;
+          font-size: 1em;
+          padding: 1em;
+          max-width: 600px;
+          margin: 0 auto;
+          line-height: 1.5em;
+          color: #7F8FA4;
+        }
+      </style>
+    `;
   }
 }
