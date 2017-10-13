@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { ApolloQueryResult } from 'apollo-client';
-import { TasksAppService, TasksStateService } from './../../services';
+import { TasksAppService, TasksStateService, TasksApiService } from './../../services';
 import { Task } from './../../models';
 
 @Component({
@@ -19,9 +19,11 @@ export class TasksAppComponent implements OnInit, OnDestroy {
 
   tasksSub$: Subscription;
   requestedTaskId: string = null;
+  taskItemSub$: Subscription;
 
   constructor(
     private cd: ChangeDetectorRef,
+    private api: TasksApiService,
     public tasksApp: TasksAppService,
     public route: ActivatedRoute,
     public router: Router,
@@ -42,9 +44,16 @@ export class TasksAppComponent implements OnInit, OnDestroy {
     // Apollo store, instead of using a copy. This makes optimistic updates pos-
     // sible, so changes to the data of the current selected task are reflected
     // immediately.
-    this.tasksSub$ = this.state.tasks$.takeUntil(this.ngOnDestroy$)
-    .subscribe(
+    this.tasksSub$ = this.state.tasks$.takeUntil(this.ngOnDestroy$).subscribe(
       this.onUpdateTasks.bind(this),
+      (err) => console.log('error', err)
+    );
+
+    this.taskItemSub$ = this.state.taskItem$.takeUntil(this.ngOnDestroy$)
+    .filter(res => typeof res.data !== 'undefined')
+    .map(res => res.data.TaskItem)
+    .subscribe(
+      this.onLoadTaskItem.bind(this),
       (err) => console.log('error', err)
     );
   }
@@ -82,10 +91,23 @@ export class TasksAppComponent implements OnInit, OnDestroy {
     }
 
     this.tasksApp.setTask(requestedTask);
+
+    // Set item of requested task
+    if (requestedTask) {
+      this.state.loadTaskItem(requestedTask);
+    } else {
+      this.onLoadTaskItem(null);
+    }
+
     this.cd.markForCheck();
   }
 
   reloadTasks() {
     this.state.loadTasks();
+  }
+
+  onLoadTaskItem(taskItem) {
+    this.tasksApp.taskItem = taskItem;
+    this.cd.markForCheck();
   }
 }

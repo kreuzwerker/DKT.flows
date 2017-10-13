@@ -33,7 +33,9 @@
 
   <div class="main full-height" fxFlex>
     <dkt-task-controls *ngIf="tasksApp.task" class="padding border-bottom topbar-height" [tasks]="tasksApp.tasks" [task]="tasksApp.task" (setState)="state.setTaskState(tasksApp.task, $event)" flex></dkt-task-controls>
-    <dkt-task-text-widget *ngIf="tasksApp.task"></dkt-task-text-widget>
+
+    <md-spinner *ngIf="state.select('loadingTaskItem') | async"></md-spinner>
+    <dkt-task-text-widget *ngIf="!(state.select('loadingTaskItem') | async) && tasksApp.taskItem" [taskItem]="tasksApp.taskItem"></dkt-task-text-widget>
   </div>
 
   <div class="sidebar-right border-left full-height" [class.collapsed]="rightCollapsed" fxFlex>

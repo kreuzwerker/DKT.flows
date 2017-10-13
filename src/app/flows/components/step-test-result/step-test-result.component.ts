@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { StepTestResultType } from '../../models';
 
 @Component({
@@ -11,24 +11,13 @@ export class StepTestResultComponent implements OnChanges {
   @Input() data: String = null;
   @Input() show: Boolean = false;
 
-  @ViewChild('frame') frame: ElementRef;
+  renderData: String = null;
+  renderType: String = 'html';
 
   ngOnChanges(changes: SimpleChanges) {
     // Don't update results upon errors
     if (this.type !== StepTestResultType.ERROR) {
-      this.updateTestResults();
+      this.renderData = this.data;
     }
-  }
-
-  public updateTestResults() {
-    let html = this.type === StepTestResultType.HTML ? this.data : '';
-    this.setFrameContents(html);
-  }
-
-  setFrameContents(html: String) {
-    let document = this.frame.nativeElement.contentWindow.document;
-    document.open();
-    document.write(html);
-    document.close();
   }
 }

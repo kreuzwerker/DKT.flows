@@ -101,3 +101,15 @@ span.tasks-count {
   font-weight: 900;
   background-color: $blue;
 }
+
+/*
+  Main
+*/
+
+div.main {
+  md-spinner {
+    margin:3em auto;
+    width:44px!important;
+    height:44px!important;
+  }
+}

@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import * as _ from 'lodash';
+import { TasksApiService } from './';
 import { TasksStateService } from './../../tasks/services';
 import { Task, TaskType, TaskState, TaskFilter, TaskComment } from './../models';
 
@@ -28,11 +29,14 @@ export class TasksAppService {
   // Tasks list
   tasksSub$: Subscription;
   tasks: Task[] = [];
+  // Task item
+  taskItem: any;
   // Flows list
   flowsSub$: Subscription;
 
   constructor(
-    private api: FlowsApiService,
+    private api: TasksApiService,
+    private flowsApi: FlowsApiService,
     public router: Router,
     public state: TasksStateService
   ) {

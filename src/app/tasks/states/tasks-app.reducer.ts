@@ -23,6 +23,12 @@ export function tasksAppReducer(state = initialState, {type, payload}: Action): 
       });
     }
 
+    case Actions.SET_LOADING_TASK_ITEM: {
+      return Object.assign({}, state, {
+        loadingTaskItem: payload
+      });
+    }
+
     default: {
       return state;
     }

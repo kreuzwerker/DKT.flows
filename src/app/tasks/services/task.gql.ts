@@ -47,6 +47,16 @@ export const getTasksQuery = gql`
   }
 `;
 
+export const getTaskItemQuery = gql`
+  query TaskItemQuery($id: ID) {
+    TaskItem(id: $id) {
+      id
+      data
+      type
+    }
+  }
+`;
+
 export const updateTaskMutation = gql`
   mutation UpdateTask($id: ID!, $state: String) {
     updateTask(id: $id, state: $state) {

@@ -18,4 +18,12 @@ export class TasksAppActions {
       payload: loading
     };
   }
+
+  static SET_LOADING_TASK_ITEM = 'SET_LOADING_TASK_ITEM';
+  setLoadingTaskItem(loading: boolean) {
+    return {
+      type: TasksAppActions.SET_LOADING_TASK_ITEM,
+      payload: loading
+    };
+  }
 }

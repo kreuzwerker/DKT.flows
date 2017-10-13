@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
 
 import { ApolloQueryResult } from 'apollo-client';
 import { NgRedux, select } from '@angular-redux/store';
@@ -24,6 +25,15 @@ export class TasksStateService extends StateService {
   tasks$: Observable<ApolloQueryResult<TasksListData>>;
   tasksSub$: Subscription;
 
+  // Item of current selected task
+  // Fetches item of current selected task reactively as soon as taskItemId gets
+  // set or changes, i.e. DOES NOT fetch item data when taskItemId is null or unchanged.
+  taskItemId$ = new Subject<string>();
+  taskItem$: Observable<ApolloQueryResult<any>> = this.api.getTaskItem(
+    this.taskItemId$.asObservable()
+  );
+  taskItemSub$: Subscription;
+
   constructor(
     private api: TasksApiService,
     public store: NgRedux<AppState>,
@@ -33,7 +43,7 @@ export class TasksStateService extends StateService {
   }
 
   loadTasks() {
-    // Fetches an up-to-date list of tasks
+    // Fetch an up-to-date list of tasks
     this.dispatch(this.actions.setLoadingTasks(true));
     this.tasks$ = this.api.getTasks().map((response) => {
       // Flatten the data object to array of tasks
@@ -52,6 +62,28 @@ export class TasksStateService extends StateService {
         this.tasksSub$.unsubscribe();
       }
     });
+  }
+
+  loadTaskItem(task: Task) {
+    // Show loading indicator only for network requests
+    //
+    // Workaround for issue: no distinction between network and cache response possible
+    // https://github.com/apollographql/apollo-client/issues/2294
+    //
+    // Wait a bit before showing the loading indicator: if it's a network request
+    // which takes longer to complete, then the loader will be shown. A cache
+    // request completes immediately and thus no loader is shown.
+    const showLoadingIndicator = setTimeout(
+      () => this.dispatch(this.actions.setLoadingTaskItem(true))
+    , 1);
+    this.taskItemSub$ = this.taskItem$.subscribe((response) => {
+      clearTimeout(showLoadingIndicator);
+      this.dispatch(this.actions.setLoadingTaskItem(false));
+      this.taskItemSub$.unsubscribe();
+    });
+
+    // Fetch the item of the given task
+    this.taskItemId$.next(task.id);
   }
 
   setTaskState(task: Task, state: TaskState) {

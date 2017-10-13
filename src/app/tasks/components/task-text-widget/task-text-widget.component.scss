@@ -2,8 +2,18 @@
 https://github.com/jtangelder/sass-loader/issues/211 */
 @import '../../../variables';
 
-p {
-  max-width: 400px;
-  margin: 1rem auto 0;
-  text-align: justify;
+div.task-widget {
+  div.render {
+    iframe {
+      // Stretch iframe to max height
+      height: calc(100vh - 150px);
+    }
+  }
 }
+
+// TODO insert as styles into iframe
+// p {
+//   max-width: 400px;
+//   margin: 1rem auto 0;
+//   text-align: justify;
+// }

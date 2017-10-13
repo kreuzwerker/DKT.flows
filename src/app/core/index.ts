@@ -13,6 +13,7 @@ import { GoogleSigninComponent } from './components/google-signin/google-signin.
 import { LoginComponent } from './components/login/login.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 import { MainNavComponent } from './components/main-nav/main-nav.component';
+import { RenderComponent } from './components/render/render.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 
@@ -44,6 +45,7 @@ const routes: Routes = [
     LoadingIndicatorComponent,
     LoginComponent,
     MainNavComponent,
+    RenderComponent,
     SignInComponent,
     SignUpComponent,
   ],
@@ -60,6 +62,7 @@ const routes: Routes = [
     LoadingIndicatorComponent,
     LoginComponent,
     MainNavComponent,
+    RenderComponent,
   ],
   providers: [
     LoginGuard,
