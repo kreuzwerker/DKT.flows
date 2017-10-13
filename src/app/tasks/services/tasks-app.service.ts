@@ -72,6 +72,10 @@ export class TasksAppService {
     this.task = task;
   }
 
+  setTaskItem(taskItem): void {
+    this.taskItem = taskItem;
+  }
+
   /**
    * Tasks routing
    */

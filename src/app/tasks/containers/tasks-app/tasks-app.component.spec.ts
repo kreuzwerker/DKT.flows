@@ -1,6 +1,6 @@
 /* tslint:disable: ter-max-len */
 import { MockChangeDetectorRef, mockStore, mockApolloStore } from './../../../core/utils/mocks';
-import { mockTasksState, mockTasksApp } from './../../utils/mocks';
+import { mockTasksState, mockTasksApp, mockTasksApi } from './../../utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { TasksAppComponent } from './tasks-app.component';
 import { TasksAppService, TasksStateService } from './../../services';
@@ -37,7 +37,7 @@ describe('Tasks App', () => {
       router = {} as Router;
       state = mockTasksState;
       store = mockStore;
-      component = new TasksAppComponent(cd, tasksApp, route, router, state);
+      component = new TasksAppComponent(cd, mockTasksApi, tasksApp, route, router, state);
       expect(component).toBeTruthy();
     });
 
@@ -65,8 +65,8 @@ describe('Tasks App', () => {
         expect(spy).toHaveBeenCalledWith(taskId);
       });
 
-      it('should call onSelectTask() when the current selected task changes', () => {
-        let spy = spyOn(component, 'onSelectTask');
+      it('should call selectRequestedTask() when the current selected task changes', () => {
+        let spy = spyOn(component, 'selectRequestedTask');
         component.ngOnInit();
         const task = utils.createTaskData();
         mockApolloStore.task$.next(task);
@@ -93,12 +93,6 @@ describe('Tasks App', () => {
         component.onTaskRouteChange();
         expect(spy).toHaveBeenCalled();
       });
-
-      it('should trigger change detection', () => {
-        let spy = spyOn(cd, 'markForCheck');
-        component.onTaskRouteChange();
-        expect(spy).toHaveBeenCalled();
-      });
     });
 
     describe('selectRequestedTask()', () => {
@@ -112,21 +106,58 @@ describe('Tasks App', () => {
         tasksApp.tasks = orgTasks;
       });
 
-      it('should select no task if it cannot find the task', () => {
+      it('should select no task and reset the tast item if it cannot find the task', () => {
         component.requestedTaskId = '999';
         let spy = spyOn(tasksApp, 'setTask');
-        let spyCd = spyOn(cd, 'markForCheck');
+        let spy2 = spyOn(component, 'onLoadTaskItem');
         component.selectRequestedTask();
         expect(spy).toHaveBeenCalledWith(null);
-        expect(spyCd).toHaveBeenCalled();
+        expect(spy2).toHaveBeenCalledWith(null);
       });
 
-      it('should select the current requested task if it can find the task', () => {
+      it('should select the current requested task and load the task item if it can find the task', () => {
         component.requestedTaskId = '1';
         const task = tasksApp.tasks.find(task => task.id === component.requestedTaskId);
         let spy = spyOn(tasksApp, 'setTask');
+        let spy2 = spyOn(state, 'loadTaskItem');
         component.selectRequestedTask();
         expect(spy).toHaveBeenCalledWith(task);
+        expect(spy2).toHaveBeenCalledWith(task);
+      });
+
+      it('should trigger change detection', () => {
+        let spy = spyOn(cd, 'markForCheck');
+        component.selectRequestedTask();
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('reloadTasks()', () => {
+      it('should reload the tasks list', () => {
+        let spy = spyOn(state, 'loadTasks');
+        component.reloadTasks();
+        expect(spy).toHaveBeenCalled();
+      });
+
+      it('should trigger change detection', () => {
+        let spy = spyOn(cd, 'markForCheck');
+        component.onLoadTaskItem({});
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('onLoadTaskItem()', () => {
+      it('should set the current task item', () => {
+        const taskItem = {};
+        let spy = spyOn(tasksApp, 'setTaskItem');
+        component.onLoadTaskItem(taskItem);
+        expect(spy).toHaveBeenCalledWith(taskItem);
+      });
+
+      it('should trigger change detection', () => {
+        let spy = spyOn(cd, 'markForCheck');
+        component.onLoadTaskItem({});
+        expect(spy).toHaveBeenCalled();
       });
     });
   });

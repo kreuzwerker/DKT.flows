@@ -107,7 +107,7 @@ export class TasksAppComponent implements OnInit, OnDestroy {
   }
 
   onLoadTaskItem(taskItem) {
-    this.tasksApp.taskItem = taskItem;
+    this.tasksApp.setTaskItem(taskItem);
     this.cd.markForCheck();
   }
 }

@@ -7,6 +7,10 @@ import { TasksAppActions } from './../../states';
 import { Task } from './../../models';
 
 export const mockTasksState = {
+  loadTasks() {},
+
+  loadTaskItem(task: Task) {},
+
   select(key: string) {
     return mockStore[key];
   },

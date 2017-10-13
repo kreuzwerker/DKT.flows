@@ -1,6 +1,7 @@
 /* tslint:disable: max-line-length */
 import { TestUtils } from '../utils/test.helpers';
 import { TasksAppService } from './../services';
+import { mockTasksApi, mockTasksState } from './../utils/mocks';
 import { mockFlowsApi } from './../../flows/utils/mocks';
 import { MockRouter } from './../../core/utils/mocks';
 import { TASKS_DATA } from './../services/tasks.data';
@@ -16,7 +17,7 @@ describe('Tasks App', () => {
       // TODO a working Flows API mock: getFlows() isn't mocked properly, breaking
       // instantiation of TasksAppService
       router = <any>new MockRouter();
-      service = new TasksAppService(mockFlowsApi, router);
+      service = new TasksAppService(mockTasksApi, mockFlowsApi, router, mockTasksState);
       utils = new TestUtils();
     });
 

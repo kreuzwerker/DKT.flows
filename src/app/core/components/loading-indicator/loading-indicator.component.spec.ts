@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-describe('Flows App', () => {
+describe('Core', () => {
 
   describe('LoadingIndicator Component', () => {
 
