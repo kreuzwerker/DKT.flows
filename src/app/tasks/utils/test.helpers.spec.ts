@@ -25,5 +25,14 @@ describe('Tasks App', () => {
         expect(task.state).toBe(TaskState.STARTED);
       });
     });
+
+    describe('createTaskItem()', () => {
+      it('should return a mocked task item object', () => {
+        const taskItem = utils.createTaskItem();
+        expect(taskItem.id).toBe('1');
+        expect(taskItem.data).toBe('<p>Task item data</p>');
+        expect(taskItem.type).toBe('html');
+      });
+    });
   });
 });
