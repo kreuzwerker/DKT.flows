@@ -71,11 +71,12 @@ describe('Flows App', () => {
 
     describe('createFlowRunData()', () => {
       it('should return a mocked flow run object', () => {
-        const flow = utils.createFlowRunData();
-        expect(flow.id).toBe('1');
-        expect(flow.status).toBe('running');
-        expect(flow.message).toBe('flow run API message');
-        expect(flow.currentStep).toBe(0);
+        const flowRun = utils.createFlowRunData();
+        expect(flowRun.id).toBe('1');
+        expect(flowRun.status).toBe('running');
+        expect(flowRun.message).toBe('flow run API message');
+        expect(flowRun.currentStep).toBe(0);
+        expect(flowRun.runsCount).toBe(0);
       });
     });
   });

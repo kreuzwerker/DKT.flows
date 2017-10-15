@@ -6,5 +6,7 @@ export class FlowRun {
   message: string;
   currentStep: number;
   flow?: Flow;
+  runs?: Array<string>;
+  runsCount?: number;
 }
 

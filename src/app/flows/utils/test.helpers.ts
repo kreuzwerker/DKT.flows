@@ -113,6 +113,7 @@ export class TestUtils {
       status: status,
       message: 'flow run API message',
       currentStep: 0,
+      runsCount: 0,
     };
   }
 
