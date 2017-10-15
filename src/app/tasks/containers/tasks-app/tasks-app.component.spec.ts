@@ -141,8 +141,9 @@ describe('Tasks App', () => {
       });
 
       it('should trigger change detection', () => {
+        const taskItem = utils.createTaskItem();
         let spy = spyOn(cd, 'markForCheck');
-        component.onLoadTaskItem({});
+        component.onLoadTaskItem(taskItem);
         expect(spy).toHaveBeenCalled();
       });
     });
