@@ -65,10 +65,18 @@ describe('Flows App', () => {
       });
     });
 
-    describe('createAndStartFlowRun()', () => {
-      it('should create a flow run of the current selected flow, with the given payload and the current user.', () => {
-        let spy = spyOn(state, 'createAndStartFlowRun');
-        service.createAndStartFlowRun('');
+    describe('createFlowRun()', () => {
+      it('should create a new flow run for the current selected flow and with the current user.', () => {
+        let spy = spyOn(state, 'createFlowRun');
+        service.createFlowRun();
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('startFlowRun()', () => {
+      it('should start a new flow run of the current selected flow and with the given payload.', () => {
+        let spy = spyOn(state, 'startFlowRun');
+        service.startFlowRun({});
         expect(spy).toHaveBeenCalled();
       });
     });

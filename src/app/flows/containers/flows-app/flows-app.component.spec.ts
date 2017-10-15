@@ -83,8 +83,8 @@ describe('Flows App', () => {
         expect(spy).toHaveBeenCalledWith(step);
       });
 
-      it('should call onCreatedFlowRun() when a new flow run got created', () => {
-        let spy = spyOn(component, 'onCreatedFlowRun');
+      it('should call onStartedFlowRun() when a new flow run got created', () => {
+        let spy = spyOn(component, 'onStartedFlowRun');
         component.ngOnInit();
         const flowRun = utils.createFlowRunData();
         state.createdFlowRun$.next(flowRun);
@@ -237,7 +237,7 @@ describe('Flows App', () => {
       });
     });
 
-    describe('onCreatedFlowRun()', () => {
+    describe('onStartedFlowRun()', () => {
       let flowRun;
 
       beforeEach(() => {
@@ -246,20 +246,20 @@ describe('Flows App', () => {
 
       it('should show a loading indicator while the flow is starting', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
-        component.onCreatedFlowRun('loading');
+        component.onStartedFlowRun('loading');
         expect(spy).toHaveBeenCalledWith('Triggering flow', 'loading');
       });
 
       it('should show a success message if the flow run got started successfully', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
-        component.onCreatedFlowRun(flowRun);
+        component.onStartedFlowRun(flowRun);
         expect(spy).toHaveBeenCalledWith('Flow successfully triggered');
       });
 
       it('should show an error message if the flow run did not get started successfully', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
         flowRun.status = 'error';
-        component.onCreatedFlowRun(flowRun);
+        component.onStartedFlowRun(flowRun);
         expect(spy).toHaveBeenCalledWith(
           jasmine.stringMatching(/An error occured. Flow could not be triggered./),
           'error'
@@ -268,7 +268,7 @@ describe('Flows App', () => {
 
       it('should trigger change detection', () => {
         let spy = spyOn(cd, 'markForCheck');
-        component.onCreatedFlowRun(flowRun);
+        component.onStartedFlowRun(flowRun);
         expect(spy).toHaveBeenCalled();
       });
     });

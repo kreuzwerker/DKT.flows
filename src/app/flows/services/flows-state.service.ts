@@ -186,9 +186,15 @@ export class FlowsStateService extends StateService {
     this.loadProviders$.next(1);
   }
 
-  createAndStartFlowRun(flowId: string, userId: string, payload: Object): void {
+  createFlowRun(flowId: string, userId: string): void {
+    this.api.createFlowRun(flowId, userId).subscribe((flowRun) => {
+      console.log('DEBUG new flowRun', flowRun);
+    }, (error) => console.log('ERROR', error));
+  }
+
+  startFlowRun(flowRunId: string, payload: Object): void {
     this.createdFlowRun$.next('loading');
-    this.api.createAndStartFlowRun(flowId, userId, payload).subscribe((flowRun) => {
+    this.api.startFlowRun(flowRunId, payload).subscribe((flowRun) => {
       this.createdFlowRun$.next(flowRun);
     }, (error) => this.createdFlowRun$.next(error));
   }

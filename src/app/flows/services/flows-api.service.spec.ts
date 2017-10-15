@@ -76,11 +76,6 @@ describe('Flows App', () => {
       });
     });
 
-    describe('createAndStartFlowRun()', () => {
-      xit('should query the API with a mutation of a new flow run', () => {
-      });
-    });
-
     describe('reduceGetFlow()', () => {
       it('should sort the steps of the given flow by position.', () => {
         const flow = utils.createFlowData();

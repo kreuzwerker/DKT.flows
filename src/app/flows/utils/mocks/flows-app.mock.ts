@@ -8,6 +8,7 @@ export const mockFlowsApp = {
   setStep(step: Step): void {},
   showStatusMessage(message: string, type: string): void {},
   hideStatusMessage(): void {},
-  createAndStartFlowRun(payload: any): void {},
+  createFlowRun(): void {},
+  startFlowRun(payload: any): void {},
 } as FlowsAppService;
 

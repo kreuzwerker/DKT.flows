@@ -61,7 +61,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
 
     // Created new flow run
     this.state.createdFlowRun$.takeUntil(this.ngOnDestroy$).subscribe(
-      this.onCreatedFlowRun.bind(this),
+      this.onStartedFlowRun.bind(this),
       (err) => console.log('error', err)
     );
 
@@ -141,12 +141,12 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     let dialogRef = this.dialog.open(TriggerFlowRunDialogComponent, this.dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
       if (data) {
-        this.flowsApp.createAndStartFlowRun(data.payload);
+        this.flowsApp.startFlowRun(data.payload);
       }
     });
   }
 
-  onCreatedFlowRun(flowRun: any) {
+  onStartedFlowRun(flowRun: any) {
     if (flowRun === 'loading') {
       this.flowsApp.showStatusMessage('Triggering flow', 'loading');
     } else if (flowRun instanceof ApolloError) {

@@ -40,8 +40,8 @@ describe('Flows App', () => {
         expect(spy).toHaveBeenCalledWith(flow);
       });
 
-      it('should call onCreatedFlowRun() when a new flow run got created', () => {
-        let spy = spyOn(component, 'onCreatedFlowRun');
+      it('should call onStartedFlowRun() when a new flow run got created', () => {
+        let spy = spyOn(component, 'onStartedFlowRun');
         component.ngOnInit();
         const flowRun = utils.createFlowRunData();
         state.createdFlowRun$.next(flowRun);
@@ -69,12 +69,12 @@ describe('Flows App', () => {
       });
     });
 
-    describe('onCreatedFlowRun()', () => {
+    describe('onStartedFlowRun()', () => {
       it('should set the info box contents to TRIGGERED state if flow run is running', () => {
         let flowRun = utils.createFlowRunData();
         let spy = spyOn(component, 'setInfoBoxContents');
         flowRun.status = 'running';
-        component.onCreatedFlowRun(flowRun);
+        component.onStartedFlowRun(flowRun);
         expect(spy).toHaveBeenCalled();
       });
     });

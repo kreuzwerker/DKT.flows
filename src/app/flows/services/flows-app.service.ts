@@ -88,10 +88,14 @@ export class FlowsAppService {
     Flow Runs
    */
 
-  createAndStartFlowRun(payload: any): void {
+  createFlowRun(): void {
     // Mock user ID
     let userId = '1';
-    this.state.createAndStartFlowRun(this.flow.id, userId, payload);
+    this.state.createFlowRun(this.flow.id, userId);
+  }
+
+  startFlowRun(payload: any): void {
+    this.state.startFlowRun(this.flow.flowRun.id, payload);
   }
 
   /*
