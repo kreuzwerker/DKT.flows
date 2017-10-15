@@ -88,6 +88,7 @@ export class TestUtils {
       name: 'Test Flow',
       description: 'Test Flow description',
       steps: steps,
+      flowRun: this.createFlowRunData()
     };
   }
 

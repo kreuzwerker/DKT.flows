@@ -60,8 +60,12 @@ export const getFlowQuery = gql`
       id,
       name,
       description,
+      draft,
       steps {
         ...FlowStep
+      }
+      flowRun {
+        id
       }
     }
   }

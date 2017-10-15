@@ -57,6 +57,7 @@ describe('Flows App', () => {
         expect(flow.name).toBe('Test Flow');
         expect(flow.description).toBe('Test Flow description');
         expect(flow.steps.length).toBe(3);
+        expect(flow.flowRun).toBeDefined();
       });
     });
 
