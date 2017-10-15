@@ -1,6 +1,6 @@
 <div id="flow-home" fxLayout="column" fxLayoutAlign="center center">
   <div *ngIf="infoBoxMessage != null" class="info-box centered" fxLayout="column" fxLayoutAlign="center center">
-    <md-icon class="box-icon" svgIcon="flow"></md-icon>
+    <md-icon *ngIf="infoBoxIcon == 'flow'" class="box-icon" svgIcon="flow"></md-icon>
     <md-icon *ngIf="infoBoxIcon != 'flow'" class="box-icon">{{infoBoxIcon}}</md-icon>
     <p class="message">{{infoBoxMessage}}</p>
 
