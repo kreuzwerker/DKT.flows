@@ -12,12 +12,14 @@ import * as helpers from './../../utils/flow.helpers';
 export class FlowHeaderComponent {
   @Input() flow: Flow;
   @Output() onTriggerFlowRun = new EventEmitter();
+  @Output() onSaveFlowDraft = new EventEmitter();
+  @Output() onDiscardFlowDraft = new EventEmitter();
 
   constructor(
     public flowsApp: FlowsAppService
   ) { }
 
   isManualFlowRunLocked() {
-    return !helpers.flowIsExecutable(this.flow);
+    return this.flow.draft || !helpers.flowIsExecutable(this.flow);
   }
 }

@@ -102,9 +102,6 @@ export class FlowsListComponent implements OnInit, OnDestroy {
   }
 
   flowIsInDraft(flow: Flow): boolean {
-    // TODO getFlows API must provide flow.isDraft
-    // NB using flowIsExecutable() requires presence of flow.steps
-    // return flowHelpers.flowIsExecutable(flow);
-    return false;
+    return flow.draft;
   }
 }

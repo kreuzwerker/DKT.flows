@@ -162,6 +162,18 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Flow draft
+   */
+
+   saveFlowDraft() {
+    this.flowsApp.createFlowRun();
+  }
+
+   discardFlowDraft() {
+     console.log('discard');
+   }
+
+  /**
    * Step tests
    */
 

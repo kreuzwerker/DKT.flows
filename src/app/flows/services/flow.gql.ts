@@ -170,6 +170,10 @@ mutation createFlowRun(
     userId: $userId,
   ) {
     id
+    flow {
+      id
+      draft
+    }
   }
 }
 `;
