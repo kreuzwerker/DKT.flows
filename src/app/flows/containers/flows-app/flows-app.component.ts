@@ -21,6 +21,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   flowSub$: Subscription;
 
   requestedStepId: string = null;
+  isSavingFlowDraft: boolean = false;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -147,7 +148,13 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   }
 
   onStartedFlowRun(flowRun: any) {
-    if (flowRun === 'loading') {
+    this.isSavingFlowDraft = false;
+    if (flowRun === 'saving') {
+      this.isSavingFlowDraft = true;
+      this.flowsApp.showStatusMessage('Saving flow', 'loading');
+    } else if (flowRun === 'saved') {
+      this.flowsApp.showStatusMessage('Saved flow', 'success');
+    } else if (flowRun === 'loading') {
       this.flowsApp.showStatusMessage('Triggering flow', 'loading');
     } else if (flowRun instanceof ApolloError) {
       this.flowsApp.showStatusMessage('An internal error occured. Flow could not be triggered', 'error');

@@ -244,6 +244,18 @@ describe('Flows App', () => {
         flowRun = utils.createFlowRunData();
       });
 
+      it('should show a loading indicator while the flow is saving', () => {
+        let spy = spyOn(flowsApp, 'showStatusMessage');
+        component.onStartedFlowRun('saving');
+        expect(spy).toHaveBeenCalledWith('Saving flow', 'loading');
+      });
+
+      it('should show a success message if the flow run got saved successfully', () => {
+        let spy = spyOn(flowsApp, 'showStatusMessage');
+        component.onStartedFlowRun('saved');
+        expect(spy).toHaveBeenCalledWith('Saved flow');
+      });
+
       it('should show a loading indicator while the flow is starting', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
         component.onStartedFlowRun('loading');

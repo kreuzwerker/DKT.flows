@@ -3,6 +3,7 @@
     <dkt-loading-indicator *ngIf="state.select('loadingFlow') | async" text="Loading flow" center="true"></dkt-loading-indicator>
     <dkt-flow-header *ngIf="flowsApp.flow" 
       [flow]="flowsApp.flow"
+      [isSavingFlowDraft]="isSavingFlowDraft"
       (onTriggerFlowRun)="openTriggerFlowRunDialog()"
       (onSaveFlowDraft)="saveFlowDraft()"
       (onDiscardFlowDraft)="discardFlowDraft()"
