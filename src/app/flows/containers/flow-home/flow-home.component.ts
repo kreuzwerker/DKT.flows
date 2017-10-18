@@ -95,6 +95,14 @@ export class FlowHomeComponent implements OnInit, OnDestroy {
         this.infoBoxAction = () => this.flowsApp.selectStep(flow.id, actionStep.id);
         break;
 
+      case FlowState.NOT_DEPLOYED:
+        this.infoBoxIcon = 'publish';
+        this.infoBoxMessage = 'This flow has undeployed changes.';
+        this.infoBoxActionIcon = null;
+        this.infoBoxActionLabel = 'Deploy Flow';
+        this.infoBoxAction = () => this.flowsApp.createFlowRun();
+        break;
+
       case FlowState.NOT_ACTIVATED:
         this.infoBoxIcon = 'done_all';
         this.infoBoxMessage = 'This flow has been successfully configured and tested.';

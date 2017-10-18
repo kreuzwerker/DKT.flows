@@ -27,8 +27,8 @@
         <!--<md-icon md-list-icon class="last-step">description</md-icon>-->
         <!--<div md-list-icon class="seperator"></div>-->
         <h6 md-line>
-          <div *ngIf="flowHasError(flow)" class="label error">error</div>
-          <div *ngIf="flowIsInDraft(flow)" class="label draft">draft</div>
+          <div *ngIf="flowHelpers.flowHasError(flow)" class="label error">error</div>
+          <div *ngIf="flowHelpers.flowIsInDraft(flow)" class="label draft">draft</div>
           {{flow.name}}
         </h6>
 
