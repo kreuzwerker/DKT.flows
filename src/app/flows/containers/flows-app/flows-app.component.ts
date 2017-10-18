@@ -87,12 +87,17 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // Clean up state
+    this.flowsApp.setFlow(null);
+    this.flowsApp.setStep(null);
+    this.flowsApp.hideStatusMessage();
+
     this.ngOnDestroy$.next(true);
     this.flowSub$.unsubscribe();
   }
 
   onSelectFlow(flow: Flow) {
-    this.flowsApp.flow = flow;
+    this.flowsApp.setFlow(flow);
     this.selectRequestedStep();
     this.cd.markForCheck();
   }

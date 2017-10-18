@@ -206,6 +206,9 @@ mutation createFlowRun(
     flow {
       id
       draft
+      flowRun {
+        id
+      }
     }
   }
 }

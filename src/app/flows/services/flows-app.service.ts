@@ -34,6 +34,10 @@ export class FlowsAppService {
     private router: Router,
   ) {}
 
+  setFlow(flow: Flow): void {
+    this.flow = flow;
+  }
+
   setStep(step: Step): void {
     this.step = step;
     this.stepTypeName = step

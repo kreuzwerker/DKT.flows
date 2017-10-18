@@ -69,12 +69,6 @@ export class FlowsStateService extends StateService {
       id: this.select('flowId').filter((flowId) => flowId !== null)
     }).map(({data}) => data.Flow);
 
-    // Unset loading flow flag
-    this.flowSub$ = this.flow$.subscribe((flow) => {
-      this.dispatch(this.actions.setLoadingFlow(false));
-      this.flowSub$.unsubscribe();
-    });
-
     // Providers list
     // --------------
 
@@ -82,10 +76,6 @@ export class FlowsStateService extends StateService {
       // NB fake var to hold back the query until we trigger it via this observable
       id: this.loadProviders$
     }).map(({data}) => data.allProviders);
-    // Unset loading providers flag
-    this.providers$.subscribe((providers) => this.dispatch(
-      this.actions.setLoadingProviders(false)
-    ) );
   }
 
   //
@@ -120,7 +110,13 @@ export class FlowsStateService extends StateService {
       return;
     }
 
+    // Show loading indicator while loading the flow
     this.dispatch(this.actions.setLoadingFlow(true));
+    this.flowSub$ = this.flow$.subscribe((flow) => {
+      this.dispatch(this.actions.setLoadingFlow(false));
+      this.flowSub$.unsubscribe();
+    });
+
     this.dispatch(this.actions.selectFlow(id));
   }
 
@@ -192,7 +188,12 @@ export class FlowsStateService extends StateService {
   }
 
   loadProviders(): void {
+    // Show loading indicator while loading providers
     this.dispatch(this.actions.setLoadingProviders(true));
+    this.providers$.subscribe((providers) => this.dispatch(
+      this.actions.setLoadingProviders(false)
+    ) );
+
     // Trigger loading the providers
     this.loadProviders$.next(1);
   }
