@@ -140,6 +140,15 @@ export class FlowsStateService extends StateService {
     });
   }
 
+  restoreFlow(id: string): void {
+    this.createdFlowRun$.next('restoring');
+    this.api.restoreFlow({
+      flowId: id,
+    }).subscribe((_step) => {
+      this.createdFlowRun$.next('restored');
+    });
+  }
+
   saveFlow(id: string, flow: FlowData): void {
     this.dispatch(this.actions.setSavingFlow(true, false));
   }

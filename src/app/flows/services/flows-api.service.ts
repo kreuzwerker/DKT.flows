@@ -17,6 +17,7 @@ import {
   getFlowQuery,
   createFlowMutation,
   deleteFlowMutation,
+  restoreFlowMutation,
   updateStepMutation,
   addFlowStepMutation,
   removeFlowStepMutation,
@@ -94,6 +95,17 @@ export class FlowsApiService {
       },
 
     }).map(({data}) => data.createFlow);
+  }
+
+  public restoreFlow(
+    {flowId}: {flowId: string}
+  ): Observable<ApolloQueryResult<any>> {
+    return this.apollo.mutate<any>({
+      mutation: restoreFlowMutation,
+      variables: {
+        flowId: flowId,
+      }
+    }).map(({data}) => data.restoreFlow);
   }
 
   public getProviders({id}: {id: string | Observable<string>}): ApolloQueryObservable<any> {

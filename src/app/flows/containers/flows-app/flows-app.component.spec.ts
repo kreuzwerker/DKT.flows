@@ -244,16 +244,16 @@ describe('Flows App', () => {
         flowRun = utils.createFlowRunData();
       });
 
-      it('should show a loading indicator while the flow is saving', () => {
+      it('should show a loading indicator while the flow is deploying', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
         component.onStartedFlowRun('saving');
-        expect(spy).toHaveBeenCalledWith('Saving flow', 'loading');
+        expect(spy).toHaveBeenCalledWith('Deploying flow', 'loading');
       });
 
-      it('should show a success message if the flow run got saved successfully', () => {
+      it('should show a success message if the flow got deployed successfully', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
         component.onStartedFlowRun('saved');
-        expect(spy).toHaveBeenCalledWith('Saved flow');
+        expect(spy).toHaveBeenCalledWith('Deployed flow', 'success');
       });
 
       it('should show a loading indicator while the flow is starting', () => {
@@ -282,6 +282,22 @@ describe('Flows App', () => {
         let spy = spyOn(cd, 'markForCheck');
         component.onStartedFlowRun(flowRun);
         expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('saveFlowDraft', () => {
+      it('should create a new flow run', () => {
+        let spy = spyOn(flowsApp, 'createFlowRun');
+        component.saveFlowDraft();
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('discardFlowDraft', () => {
+      xit('should delete the flow if draft has not been saved before', () => {
+      });
+
+      xit('should restore the flow from the previous flow run', () => {
       });
     });
 

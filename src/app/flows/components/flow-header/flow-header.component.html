@@ -2,12 +2,12 @@
 <p>{{flow.description}}</p>
 
 <div [class.slide-in]="flow.draft" [class.slide-out]="!flow.draft" class="draft controls">
-  <button md-raised-button color="primary" class="save" (click)="onSaveFlowDraft.emit()" [disabled]="isSavingFlowDraft">
+  <button md-raised-button color="primary" class="save" (click)="onSaveFlowDraft.emit()" [disabled]="disableDraftControls">
     <md-icon>save</md-icon>
-    Save
+    Deploy
   </button>
   <span>or</span>
-  <button md-raised-button class="discard" (click)="onDiscardFlowDraft.emit()" [disabled]="isSavingFlowDraft">
+  <button md-raised-button class="discard" (click)="onDiscardFlowDraft.emit()" [disabled]="disableDraftControls">
     discard
   </button>
   <span>changes</span>

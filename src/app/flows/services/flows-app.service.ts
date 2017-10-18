@@ -57,6 +57,10 @@ export class FlowsAppService {
     this.state.saveFlow(this.flow.id, this.flow);
   }
 
+  deleteFlow(): void {
+    this.state.deleteFlow(this.flow.id);
+  }
+
   saveFlowStep(): void {
     this.state.saveFlowStep(this.flow.id, this.step.id, this.step);
   }
@@ -82,6 +86,14 @@ export class FlowsAppService {
       // Deselect deleted step by navigating to flow home
       this.router.navigate(['flows', this.flow.id]);
     }
+  }
+
+  /**
+   * Flow Drafts
+   */
+
+  restoreFlow(): void {
+    this.state.restoreFlow(this.flow.id);
   }
 
   /*

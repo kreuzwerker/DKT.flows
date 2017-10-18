@@ -21,7 +21,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   flowSub$: Subscription;
 
   requestedStepId: string = null;
-  isSavingFlowDraft: boolean = false;
+  disableDraftControls: boolean = false;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -148,12 +148,17 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   }
 
   onStartedFlowRun(flowRun: any) {
-    this.isSavingFlowDraft = false;
+    this.disableDraftControls = false;
     if (flowRun === 'saving') {
-      this.isSavingFlowDraft = true;
-      this.flowsApp.showStatusMessage('Saving flow', 'loading');
+      this.disableDraftControls = true;
+      this.flowsApp.showStatusMessage('Deploying changes', 'loading');
     } else if (flowRun === 'saved') {
-      this.flowsApp.showStatusMessage('Saved flow', 'success');
+      this.flowsApp.showStatusMessage('Deployed changes', 'success');
+    } else if (flowRun === 'restoring') {
+      this.disableDraftControls = true;
+      this.flowsApp.showStatusMessage('Discarding changes', 'loading');
+    } else if (flowRun === 'restored') {
+      this.flowsApp.showStatusMessage('Restored previous version', 'success');
     } else if (flowRun === 'loading') {
       this.flowsApp.showStatusMessage('Triggering flow', 'loading');
     } else if (flowRun instanceof ApolloError) {
@@ -177,8 +182,12 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   }
 
    discardFlowDraft() {
-     console.log('discard');
-   }
+    if (this.flowsApp.flow.flowRun) {
+      this.flowsApp.restoreFlow();
+    } else {
+      this.flowsApp.deleteFlow();
+    }
+  }
 
   /**
    * Step tests
