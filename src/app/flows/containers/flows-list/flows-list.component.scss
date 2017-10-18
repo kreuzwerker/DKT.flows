@@ -83,8 +83,8 @@ div.flows-list div.options {
 md-list.flows {
   width: 100%;
   max-width: $list-container-width;
-  margin: 2rem;
-  padding-top:0px;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 $list-item-border-color: #E6EAEE;
