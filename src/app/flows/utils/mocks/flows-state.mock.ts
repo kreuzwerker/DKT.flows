@@ -25,7 +25,7 @@ export const mockFlowsState = {
   loadFlows(): void { },
   selectFlow(id: string): void { },
   createFlow(name: string, description: string): void { },
-  deleteFlow(id: string): void { },
+  deleteFlow(id: string, name: string): void { },
   dispatch(action: Action) { },
   createFlowRun(flowId: string, userId: string): void {},
   startFlowRun(flowRunId: string, payload: Object): void {},

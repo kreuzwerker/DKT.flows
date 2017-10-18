@@ -2,7 +2,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs';
 import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
-import { MdDialog, MdDialogConfig } from '@angular/material';
+import { MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { ApolloError } from 'apollo-client';
 import { TriggerFlowRunDialogComponent } from './../../components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
 
@@ -30,6 +30,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     public router: Router,
     public state: FlowsStateService,
     public dialog: MdDialog,
+    public snackBar: MdSnackBar
   ) {
     this.dialogConfig = new MdDialogConfig();
     this.dialogConfig.width = '450px';
@@ -57,6 +58,12 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     // Current selected step
     this.state.select('step').takeUntil(this.ngOnDestroy$).subscribe(
       this.onSelectStep.bind(this),
+      (err) => console.log('error', err)
+    );
+
+    this.state.deletedFlow$.takeUntil(this.ngOnDestroy$)
+    .subscribe(
+      this.onDeletedFlow.bind(this),
       (err) => console.log('error', err)
     );
 
@@ -93,6 +100,13 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   onSelectStep(step: Step) {
     this.flowsApp.setStep(step);
     this.cd.markForCheck();
+  }
+
+  onDeletedFlow({id, name}: {id: string, name: string}) {
+    // Upon successful flow deletion redirect user to flows overview
+    this.flowsApp.hideStatusMessage();
+    this.showInfoMessage(`Deleted flow "${name}".`);
+    this.router.navigate(['flows']);
   }
 
   /*
@@ -186,6 +200,8 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
       this.flowsApp.restoreFlow();
     } else {
       this.flowsApp.deleteFlow();
+      this.disableDraftControls = true;
+      this.flowsApp.showStatusMessage('Deleting flow', 'loading');
     }
   }
 
@@ -218,5 +234,15 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
 
   isSelectedStep(step: Step): boolean {
     return step.id && this.flowsApp.step && step.id === this.flowsApp.step.id;
+  }
+
+  /*
+    Helper methods
+   */
+
+  showInfoMessage(message: string) {
+    let config = new MdSnackBarConfig();
+    config.duration = 2000;
+    this.snackBar.open(message, 'OK', config);
   }
 }

@@ -80,7 +80,7 @@ export class FlowsListComponent implements OnInit, OnDestroy {
     dialogRef.componentInstance.name = name;
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm) {
-        this.state.deleteFlow(id);
+        this.state.deleteFlow(id, name);
         this.showInfoMessage(`Deleted flow "${name}".`);
       }
     });

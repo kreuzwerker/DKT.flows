@@ -37,6 +37,7 @@ export class FlowsStateService extends StateService {
   //
 
   createdFlow$: Subject<any> = new Subject<any>();
+  deletedFlow$: Subject<any> = new Subject<any>();
   createdFlowRun$: Subject<any> = new Subject<any>();
   testedFlowStep$: Subject<any> = new Subject<any>();
 
@@ -131,12 +132,13 @@ export class FlowsStateService extends StateService {
     });
   }
 
-  deleteFlow(id: string): void {
+  deleteFlow(id: string, name: string): void {
     this.dispatch(this.actions.setSavingFlow(true, false));
     this.api.deleteFlow({
       flowId: id,
     }).subscribe((_step) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
+      this.deletedFlow$.next({id: id, name: name});
     });
   }
 

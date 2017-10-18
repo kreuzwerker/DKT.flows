@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { MockChangeDetectorRef, mockStore, mockApolloStore, MockMdDialog } from './../../../core/utils/mocks';
+import { MockChangeDetectorRef, mockStore, mockApolloStore, MockMdDialog, MockRouter, mockSnackBar } from './../../../core/utils/mocks';
 import { mockFlowsState, mockFlowsApp } from './../../utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { FlowsAppComponent } from './flows-app.component';
@@ -27,11 +27,11 @@ describe('Flows App', () => {
       cd = <any>new MockChangeDetectorRef();
       flowsApp = mockFlowsApp;
       route = {} as ActivatedRoute;
-      router = {} as Router;
+      router = <any>new MockRouter();
       state = mockFlowsState;
       store = mockStore;
       dialog = new MockMdDialog();
-      component = new FlowsAppComponent(cd, flowsApp, route, router, state, dialog);
+      component = new FlowsAppComponent(cd, flowsApp, route, router, state, dialog, mockSnackBar);
       expect(component).toBeTruthy();
     });
 
@@ -159,6 +159,32 @@ describe('Flows App', () => {
       });
     });
 
+    describe('onDeletedFlow()', () => {
+      let flow;
+
+      beforeEach(() => {
+        flow = {id: '1', name: 'Test flow'};
+      });
+
+      it('should hide the loading indicator', () => {
+        let spy = spyOn(flowsApp, 'hideStatusMessage');
+        component.onDeletedFlow(flow);
+        expect(spy).toHaveBeenCalled();
+      });
+
+      it('should show status message', () => {
+        let spy = spyOn(component, 'showInfoMessage');
+        component.onDeletedFlow(flow);
+        expect(spy).toHaveBeenCalledWith(`Deleted flow "${flow.name}".`);
+      });
+
+      it('should hide the loading indicator', () => {
+        let spy = spyOn(router, 'navigate');
+        component.onDeletedFlow(flow);
+        expect(spy).toHaveBeenCalledWith(['flows']);
+      });
+    });
+
     describe('onFlowRouteChange()', () => {
       it('should set the current selected flow to the given flowId', () => {
         let spy = spyOn(state, 'selectFlow');
@@ -247,13 +273,13 @@ describe('Flows App', () => {
       it('should show a loading indicator while the flow is deploying', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
         component.onStartedFlowRun('saving');
-        expect(spy).toHaveBeenCalledWith('Deploying flow', 'loading');
+        expect(spy).toHaveBeenCalledWith('Deploying changes', 'loading');
       });
 
       it('should show a success message if the flow got deployed successfully', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
         component.onStartedFlowRun('saved');
-        expect(spy).toHaveBeenCalledWith('Deployed flow', 'success');
+        expect(spy).toHaveBeenCalledWith('Deployed changes', 'success');
       });
 
       it('should show a loading indicator while the flow is starting', () => {
@@ -294,10 +320,25 @@ describe('Flows App', () => {
     });
 
     describe('discardFlowDraft', () => {
-      xit('should delete the flow if draft has not been saved before', () => {
+      it('should restore the flow from the previous flow run', () => {
+        expect(component.flowsApp.flow.flowRun).toBeDefined();
+        let spy = spyOn(flowsApp, 'restoreFlow');
+        let spy2 = spyOn(flowsApp, 'deleteFlow');
+        component.discardFlowDraft();
+        expect(spy).toHaveBeenCalled();
+        expect(spy2).not.toHaveBeenCalled();
       });
 
-      xit('should restore the flow from the previous flow run', () => {
+      it('should delete the flow if flow has not been deployed before', () => {
+        component.flowsApp.flow.flowRun = null;
+        let spy = spyOn(flowsApp, 'deleteFlow');
+        let spy2 = spyOn(flowsApp, 'restoreFlow');
+        let spy3 = spyOn(flowsApp, 'showStatusMessage');
+        component.discardFlowDraft();
+        expect(spy).toHaveBeenCalled();
+        expect(spy2).not.toHaveBeenCalled();
+        expect(spy3).toHaveBeenCalledWith('Deleting flow', 'loading');
+        expect(component.disableDraftControls).toBeTruthy();
       });
     });
 
