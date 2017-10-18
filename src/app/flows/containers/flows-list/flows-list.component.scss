@@ -136,6 +136,7 @@ md-list.flows md-list-item {
   }
 
   .label {
+    display: inline-block;
     border-radius: 3px;
     padding: 3px 0.5rem;
     text-transform: uppercase;

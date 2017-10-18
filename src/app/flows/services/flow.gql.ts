@@ -6,6 +6,7 @@ export const flowsItemFragment = gql`
     id
     name
     description
+    draft
   }
 `;
 
@@ -23,6 +24,7 @@ export class FlowsListData {
   id: string;
   name: string;
   description: string;
+  draft: boolean;
 }
 
 export const flowStepFragment = gql`
