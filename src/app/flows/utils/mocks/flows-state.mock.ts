@@ -25,9 +25,10 @@ export const mockFlowsState = {
   loadFlows(): void { },
   selectFlow(id: string): void { },
   createFlow(name: string, description: string): void { },
-  deleteFlow(id: string): void { },
+  deleteFlow(id: string, name: string): void { },
   dispatch(action: Action) { },
-  createAndStartFlowRun(flowId: string, userId: string, payload: Object): void {},
+  createFlowRun(flowId: string, userId: string): void {},
+  startFlowRun(flowRunId: string, payload: Object): void {},
   testFlowStep(stepId: string, payload: String): void {},
 
   // TODO we don't really want to do it this way..

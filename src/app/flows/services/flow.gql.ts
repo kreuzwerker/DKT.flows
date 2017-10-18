@@ -6,6 +6,7 @@ export const flowsItemFragment = gql`
     id
     name
     description
+    draft
   }
 `;
 
@@ -23,6 +24,7 @@ export class FlowsListData {
   id: string;
   name: string;
   description: string;
+  draft: boolean;
 }
 
 export const flowStepFragment = gql`
@@ -60,8 +62,12 @@ export const getFlowQuery = gql`
       id,
       name,
       description,
+      draft,
       steps {
         ...FlowStep
+      }
+      flowRun {
+        id
       }
     }
   }
@@ -99,6 +105,25 @@ export const deleteFlowMutation = gql`
   }
 `;
 
+export const restoreFlowMutation = gql`
+  mutation restoreFlow($flowId:ID!) {
+    restoreFlow(id: $flowId) {
+      id,
+      name,
+      description,
+      draft,
+      steps {
+        ...FlowStep
+      }
+      flowRun {
+        id
+      }
+    }
+  }
+
+  ${flowStepFragment}
+`;
+
 export const updateStepMutation = gql`
   mutation StepMutation(
     $id: ID!,
@@ -113,6 +138,10 @@ export const updateStepMutation = gql`
       configParams: $configParams,
     ) {
       ...FlowStep
+      flow {
+        id
+        draft
+      }
     }
   }
 
@@ -123,6 +152,10 @@ export const addFlowStepMutation = gql`
   mutation createStep($flow: ID!, $position: Int!, $service: ID) {
 		createStep(flow: $flow, position: $position, service: $service) {
       ...FlowStep
+      flow {
+        id
+        draft
+      }
     }
   }
 
@@ -133,6 +166,10 @@ export const removeFlowStepMutation = gql`
   mutation deleteStep($stepId:ID!) {
     deleteStep(id: $stepId) {
       ...FlowStep
+      flow {
+        id
+        draft
+      }
     }
   }
 
@@ -156,20 +193,40 @@ export const testFlowStepMutation = gql`
   }
 `;
 
-export const createAndStartFlowRunMutation = gql`
-  mutation createAndStartFlowRun(
-    $flowId: ID!,
-    $userId: ID!,
-    $payload: String!,
+export const createFlowRunMutation = gql`
+mutation createFlowRun(
+  $flowId: ID!,
+  $userId: ID!,
+) {
+  createFlowRun(
+    flow: $flowId,
+    userId: $userId,
   ) {
-    createAndStartFlowRun(
-      flow: $flowId,
-      userId: $userId,
-      payload: $payload,
-    ) {
+    id
+    flow {
       id
-      status
-      message
+      draft
+      flowRun {
+        id
+      }
     }
   }
+}
+`;
+
+export const startFlowRunMutation = gql`
+mutation startFlowRun(
+  $flowRunId: ID!,
+  $payload: String!,
+) {
+  startFlowRun(
+    id: $flowRunId,
+    payload: $payload,
+  ) {
+    id
+    status
+    message
+    runsCount
+  }
+}
 `;

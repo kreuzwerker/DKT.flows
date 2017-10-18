@@ -34,6 +34,10 @@ export class FlowsAppService {
     private router: Router,
   ) {}
 
+  setFlow(flow: Flow): void {
+    this.flow = flow;
+  }
+
   setStep(step: Step): void {
     this.step = step;
     this.stepTypeName = step
@@ -55,6 +59,10 @@ export class FlowsAppService {
 
   saveFlow(): void {
     this.state.saveFlow(this.flow.id, this.flow);
+  }
+
+  deleteFlow(): void {
+    this.state.deleteFlow(this.flow.id, this.flow.name);
   }
 
   saveFlowStep(): void {
@@ -84,14 +92,26 @@ export class FlowsAppService {
     }
   }
 
+  /**
+   * Flow Drafts
+   */
+
+  restoreFlow(): void {
+    this.state.restoreFlow(this.flow.id);
+  }
+
   /*
     Flow Runs
    */
 
-  createAndStartFlowRun(payload: any): void {
+  createFlowRun(): void {
     // Mock user ID
     let userId = '1';
-    this.state.createAndStartFlowRun(this.flow.id, userId, payload);
+    this.state.createFlowRun(this.flow.id, userId);
+  }
+
+  startFlowRun(payload: any): void {
+    this.state.startFlowRun(this.flow.flowRun.id, payload);
   }
 
   /*

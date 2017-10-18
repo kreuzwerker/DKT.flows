@@ -8,7 +8,7 @@ import { NgRedux, select } from '@angular-redux/store';
 import { AppState, Action } from './../../reducers';
 import { StateService } from './../../core/services';
 import { TasksApiService } from './../services';
-import { Task, TaskState } from './../models';
+import { Task, TaskState, TaskItem } from './../models';
 import { TasksAppActions } from './../states';
 
 import { TasksListData } from './task.gql';

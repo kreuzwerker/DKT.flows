@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { MockChangeDetectorRef, mockStore, mockApolloStore, MockMdDialog } from './../../../core/utils/mocks';
+import { MockChangeDetectorRef, mockStore, mockApolloStore, MockMdDialog, MockRouter, mockSnackBar } from './../../../core/utils/mocks';
 import { mockFlowsState, mockFlowsApp } from './../../utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { FlowsAppComponent } from './flows-app.component';
@@ -27,11 +27,11 @@ describe('Flows App', () => {
       cd = <any>new MockChangeDetectorRef();
       flowsApp = mockFlowsApp;
       route = {} as ActivatedRoute;
-      router = {} as Router;
+      router = <any>new MockRouter();
       state = mockFlowsState;
       store = mockStore;
       dialog = new MockMdDialog();
-      component = new FlowsAppComponent(cd, flowsApp, route, router, state, dialog);
+      component = new FlowsAppComponent(cd, flowsApp, route, router, state, dialog, mockSnackBar);
       expect(component).toBeTruthy();
     });
 
@@ -83,8 +83,8 @@ describe('Flows App', () => {
         expect(spy).toHaveBeenCalledWith(step);
       });
 
-      it('should call onCreatedFlowRun() when a new flow run got created', () => {
-        let spy = spyOn(component, 'onCreatedFlowRun');
+      it('should call onStartedFlowRun() when a new flow run got created', () => {
+        let spy = spyOn(component, 'onStartedFlowRun');
         component.ngOnInit();
         const flowRun = utils.createFlowRunData();
         state.createdFlowRun$.next(flowRun);
@@ -156,6 +156,32 @@ describe('Flows App', () => {
         let spy = spyOn(cd, 'markForCheck');
         component.onSelectStep(step);
         expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('onDeletedFlow()', () => {
+      let flow;
+
+      beforeEach(() => {
+        flow = {id: '1', name: 'Test flow'};
+      });
+
+      it('should hide the loading indicator', () => {
+        let spy = spyOn(flowsApp, 'hideStatusMessage');
+        component.onDeletedFlow(flow);
+        expect(spy).toHaveBeenCalled();
+      });
+
+      it('should show status message', () => {
+        let spy = spyOn(component, 'showInfoMessage');
+        component.onDeletedFlow(flow);
+        expect(spy).toHaveBeenCalledWith(`Deleted flow "${flow.name}".`);
+      });
+
+      it('should hide the loading indicator', () => {
+        let spy = spyOn(router, 'navigate');
+        component.onDeletedFlow(flow);
+        expect(spy).toHaveBeenCalledWith(['flows']);
       });
     });
 
@@ -237,29 +263,41 @@ describe('Flows App', () => {
       });
     });
 
-    describe('onCreatedFlowRun()', () => {
+    describe('onStartedFlowRun()', () => {
       let flowRun;
 
       beforeEach(() => {
         flowRun = utils.createFlowRunData();
       });
 
+      it('should show a loading indicator while the flow is deploying', () => {
+        let spy = spyOn(flowsApp, 'showStatusMessage');
+        component.onStartedFlowRun('saving');
+        expect(spy).toHaveBeenCalledWith('Deploying changes', 'loading');
+      });
+
+      it('should show a success message if the flow got deployed successfully', () => {
+        let spy = spyOn(flowsApp, 'showStatusMessage');
+        component.onStartedFlowRun('saved');
+        expect(spy).toHaveBeenCalledWith('Deployed changes', 'success');
+      });
+
       it('should show a loading indicator while the flow is starting', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
-        component.onCreatedFlowRun('loading');
+        component.onStartedFlowRun('loading');
         expect(spy).toHaveBeenCalledWith('Triggering flow', 'loading');
       });
 
       it('should show a success message if the flow run got started successfully', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
-        component.onCreatedFlowRun(flowRun);
+        component.onStartedFlowRun(flowRun);
         expect(spy).toHaveBeenCalledWith('Flow successfully triggered');
       });
 
       it('should show an error message if the flow run did not get started successfully', () => {
         let spy = spyOn(flowsApp, 'showStatusMessage');
         flowRun.status = 'error';
-        component.onCreatedFlowRun(flowRun);
+        component.onStartedFlowRun(flowRun);
         expect(spy).toHaveBeenCalledWith(
           jasmine.stringMatching(/An error occured. Flow could not be triggered./),
           'error'
@@ -268,8 +306,39 @@ describe('Flows App', () => {
 
       it('should trigger change detection', () => {
         let spy = spyOn(cd, 'markForCheck');
-        component.onCreatedFlowRun(flowRun);
+        component.onStartedFlowRun(flowRun);
         expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('saveFlowDraft', () => {
+      it('should create a new flow run', () => {
+        let spy = spyOn(flowsApp, 'createFlowRun');
+        component.saveFlowDraft();
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('discardFlowDraft', () => {
+      it('should restore the flow from the previous flow run', () => {
+        expect(component.flowsApp.flow.flowRun).toBeDefined();
+        let spy = spyOn(flowsApp, 'restoreFlow');
+        let spy2 = spyOn(flowsApp, 'deleteFlow');
+        component.discardFlowDraft();
+        expect(spy).toHaveBeenCalled();
+        expect(spy2).not.toHaveBeenCalled();
+      });
+
+      it('should delete the flow if flow has not been deployed before', () => {
+        component.flowsApp.flow.flowRun = null;
+        let spy = spyOn(flowsApp, 'deleteFlow');
+        let spy2 = spyOn(flowsApp, 'restoreFlow');
+        let spy3 = spyOn(flowsApp, 'showStatusMessage');
+        component.discardFlowDraft();
+        expect(spy).toHaveBeenCalled();
+        expect(spy2).not.toHaveBeenCalled();
+        expect(spy3).toHaveBeenCalledWith('Deleting flow', 'loading');
+        expect(component.disableDraftControls).toBeTruthy();
       });
     });
 

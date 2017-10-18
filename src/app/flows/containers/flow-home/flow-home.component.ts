@@ -39,9 +39,9 @@ export class FlowHomeComponent implements OnInit, OnDestroy {
       (err) => console.log('error', err)
     );
 
-    // Created new flow run
+    // Started new flow run
     this.state.createdFlowRun$.takeUntil(this.ngOnDestroy$).subscribe(
-      this.onCreatedFlowRun.bind(this),
+      this.onStartedFlowRun.bind(this),
       (err) => console.log('error', err)
     );
   }
@@ -52,7 +52,7 @@ export class FlowHomeComponent implements OnInit, OnDestroy {
     this.cd.markForCheck();
   }
 
-  onCreatedFlowRun(flowRun: any) {
+  onStartedFlowRun(flowRun: any) {
     if (flowRun.status === 'running') {
       this.setInfoBoxContents(FlowState.TRIGGERED, this.flowsApp.flow);
       this.cd.markForCheck();
@@ -93,6 +93,14 @@ export class FlowHomeComponent implements OnInit, OnDestroy {
 
         const actionStep = helpers.getFlowActionStep(flow);
         this.infoBoxAction = () => this.flowsApp.selectStep(flow.id, actionStep.id);
+        break;
+
+      case FlowState.NOT_DEPLOYED:
+        this.infoBoxIcon = 'publish';
+        this.infoBoxMessage = 'This flow has undeployed changes.';
+        this.infoBoxActionIcon = null;
+        this.infoBoxActionLabel = 'Deploy Flow';
+        this.infoBoxAction = () => this.flowsApp.createFlowRun();
         break;
 
       case FlowState.NOT_ACTIVATED:

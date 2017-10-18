@@ -17,7 +17,7 @@ export function stepIsTested(step: Step): boolean {
 }
 
 export function stepIsExecutable(step: Step): boolean {
-  return stepHasService(step) && stepIsConfigured(step) && stepIsTested(step);
+  return stepHasService(step) && stepIsConfigured(step);
 }
 
 export function getStepServiceType(step: Step): ServiceType {

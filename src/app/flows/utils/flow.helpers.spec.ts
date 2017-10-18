@@ -47,6 +47,19 @@ describe('Flows App', () => {
       });
     });
 
+    describe('flowHasError()', () => {
+      xit('should return true if the given flow has had an erroneous flow run', () => {
+        expect(helpers.flowHasError(flow)).toBeTruthy();
+      });
+    });
+
+    describe('flowIsInDraft()', () => {
+      it('should return true if the given flow is in draft state', () => {
+        flow.draft = true;
+        expect(helpers.flowIsInDraft(flow)).toBeTruthy();
+      });
+    });
+
     describe('flowIsTriggered()', () => {
       it('should return false if the given flow is not triggered', () => {
         expect(helpers.flowIsTriggered(flow)).toBeFalsy();

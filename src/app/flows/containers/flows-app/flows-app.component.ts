@@ -2,7 +2,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs';
 import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
-import { MdDialog, MdDialogConfig } from '@angular/material';
+import { MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { ApolloError } from 'apollo-client';
 import { TriggerFlowRunDialogComponent } from './../../components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
 
@@ -21,6 +21,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   flowSub$: Subscription;
 
   requestedStepId: string = null;
+  disableDraftControls: boolean = false;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -29,6 +30,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     public router: Router,
     public state: FlowsStateService,
     public dialog: MdDialog,
+    public snackBar: MdSnackBar
   ) {
     this.dialogConfig = new MdDialogConfig();
     this.dialogConfig.width = '450px';
@@ -59,9 +61,15 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
       (err) => console.log('error', err)
     );
 
+    this.state.deletedFlow$.takeUntil(this.ngOnDestroy$)
+    .subscribe(
+      this.onDeletedFlow.bind(this),
+      (err) => console.log('error', err)
+    );
+
     // Created new flow run
     this.state.createdFlowRun$.takeUntil(this.ngOnDestroy$).subscribe(
-      this.onCreatedFlowRun.bind(this),
+      this.onStartedFlowRun.bind(this),
       (err) => console.log('error', err)
     );
 
@@ -79,12 +87,17 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // Clean up state
+    this.flowsApp.setFlow(null);
+    this.flowsApp.setStep(null);
+    this.flowsApp.hideStatusMessage();
+
     this.ngOnDestroy$.next(true);
     this.flowSub$.unsubscribe();
   }
 
   onSelectFlow(flow: Flow) {
-    this.flowsApp.flow = flow;
+    this.flowsApp.setFlow(flow);
     this.selectRequestedStep();
     this.cd.markForCheck();
   }
@@ -92,6 +105,13 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   onSelectStep(step: Step) {
     this.flowsApp.setStep(step);
     this.cd.markForCheck();
+  }
+
+  onDeletedFlow({id, name}: {id: string, name: string}) {
+    // Upon successful flow deletion redirect user to flows overview
+    this.flowsApp.hideStatusMessage();
+    this.showInfoMessage(`Deleted flow "${name}".`);
+    this.router.navigate(['flows']);
   }
 
   /*
@@ -141,13 +161,24 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     let dialogRef = this.dialog.open(TriggerFlowRunDialogComponent, this.dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
       if (data) {
-        this.flowsApp.createAndStartFlowRun(data.payload);
+        this.flowsApp.startFlowRun(data.payload);
       }
     });
   }
 
-  onCreatedFlowRun(flowRun: any) {
-    if (flowRun === 'loading') {
+  onStartedFlowRun(flowRun: any) {
+    this.disableDraftControls = false;
+    if (flowRun === 'saving') {
+      this.disableDraftControls = true;
+      this.flowsApp.showStatusMessage('Deploying changes', 'loading');
+    } else if (flowRun === 'saved') {
+      this.flowsApp.showStatusMessage('Deployed changes', 'success');
+    } else if (flowRun === 'restoring') {
+      this.disableDraftControls = true;
+      this.flowsApp.showStatusMessage('Discarding changes', 'loading');
+    } else if (flowRun === 'restored') {
+      this.flowsApp.showStatusMessage('Restored previous version', 'success');
+    } else if (flowRun === 'loading') {
       this.flowsApp.showStatusMessage('Triggering flow', 'loading');
     } else if (flowRun instanceof ApolloError) {
       this.flowsApp.showStatusMessage('An internal error occured. Flow could not be triggered', 'error');
@@ -159,6 +190,24 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
       this.flowsApp.showStatusMessage(`An error occured. Flow could not be triggered. (status: '${flowRun.status}', message: '${flowRun.message}')`, 'error');
     }
     this.cd.markForCheck();
+  }
+
+  /**
+   * Flow draft
+   */
+
+   saveFlowDraft() {
+    this.flowsApp.createFlowRun();
+  }
+
+   discardFlowDraft() {
+    if (this.flowsApp.flow.flowRun) {
+      this.flowsApp.restoreFlow();
+    } else {
+      this.flowsApp.deleteFlow();
+      this.disableDraftControls = true;
+      this.flowsApp.showStatusMessage('Deleting flow', 'loading');
+    }
   }
 
   /**
@@ -190,5 +239,15 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
 
   isSelectedStep(step: Step): boolean {
     return step.id && this.flowsApp.step && step.id === this.flowsApp.step.id;
+  }
+
+  /*
+    Helper methods
+   */
+
+  showInfoMessage(message: string) {
+    let config = new MdSnackBarConfig();
+    config.duration = 2000;
+    this.snackBar.open(message, 'OK', config);
   }
 }

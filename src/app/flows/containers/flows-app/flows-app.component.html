@@ -1,7 +1,13 @@
 <div class="layout full-height" fxLayout="row" fxLayoutAlign="start stretch">
   <div class="sidebar-left border-right padding full-height" fxLayout="column" fxFlex>
     <dkt-loading-indicator *ngIf="state.select('loadingFlow') | async" text="Loading flow" center="true"></dkt-loading-indicator>
-    <dkt-flow-header *ngIf="flowsApp.flow" [flow]="flowsApp.flow" (onTriggerFlowRun)="openTriggerFlowRunDialog()"></dkt-flow-header>
+    <dkt-flow-header *ngIf="flowsApp.flow" 
+      [flow]="flowsApp.flow"
+      [disableDraftControls]="disableDraftControls"
+      (onTriggerFlowRun)="openTriggerFlowRunDialog()"
+      (onSaveFlowDraft)="saveFlowDraft()"
+      (onDiscardFlowDraft)="discardFlowDraft()"
+      ></dkt-flow-header>
 
     <!-- Flow steps -->
     <div class="steps" *ngIf="flowsApp.flow">

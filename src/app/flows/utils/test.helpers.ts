@@ -88,6 +88,7 @@ export class TestUtils {
       name: 'Test Flow',
       description: 'Test Flow description',
       steps: steps,
+      flowRun: this.createFlowRunData()
     };
   }
 
@@ -113,6 +114,7 @@ export class TestUtils {
       status: status,
       message: 'flow run API message',
       currentStep: 0,
+      runsCount: 0,
     };
   }
 

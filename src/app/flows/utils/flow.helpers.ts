@@ -51,6 +51,15 @@ export function flowHasActionStep(flow: Flow): boolean {
   return getFlowActionStep(flow) !== null;
 }
 
+export function flowHasError(flow: Flow): boolean {
+  // TODO getFlows API must provide flow.errors[]
+  return false;
+}
+
+export function flowIsInDraft(flow: Flow): boolean {
+  return flow.draft;
+}
+
 export function flowIsActivated(flow: Flow): boolean {
   return true;
 }
@@ -70,6 +79,8 @@ export function getFlowState(flow: Flow): FlowState {
     } else {
       return FlowState.UNFINISHED_ACTION;
     }
+  } else if (flowIsInDraft(flow)) {
+    return FlowState.NOT_DEPLOYED;
   } else if (!flowIsActivated(flow)) {
     return FlowState.NOT_ACTIVATED;
   } else if (!flowIsTriggered(flow)) {

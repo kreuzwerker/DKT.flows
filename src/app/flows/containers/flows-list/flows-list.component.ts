@@ -19,6 +19,7 @@ import { DeleteFlowDialogComponent } from './../../components/delete-flow-dialog
 export class FlowsListComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   dialogConfig: MdDialogConfig;
+  flowHelpers = flowHelpers;
 
   constructor(
     public state: FlowsStateService,
@@ -80,7 +81,7 @@ export class FlowsListComponent implements OnInit, OnDestroy {
     dialogRef.componentInstance.name = name;
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm) {
-        this.state.deleteFlow(id);
+        this.state.deleteFlow(id, name);
         this.showInfoMessage(`Deleted flow "${name}".`);
       }
     });
@@ -90,21 +91,5 @@ export class FlowsListComponent implements OnInit, OnDestroy {
     let config = new MdSnackBarConfig();
     config.duration = 2000;
     this.snackBar.open(message, 'OK', config);
-  }
-
-  /**
-   * Helper functions
-   */
-
-  flowHasError(flow: Flow): boolean {
-    // TODO getFlows API must provide flow.errors[]
-    return false;
-  }
-
-  flowIsInDraft(flow: Flow): boolean {
-    // TODO getFlows API must provide flow.isDraft
-    // NB using flowIsExecutable() requires presence of flow.steps
-    // return flowHelpers.flowIsExecutable(flow);
-    return false;
   }
 }

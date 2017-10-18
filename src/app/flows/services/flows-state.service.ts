@@ -37,6 +37,7 @@ export class FlowsStateService extends StateService {
   //
 
   createdFlow$: Subject<any> = new Subject<any>();
+  deletedFlow$: Subject<any> = new Subject<any>();
   createdFlowRun$: Subject<any> = new Subject<any>();
   testedFlowStep$: Subject<any> = new Subject<any>();
 
@@ -68,12 +69,6 @@ export class FlowsStateService extends StateService {
       id: this.select('flowId').filter((flowId) => flowId !== null)
     }).map(({data}) => data.Flow);
 
-    // Unset loading flow flag
-    this.flowSub$ = this.flow$.subscribe((flow) => {
-      this.dispatch(this.actions.setLoadingFlow(false));
-      this.flowSub$.unsubscribe();
-    });
-
     // Providers list
     // --------------
 
@@ -81,10 +76,6 @@ export class FlowsStateService extends StateService {
       // NB fake var to hold back the query until we trigger it via this observable
       id: this.loadProviders$
     }).map(({data}) => data.allProviders);
-    // Unset loading providers flag
-    this.providers$.subscribe((providers) => this.dispatch(
-      this.actions.setLoadingProviders(false)
-    ) );
   }
 
   //
@@ -119,7 +110,13 @@ export class FlowsStateService extends StateService {
       return;
     }
 
+    // Show loading indicator while loading the flow
     this.dispatch(this.actions.setLoadingFlow(true));
+    this.flowSub$ = this.flow$.subscribe((flow) => {
+      this.dispatch(this.actions.setLoadingFlow(false));
+      this.flowSub$.unsubscribe();
+    });
+
     this.dispatch(this.actions.selectFlow(id));
   }
 
@@ -131,12 +128,22 @@ export class FlowsStateService extends StateService {
     });
   }
 
-  deleteFlow(id: string): void {
+  deleteFlow(id: string, name: string): void {
     this.dispatch(this.actions.setSavingFlow(true, false));
     this.api.deleteFlow({
       flowId: id,
     }).subscribe((_step) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
+      this.deletedFlow$.next({id: id, name: name});
+    });
+  }
+
+  restoreFlow(id: string): void {
+    this.createdFlowRun$.next('restoring');
+    this.api.restoreFlow({
+      flowId: id,
+    }).subscribe((_step) => {
+      this.createdFlowRun$.next('restored');
     });
   }
 
@@ -181,14 +188,29 @@ export class FlowsStateService extends StateService {
   }
 
   loadProviders(): void {
+    // Show loading indicator while loading providers
     this.dispatch(this.actions.setLoadingProviders(true));
+    this.providers$.subscribe((providers) => this.dispatch(
+      this.actions.setLoadingProviders(false)
+    ) );
+
     // Trigger loading the providers
     this.loadProviders$.next(1);
   }
 
-  createAndStartFlowRun(flowId: string, userId: string, payload: Object): void {
+  createFlowRun(flowId: string, userId: string): void {
+    this.createdFlowRun$.next('saving');
+    this.api.createFlowRun(flowId, userId).subscribe((flowRun) => {
+      // ISSUE: API returns flowRun.flow.__typename=FlowMirrorType. Hence Apollo
+      // can't automatically update the Flow store object.
+      // -> waiting for Johannes: why do we have *MirrorType?
+      this.createdFlowRun$.next('saved');
+    }, (error) => console.log('ERROR', error));
+  }
+
+  startFlowRun(flowRunId: string, payload: Object): void {
     this.createdFlowRun$.next('loading');
-    this.api.createAndStartFlowRun(flowId, userId, payload).subscribe((flowRun) => {
+    this.api.startFlowRun(flowRunId, payload).subscribe((flowRun) => {
       this.createdFlowRun$.next(flowRun);
     }, (error) => this.createdFlowRun$.next(error));
   }

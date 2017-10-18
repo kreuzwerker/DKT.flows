@@ -15,39 +15,65 @@ p {
 $border: 1px solid #eee;
 
 div.controls {
-  background-color: $element-bg-color;
   border-top: $border;
   border-bottom: $border;
   margin: 0 -1rem;
   padding: 0 1rem;
 
-  div.element {
-    display:inline-block;
+  &.draft {
+    background-color: $warning-bg-color;
+    border-bottom:none;
 
-    &:not(:first-child) {
-      padding-left: 10px;
+    overflow-y: hidden;
+    transition: all 0.3s ease-out;
+
+    &.slide-in {
+      max-height: inherit;
+      padding-top:0.5rem;
+      padding-bottom:0.5rem;
     }
 
-    &:not(:last-child) {
-      padding-right: 10px;
-      border-right: $border;
+    &.slide-out {
+      max-height: 0px;
+      padding-top:0;
+      padding-bottom:0;  
+    }
+
+    span {
+      margin:0.5rem;
     }
   }
 
-  button.play {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    margin: 5px 0;
-    background-color: $primary-color;
+  &.flow {
+    background-color: $element-bg-color;
+    div.element {
+      display:inline-block;
 
-    md-icon {
-      font-size: 20px;
-      color: $element-bg-color;
+      &:not(:first-child) {
+        padding-left: 10px;
+      }
+
+      &:not(:last-child) {
+        padding-right: 10px;
+        border-right: $border;
+      }
     }
 
-    &.locked {
-      background-color: $inactive-button-color;
+    button.play {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      margin: 5px 0;
+      background-color: $primary-color;
+
+      md-icon {
+        font-size: 20px;
+        color: $element-bg-color;
+      }
+
+      &.locked {
+        background-color: $inactive-button-color;
+      }
     }
   }
 }
