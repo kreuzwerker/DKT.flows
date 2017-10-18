@@ -194,39 +194,39 @@ export const testFlowStepMutation = gql`
 `;
 
 export const createFlowRunMutation = gql`
-mutation createFlowRun(
-  $flowId: ID!,
-  $userId: ID!,
-) {
-  createFlowRun(
-    flow: $flowId,
-    userId: $userId,
+  mutation createFlowRun(
+    $flowId: ID!,
+    $userId: ID!,
   ) {
-    id
-    flow {
+    createFlowRun(
+      flow: $flowId,
+      userId: $userId,
+    ) {
       id
-      draft
-      flowRun {
+      flow {
         id
+        draft
+        flowRun {
+          id
+        }
       }
     }
   }
-}
 `;
 
 export const startFlowRunMutation = gql`
-mutation startFlowRun(
-  $flowRunId: ID!,
-  $payload: String!,
-) {
-  startFlowRun(
-    id: $flowRunId,
-    payload: $payload,
+  mutation startFlowRun(
+    $flowRunId: ID!,
+    $payload: String!,
   ) {
-    id
-    status
-    message
-    runsCount
+    startFlowRun(
+      id: $flowRunId,
+      payload: $payload,
+    ) {
+      id
+      status
+      message
+      runsCount
+    }
   }
-}
 `;

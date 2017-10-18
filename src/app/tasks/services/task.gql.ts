@@ -47,6 +47,15 @@ export const getTasksQuery = gql`
   }
 `;
 
+export const getFlowsQuery = gql`
+  query FlowsQuery {
+    allFlows {
+      id
+      name
+    }
+  }
+`;
+
 export const getTaskItemQuery = gql`
   query TaskItemQuery($id: ID) {
     TaskItem(id: $id) {

@@ -36,7 +36,6 @@ export class TasksAppService {
 
   constructor(
     private api: TasksApiService,
-    private flowsApi: FlowsApiService,
     public router: Router,
     public state: TasksStateService
   ) {
@@ -44,8 +43,10 @@ export class TasksAppService {
 
     // Load flows and register as filters
     // NB updates the filters list on every change to the flows list (added/removed)
-    this.flowsSub$ = this.api.getFlows().map(({data}) => data.allFlows).subscribe((flows) => {
-      this.initFlowFilters(flows);
+    this.flowsSub$ = this.api.getFlows().subscribe((response) => {
+      if (response.data && response.data.allFlows) {
+        this.initFlowFilters(response.data.allFlows);
+      }
     });
 
     this.router.events.filter(event => event instanceof NavigationEnd)

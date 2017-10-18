@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { TaskState } from './../models';
 
 // GraphQL queries & mutations
-import { getTasksQuery, getTaskItemQuery, updateTaskMutation } from './task.gql';
+import { getTasksQuery, getFlowsQuery, getTaskItemQuery, updateTaskMutation } from './task.gql';
 
 @Injectable()
 export class TasksApiService {
@@ -19,6 +19,14 @@ export class TasksApiService {
     return this.apollo.watchQuery<any>({
       query: getTasksQuery,
       // Always fetch an up-to-date list of tasks from the server
+      fetchPolicy: 'cache-and-network'
+    });
+  }
+
+  public getFlows(): ApolloQueryObservable<any> {
+    return this.apollo.watchQuery<any>({
+      query: getFlowsQuery,
+      // Always fetch an up-to-date list of flows from the server
       fetchPolicy: 'cache-and-network'
     });
   }
