@@ -25,7 +25,7 @@ div.controls {
     border-bottom:none;
 
     overflow-y: hidden;
-    transition: all 0.3s ease-out;
+    transition: all 0.3s ease-in;
 
     &.slide-in {
       max-height: inherit;
@@ -37,6 +37,7 @@ div.controls {
       max-height: 0px;
       padding-top:0;
       padding-bottom:0;  
+      border-top: 0;
     }
 
     span {
