@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { mockFlowsState } from './../../utils/mocks';
+import { mockFlowsApp, mockFlowsState } from './../../utils/mocks';
 import { MockRouter, MockMdDialog, mockSnackBar } from './../../../core/utils/mocks';
 import { MdDialog } from '@angular/material';
 import { TestUtils } from './../../utils/test.helpers';
@@ -11,16 +11,18 @@ describe('Flows App', () => {
   describe('FlowsList Component', () => {
     let component: FlowsListComponent;
     let utils: TestUtils;
+    let flowsApp: mockFlowsApp;
     let state: FlowsStateService;
     let router;
     let dialog;
 
     beforeEach(() => {
       utils = new TestUtils();
+      flowsApp = mockFlowsApp;
       state = mockFlowsState;
       router = <any>new MockRouter();
       dialog = new MockMdDialog();
-      component = new FlowsListComponent(state, router, dialog, mockSnackBar);
+      component = new FlowsListComponent(flowsApp, state, router, dialog, mockSnackBar);
       expect(component).toBeTruthy();
     });
 

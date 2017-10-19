@@ -133,15 +133,38 @@ describe('Flows App', () => {
       });
     });
 
+    describe('createFlowObject()', () => {
+      it('should return a new flow object for the given parameters.', () => {
+        const flow = {
+          id: 'new',
+          name: 'Test',
+          description: 'Test desc',
+          draft: true
+        };
+        const res = service.createFlowObject({
+          id: 'new',
+          name: 'Test',
+          description: 'Test desc'
+        });
+        expect(res).toEqual(flow);
+      });
+    });
+
     describe('createStepObject()', () => {
       it('should return a new flow step object for the given parameters.', () => {
         const testService = utils.createServiceData();
         const step = {
           id: 'new',
           position: 0,
-          service: testService
+          service: testService,
+          configParams: null,
+          tested: false
         };
-        const res = service.createStepObject(0, testService);
+        const res = service.createStepObject({
+          id: 'new',
+          position: 0,
+          service: testService
+        });
         expect(res).toEqual(step);
       });
     });

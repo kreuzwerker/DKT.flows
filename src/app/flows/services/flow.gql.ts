@@ -149,8 +149,8 @@ export const updateStepMutation = gql`
 `;
 
 export const addFlowStepMutation = gql`
-  mutation createStep($flow: ID!, $position: Int!, $service: ID) {
-		createStep(flow: $flow, position: $position, service: $service) {
+  mutation createStep($id: ID!, $flow: ID!, $position: Int!, $service: ID) {
+		createStep(id: $id, flow: $flow, position: $position, service: $service) {
       ...FlowStep
       flow {
         id
@@ -165,15 +165,13 @@ export const addFlowStepMutation = gql`
 export const removeFlowStepMutation = gql`
   mutation deleteStep($stepId:ID!) {
     deleteStep(id: $stepId) {
-      ...FlowStep
+      id
       flow {
         id
         draft
       }
     }
   }
-
-  ${flowStepFragment}
 `;
 
 export const testFlowStepMutation = gql`

@@ -75,7 +75,7 @@ export class FlowsStateService extends StateService {
     this.providers$ = this.api.getProviders({
       // NB fake var to hold back the query until we trigger it via this observable
       id: this.loadProviders$
-    }).map(({data}) => data.allProviders);
+    }).map(({data}) => data && data.allProviders || []);
   }
 
   //
@@ -120,9 +120,9 @@ export class FlowsStateService extends StateService {
     this.dispatch(this.actions.selectFlow(id));
   }
 
-  createFlow(newFlow: any): void {
+  createFlow(flow: Flow): void {
     this.dispatch(this.actions.setSavingFlow(true, false));
-    this.api.createFlow(newFlow).subscribe((flow) => {
+    this.api.createFlow(flow).subscribe((flow) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
       this.createdFlow$.next(flow);
     });

@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import * as _ from 'lodash';
+import { UUID } from 'angular2-uuid';
 
 import { Flow, Step, Service, ServiceType } from './../models';
 import { FlowsListData } from './flow.gql';
@@ -71,12 +72,15 @@ export class FlowsAppService {
 
   addFlowStep(): void {
     let lastStep = _.last(this.flow.steps);
-    let position = lastStep ? lastStep.position + 1 : 0;
-    let newStep = this.createStepObject(position);
-    this.state.addFlowStep(this.flow.id, newStep).subscribe((step) => {
-      // Select new step
-      this.selectStep(this.flow.id, step.id);
+    let newStep = this.createStepObject({
+      position: lastStep ? lastStep.position + 1 : 0
     });
+    this.state.addFlowStep(this.flow.id, newStep);
+
+    // Select new step
+    // NB we can rely on the optimistic response here and select the step before
+    // it actually got created on the server
+    this.selectStep(this.flow.id, newStep.id);
   }
 
   removeFlowStep(step: Step): void {
@@ -148,11 +152,22 @@ export class FlowsAppService {
     return this.step ? `${this.flowPath()}/steps/${this.step.id}` : '';
   }
 
-  createStepObject(position: number = 0, service: Service = undefined): Step {
-    return {
-      id: 'new',
-      position: position,
-      service: service,
-    };
+  createFlowObject(flowData: Object): Flow {
+    // NB Must assign all properties from the Flow model, otherwise optimistic
+    // responses don't work
+    return Object.assign({}, {
+      id: UUID.UUID(),
+      draft: true
+    }, flowData) as Flow;
+  }
+
+  createStepObject(stepData: Object): Step {
+    // NB Must assign all properties from the Step model, otherwise optimistic
+    // responses don't work
+    return Object.assign({}, {
+      id: UUID.UUID(),
+      configParams: null,
+      tested: false
+    }, stepData) as Step;
   }
 }

@@ -4,7 +4,7 @@ import { MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig } from '@angular
 import { Router } from '@angular/router';
 import { Flow } from '../../models';
 import * as flowHelpers from './../../utils/flow.helpers';
-import { FlowsStateService } from './../../services';
+import { FlowsAppService, FlowsStateService } from './../../services';
 import { FlowsListData } from './../../services/flow.gql';
 import { NewFlowDialogComponent } from './../../components/new-flow-dialog/new-flow-dialog.component';
 import { DeleteFlowDialogComponent } from './../../components/delete-flow-dialog/delete-flow-dialog.component';
@@ -22,6 +22,7 @@ export class FlowsListComponent implements OnInit, OnDestroy {
   flowHelpers = flowHelpers;
 
   constructor(
+    public flowsApp: FlowsAppService,
     public state: FlowsStateService,
     public router: Router,
     public dialog: MdDialog,
@@ -50,8 +51,8 @@ export class FlowsListComponent implements OnInit, OnDestroy {
     this.state.loadFlows();
   }
 
-  createFlow(newFlow) {
-    this.state.createFlow(newFlow);
+  createFlow(flowData) {
+    this.state.createFlow(this.flowsApp.createFlowObject(flowData));
   }
 
   onCreatedFlow(flow: Flow) {

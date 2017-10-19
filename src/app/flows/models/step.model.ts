@@ -1,16 +1,18 @@
-import { Service } from './';
+import { Flow, Service } from './';
 
 export interface StepConfigParamsInput {
   fieldId: String;
   value: any;
 }
 
+// NB keep properties in sync with createStepObject()
 export class Step {
   id: string;
   position: number;
   service?: Service;
   configParams?: StepConfigParamsInput[];
   tested?: boolean;
+  flow?: Flow;
 }
 
 export class StepData {
@@ -19,6 +21,7 @@ export class StepData {
   service?: Service;
   configParams?: StepConfigParamsInput[];
   tested?: boolean;
+  flow?: Flow;
 }
 
 export class StepTest {

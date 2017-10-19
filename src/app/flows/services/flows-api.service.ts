@@ -56,20 +56,11 @@ export class FlowsApiService {
     });
   }
 
-  public createFlow(
-    {name, description}: {name: string, description: string}
-  ): Observable<ApolloQueryResult<any>> {
-    let newFlow = {
-      // Pre-generate id on client so we can perform optimistic updates
-      id: UUID.UUID(),
-      name: name,
-      description: description
-    };
-
+  public createFlow(flow): Observable<ApolloQueryResult<any>> {
     return this.apollo.mutate<any>({
       mutation: createFlowMutation,
-      variables: newFlow,
-      optimisticResponse: this.optimisticallyAddFlow(newFlow),
+      variables: flow,
+      optimisticResponse: this.optimisticallyAddFlow(flow),
       updateQueries: {
         FlowsQuery: (previousResult, { mutationResult }: any) => {
           return this.pushNewFlow(previousResult, mutationResult.data.createFlow);
@@ -138,18 +129,19 @@ export class FlowsApiService {
   }
 
   public addFlowStep(flowId: string, step: Step): Observable<ApolloQueryResult<any>> {
-    let newStep = {
-      id: step.id || UUID.UUID(),
-      position: step.position,
-      service: step.service,
-    };
+    const newStep = Object.assign({}, step, {
+      flow: { id: flowId } as Flow
+    });
+
+    // NB mutation payload differs from Step model
+    const newStepPayload = Object.assign({}, newStep, {
+      flow: flowId,
+      service: step.service ? step.service.id : null,
+    });
 
     return this.apollo.mutate<any>({
       mutation: addFlowStepMutation,
-      variables: Object.assign({}, newStep, {
-        flow: flowId,
-        service: step.service ? step.service.id : null,
-      }),
+      variables: newStepPayload,
       optimisticResponse: this.optimisticallyAddStep(newStep),
       updateQueries: {
         FlowQuery: (previousResult, { mutationResult }: any) => {
@@ -165,7 +157,9 @@ export class FlowsApiService {
       variables: {
         stepId: step.id,
       },
-      optimisticResponse: this.optimisticallyRemoveStep(step),
+      optimisticResponse: this.optimisticallyRemoveStep(Object.assign({}, step, {
+        flow: { id: flowId } as Flow
+      })),
       updateQueries: {
         FlowQuery: (previousResult, { mutationResult }: any) => {
           return this.removeDeletedFlowStep(previousResult, mutationResult.data.deleteStep);
@@ -237,14 +231,11 @@ export class FlowsApiService {
 
   private optimisticallyAddFlow(flow: Flow): any {
     return {
-        __typename: 'Mutation',
-        createFlow: {
-          __typename: 'Flow',
-          id: flow.id,
-          name: flow.name,
-          description: flow.description,
-        },
-      };
+      __typename: 'Mutation',
+      createFlow: Object.assign({}, flow, {
+        __typename: 'Flow',
+      }),
+    };
   }
 
   private pushNewFlow(state, newFlow): any {
@@ -255,12 +246,12 @@ export class FlowsApiService {
 
   private optimisticallyRemoveFlow(flowId: string): any {
     return {
-        __typename: 'Mutation',
-        deleteFlow: {
-          __typename: 'Flow',
-          id: flowId,
-        },
-      };
+      __typename: 'Mutation',
+      deleteFlow: {
+        __typename: 'Flow',
+        id: flowId,
+      },
+    };
   }
 
   private removeDeletedFlow(state, deleteFlow): any {
@@ -271,41 +262,45 @@ export class FlowsApiService {
 
   private optimisticallyAddStep(step: Step): any {
     return {
-        __typename: 'Mutation',
-        createStep: {
-          __typename: 'Step',
-          id: step.id,
-          position: step.position,
-          createdAt: +new Date,
-          service: step.service ? step.service : null,
-        },
-      };
+      __typename: 'Mutation',
+      createStep: Object.assign({}, step, {
+        __typename: 'Step',
+        service: step.service || null,
+        flow: {
+          __typename: 'Flow',
+          id: step.flow.id,
+          draft: true
+        }
+      })
+    };
   }
 
   private pushNewFlowStep(state, newStep): any {
-    const prevSteps = state.Flow.steps;
     return {
-      Flow: Object.assign({}, state.Flow, {
-        steps: [...prevSteps, newStep]
+      Flow: Object.assign({}, state.Flow, newStep.flow, {
+        steps: [...state.Flow.steps, newStep]
       })
     };
   }
 
   private optimisticallyRemoveStep(step: Step): any {
     return {
-        __typename: 'Mutation',
-        deleteStep: {
-          __typename: 'Step',
-          id: step.id,
-          position: step.position,
-          service: step.service,
-        },
-      };
+      __typename: 'Mutation',
+      deleteStep: {
+        __typename: 'Step',
+        id: step.id,
+        flow: {
+          __typename: 'Flow',
+          id: step.flow.id,
+          draft: true
+        }
+      },
+    };
   }
 
   private removeDeletedFlowStep(state, deleteStep): any {
     return {
-      Flow: Object.assign({}, state.Flow, {
+      Flow: Object.assign({}, state.Flow, deleteStep.flow, {
         steps: state.Flow.steps.filter((s) => s.id !== deleteStep.id)
       })
     };

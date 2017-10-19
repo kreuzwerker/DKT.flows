@@ -4,7 +4,7 @@ import { mockStore } from './../../../core/utils/mocks/store.mock';
 import { Subject } from 'rxjs/Subject';
 import { Action } from './../../../reducers';
 import { FlowsAppActions } from './../../states';
-import { Step, StepConfigParamsInput, Provider, Service } from './../../models';
+import { Flow, Step, StepConfigParamsInput, Provider, Service } from './../../models';
 
 export const mockFlowsState = {
   flow$: mockApolloStore.flow$.asObservable(),
@@ -24,7 +24,7 @@ export const mockFlowsState = {
 
   loadFlows(): void { },
   selectFlow(id: string): void { },
-  createFlow(name: string, description: string): void { },
+  createFlow(flow: Flow): void { },
   deleteFlow(id: string, name: string): void { },
   dispatch(action: Action) { },
   createFlowRun(flowId: string, userId: string): void {},

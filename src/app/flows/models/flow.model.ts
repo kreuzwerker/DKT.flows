@@ -1,6 +1,7 @@
 import { Step, StepData } from './step.model';
 import { FlowRun } from './flow-run.model';
 
+// NB keep properties in sync with createFlowObject()
 export class Flow {
   id: string;
   name: string;
