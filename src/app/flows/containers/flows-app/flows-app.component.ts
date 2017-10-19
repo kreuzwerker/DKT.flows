@@ -178,6 +178,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
       this.disableDraftControls = true;
       this.flowsApp.showStatusMessage('Discarding changes', 'loading');
     } else if (flowRun === 'restored') {
+      this.onDiscardFlowDraft();
       this.flowsApp.showStatusMessage('Restored previous version', 'success');
     } else if (flowRun === 'loading') {
       this.flowsApp.showStatusMessage('Triggering flow', 'loading');
@@ -197,11 +198,11 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
    * Flow draft
    */
 
-   saveFlowDraft() {
+  saveFlowDraft() {
     this.flowsApp.createFlowRun();
   }
 
-   discardFlowDraft() {
+  discardFlowDraft() {
     if (this.flowsApp.flow.flowRun) {
       this.flowsApp.restoreFlow();
     } else {
@@ -209,6 +210,12 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
       this.disableDraftControls = true;
       this.flowsApp.showStatusMessage('Deleting flow', 'loading');
     }
+  }
+
+  onDiscardFlowDraft() {
+    // After discardig the current state, the current selected step might not
+    // exist anymore. Redirect to flow home and by that unselect any step.
+    this.router.navigate(['flows', this.flowsApp.flow.id]);
   }
 
   /**
