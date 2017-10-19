@@ -42,7 +42,7 @@ export class TestStepComponent implements OnInit, OnDestroy {
   }
 
   onSelectStep(step: Step) {
-    if (typeof step === 'undefined' || step === null || typeof step.service === 'undefined') {
+    if (!step || !step.service) {
       return;
     }
 

@@ -73,6 +73,9 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // Clean up state
+    this.selectProvider(null);
+
     this.ngOnDestroy$.next(true);
     this.providersSub$.unsubscribe();
   }

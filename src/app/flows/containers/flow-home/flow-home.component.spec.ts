@@ -26,6 +26,12 @@ describe('Flows App', () => {
     });
 
     describe('ngOnInit()', () => {
+      it('should unset the current selected step', () => {
+        let spy = spyOn(state, 'dispatch');
+        component.ngOnInit();
+        expect(spy).toHaveBeenCalled();
+      });
+
       it('should set current step preparation stage to null', () => {
         spyOn(flowsApp, 'setStepStage');
         component.ngOnInit();
