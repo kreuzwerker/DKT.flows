@@ -12,6 +12,7 @@ import * as helpers from './../../utils/flow.helpers';
 export class FlowHeaderComponent {
   @Input() flow: Flow;
   @Input() disableDraftControls: boolean = false;
+  @Input() disableDeployControl: boolean = false;
   @Output() onTriggerFlowRun = new EventEmitter();
   @Output() onSaveFlowDraft = new EventEmitter();
   @Output() onDiscardFlowDraft = new EventEmitter();
@@ -20,7 +21,7 @@ export class FlowHeaderComponent {
     public flowsApp: FlowsAppService
   ) { }
 
-  isManualFlowRunLocked() {
+  isManualFlowRunLocked(): boolean {
     return this.flow.draft || !helpers.flowIsExecutable(this.flow);
   }
 }

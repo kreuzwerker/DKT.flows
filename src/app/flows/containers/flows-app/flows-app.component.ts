@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
 import { MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { ApolloError } from 'apollo-client';
 import { TriggerFlowRunDialogComponent } from './../../components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
+import * as flowHelpers from '../../utils/flow.helpers';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
 import { Flow, Step, StepTest, FlowRun } from './../../models';
@@ -244,6 +245,11 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   /*
     Helper methods
    */
+
+  disableDeployControl(): boolean {
+    // Prevent deployment if the flow isn't executable
+    return !flowHelpers.flowIsExecutable(this.flowsApp.flow);
+  }
 
   showInfoMessage(message: string) {
     let config = new MdSnackBarConfig();

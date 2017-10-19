@@ -4,6 +4,7 @@
     <dkt-flow-header *ngIf="flowsApp.flow" 
       [flow]="flowsApp.flow"
       [disableDraftControls]="disableDraftControls"
+      [disableDeployControl]="disableDeployControl()"
       (onTriggerFlowRun)="openTriggerFlowRunDialog()"
       (onSaveFlowDraft)="saveFlowDraft()"
       (onDiscardFlowDraft)="discardFlowDraft()"
