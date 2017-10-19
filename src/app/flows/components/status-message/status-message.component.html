@@ -6,7 +6,11 @@
   [class.slide-out]="!show">
   <div class="content" fxLayout="row" fxLayoutAlign="space-between center">
     <dkt-loading-indicator *ngIf="type == 'loading'" [text]="message"></dkt-loading-indicator>
-    <span *ngIf="type != 'loading'">{{message}}</span>
+    <div *ngIf="type != 'loading'" class="message" fxLayout="row" fxLayoutAlign="start center">
+      <md-icon *ngIf="type == 'success'">check</md-icon>
+      <md-icon *ngIf="type == 'error'">error</md-icon>
+      <span>{{message}}</span>
+    </div>
     <button md-icon-button  (click)="onClose.emit()">
       <md-icon class="close">close</md-icon>
     </button>

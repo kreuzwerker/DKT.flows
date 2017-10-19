@@ -191,6 +191,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     } else {
       this.flowsApp.showStatusMessage(`An error occured. Flow could not be triggered. (status: '${flowRun.status}', message: '${flowRun.message}')`, 'error');
     }
+
     this.cd.markForCheck();
   }
 

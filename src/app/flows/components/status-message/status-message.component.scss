@@ -7,8 +7,14 @@ div.status-message {
   overflow-y: hidden;
   transition: max-height 0.1s ease-out;
 
-  span {
-    font-weight: bold;
+  div.message {
+    md-icon {
+      margin-right: 1rem;
+    }
+
+    span {
+      font-weight: bold;
+    }
   }
 
   &.slide-in {
