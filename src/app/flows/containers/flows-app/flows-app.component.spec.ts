@@ -26,6 +26,7 @@ describe('Flows App', () => {
       utils = new TestUtils();
       cd = <any>new MockChangeDetectorRef();
       flowsApp = mockFlowsApp;
+      flowsApp.flow = utils.createFlowData();
       route = {} as ActivatedRoute;
       router = <any>new MockRouter();
       state = mockFlowsState;
@@ -121,9 +122,10 @@ describe('Flows App', () => {
         flow = utils.createFlowData();
       });
 
-      it('should set flowsApp.flow', () => {
+      it('should call setFlow()', () => {
+        let spy = spyOn(flowsApp, 'setFlow');
         component.onSelectFlow(flow);
-        expect(flowsApp.flow).toEqual(flow);
+        expect(spy).toHaveBeenCalledWith(flow);
       });
 
       it('should call selectRequestedStep()', () => {
@@ -210,11 +212,6 @@ describe('Flows App', () => {
         } as ActivatedRoute];
       });
 
-      it('should set requestedStepId to the new stepId param value', () => {
-        component.onStepRouteChange();
-        expect(component.requestedStepId).toEqual(stepId);
-      });
-
       it('should call selectRequestedStep()', () => {
         let spy = spyOn(component, 'selectRequestedStep');
         component.selectRequestedStep();
@@ -249,6 +246,12 @@ describe('Flows App', () => {
         let spy = spyOn(state, 'dispatch');
         component.selectRequestedStep();
         expect(spy).not.toHaveBeenCalled();
+      });
+
+      it('should unset requestStepId', () => {
+        component.requestedStepId = '999';
+        component.selectRequestedStep();
+        expect(component.requestedStepId).toBeNull();
       });
     });
 

@@ -39,10 +39,10 @@ describe('Flows App', () => {
         let spy = spyOn(state, 'createFlow');
         let flow = {
           name: 'new flow name',
-          description: 'new flow description'
+          description: 'new flow description',
         };
         component.createFlow(flow);
-        expect(spy).toHaveBeenCalledWith(flow);
+        expect(spy).toHaveBeenCalled();
       });
     });
 

@@ -145,7 +145,6 @@ describe('Flows App', () => {
         expect(res.createStep.__typename).toBe('Step');
         expect(res.createStep.id).toBe(step.id);
         expect(res.createStep.position).toBe(step.position);
-        expect(res.createStep.createdAt).toBeDefined();
         expect(res.createStep.service).toBe(step.service);
       });
     });
@@ -170,8 +169,8 @@ describe('Flows App', () => {
         expect(res.__typename).toBe('Mutation');
         expect(res.deleteStep.__typename).toBe('Step');
         expect(res.deleteStep.id).toBe(step.id);
-        expect(res.deleteStep.position).toBe(step.position);
-        expect(res.deleteStep.service).toBe(step.service);
+        expect(res.deleteStep.flow.id).toEqual(step.flow.id);
+        expect(res.deleteStep.flow.draft).toBeTruthy();
       });
     });
 
