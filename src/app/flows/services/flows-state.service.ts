@@ -157,12 +157,12 @@ export class FlowsStateService extends StateService {
     // Remove the __typename property before making the API request
     let configParams = step.configParams && step.configParams.map(
       (param) => lodash.omit(param, ['__typename']) as StepConfigParamsInput
-    ) || [];
+    ) || null;
 
     this.api.updateStep({
       id: stepId,
       position: step.position,
-      serviceId: step.service.id,
+      serviceId: step.service && step.service.id || null,
       configParams: configParams,
     }).subscribe((_step) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
