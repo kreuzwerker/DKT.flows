@@ -86,6 +86,23 @@ describe('Flows App', () => {
       });
     });
 
+    describe('onContinue()', () => {
+      it('should save the step upon continuing the flow configuration process if the selected service has changed', () => {
+        component.changedSelectedService = true;
+        let spy = spyOn(flowsApp, 'saveFlowStep');
+        component.onContinue();
+        expect(spy).toHaveBeenCalled();
+        expect(component.changedSelectedService).toBeFalsy();
+      });
+
+      it('should not save the step upon continuing the flow configuration process if the selected service has not changed', () => {
+        component.changedSelectedService = false;
+        let spy = spyOn(flowsApp, 'saveFlowStep');
+        component.onContinue();
+        expect(spy).not.toHaveBeenCalled();
+      });
+    });
+
     describe('ngOnDestroy()', () => {
       xit('should unscribe all subscriptions', () => {
       });

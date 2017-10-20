@@ -28,6 +28,7 @@ export class SelectServiceComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   selectedService: Service | null = null;
   selectableServiceType: ServiceType = ServiceType.ACTION;
+  changedSelectedService: boolean = false;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -56,6 +57,13 @@ export class SelectServiceComponent implements OnInit, OnDestroy {
       ? ServiceType.TRIGGER
       : ServiceType.ACTION;
     this.cd.markForCheck();
+  }
+
+  onContinue() {
+    if (this.changedSelectedService) {
+      this.flowsApp.saveFlowStep();
+      this.changedSelectedService = false;
+    }
   }
 
   ngOnDestroy(): void {

@@ -2,7 +2,7 @@
   <div class="left border-right" fxLayout="column" fxFlex>
     <div class="col-header"></div>
 
-    <dkt-providers [selectableServiceType]="selectableServiceType" (onChangeService)="flowsApp.saveFlowStep()"></dkt-providers>
+    <dkt-providers [selectableServiceType]="selectableServiceType" (onChangeService)="changedSelectedService = true"></dkt-providers>
   </div>
 
   <div class="right"
@@ -16,7 +16,8 @@
       </div>
       <dkt-flow-step-nav-buttons 
         backPath="{{flowsApp.flowPath()}}" backLabel="Cancel"
-        continuePath="{{flowsApp.flowStepPath()}}/configure" continueLabel="Continue"
+        continuePath="{{flowsApp.flowStepPath()}}/configure" continueLabel="{{changedSelectedService ? 'Save and continue' : 'Continue'}}"
+        (onContinue)="onContinue()"
         ></dkt-flow-step-nav-buttons>
     </div>
   </div>

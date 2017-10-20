@@ -153,7 +153,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
 
   /**
    * User initiated selection of service: select new service and signal change
-   * event (for saving the flow step).
+   * event.
    *
    * @param {Service} service
    *
