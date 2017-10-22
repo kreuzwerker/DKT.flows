@@ -13,7 +13,7 @@ export const mockFlowsApp = {
   restoreFlow(): void { },
   createFlowRun(): void {},
   startFlowRun(payload: any): void {},
-  createFlowObject(flowData: Object): Flow {},
-  createStepObject(stepData: Object): Step {},
+  createFlowObject(flowData: Object): void {},
+  createStepObject(stepData: Object): void {},
 } as FlowsAppService;
 
