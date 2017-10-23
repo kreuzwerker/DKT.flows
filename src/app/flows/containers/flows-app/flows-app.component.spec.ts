@@ -50,7 +50,7 @@ describe('Flows App', () => {
         routeParams = new Subject<any>();
         route.params = routeParams.asObservable();
         routeEvents = new Subject<any>();
-        router.events = routeEvents.asObservable();
+        (router as any).events = routeEvents.asObservable();
       });
 
       it('should call onFlowRouteChange() when the flowId route param changes', () => {
@@ -207,7 +207,7 @@ describe('Flows App', () => {
       beforeEach(() => {
         component.requestedStepId = null;
         // Prepare required active route flow/.../step/1
-        route.children = [{
+        (route as any).children = [{
             params: new BehaviorSubject<any>({stepId: stepId}).asObservable(),
         } as ActivatedRoute];
       });
@@ -234,11 +234,12 @@ describe('Flows App', () => {
         flowsApp.flow.steps = orgSteps;
       });
 
-      it('should select the current requested step if it can find the flow step', () => {
+      it('should select the current requested step and unset requestStepId if it can find the flow step', () => {
         component.requestedStepId = '1';
         let spy = spyOn(state, 'selectStep');
         component.selectRequestedStep();
         expect(spy).toHaveBeenCalled();
+        expect(component.requestedStepId).toBeNull();
       });
 
       it('should not select the current requested step if it cannot find the flow step', () => {
@@ -246,12 +247,6 @@ describe('Flows App', () => {
         let spy = spyOn(state, 'selectStep');
         component.selectRequestedStep();
         expect(spy).not.toHaveBeenCalled();
-      });
-
-      it('should unset requestStepId', () => {
-        component.requestedStepId = '999';
-        component.selectRequestedStep();
-        expect(component.requestedStepId).toBeNull();
       });
     });
 

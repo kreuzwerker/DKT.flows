@@ -86,7 +86,11 @@ describe('Flows App', () => {
       });
     });
 
-    describe('onContinue()', () => {
+    xdescribe('onContinue()', () => {
+      beforeEach(() => {
+        flowsApp.step = utils.createStepData();
+      });
+
       it('should save the step upon continuing the flow configuration process if the selected service has changed', () => {
         component.changedSelectedService = true;
         let spy = spyOn(flowsApp, 'saveFlowStep');

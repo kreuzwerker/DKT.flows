@@ -1,10 +1,17 @@
 import { FlowsAppService } from './../../services';
 import { Flow, Step } from './../../models';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 export const mockFlowsApp = {
   saveFlow(): void { },
   deleteFlow(): void { },
-  saveFlowStep(): void { },
+  saveFlowStep(): Observable<any> {
+    return new Subject<any>();
+  },
+  addFlowStep(): void {},
+  removeFlowStep(step: Step): void {},
+  resetFlowStepConfig(): void {},
   setStepStage(stage: string): void { },
   setFlow(flow: Flow): void {},
   setStep(step: Step): void {},

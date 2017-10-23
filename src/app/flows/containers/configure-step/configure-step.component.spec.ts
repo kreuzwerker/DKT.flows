@@ -88,18 +88,17 @@ describe('Flows App', () => {
     });
 
     describe('saveForm()', () => {
-      let step;
-
       beforeEach(() => {
-        step = utils.createStepData();
-        component.initForm(step.service.configSchema, step.configParams);
+        component.step = utils.createStepData();
+        component.initForm(component.step.service.configSchema, component.step.configParams);
       });
 
-      it('should save the configuration if the form is valid', () => {
+      it('should save the configuration if the form is valid and dirty', () => {
         let spy1 = spyOn(state, 'dispatch');
         let spy2 = spyOn(flowsApp, 'saveFlowStep');
-        component.configForm.value = step.configParams;
-        component.configForm.valid = true;
+        (component.configForm as any).value = component.step.configParams;
+        (component.configForm as any).valid = true;
+        (component.configForm as any).dirty = true;
         component.saveForm();
         expect(spy1).toHaveBeenCalled();
         expect(spy2).toHaveBeenCalled();
@@ -108,7 +107,18 @@ describe('Flows App', () => {
       it('should not save the configuration if the form is invalid', () => {
         let spy1 = spyOn(state, 'dispatch');
         let spy2 = spyOn(flowsApp, 'saveFlowStep');
-        component.configForm.valid = false;
+        (component.configForm as any).valid = false;
+        component.saveForm();
+        expect(spy1).not.toHaveBeenCalled();
+        expect(spy2).not.toHaveBeenCalled();
+      });
+
+      it('should not save the configuration if step is already configured and values haven\'t changed', () => {
+        let spy1 = spyOn(state, 'dispatch');
+        let spy2 = spyOn(flowsApp, 'saveFlowStep');
+        (component.configForm as any).valid = true;
+        (component.configForm as any).dirty = false;
+        component.step.configParams = [];
         component.saveForm();
         expect(spy1).not.toHaveBeenCalled();
         expect(spy2).not.toHaveBeenCalled();

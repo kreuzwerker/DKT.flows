@@ -187,13 +187,18 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     } else if (flowRun === 'loading') {
       this.flowsApp.showStatusMessage('Triggering flow', 'loading');
     } else if (flowRun instanceof ApolloError) {
-      this.flowsApp.showStatusMessage('An internal error occured. Flow could not be triggered', 'error');
+      this.flowsApp.showStatusMessage(
+        'An internal error occured. Flow could not be triggered'
+      , 'error');
     } else if (flowRun.status === 'running') {
       this.flowsApp.showStatusMessage('Flow successfully triggered');
     } else if (flowRun.status === 'success') {
       this.flowsApp.showStatusMessage('Flow successfully run.');
     } else {
-      this.flowsApp.showStatusMessage(`An error occured. Flow could not be triggered. (status: '${flowRun.status}', message: '${flowRun.message}')`, 'error');
+      this.flowsApp.showStatusMessage(
+        `An error occured. Flow could not be triggered.
+        (status: '${flowRun.status}', message: '${flowRun.message}')`
+      , 'error');
     }
 
     this.cd.markForCheck();

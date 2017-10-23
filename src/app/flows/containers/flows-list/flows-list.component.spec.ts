@@ -11,7 +11,7 @@ describe('Flows App', () => {
   describe('FlowsList Component', () => {
     let component: FlowsListComponent;
     let utils: TestUtils;
-    let flowsApp: mockFlowsApp;
+    let flowsApp;
     let state: FlowsStateService;
     let router;
     let dialog;

@@ -55,7 +55,7 @@ describe('Tasks App', () => {
         routeParams = new Subject<any>();
         route.params = routeParams.asObservable();
         routeEvents = new Subject<any>();
-        router.events = routeEvents.asObservable();
+        (router as any).events = routeEvents.asObservable();
       });
 
       it('should call onTaskRouteChange() when the taskId route param changes', () => {

@@ -20,6 +20,7 @@ export class TasksFilterComponent implements OnChanges {
   @Output() unsetFilter: EventEmitter<Object> = new EventEmitter<Object>();
   @Output() unsetAllFilters: EventEmitter<void> = new EventEmitter<void>();
 
+  auto;
   filterCtrl: FormControl;
   filteredFilters: any;
 

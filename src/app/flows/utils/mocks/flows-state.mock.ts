@@ -24,6 +24,7 @@ export const mockFlowsState = {
 
   loadFlows(): void { },
   selectFlow(id: string): void { },
+  selectStep(step: Step): void { },
   createFlow(flow: Flow): void { },
   deleteFlow(id: string, name: string): void { },
   dispatch(action: Action) { },

@@ -65,6 +65,11 @@ describe('Flows App', () => {
       });
     });
 
+    describe('resetFlowStepConfig()', () => {
+      xit('should reset configParams and tested properties of current selected step.', () => {
+      });
+    });
+
     describe('createFlowRun()', () => {
       it('should create a new flow run for the current selected flow and with the current user.', () => {
         let spy = spyOn(state, 'createFlowRun');

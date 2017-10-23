@@ -5,6 +5,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 import { UUID } from 'angular2-uuid';
 
@@ -66,7 +67,7 @@ export class FlowsAppService {
     this.state.deleteFlow(this.flow.id, this.flow.name);
   }
 
-  saveFlowStep() {
+  saveFlowStep(): Observable<any> {
     return this.state.saveFlowStep(this.flow.id, this.step.id, this.step);
   }
 
