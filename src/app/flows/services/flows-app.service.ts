@@ -75,12 +75,11 @@ export class FlowsAppService {
     let newStep = this.createStepObject({
       position: lastStep ? lastStep.position + 1 : 0
     });
-    this.state.addFlowStep(this.flow.id, newStep);
-
-    // Select new step
-    // NB we can rely on the optimistic response here and select the step before
-    // it actually got created on the server
-    this.selectStep(this.flow.id, newStep.id);
+    this.state.addFlowStep(this.flow.id, newStep).subscribe((newStep) => {
+      // Select new step as soon as its available in flow.steps
+      // NB no optimistic response possible here
+      this.selectStep(this.flow.id, newStep.id);
+    });
   }
 
   removeFlowStep(step: Step): void {
