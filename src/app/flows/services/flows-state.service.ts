@@ -120,6 +120,10 @@ export class FlowsStateService extends StateService {
     this.dispatch(this.actions.selectFlow(id));
   }
 
+  selectStep(step: Step) {
+    this.dispatch(this.actions.selectStep(step));
+  }
+
   createFlow(flow: Flow): void {
     this.dispatch(this.actions.setSavingFlow(true, false));
     this.api.createFlow(flow).subscribe((flow) => {

@@ -31,7 +31,7 @@ export class FlowHomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Explicitely unselect the current step to clean up any previous state
-    this.state.dispatch(this.state.actions.selectStep(null));
+    this.state.selectStep(null);
 
     // Register current step preparation stage
     this.flowsApp.setStepStage(null);

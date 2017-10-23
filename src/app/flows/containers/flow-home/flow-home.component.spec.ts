@@ -27,7 +27,7 @@ describe('Flows App', () => {
 
     describe('ngOnInit()', () => {
       it('should unset the current selected step', () => {
-        let spy = spyOn(state, 'dispatch');
+        let spy = spyOn(state, 'selectStep');
         component.ngOnInit();
         expect(spy).toHaveBeenCalled();
       });

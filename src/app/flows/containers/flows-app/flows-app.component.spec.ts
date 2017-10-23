@@ -236,14 +236,14 @@ describe('Flows App', () => {
 
       it('should select the current requested step if it can find the flow step', () => {
         component.requestedStepId = '1';
-        let spy = spyOn(state, 'dispatch');
+        let spy = spyOn(state, 'selectStep');
         component.selectRequestedStep();
         expect(spy).toHaveBeenCalled();
       });
 
       it('should not select the current requested step if it cannot find the flow step', () => {
         component.requestedStepId = '999';
-        let spy = spyOn(state, 'dispatch');
+        let spy = spyOn(state, 'selectStep');
         component.selectRequestedStep();
         expect(spy).not.toHaveBeenCalled();
       });
