@@ -66,8 +66,8 @@ export class FlowsAppService {
     this.state.deleteFlow(this.flow.id, this.flow.name);
   }
 
-  saveFlowStep(): void {
-    this.state.saveFlowStep(this.flow.id, this.step.id, this.step);
+  saveFlowStep() {
+    return this.state.saveFlowStep(this.flow.id, this.step.id, this.step);
   }
 
   addFlowStep(): void {

@@ -109,22 +109,23 @@ export class FlowsApiService {
     });
   }
 
-  public updateStep(
-    {id, position, serviceId, configParams}: {
-      id: string,
-      position: Number,
-      serviceId: string,
-      configParams: StepConfigParamsInput[]
-    }
-  ): Observable<ApolloQueryResult<any>> {
+  public updateStep(flowId: string, step: Step): Observable<ApolloQueryResult<any>> {
+    const updatedStep = Object.assign({}, step, {
+      flow: { id: flowId } as Flow
+    });
+
+    // NB mutation payload differs from Step model
+    const updatedStepPayload = {
+      id: step.id,
+      position: step.position,
+      service: step.service && step.service.id || null,
+      configParams: step.configParams,
+    };
+
     return this.apollo.mutate<any>({
       mutation: updateStepMutation,
-      variables: {
-        id: id,
-        position: position,
-        service: serviceId,
-        configParams: configParams,
-      }
+      variables: updatedStepPayload,
+      optimisticResponse: this.optimisticallyUpdateStep(updatedStep),
     }).map(({data}) => data.updateStep);
   }
 
@@ -227,6 +228,20 @@ export class FlowsApiService {
     newState.Flow.steps = sortBy(newState.Flow.steps, 'position');
 
     return newState;
+  }
+
+  private optimisticallyUpdateStep(step: Step): any {
+    return {
+      __typename: 'Mutation',
+      updateStep: Object.assign({}, step, {
+        __typename: 'Step',
+        flow: {
+          __typename: 'Flow',
+          id: step.flow.id,
+          draft: true
+        }
+      })
+    };
   }
 
   private optimisticallyAddFlow(flow: Flow): any {

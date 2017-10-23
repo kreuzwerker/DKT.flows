@@ -151,22 +151,24 @@ export class FlowsStateService extends StateService {
     this.dispatch(this.actions.setSavingFlow(true, false));
   }
 
-  saveFlowStep(flowId: string, stepId: string, step: StepData): void {
+  saveFlowStep(flowId: string, stepId: string, step: StepData): Observable<any> {
+    let obs$ = new Subject<any>();
     this.dispatch(this.actions.setSavingFlow(true, false));
 
     // Remove the __typename property before making the API request
-    let configParams = step.configParams && step.configParams.map(
+    const configParams = step.configParams && step.configParams.map(
       (param) => lodash.omit(param, ['__typename']) as StepConfigParamsInput
     ) || null;
-
-    this.api.updateStep({
-      id: stepId,
-      position: step.position,
-      serviceId: step.service && step.service.id || null,
+    const _step = Object.assign({}, step, {
       configParams: configParams,
-    }).subscribe((_step) => {
-      this.dispatch(this.actions.setSavingFlow(false, true));
     });
+
+    this.api.updateStep(flowId, _step).subscribe((_step) => {
+      this.dispatch(this.actions.setSavingFlow(false, true));
+      obs$.next(_step);
+    });
+
+    return obs$;
   }
 
   addFlowStep(flowId: string, step: Step): Observable<any> {
