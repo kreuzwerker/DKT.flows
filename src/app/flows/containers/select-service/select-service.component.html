@@ -17,7 +17,7 @@
       <dkt-flow-step-nav-buttons 
         backPath="{{flowsApp.flowPath()}}" backLabel="Cancel"
         continuePath="{{flowsApp.flowStepPath()}}/configure" continueLabel="{{changedSelectedService ? 'Save and continue' : 'Continue'}}"
-        (onContinue)="onContinue()"
+        [onContinue]="onContinue"
         ></dkt-flow-step-nav-buttons>
     </div>
   </div>

@@ -1,4 +1,5 @@
 import { Subject } from 'rxjs/Subject';
+import { Observer } from 'rxjs/Observer';
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { style, state, animate, transition, trigger } from '@angular/core';
 
@@ -59,11 +60,25 @@ export class SelectServiceComponent implements OnInit, OnDestroy {
     this.cd.markForCheck();
   }
 
-  onContinue() {
-    if (this.changedSelectedService) {
-      this.flowsApp.saveFlowStep();
-      this.changedSelectedService = false;
+  // NB bind to this context
+  onContinue = (): boolean | Observer<boolean> => {
+    if (!this.changedSelectedService) {
+      return true;
     }
+
+    // Reset flow step if it had already been configured for another service
+    // before
+    if (this.flowsApp.step.configParams) {
+      this.flowsApp.resetFlowStepConfig();
+    }
+
+    let obs$ = new Subject<boolean>();
+    this.flowsApp.saveFlowStep().subscribe((step) => {
+      this.changedSelectedService = false;
+      obs$.next(true);
+    });
+
+    return obs$;
   }
 
   ngOnDestroy(): void {

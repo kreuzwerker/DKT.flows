@@ -10,10 +10,12 @@ import { Router } from '@angular/router';
 export class FlowStepNavButtonsComponent {
   @Input() backPath: string;
   @Input() backLabel: string;
-  @Output() onContinue = new EventEmitter();
+  @Input() onContinue: any;
   @Input() continuePath: string;
   @Input() continueLabel: string;
   @Input() continueDisabled: boolean = false;
+
+  continueIsLoading: boolean = false;
 
   constructor(public router: Router) {}
 
@@ -23,8 +25,31 @@ export class FlowStepNavButtonsComponent {
 
   continue() {
     if (this.onContinue) {
-      this.onContinue.emit();
+      let res = this.onContinue();
+      if (typeof res === 'boolean') {
+        // Callback has finished, continue if successfull
+        if (res) {
+          this.doContinue();
+        }
+      } else if (typeof res === 'object') {
+        // Callback hasn't finished yet, wait for result
+        this.continueIsLoading = true;
+        res.subscribe((success) => {
+          this.continueIsLoading = false;
+          if (success) {
+            this.doContinue();
+          }
+        });
+      }
+    } else {
+      this.doContinue();
     }
-    this.router.navigate([this.continuePath]);
+  }
+
+  doContinue() {
+    // NB wait for changes of onContinue have an effect
+    setTimeout(() => {
+      this.router.navigate([this.continuePath]);
+    }, 1);
   }
 }

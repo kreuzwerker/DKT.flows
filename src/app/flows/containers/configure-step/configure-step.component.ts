@@ -5,6 +5,7 @@
 //   https://github.com/udos86/ng2-dynamic-forms/issues/293
 
 import { Subject } from 'rxjs/Subject';
+import { Observer } from 'rxjs/Observer';
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';
 import { FormGroup } from '@angular/forms';
@@ -65,12 +66,24 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
     return this.configForm.dirty ? 'Save and continue' : 'Continue';
   }
 
-  saveForm() {
-    if (this.configForm.valid) {
-      let values = this.mapValues(this.configForm.value);
-      this.state.dispatch(this.state.actions.setStepConfig(values));
-      this.flowsApp.saveFlowStep();
+  // NB bind to this context
+  saveForm = (): boolean | Observer<boolean> => {
+    if (!this.configForm.valid) {
+      return false;
     }
+
+    // No need to save if step has already been configured and values haven't changed
+    if (this.step.configParams !== null && !this.configForm.dirty) {
+      return true;
+    }
+
+    // Update the step configuration and save the step
+    let values = this.mapValues(this.configForm.value);
+    this.state.dispatch(this.state.actions.setStepConfig(values));
+    this.flowsApp.saveFlowStep();
+
+    // Return immediately, relying on optimistic response from updateStep mutation
+    return true;
   }
 
   reduceValues(values) {

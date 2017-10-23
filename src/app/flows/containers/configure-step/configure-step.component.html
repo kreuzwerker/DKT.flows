@@ -20,7 +20,7 @@
         <dkt-flow-step-nav-buttons 
           backPath="{{flowsApp.flowStepPath()}}/select-service"
           backLabel="Back"
-          (onContinue)="saveForm()"
+          [onContinue]="saveForm"
           continuePath="{{flowsApp.flowStepPath()}}/test"
           [continueLabel]="getContinueLabel()"
           [continueDisabled]="configForm.invalid"

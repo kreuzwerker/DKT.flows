@@ -139,22 +139,23 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   }
 
   selectRequestedStep() {
-    if (!this.flowsApp.flow || !this.flowsApp.flow.steps.length) {
+    if (
+      typeof this.requestedStepId === 'undefined' || !this.requestedStepId
+      || !this.flowsApp.flow || !this.flowsApp.flow.steps.length
+    ) {
       return false;
     }
 
+    // Find requested step
     let requestedStep;
-    if (this.requestedStepId !== null) {
-      // Find requested step
-      requestedStep = this.flowsApp.flow.steps.find(step => step.id === this.requestedStepId);
-    }
+    requestedStep = this.flowsApp.flow.steps.find(step => step.id === this.requestedStepId);
 
     if (requestedStep) {
-      this.state.dispatch(this.state.actions.selectStep(requestedStep));
-    }
+      this.state.selectStep(requestedStep);
 
-    // Clean up state
-    this.requestedStepId = null;
+      // Clean up state
+      this.requestedStepId = null;
+    }
   }
 
   /*
