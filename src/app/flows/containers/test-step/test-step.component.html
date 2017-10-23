@@ -5,7 +5,7 @@
     <div class="padding">
       <dkt-step-test-result [type]="stepTestResultType" [data]="stepTestResultData" [show]="showTestResults"></dkt-step-test-result>
 
-      <form #testFlowForm="ngForm" (ngSubmit)="testStep(testFlowForm.value.payload)" class="step test">
+      <form *ngIf="step && !step.service.task" #testFlowForm="ngForm" (ngSubmit)="testStep(testFlowForm.value.payload)" class="step test">
         <md-input-container class="full-width">
           <textarea mdInput [ngModel]="samplePayload" #payload="ngModel" placeholder="Test data" type="text" name="payload" rows="10" required></textarea>
           <md-hint *ngIf="payload.dirty && payload.errors?.required">Payload is required</md-hint>
@@ -15,10 +15,14 @@
           <button md-button type="submit" [disabled]="testFlowForm.invalid" md-raised-button class="mat-accent">Test</button>
         </div>
       </form>
+      <p *ngIf="step && step.service.task" class="no-test-form" fxLayout="row" fxLayoutAlign="start center">
+        <md-icon color="primary">info</md-icon>
+        This step does't need to be tested. Proceed by clicking on&nbsp;<b>Finish</b>.
+      </p>
 
       <dkt-flow-step-nav-buttons 
         backPath="{{flowsApp.flowStepPath()}}/configure" backLabel="Back"
-        continuePath="{{flowsApp.flowPath()}}" continueLabel="{{step?.tested ? 'Finish' : 'Skip Test and Finish'}}"
+        continuePath="{{flowsApp.flowPath()}}" continueLabel="{{step?.tested || step?.service.task ? 'Finish' : 'Skip Test and Finish'}}"
         ></dkt-flow-step-nav-buttons>
     </div>
   </div>

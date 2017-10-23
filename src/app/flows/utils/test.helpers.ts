@@ -63,6 +63,7 @@ export class TestUtils {
     name: string = 'Test Service',
     description: string = 'Test Service description',
     type: ServiceType = ServiceType.TRIGGER,
+    task: boolean = false,
     provider: Provider = this.defaultProviderData,
     configSchema: ServiceConfigSchema[] = this.defaultServiceConfigSchema,
   ): Service {
@@ -71,6 +72,7 @@ export class TestUtils {
       name: name,
       description: description,
       type: type,
+      task: task,
       provider: provider,
       configSchema: configSchema,
     };

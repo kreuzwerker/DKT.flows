@@ -46,6 +46,7 @@ describe('Flows App', () => {
         expect(service.name).toBe('Test Service');
         expect(service.description).toBe('Test Service description');
         expect(service.type).toBe(ServiceType.TRIGGER);
+        expect(service.task).toBeFalsy();
         expect(service.provider).toEqual(utils.defaultProviderData);
       });
     });

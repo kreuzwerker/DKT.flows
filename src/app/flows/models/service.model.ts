@@ -16,6 +16,7 @@ export class Service {
   name: string;
   description: string;
   type: ServiceType;
+  task: boolean;
   provider: Provider;
   configSchema?: ServiceConfigSchema[];
   samplePayload?: String;

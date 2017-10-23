@@ -56,6 +56,7 @@ export const flowStepFragment = gql`
       type,
       name,
       description,
+      task,
       configSchema {
         ...ServiceConfigSchema
       },
@@ -198,6 +199,7 @@ export const testFlowStepMutation = gql`
         id
         name
         type
+        task
       }
       result
       error
