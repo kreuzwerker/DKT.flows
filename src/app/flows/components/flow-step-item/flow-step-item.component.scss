@@ -49,6 +49,12 @@ https://github.com/jtangelder/sass-loader/issues/211 */
         display:inline-block;
         font-size: 12px;
 
+        &.active-link {
+          a, md-icon {
+            color: $active-color;
+          }
+        }
+
         &, a {
           font-weight: 600;
         }
