@@ -50,8 +50,10 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
     }
 
     this.step = step;
-    let values = this.step.configParams && this.reduceValues(this.step.configParams) || {};
-    this.initForm(this.step.service.configSchema, values);
+    if (typeof this.step.service.configSchema !== 'undefined') {
+      let values = this.step.configParams && this.reduceValues(this.step.configParams) || {};
+      this.initForm(this.step.service.configSchema, values);
+    }
   }
 
   initForm(schema, values) {

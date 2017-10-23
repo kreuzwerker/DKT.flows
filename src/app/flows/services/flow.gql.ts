@@ -1,5 +1,4 @@
 import gql from 'graphql-tag';
-import { serviceConfigSchemaFragment } from './provider.gql';
 
 export const flowsItemFragment = gql`
   fragment FlowsItem on Flow {
@@ -8,6 +7,22 @@ export const flowsItemFragment = gql`
     description
     draft
   }
+`;
+
+
+export const serviceConfigSchemaFragment = gql`
+fragment ServiceConfigSchema on ServiceConfigSchema {
+  fieldId,
+  type,
+  label,
+  position,
+  defaultValue,
+  required,
+  options {
+    label,
+    value,
+  },
+}
 `;
 
 export const getFlowsQuery = gql`

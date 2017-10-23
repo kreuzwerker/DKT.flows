@@ -96,6 +96,15 @@ export class FlowsAppService {
     }
   }
 
+  resetFlowStepConfig(): void {
+    // Reset config params and tested flag of a step e.g. after changing the
+    // selected service
+    this.state.selectStep(Object.assign({}, this.step, {
+      configParams: null,
+      tested: null
+    }));
+  }
+
   /**
    * Flow Drafts
    */
