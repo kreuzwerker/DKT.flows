@@ -23,6 +23,6 @@ export class TaskItemLabelsComponent {
   }
 
   truncate(str: string): string {
-    return (str.length > 30) ? str.substring(0, 30) + '...' : str;
+    return (str && str.length > 30) ? str.substring(0, 30) + '...' : str;
   }
 }
