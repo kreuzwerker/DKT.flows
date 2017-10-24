@@ -213,7 +213,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   }
 
   discardFlowDraft() {
-    if (this.flowsApp.flow.flowRun) {
+    if (this.flowsApp.flow.lastFlowRun) {
       this.flowsApp.restoreFlow();
     } else {
       this.flowsApp.deleteFlow();

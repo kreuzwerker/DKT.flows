@@ -207,9 +207,6 @@ export class FlowsStateService extends StateService {
   createFlowRun(flowId: string, userId: string): void {
     this.createdFlowRun$.next('saving');
     this.api.createFlowRun(flowId, userId).subscribe((flowRun) => {
-      // ISSUE: API returns flowRun.flow.__typename=FlowMirrorType. Hence Apollo
-      // can't automatically update the Flow store object.
-      // -> waiting for Johannes: why do we have *MirrorType?
       this.createdFlowRun$.next('saved');
     }, (error) => console.log('ERROR', error));
   }

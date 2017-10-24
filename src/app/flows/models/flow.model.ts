@@ -8,7 +8,7 @@ export class Flow {
   description: string;
   draft?: boolean;
   steps?: Array<Step>;
-  flowRun?: FlowRun;
+  lastFlowRun?: FlowRun;
 }
 
 export interface FlowData {
@@ -17,7 +17,7 @@ export interface FlowData {
   description: string;
   draft?: boolean;
   steps?: Array<StepData>;
-  flowRun?: FlowRun;
+  lastFlowRun?: FlowRun;
 }
 
 export enum FlowState {

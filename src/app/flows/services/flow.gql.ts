@@ -82,7 +82,7 @@ export const getFlowQuery = gql`
       steps {
         ...FlowStep
       }
-      flowRun {
+      lastFlowRun {
         id
       }
     }
@@ -131,7 +131,7 @@ export const restoreFlowMutation = gql`
       steps {
         ...FlowStep
       }
-      flowRun {
+      lastFlowRun {
         id
       }
     }
@@ -221,7 +221,7 @@ export const createFlowRunMutation = gql`
       flow {
         id
         draft
-        flowRun {
+        lastFlowRun {
           id
         }
       }

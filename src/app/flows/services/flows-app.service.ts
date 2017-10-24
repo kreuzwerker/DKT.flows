@@ -124,7 +124,7 @@ export class FlowsAppService {
   }
 
   startFlowRun(payload: any): void {
-    this.state.startFlowRun(this.flow.flowRun.id, payload);
+    this.state.startFlowRun(this.flow.lastFlowRun.id, payload);
   }
 
   /*

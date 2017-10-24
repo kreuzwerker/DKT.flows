@@ -319,7 +319,7 @@ describe('Flows App', () => {
 
     describe('discardFlowDraft', () => {
       it('should restore the flow from the previous flow run', () => {
-        expect(component.flowsApp.flow.flowRun).toBeDefined();
+        expect(component.flowsApp.flow.lastFlowRun).toBeDefined();
         let spy = spyOn(flowsApp, 'restoreFlow');
         let spy2 = spyOn(flowsApp, 'deleteFlow');
         component.discardFlowDraft();
@@ -328,7 +328,7 @@ describe('Flows App', () => {
       });
 
       it('should delete the flow if flow has not been deployed before', () => {
-        component.flowsApp.flow.flowRun = null;
+        component.flowsApp.flow.lastFlowRun = null;
         let spy = spyOn(flowsApp, 'deleteFlow');
         let spy2 = spyOn(flowsApp, 'restoreFlow');
         let spy3 = spyOn(flowsApp, 'showStatusMessage');

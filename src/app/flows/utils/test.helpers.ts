@@ -91,7 +91,7 @@ export class TestUtils {
       description: 'Test Flow description',
       draft: false,
       steps: steps,
-      flowRun: this.createFlowRunData()
+      lastFlowRun: this.createFlowRunData()
     };
   }
 
