@@ -71,12 +71,17 @@ export class FlowsAppService {
     return this.state.saveFlowStep(this.flow.id, this.step.id, this.step);
   }
 
-  addFlowStep(): void {
-    let lastStep = _.last(this.flow.steps);
+  addFlowStep(position: number | null = null): void {
+    if (position === null) {
+      // Append new step at the end
+      const lastStep = _.last(this.flow.steps);
+      position = lastStep ? lastStep.position + 1 : 0;
+    }
+
     let newStep = this.createStepObject({
-      position: lastStep ? lastStep.position + 1 : 0
+      position: position
     });
-    this.state.addFlowStep(this.flow.id, newStep).subscribe((newStep) => {
+    this.state.addFlowStep(this.flow, newStep).subscribe((newStep) => {
       // Select new step as soon as its available in flow.steps
       // NB no optimistic response possible here
       this.selectStep(this.flow.id, newStep.id);

@@ -171,6 +171,10 @@ export const addFlowStepMutation = gql`
       flow {
         id
         draft
+        steps {
+          id
+          position
+        }
       }
     }
   }
@@ -185,6 +189,10 @@ export const removeFlowStepMutation = gql`
       flow {
         id
         draft
+        steps {
+          id
+          position
+        }
       }
     }
   }

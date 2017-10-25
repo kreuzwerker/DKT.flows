@@ -49,17 +49,28 @@ $step-item-control-top-margin: 0.5rem;
 
   .step {
     position: relative;
-    margin-bottom:1rem;
+    margin-bottom:5rem;
     margin-left: 3rem;
 
-    .position {
+    &.last {
+      margin-bottom:1rem;
+    }
+
+    .position, button.add {
       position:absolute;
       left: -3rem;
+    }
+
+    .position {
       top: $step-item-control-top-margin;
       background-color: $steps-line-bg-color;
       border-radius: 50%;
       text-align: center;
       color: $steps-line-color;
+    }
+
+    button.add {
+      bottom: -3.5rem;
     }
 
     &.selected {
@@ -70,11 +81,24 @@ $step-item-control-top-margin: 0.5rem;
   }
 
   button.add {
-    top: $step-item-control-top-margin;
     background-color: $steps-line-bg-color;
 
     md-icon {
       color: $steps-line-color;
+    }
+
+    span.btn-label {
+      position: absolute;
+      left: 3rem;
+      color: $steps-line-bg-color;
+    }
+
+    &:hover {
+      background-color: $primary-color;
+
+      span.btn-label {
+        color: $primary-color;
+      }
     }
   }
 }

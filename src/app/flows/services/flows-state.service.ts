@@ -175,10 +175,10 @@ export class FlowsStateService extends StateService {
     return obs$;
   }
 
-  addFlowStep(flowId: string, step: Step): Observable<any> {
+  addFlowStep(flow: Flow, step: Step): Observable<any> {
     let obs$ = new Subject<any>();
     this.dispatch(this.actions.setSavingFlow(true, false));
-    this.api.addFlowStep(flowId, step).subscribe((_step) => {
+    this.api.addFlowStep(flow, step).subscribe((_step) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
       obs$.next(_step);
     });

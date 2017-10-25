@@ -129,24 +129,28 @@ export class FlowsApiService {
     }).map(({data}) => data.updateStep);
   }
 
-  public addFlowStep(flowId: string, step: Step): Observable<ApolloQueryResult<any>> {
+  public addFlowStep(flow: Flow, step: Step): Observable<ApolloQueryResult<any>> {
     const newStep = Object.assign({}, step, {
-      flow: { id: flowId } as Flow
+      flow: { id: flow.id } as Flow
     });
 
     // NB mutation payload differs from Step model
     const newStepPayload = Object.assign({}, newStep, {
-      flow: flowId,
+      flow: flow.id,
       service: step.service ? step.service.id : null,
     });
 
     return this.apollo.mutate<any>({
       mutation: addFlowStepMutation,
       variables: newStepPayload,
-      optimisticResponse: this.optimisticallyAddStep(newStep),
+      optimisticResponse: this.optimisticallyAddStep(
+        newStep,
+        this.generateFlowStepsPositions(flow, step)
+      ),
       updateQueries: {
         FlowQuery: (previousResult, { mutationResult }: any) => {
-          return this.pushNewFlowStep(previousResult, mutationResult.data.createStep);
+          const newState = this.pushNewFlowStep(previousResult, mutationResult.data.createStep);
+          return this.updateFlowStepsPositions(newState, mutationResult.data.createStep.flow.steps);
         },
       },
     }).map(({data}) => data.createStep);
@@ -226,7 +230,6 @@ export class FlowsApiService {
 
     // Sort flow steps by position
     newState.Flow.steps = sortBy(newState.Flow.steps, 'position');
-
     return newState;
   }
 
@@ -275,7 +278,7 @@ export class FlowsApiService {
     };
   }
 
-  private optimisticallyAddStep(step: Step): any {
+  private optimisticallyAddStep(step: Step, updatedStepsPositions): any {
     return {
       __typename: 'Mutation',
       createStep: Object.assign({}, step, {
@@ -284,10 +287,27 @@ export class FlowsApiService {
         flow: {
           __typename: 'Flow',
           id: step.flow.id,
-          draft: true
+          draft: true,
+          steps: updatedStepsPositions
         }
       })
     };
+  }
+
+  private generateFlowStepsPositions(flow: Flow, newStep: Step): Step[] {
+    const steps = sortBy(flow.steps, 'position');
+    let pos = newStep.position;
+    return steps.map((step) => {
+      pos++;
+      // Move all steps that should come after the new step
+      if (step.id !== newStep.id && step.position >= newStep.position) {
+        return Object.assign({}, step, {
+          position: pos
+        });
+      } else {
+        return step;
+      }
+    });
   }
 
   private pushNewFlowStep(state, newStep): any {
@@ -296,6 +316,20 @@ export class FlowsApiService {
         steps: [...state.Flow.steps, newStep]
       })
     };
+  }
+
+  private updateFlowStepsPositions(state, updatedSteps): any {
+    let res = {
+      Flow: Object.assign({}, state.Flow, {
+        steps: state.Flow.steps.map((step) => {
+          const s = updatedSteps.find(_step => _step.id === step.id);
+          step.position = s && s.position || step.position;
+          return step;
+        })
+      })
+    };
+
+    return res;
   }
 
   private optimisticallyRemoveStep(step: Step): any {
