@@ -156,18 +156,30 @@ export class FlowsApiService {
     }).map(({data}) => data.createStep);
   }
 
-  public removeFlowStep(flowId: string, step: Step): Observable<ApolloQueryResult<any>> {
+  public removeFlowStep(flow: Flow, step: Step): Observable<ApolloQueryResult<any>> {
+    const removedStep = Object.assign({}, step, {
+      flow: { id: flow.id } as Flow
+    });
+
+    const flowWithoutRemovedStep = Object.assign({}, flow, {
+      steps: flow.steps.filter(step => step.id !== removedStep.id)
+    });
+
     return this.apollo.mutate<any>({
       mutation: removeFlowStepMutation,
       variables: {
         stepId: step.id,
       },
-      optimisticResponse: this.optimisticallyRemoveStep(Object.assign({}, step, {
-        flow: { id: flowId } as Flow
-      })),
+      optimisticResponse: this.optimisticallyRemoveStep(
+        removedStep,
+        this.regenerateFlowStepsPositions(flowWithoutRemovedStep)
+      ),
       updateQueries: {
         FlowQuery: (previousResult, { mutationResult }: any) => {
-          return this.removeDeletedFlowStep(previousResult, mutationResult.data.deleteStep);
+          const newState = this.removeDeletedFlowStep(
+            previousResult, mutationResult.data.deleteStep
+          );
+          return this.updateFlowStepsPositions(newState, mutationResult.data.deleteStep.flow.steps);
         },
       },
     });
@@ -298,15 +310,26 @@ export class FlowsApiService {
     const steps = sortBy(flow.steps, 'position');
     let pos = newStep.position;
     return steps.map((step) => {
-      pos++;
       // Move all steps that should come after the new step
       if (step.id !== newStep.id && step.position >= newStep.position) {
+        pos++;
         return Object.assign({}, step, {
           position: pos
         });
       } else {
         return step;
       }
+    });
+  }
+
+  private regenerateFlowStepsPositions(flow: Flow): Step[] {
+    const steps = sortBy(flow.steps, 'position');
+    let pos = -1;
+    return steps.map((step) => {
+      pos++;
+      return Object.assign({}, step, {
+        position: pos
+      });
     });
   }
 
@@ -323,8 +346,9 @@ export class FlowsApiService {
       Flow: Object.assign({}, state.Flow, {
         steps: state.Flow.steps.map((step) => {
           const s = updatedSteps.find(_step => _step.id === step.id);
-          step.position = s && s.position || step.position;
-          return step;
+          return Object.assign({}, step, {
+            position: s ? s.position : step.position
+          });
         })
       })
     };
@@ -332,7 +356,7 @@ export class FlowsApiService {
     return res;
   }
 
-  private optimisticallyRemoveStep(step: Step): any {
+  private optimisticallyRemoveStep(step: Step, updatedStepsPositions): any {
     return {
       __typename: 'Mutation',
       deleteStep: {
@@ -341,7 +365,8 @@ export class FlowsApiService {
         flow: {
           __typename: 'Flow',
           id: step.flow.id,
-          draft: true
+          draft: true,
+          steps: updatedStepsPositions
         }
       },
     };

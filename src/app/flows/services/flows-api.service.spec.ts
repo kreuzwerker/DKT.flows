@@ -2,6 +2,7 @@ import { FlowsApiService } from './flows-api.service';
 import { TestUtils } from './../utils/test.helpers';
 import { Apollo } from 'apollo-angular';
 import { Http } from '@angular/http';
+import { sortBy } from 'lodash';
 
 describe('Flows App', () => {
 
@@ -140,12 +141,42 @@ describe('Flows App', () => {
     describe('optimisticallyAddStep()', () => {
       it('should return an optimistic response object for the given step.', () => {
         const step = utils.createStepData();
-        const res = service['optimisticallyAddStep'](step);
+        const res = service['optimisticallyAddStep'](step, []);
         expect(res.__typename).toBe('Mutation');
         expect(res.createStep.__typename).toBe('Step');
         expect(res.createStep.id).toBe(step.id);
         expect(res.createStep.position).toBe(step.position);
         expect(res.createStep.service).toBe(step.service);
+        expect(res.deleteStep.flow.id).toEqual(step.flow.id);
+        expect(res.deleteStep.flow.draft).toBeTruthy();
+        expect(res.deleteStep.flow.steps).toEqual([]);
+      });
+    });
+
+    describe('generateFlowStepsPositions()', () => {
+      it('should generate flow steps positions after inserting a new step.', () => {
+        const step = utils.createStepData('new', 1);
+        let flow = utils.createFlowData();
+        flow.steps.push(step);
+        let updatedSteps = service['generateFlowStepsPositions'](flow, step);
+        updatedSteps = sortBy(updatedSteps, 'position');
+        expect(updatedSteps[0].position).toEqual(0);
+        expect(updatedSteps[1].position).toEqual(1);
+        expect(updatedSteps[2].position).toEqual(2);
+        expect(updatedSteps[3].position).toEqual(3);
+      });
+    });
+
+    describe('regenerateFlowStepsPositions()', () => {
+      it('should generate flow steps positions after removing a step.', () => {
+        let flow = utils.createFlowData();
+        let removedStepId = flow.steps[1].id;
+        flow.steps = flow.steps.filter(step => step.id !== removedStepId);
+        expect(flow.steps.length).toEqual(2);
+        let updatedSteps = service['regenerateFlowStepsPositions'](flow);
+        updatedSteps = sortBy(updatedSteps, 'position');
+        expect(updatedSteps[0].position).toEqual(0);
+        expect(updatedSteps[1].position).toEqual(1);
       });
     });
 
@@ -162,15 +193,40 @@ describe('Flows App', () => {
       });
     });
 
+    describe('updateFlowStepsPositions()', () => {
+      it('should update the current flow steps positions.', () => {
+        const step = utils.createStepData();
+        const state = {
+          Flow: {
+            steps: [
+              utils.createStepData('1', 0),
+              utils.createStepData('2', 1),
+              utils.createStepData('3', 2),
+            ]
+          }
+        };
+        const updatedSteps = [
+          utils.createStepData('1', 2),
+          utils.createStepData('2', 1),
+          utils.createStepData('3', 0),
+        ];
+        const newState = service['updateFlowStepsPositions'](state, updatedSteps);
+        expect(newState.Flow.steps[0].position).toEqual(2);
+        expect(newState.Flow.steps[1].position).toEqual(1);
+        expect(newState.Flow.steps[2].position).toEqual(0);
+      });
+    });
+
     describe('optimisticallyRemoveStep()', () => {
       it('should return an optimistic response object for the given step.', () => {
         const step = utils.createStepData();
-        const res = service['optimisticallyRemoveStep'](step);
+        const res = service['optimisticallyRemoveStep'](step, []);
         expect(res.__typename).toBe('Mutation');
         expect(res.deleteStep.__typename).toBe('Step');
         expect(res.deleteStep.id).toBe(step.id);
         expect(res.deleteStep.flow.id).toEqual(step.flow.id);
         expect(res.deleteStep.flow.draft).toBeTruthy();
+        expect(res.deleteStep.flow.steps).toEqual([]);
       });
     });
 

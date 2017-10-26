@@ -186,9 +186,9 @@ export class FlowsStateService extends StateService {
     return obs$;
   }
 
-  removeFlowStep(flowId: string, step: Step) {
+  removeFlowStep(flow: Flow, step: Step) {
     this.dispatch(this.actions.setSavingFlow(true, false));
-    this.api.removeFlowStep(flowId, step).subscribe((data) => {
+    this.api.removeFlowStep(flow, step).subscribe((data) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
     });
   }
