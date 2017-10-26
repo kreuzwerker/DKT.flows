@@ -22,8 +22,8 @@ describe('Tasks App', () => {
         component.filterByFlow();
         const params = {
           type: 'flowId',
-          flowId: component.task.flow.flow.id,
-          flowName: component.task.flow.flow.name
+          flowId: component.task.flowRun.flow.id,
+          flowName: component.task.flowRun.flow.name
         };
         expect(spy).toHaveBeenCalledWith(params);
       });

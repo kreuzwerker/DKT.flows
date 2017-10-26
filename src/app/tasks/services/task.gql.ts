@@ -34,7 +34,7 @@ export const getTasksQuery = gql`
       type
       date
       state
-      flow {
+      flowRun {
         flow {
           id
           name

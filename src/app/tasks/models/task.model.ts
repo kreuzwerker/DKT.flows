@@ -1,4 +1,5 @@
 import { User } from '../../user/user.model';
+import { FlowRun } from '../../flows/models';
 
 export class Task {
   id: string;
@@ -7,7 +8,7 @@ export class Task {
   date: string;
   type: TaskType;
   state: TaskState;
-  flow: any;
+  flowRun: FlowRun;
   comments: TaskComment[];
 }
 
