@@ -63,6 +63,7 @@ describe('Flows App', () => {
         expect(component.headerIcon).toBe(provider.icon);
         const title = `${provider.name}: ${service.name}`;
         expect(component.headerTitle).toBe(title);
+        expect(component.highlight).toBeFalsy();
       });
 
       it('should set the header icon and title correctly if the current step has no service set', () => {
@@ -70,6 +71,7 @@ describe('Flows App', () => {
         component.render();
         expect(component.headerIcon).toBe('settings');
         expect(component.headerTitle).toBe('Set up this step');
+        expect(component.highlight).toBeTruthy();
       });
     });
 

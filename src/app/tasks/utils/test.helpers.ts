@@ -1,5 +1,6 @@
 /* tslint:disable: ter-max-len */
 import { Task, TaskType, TaskState, TaskFilter, TaskComment, TaskItem } from '../models';
+import { FlowRun } from '../../flows/models';
 
 export class TestUtils {
   defaultTaskData: Task = null;
@@ -15,7 +16,7 @@ export class TestUtils {
     date: string = '1491989405',
     type: TaskType = TaskType.APPROVE,
     state: TaskState = TaskState.STARTED,
-    flow: object = {
+    flowRun: object = {
       flow: {id: '1', name: 'Flow 1'}
     },
     comments: TaskComment[] = [
@@ -29,7 +30,7 @@ export class TestUtils {
       date: date,
       type: type,
       state: state,
-      flow: flow,
+      flowRun: flowRun as FlowRun,
       comments: comments,
     };
   }

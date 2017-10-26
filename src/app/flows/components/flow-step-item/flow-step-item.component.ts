@@ -29,6 +29,7 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
   headerTitle: string;
   options: FlowStepItemOption[] = [];
   showConfirmDialog: boolean = false;
+  highlight: boolean = false;
 
   constructor(
     public flowsApp: FlowsAppService
@@ -53,9 +54,11 @@ export class FlowStepItemComponent implements OnInit, OnChanges {
       let provider = this.step.service.provider;
       this.headerIcon = provider.icon;
       this.headerTitle = `${provider.name}: ${service.name}`;
+      this.highlight = false;
     } else {
       this.headerIcon = 'settings';
       this.headerTitle = 'Set up this step';
+      this.highlight = true;
     }
   }
 
