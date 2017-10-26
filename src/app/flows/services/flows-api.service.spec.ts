@@ -147,9 +147,9 @@ describe('Flows App', () => {
         expect(res.createStep.id).toBe(step.id);
         expect(res.createStep.position).toBe(step.position);
         expect(res.createStep.service).toBe(step.service);
-        expect(res.deleteStep.flow.id).toEqual(step.flow.id);
-        expect(res.deleteStep.flow.draft).toBeTruthy();
-        expect(res.deleteStep.flow.steps).toEqual([]);
+        expect(res.createStep.flow.id).toEqual(step.flow.id);
+        expect(res.createStep.flow.draft).toBeTruthy();
+        expect(res.createStep.flow.steps).toEqual([]);
       });
     });
 
