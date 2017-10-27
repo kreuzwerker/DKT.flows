@@ -1,0 +1,74 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+@import '../../../animations';
+
+#flow-logs {
+  margin: 1rem;
+
+  h4 {
+    margin: 0;
+  }
+
+  .header {
+    md-icon {
+      color: $dark-grey;
+      cursor: pointer;
+      outline: none;
+      margin-left: 5px;
+  
+      &:hover {
+        color: $dark-blue;
+      }
+    }
+  
+    md-spinner {
+      display: inline-block;
+      width: 24px!important;
+      height: 24px!important;
+    } 
+  }
+
+  md-list.runs {
+    padding-top: 0;
+    margin: 1rem 0;
+    border: 1px solid $list-item-border-color;
+    border-radius: 3px;
+    cursor:default;
+    background-color: white;
+    animation: FadeIn 0.2s;
+
+    md-list-item.run {
+      border-bottom: 1px solid $list-item-border-color;
+
+      &.last {
+        border-bottom: none;
+      }
+
+      md-icon.status {
+        &.running {
+          animation: Spin 1.2s infinite linear;
+          color: $blue;
+        }
+  
+        &.success {
+          color: $success-bg-color;
+        }
+  
+        &.error {
+          color: $error-bg-color;
+        }
+      }
+    }
+  }
+
+  p.no-runs {
+    margin: 3rem 0;
+  }
+}
+
+@keyframes Spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

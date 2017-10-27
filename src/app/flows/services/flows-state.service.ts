@@ -10,7 +10,15 @@ import { NgRedux, select } from '@angular-redux/store';
 import { AppState, Action } from './../../reducers';
 import { StateService } from './../../core/services';
 import { FlowsApiService } from './../services';
-import { Flow, FlowData, Step, StepData, StepConfigParamsInput, Provider, Service } from './../models';
+import {
+  Flow,
+  FlowData,
+  Step,
+  StepData,
+  StepConfigParamsInput,
+  Provider,
+  Service
+} from './../models';
 import { FlowsAppActions } from './../states';
 
 import { FlowsListData } from './flow.gql';
@@ -29,6 +37,9 @@ export class FlowsStateService extends StateService {
   // Current loaded flow
   flow$: Observable<Flow>;
   flowSub$: Subscription;
+  // Flow logs
+  flowLogsFlowId$ = new Subject<string>();
+  flowLogs$: Observable<Flow[]>;
   // Available providers
   providers$: Observable<Provider[]>;
 
@@ -69,6 +80,10 @@ export class FlowsStateService extends StateService {
       id: this.select('flowId').filter((flowId) => flowId !== null)
     }).map(({data}) => data.Flow);
 
+    this.flowLogs$ = this.api.getFlowLogs({
+      id: this.flowLogsFlowId$.asObservable()
+    }).map(({data}) => data.Flow);
+
     // Providers list
     // --------------
 
@@ -102,6 +117,17 @@ export class FlowsStateService extends StateService {
         this.flowsSub$.unsubscribe();
       }
     });
+  }
+
+  loadFlowLogs(flowId: string): void {
+    // Show loading indicator while loading providers
+    this.dispatch(this.actions.setLoadingFlowLogs(true));
+    this.flowLogs$.subscribe((providers) => this.dispatch(
+      this.actions.setLoadingFlowLogs(false)
+    ) );
+
+    // Trigger loading the providers
+    this.flowLogsFlowId$.next(flowId);
   }
 
   selectFlow(id: string): void {

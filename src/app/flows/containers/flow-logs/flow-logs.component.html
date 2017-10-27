@@ -1,0 +1,25 @@
+<div id="flow-logs">
+  <div class="header" fxLayout="row" fxLayoutAlign="start center">
+    <h4 fxFlex>Logs</h4>
+
+    <md-spinner *ngIf="state.select('loadingFlowLogs') | async"></md-spinner>
+    <md-icon *ngIf="!(state.select('loadingFlowLogs') | async)" (click)="reloadLogs()">refresh</md-icon>
+
+    <md-icon class="close" [routerLink]="'/flows/' + flowId">close</md-icon>
+  </div>
+
+  <md-list class="runs" *ngIf="runs && runs.length">
+    <md-list-item *ngFor="let run of runs; let last = last" class="run" [class.last]="last" [ngSwitch]="run.status">
+      <md-icon *ngSwitchCase="'running'" class="status running" md-list-icon>autorenew</md-icon>
+      <md-icon *ngSwitchCase="'success'" class="status success" md-list-icon>check</md-icon>
+      <md-icon *ngSwitchCase="'error'" class="status error" md-list-icon>error</md-icon>
+
+      <h6 class="date" md-line>{{run.startedAt * 1000 | date:'dd.MM.yy HH:mm'}}</h6>
+
+      <!-- <md-icon class="toggleOpen">expand_more</md-icon> -->
+    </md-list-item>
+  </md-list>
+  <p *ngIf="runs && !runs.length" class="no-runs" fxLayout="row" fxLayoutAlign="center center">
+    There are no logs yet from this flow.
+  </p>
+</div>

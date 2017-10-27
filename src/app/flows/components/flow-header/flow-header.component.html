@@ -20,20 +20,22 @@
     </button>
   </div>
 
-  <div class="element">
+  <!-- <div class="element"> -->
     <!-- activate flow -->
-  </div>
+  <!-- </div> -->
 
-  <div class="element">
+  <!-- <div class="element"> -->
     <!-- clone flow -->
-  </div>
+  <!-- </div> -->
 
   <div class="element">
-    <!-- schedule flow  -->
+    <button md-icon-button class="logs" [routerLink]="'/flows/' + flow.id + '/logs'" [routerLinkActive]="['active']">
+      <md-icon>restore</md-icon>
+    </button>
   </div>
 
-  <div class="element">
+  <!-- <div class="element"> -->
     <!-- share flow -->
-  </div>
+  <!-- </div> -->
 
 </div>

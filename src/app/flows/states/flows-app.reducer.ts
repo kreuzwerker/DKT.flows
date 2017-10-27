@@ -9,6 +9,7 @@ export interface FlowsAppState {
   provider: Provider;
   loadingFlow: boolean;
   loadingFlows: boolean;
+  loadingFlowLogs: boolean;
   loadingProviders: boolean;
   savingFlow: boolean;
   savedFlow: boolean;
@@ -20,6 +21,7 @@ const initialState: FlowsAppState = {
   provider: null,
   loadingFlow: false,
   loadingFlows: false,
+  loadingFlowLogs: false,
   loadingProviders: false,
   savingFlow: false,
   savedFlow: true,
@@ -76,6 +78,12 @@ export function flowsAppReducer(state = initialState, {type, payload}: Action): 
     case Actions.SET_LOADING_FLOWS: {
       return Object.assign({}, state, {
         loadingFlows: payload
+      });
+    }
+
+    case Actions.SET_LOADING_FLOW_LOGS: {
+      return Object.assign({}, state, {
+        loadingFlowLogs: payload
       });
     }
 

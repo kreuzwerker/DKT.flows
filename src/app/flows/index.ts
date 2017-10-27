@@ -16,6 +16,7 @@ import { CoreModule } from './../core';
 import { FlowsListComponent } from './containers/flows-list/flows-list.component';
 import { FlowsAppComponent } from './containers/flows-app/flows-app.component';
 import { FlowHomeComponent } from './containers/flow-home/flow-home.component';
+import { FlowLogsComponent } from './containers/flow-logs/flow-logs.component';
 import { SelectServiceComponent } from './containers/select-service/select-service.component';
 import { ConfigureStepComponent } from './containers/configure-step/configure-step.component';
 import { TestStepComponent } from './containers/test-step/test-step.component';
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: 'flows/:flowId', component: FlowsAppComponent, canActivate: [LoginGuard],
     children: [
       { path: '', component: FlowHomeComponent },
+      { path: 'logs', component: FlowLogsComponent },
       { path: 'steps/:stepId/select-service', component: SelectServiceComponent },
       { path: 'steps/:stepId/configure', component: ConfigureStepComponent },
       { path: 'steps/:stepId/test', component: TestStepComponent }
@@ -60,6 +62,7 @@ const routes: Routes = [
     FlowsListComponent,
     FlowsAppComponent,
     FlowHomeComponent,
+    FlowLogsComponent,
     SelectServiceComponent,
     ConfigureStepComponent,
     TestStepComponent,

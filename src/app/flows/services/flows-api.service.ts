@@ -11,21 +11,7 @@ import { UUID } from 'angular2-uuid';
 import { cloneDeep, sortBy } from 'lodash';
 
 // GraphQL queries & mutations
-import {
-  getFlowsQuery,
-  FlowsListData,
-  getFlowQuery,
-  createFlowMutation,
-  deleteFlowMutation,
-  restoreFlowMutation,
-  updateStepMutation,
-  addFlowStepMutation,
-  removeFlowStepMutation,
-  testFlowStepMutation,
-  createFlowRunMutation,
-  startFlowRunMutation
-} from './flow.gql';
-import { getProvidersQuery } from './provider.gql';
+import * as gql from './flow.gql';
 
 @Injectable()
 export class FlowsApiService {
@@ -36,7 +22,7 @@ export class FlowsApiService {
 
   public getFlow({id}: {id: string | Observable<string>}): ApolloQueryObservable<any> {
     return this.apollo.watchQuery<any>({
-      query: getFlowQuery,
+      query: gql.getFlowQuery,
       variables: {
         id: id
       },
@@ -48,9 +34,20 @@ export class FlowsApiService {
     });
   }
 
+  public getFlowLogs({id}: {id: string | Observable<string>}): ApolloQueryObservable<any> {
+    return this.apollo.watchQuery<any>({
+      query: gql.getFlowLogsQuery,
+      variables: {
+        id: id
+      },
+      // Always fetch an up-to-date list of tasks from the server
+      fetchPolicy: 'network-only'
+    });
+  }
+
   public getFlows(): ApolloQueryObservable<any> {
     return this.apollo.watchQuery<any>({
-      query: getFlowsQuery,
+      query: gql.getFlowsQuery,
       // Always fetch an up-to-date list of tasks from the server
       fetchPolicy: 'cache-and-network'
     });
@@ -58,7 +55,7 @@ export class FlowsApiService {
 
   public createFlow(flow): Observable<ApolloQueryResult<any>> {
     return this.apollo.mutate<any>({
-      mutation: createFlowMutation,
+      mutation: gql.createFlowMutation,
       variables: flow,
       optimisticResponse: this.optimisticallyAddFlow(flow),
       updateQueries: {
@@ -74,7 +71,7 @@ export class FlowsApiService {
     {flowId}: {flowId: string}
   ): Observable<ApolloQueryResult<any>> {
     return this.apollo.mutate<any>({
-      mutation: deleteFlowMutation,
+      mutation: gql.deleteFlowMutation,
       variables: {
         flowId: flowId,
       },
@@ -92,7 +89,7 @@ export class FlowsApiService {
     {flowId}: {flowId: string}
   ): Observable<ApolloQueryResult<any>> {
     return this.apollo.mutate<any>({
-      mutation: restoreFlowMutation,
+      mutation: gql.restoreFlowMutation,
       variables: {
         flowId: flowId,
       }
@@ -101,7 +98,7 @@ export class FlowsApiService {
 
   public getProviders({id}: {id: string | Observable<string>}): ApolloQueryObservable<any> {
     return this.apollo.watchQuery<any>({
-      query: getProvidersQuery,
+      query: gql.getProvidersQuery,
       variables: {
         // NB fake var to hold back the query until we trigger it via this observable
         id: id
@@ -123,7 +120,7 @@ export class FlowsApiService {
     };
 
     return this.apollo.mutate<any>({
-      mutation: updateStepMutation,
+      mutation: gql.updateStepMutation,
       variables: updatedStepPayload,
       optimisticResponse: this.optimisticallyUpdateStep(updatedStep),
     }).map(({data}) => data.updateStep);
@@ -141,7 +138,7 @@ export class FlowsApiService {
     });
 
     return this.apollo.mutate<any>({
-      mutation: addFlowStepMutation,
+      mutation: gql.addFlowStepMutation,
       variables: newStepPayload,
       optimisticResponse: this.optimisticallyAddStep(
         newStep,
@@ -166,7 +163,7 @@ export class FlowsApiService {
     });
 
     return this.apollo.mutate<any>({
-      mutation: removeFlowStepMutation,
+      mutation: gql.removeFlowStepMutation,
       variables: {
         stepId: step.id,
       },
@@ -187,7 +184,7 @@ export class FlowsApiService {
 
   public testFlowStep(stepId: String, payload: String): Observable<ApolloQueryResult<any>> {
     return this.apollo.mutate<any>({
-      mutation: testFlowStepMutation,
+      mutation: gql.testFlowStepMutation,
       variables: {
         id: stepId,
         payload: payload,
@@ -208,7 +205,7 @@ export class FlowsApiService {
     userId: string
   ): Observable<ApolloQueryResult<any>> {
     return this.apollo.mutate<any>({
-      mutation: createFlowRunMutation,
+      mutation: gql.createFlowRunMutation,
       variables: {
         flowId: flowId,
         userId: userId
@@ -221,7 +218,7 @@ export class FlowsApiService {
     payload: Object
   ): Observable<ApolloQueryResult<any>> {
     return this.apollo.mutate<any>({
-      mutation: startFlowRunMutation,
+      mutation: gql.startFlowRunMutation,
       variables: {
         flowRunId: flowRunId,
         payload: payload,

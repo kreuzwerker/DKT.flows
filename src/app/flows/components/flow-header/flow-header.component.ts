@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { FlowsAppService } from './../../services';
 import { Flow } from './../../models/flow.model';
 import * as helpers from './../../utils/flow.helpers';

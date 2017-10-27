@@ -50,15 +50,19 @@ div.controls {
     div.element {
       display:inline-block;
 
-      &:not(:first-child) {
-        padding-left: 10px;
-      }
+      // &:not(:first-child) {
+      //   padding-left: 10px;
+      // }
 
       &:not(:last-child) {
         padding-right: 10px;
         border-right: $border;
       }
-    }
+
+      button.active {
+        color: $blue;
+      }
+  }
 
     button.play {
       width: 30px;

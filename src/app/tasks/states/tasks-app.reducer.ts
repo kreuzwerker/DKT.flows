@@ -4,10 +4,14 @@ import { Task } from '../models';
 
 export interface TasksAppState {
   task: Task;
+  loadingTasks: boolean;
+  loadingTaskItem: boolean;
 }
 
 const initialState: TasksAppState = {
   task: null,
+  loadingTasks: false,
+  loadingTaskItem: false
 };
 
 export function tasksAppReducer(state = initialState, {type, payload}: Action): TasksAppState {

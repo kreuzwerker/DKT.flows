@@ -1,5 +1,9 @@
 import gql from 'graphql-tag';
 
+/**
+ * Fragments
+ */
+
 export const flowsItemFragment = gql`
   fragment FlowsItem on Flow {
     id
@@ -11,18 +15,18 @@ export const flowsItemFragment = gql`
 
 
 export const serviceConfigSchemaFragment = gql`
-fragment ServiceConfigSchema on ServiceConfigSchema {
-  fieldId,
-  type,
-  label,
-  position,
-  defaultValue,
-  required,
-  options {
+  fragment ServiceConfigSchema on ServiceConfigSchema {
+    fieldId,
+    type,
     label,
-    value,
-  },
-}
+    position,
+    defaultValue,
+    required,
+    options {
+      label,
+      value,
+    },
+  }
 `;
 
 export const getFlowsQuery = gql`
@@ -72,6 +76,10 @@ export const flowStepFragment = gql`
   ${serviceConfigSchemaFragment}
 `;
 
+/**
+ * Queries
+ */
+
 export const getFlowQuery = gql`
   query FlowQuery($id: ID) {
     Flow(id: $id) {
@@ -90,6 +98,56 @@ export const getFlowQuery = gql`
 
   ${flowStepFragment}
 `;
+
+export const getFlowLogsQuery = gql`
+  query FlowQuery($id: ID) {
+    Flow(id: $id) {
+      id,
+      flowRuns {
+        id
+        status
+        message
+        runs {
+          id
+          status
+          logs {
+            steps {
+              id
+              position
+              status
+              message
+              timestamp
+            }
+          }
+          result
+          startedAt
+          finishedAt
+        }
+      }
+    }
+  }
+`;
+
+export const getProvidersQuery = gql`
+query ProvidersQuery {
+  allProviders {
+    id,
+    name,
+    description,
+    icon,
+    services {
+      id,
+      name,
+      description,
+      type
+    }
+  }
+}
+`;
+
+/**
+ * Mutations
+ */
 
 export const createFlowMutation = gql`
   mutation createFlow(

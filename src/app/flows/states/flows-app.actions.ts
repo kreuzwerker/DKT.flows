@@ -72,6 +72,14 @@ export class FlowsAppActions {
     };
   }
 
+  static SET_LOADING_FLOW_LOGS = 'SET_LOADING_FLOW_LOGS';
+  setLoadingFlowLogs(loading: boolean) {
+    return {
+      type: FlowsAppActions.SET_LOADING_FLOW_LOGS,
+      payload: loading
+    };
+  }
+
   static SET_LOADING_PROVIDERS = 'SET_LOADING_PROVIDERS';
   setLoadingProviders(loading: boolean) {
     return {

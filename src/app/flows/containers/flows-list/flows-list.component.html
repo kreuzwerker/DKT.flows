@@ -42,6 +42,10 @@
             <md-icon>edit</md-icon>
             <span>Edit</span>
           </button>
+          <button md-menu-item routerLink="/flows/{{flow.id}}/logs">
+            <md-icon>restore</md-icon>
+            <span>View logs</span>
+          </button>
           <button md-menu-item class="delete" (click)="openDeleteFlowDialog(flow.id, flow.name)">
             <md-icon>delete</md-icon>
             <span>Delete</span>
