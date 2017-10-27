@@ -7,5 +7,5 @@ export const awsConfig = {
 
 // The conig params passed into gapi.auth2.init()
 export const googleSignInConfig = {
-  client_id: '14644669840-nbgv2phc81i3uh7grv819hkcumk9b185.apps.googleusercontent.com',
+  client_id: '80509489928-5jfot5jofssqgd36cqt6jh8udqapb5f8.apps.googleusercontent.com',
 };
