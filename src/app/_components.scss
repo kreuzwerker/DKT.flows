@@ -60,6 +60,7 @@ span.label {
   // Grey 100
   border:1px solid $element-border-color;
   border-radius: 4px;
+  animation: FadeIn 0.2s;
 
   h6.message {
     margin: 1rem 0;
