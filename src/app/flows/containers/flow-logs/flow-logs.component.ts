@@ -19,6 +19,7 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
   flowLogsSub$: Subscription;
 
   runs: Run[] = null;
+  showDetails: Run = null;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -66,6 +67,10 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
 
   reloadLogs() {
     this.state.loadFlowLogs(this.flowId);
+  }
+
+  toggleRunDetails(run: Run) {
+    this.showDetails = run === this.showDetails ? null : run;
   }
 
   ngOnDestroy(): void {

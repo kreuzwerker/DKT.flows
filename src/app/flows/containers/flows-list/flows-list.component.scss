@@ -98,7 +98,7 @@ md-list.flows .flow-list-item {
   animation: FadeIn 0.3s;
 
   &:hover {
-    background-color:#f7f7f7;
+    background-color:$list-item-hover-bg-color;
   }
 
   .mat-list-text {

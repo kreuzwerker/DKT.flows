@@ -16,7 +16,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
       cursor: pointer;
       outline: none;
       margin-left: 5px;
-  
+
       &:hover {
         color: $dark-blue;
       }
@@ -29,7 +29,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
     } 
   }
 
-  md-list.runs {
+  div.runs {
     padding-top: 0;
     margin: 1rem 0;
     border: 1px solid $list-item-border-color;
@@ -38,26 +38,82 @@ https://github.com/jtangelder/sass-loader/issues/211 */
     background-color: white;
     animation: FadeIn 0.2s;
 
-    md-list-item.run {
+    div.run {
       border-bottom: 1px solid $list-item-border-color;
 
       &.last {
         border-bottom: none;
       }
 
-      md-icon.status {
-        &.running {
-          animation: Spin 1.2s infinite linear;
-          color: $blue;
+      md-icon.show-less {
+        display: none;
+      }
+
+      &.show-details {
+        md-icon.show-more {
+          display: none;
         }
-  
-        &.success {
-          color: $success-bg-color;
+
+        md-icon.show-less {
+          display: flex;
         }
-  
-        &.error {
-          color: $error-bg-color;
+
+        div.run-header {
+          background-color: $light-blue;
         }
+
+        div.run-details {
+          max-height: 400px;
+        }
+      }
+
+      div.run-header {
+        cursor: pointer;
+
+        & > * {
+          margin: 1rem;
+        }
+
+        md-icon.status {
+          &.running {
+            animation: Spin 1.2s infinite linear;
+            color: $blue;
+          }
+
+          &.success {
+            color: $success-bg-color;
+          }
+
+          &.error {
+            color: $error-bg-color;
+          }
+        }
+
+        md-icon.toggle {
+          color: $dark-grey;
+        }
+
+        &:hover {
+          background-color: $list-item-hover-bg-color;
+
+          md-icon.toggle {
+            color: $dark-blue;
+          }
+        }
+      }
+
+      div.run-details {
+        overflow-y: hidden;
+        transition: max-height 0.3s ease-in;
+        max-height: 0px;
+
+        // &.slide-in {
+        //   max-height: 400px;
+        // }
+
+        // &.slide-out {
+        //   max-height: 0px;
+        // }
       }
     }
   }
