@@ -59,25 +59,33 @@ div.controls {
         border-right: $border;
       }
 
+      button.play {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        margin: 5px 0;
+        background-color: $primary-color;
+
+        md-icon {
+          font-size: 20px;
+          color: $element-bg-color;
+        }
+
+        &.locked {
+          background-color: $inactive-button-color;
+        }
+      }
+
+      button:not(.play) {
+        color: $dark-grey;
+
+        &:hover {
+          color: $dark-blue;
+        }
+      }
+
       button.active {
         color: $blue;
-      }
-  }
-
-    button.play {
-      width: 30px;
-      height: 30px;
-      line-height: 30px;
-      margin: 5px 0;
-      background-color: $primary-color;
-
-      md-icon {
-        font-size: 20px;
-        color: $element-bg-color;
-      }
-
-      &.locked {
-        background-color: $inactive-button-color;
       }
     }
   }
