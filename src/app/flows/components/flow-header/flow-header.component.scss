@@ -2,6 +2,10 @@
 https://github.com/jtangelder/sass-loader/issues/211 */
 @import '../../../variables';
 
+div.flow-header {
+  height: 146px;
+}
+
 h4 {
   margin: 0 0 1rem 0;
 }

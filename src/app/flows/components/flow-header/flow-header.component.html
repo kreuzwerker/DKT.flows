@@ -1,43 +1,45 @@
-<div class="padding">
-  <h4>{{flow.name}}</h4>
-  <p>{{flow.description}}</p>
-</div>
-
-<div [class.slide-in]="flow.draft" [class.slide-out]="!flow.draft" class="draft controls">
-  <button md-raised-button color="primary" class="save" (click)="onSaveFlowDraft.emit()" [disabled]="disableDraftControls || disableDeployControl">
-    <md-icon>publish</md-icon>
-    Deploy
-  </button>
-  <span>or</span>
-  <button md-raised-button class="discard" (click)="onDiscardFlowDraft.emit()" [disabled]="disableDraftControls">
-    discard
-  </button>
-  <span>changes</span>
-</div>
-
-<div class="flow controls">
-  <div class="element">
-    <button md-icon-button class="play" [class.locked]="isManualFlowRunLocked()" (click)="onTriggerFlowRun.emit()">
-      <md-icon>play_arrow</md-icon>
-    </button>
-  </div>
-
-  <!-- <div class="element"> -->
-    <!-- activate flow -->
-  <!-- </div> -->
-
-  <!-- <div class="element"> -->
-    <!-- clone flow -->
-  <!-- </div> -->
-
-  <div class="element">
-    <button md-icon-button class="logs" [routerLink]="'/flows/' + flow.id + '/logs'" [routerLinkActive]="['active']">
-      <md-icon>restore</md-icon>
-    </button>
-  </div>
-
-  <!-- <div class="element"> -->
-    <!-- share flow -->
-  <!-- </div> -->
-
+<div class="flow-header">
+  <div class="padding">
+      <h4>{{flow.name}}</h4>
+      <p>{{truncate(flow.description)}}</p>
+    </div>
+    
+    <div [class.slide-in]="flow.draft" [class.slide-out]="!flow.draft" class="draft controls">
+      <button md-raised-button color="primary" class="save" (click)="onSaveFlowDraft.emit()" [disabled]="disableDraftControls || disableDeployControl">
+        <md-icon>publish</md-icon>
+        Deploy
+      </button>
+      <span>or</span>
+      <button md-raised-button class="discard" (click)="onDiscardFlowDraft.emit()" [disabled]="disableDraftControls">
+        discard
+      </button>
+      <span>changes</span>
+    </div>
+    
+    <div class="flow controls">
+      <div class="element">
+        <button md-icon-button class="play" [class.locked]="isManualFlowRunLocked()" (click)="onTriggerFlowRun.emit()">
+          <md-icon>play_arrow</md-icon>
+        </button>
+      </div>
+    
+      <!-- <div class="element"> -->
+        <!-- activate flow -->
+      <!-- </div> -->
+    
+      <!-- <div class="element"> -->
+        <!-- clone flow -->
+      <!-- </div> -->
+    
+      <div class="element">
+        <button md-icon-button class="logs" [routerLink]="'/flows/' + flow.id + '/logs'" [routerLinkActive]="['active']">
+          <md-icon>restore</md-icon>
+        </button>
+      </div>
+    
+      <!-- <div class="element"> -->
+        <!-- share flow -->
+      <!-- </div> -->
+    
+    </div>
 </div>

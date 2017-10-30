@@ -25,4 +25,8 @@ export class FlowHeaderComponent {
   isManualFlowRunLocked(): boolean {
     return this.flow.draft || !helpers.flowIsExecutable(this.flow);
   }
+
+  truncate(str: string): string {
+    return (str && str.length > 70) ? str.substring(0, 70) + '...' : str;
+  }
 }
