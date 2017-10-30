@@ -34,26 +34,27 @@ $step-item-control-top-margin: 0.5rem;
 .steps {
   position: relative;
   padding-top: 1rem;
-
-  // Vertical line
-  &:before {
-    content: '';
-    position: absolute;
-    z-index:0;
-    top: 0em;
-    bottom: 1em;
-    left: 1rem;
-    width: 3px;
-    background-color: $steps-line-bg-color;
-  }
+  overflow-y: auto;
+  max-height:calc(100vh - 238px);
 
   .step {
     position: relative;
     margin-bottom:5rem;
     margin-left: 3rem;
 
+    &:before {
+      content: '';
+      position: absolute;
+      z-index:0;
+      top: -1.5rem;
+      bottom: -3.5rem;
+      left: -2rem;
+      width: 3px;
+      background-color: $steps-line-bg-color;
+    }
+
     &.last {
-      margin-bottom:1rem;
+      margin-bottom:1.4rem;
     }
 
     .position, button.add {
