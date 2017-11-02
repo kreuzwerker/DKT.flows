@@ -1,5 +1,5 @@
 import { Step, StepData } from './step.model';
-import { FlowRun } from './flow-run.model';
+import { FlowRun, Run } from './flow-run.model';
 
 // NB keep properties in sync with createFlowObject()
 export class Flow {
@@ -9,6 +9,8 @@ export class Flow {
   draft?: boolean;
   steps?: Array<Step>;
   lastFlowRun?: FlowRun;
+  runs?: Run[];
+  runsCount?: number;
 }
 
 export interface FlowData {
@@ -18,6 +20,8 @@ export interface FlowData {
   draft?: boolean;
   steps?: Array<StepData>;
   lastFlowRun?: FlowRun;
+  runs?: Run[];
+  runsCount?: number;
 }
 
 export enum FlowState {

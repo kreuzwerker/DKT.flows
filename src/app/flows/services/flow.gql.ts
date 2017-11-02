@@ -100,30 +100,26 @@ export const getFlowQuery = gql`
 `;
 
 export const getFlowLogsQuery = gql`
-  query FlowQuery($id: ID) {
+  query FlowQuery($id: ID, $offset: Int, $limit: Int, $status: String) {
     Flow(id: $id) {
       id,
-      flowRuns {
+      runs(offset: $offset, limit: $limit, status: $status) {
         id
         status
-        message
-        runs {
-          id
-          status
-          logs {
-            steps {
-              id
-              position
-              status
-              message
-              timestamp
-            }
+        logs {
+          steps {
+            id
+            position
+            status
+            message
+            timestamp
           }
-          result
-          startedAt
-          finishedAt
         }
+        result
+        startedAt
+        finishedAt
       }
+      runsCount(status: $status)
     }
   }
 `;

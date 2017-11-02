@@ -1,11 +1,15 @@
 /* tslint:disable: ter-max-len */
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs';
 import { sortBy } from 'lodash';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
 import { Flow, Run } from './../../models';
+
+type LogStatus = 'all' | 'success' | 'running' | 'error';
 
 @Component({
   selector: 'flow-logs',
@@ -19,11 +23,19 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
   flowLogsSub$: Subscription;
 
   runs: Run[] = null;
+
+  // State
+  runsCount: number = 0;
+  offset: number = 0;
+  requestedOffset: number = 0;
+  limit: number = 5;
+  status: LogStatus;
   showDetails: Run = null;
 
   constructor(
     private cd: ChangeDetectorRef,
     public flowsApp: FlowsAppService,
+    public route: ActivatedRoute,
     public state: FlowsStateService,
   ) { }
 
@@ -31,50 +43,64 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
     // Register current step preparation stage
     this.flowsApp.setStepStage(null);
 
-    this.flowLogsSub$ = this.state.flowLogs$.subscribe(
-      this.onLoadFlowLogs.bind(this),
-      (err) => console.log('error', err)
-    );
-
-    this.state.select('flowId').takeUntil(this.ngOnDestroy$).subscribe(
-      this.onRequestFlow.bind(this),
+    // Both flowId and status params must be present
+    Observable.combineLatest(
+      this.state.select('flowId').takeUntil(this.ngOnDestroy$),
+      this.route.params.takeUntil(this.ngOnDestroy$).map(params => params['status']),
+      (flowId, status) => ({flowId: flowId, status: status})
+    ).takeUntil(this.ngOnDestroy$).subscribe(
+      this.onRequestFlowLogs.bind(this),
       (err) => console.log('error', err)
     );
   }
 
-  onRequestFlow(flowId: string) {
+  onRequestFlowLogs({flowId, status}: {flowId: string, status: LogStatus}) {
     if (flowId) {
-      this.state.loadFlowLogs(flowId);
+      if (this.flowLogsSub$) {
+        this.flowLogsSub$.unsubscribe();
+      }
+
+      this.state.loadFlowLogs(flowId, this.offset, this.limit, status);
+      this.flowLogsSub$ = this.state.flowLogs$.subscribe(
+        this.onLoadFlowLogs.bind(this),
+        (err) => console.log('error', err)
+      );
     }
+
+    this.status = status;
     this.flowId = flowId;
     this.cd.markForCheck();
   }
 
   onLoadFlowLogs(flow) {
-    // Get flat list of runs from all flowRuns
-    this.runs = flow.flowRuns.reduce((runs, flowRun) => {
-      if (flowRun.runs) {
-        flowRun.runs.forEach( run => {
-          runs.push(run);
-        });
-      }
-      return runs;
-    }, []);
-
-    this.runs = sortBy(this.runs, 'startedAt').reverse();
+    this.runs = flow.runs;
+    this.runsCount = flow.runsCount;
+    this.offset = this.requestedOffset;
     this.cd.markForCheck();
   }
 
   reloadLogs() {
-    this.state.loadFlowLogs(this.flowId);
+    this.state.loadFlowLogs(this.flowId, this.offset, this.limit, this.status);
   }
 
-  toggleRunDetails(run: Run) {
-    this.showDetails = run === this.showDetails ? null : run;
+  fetchMoreLogs(offset: number) {
+    // Wait with updating the current offset until the result set arrives.
+    // Otherwise the state of the logs list and the pagination buttons don't
+    // match.
+    this.requestedOffset = offset;
+    this.state.fetchMoreLogs(offset);
   }
 
   ngOnDestroy(): void {
     this.ngOnDestroy$.next(true);
     this.flowLogsSub$.unsubscribe();
+  }
+
+  /*
+    Helpers
+   */
+
+  toggleRunDetails(run: Run) {
+    this.showDetails = run === this.showDetails ? null : run;
   }
 }

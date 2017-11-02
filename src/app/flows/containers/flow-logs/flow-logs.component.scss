@@ -21,6 +21,24 @@ https://github.com/jtangelder/sass-loader/issues/211 */
         color: $dark-blue;
       }
     }
+
+    div.filters {
+      margin: 0 1rem;
+
+      a {
+        color: $dark-grey;
+        margin: 0 0.5rem;
+
+        &:hover {
+          color: $blue;
+        }
+
+        &.active {
+          color: $blue;
+          font-weight: bold;
+        }
+      }
+    }
   
     md-spinner {
       display: inline-block;
@@ -114,6 +132,15 @@ https://github.com/jtangelder/sass-loader/issues/211 */
         // &.slide-out {
         //   max-height: 0px;
         // }
+      }
+    }
+  }
+
+  div.nav {
+    button {
+      margin: 0 0.5em;
+      md-icon {
+        color: $dark-grey;
       }
     }
   }

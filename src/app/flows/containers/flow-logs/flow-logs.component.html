@@ -1,35 +1,55 @@
 <div id="flow-logs">
-  <div class="header" fxLayout="row" fxLayoutAlign="start center">
-    <h4 fxFlex>Logs</h4>
+  <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+    <h4>Logs</h4>
 
-    <md-spinner *ngIf="state.select('loadingFlowLogs') | async"></md-spinner>
-    <md-icon *ngIf="!(state.select('loadingFlowLogs') | async)" (click)="reloadLogs()">refresh</md-icon>
+    <div class="filters" fxLayout="row" fxLayoutAlign="center center">
+      <a [routerLink]="'/flows/' + flowId + '/logs'" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">All</a>
+      <a [routerLink]="'/flows/' + flowId + '/logs/success'" [routerLinkActive]="['active']">Success</a>
+      <a [routerLink]="'/flows/' + flowId + '/logs/running'" [routerLinkActive]="['active']">Running</a>
+      <a [routerLink]="'/flows/' + flowId + '/logs/error'" [routerLinkActive]="['active']">Error</a>
+    </div>
 
-    <md-icon class="close" [routerLink]="'/flows/' + flowId">close</md-icon>
-  </div>
-
-  <div class="runs" *ngIf="runs && runs.length">
-    <div *ngFor="let run of runs; let last = last" class="run" [class.last]="last" [class.show-details]="showDetails == run" [ngSwitch]="run.status">
-      <div class="run-header" (click)="toggleRunDetails(run)" fxLayout="row" fxLayoutAlign="start center">
-        <md-icon *ngSwitchCase="'running'" class="status running" md-list-icon>autorenew</md-icon>
-        <md-icon *ngSwitchCase="'success'" class="status success" md-list-icon>check</md-icon>
-        <md-icon *ngSwitchCase="'error'" class="status error" md-list-icon>error</md-icon>
-
-        <h6 class="date" fxFlex md-line>{{run.startedAt * 1000 | date:'dd.MM.yy HH:mm'}}</h6>
-
-        <md-icon class="toggle show-more">expand_more</md-icon>
-        <md-icon class="toggle show-less">expand_less</md-icon>
-      </div>
-      <div class="run-details" [class.slide-in]="show" [class.slide-out]="!show">
-        <p>DETAILS</p>
-        <p>DETAILS</p>
-        <p>DETAILS</p>
-        <p>DETAILS</p>
-        <p>DETAILS</p>
-        <p>DETAILS</p>
-      </div>
+    <div>
+      <md-spinner *ngIf="state.select('loadingFlowLogs') | async"></md-spinner>
+      <md-icon *ngIf="!(state.select('loadingFlowLogs') | async)" (click)="reloadLogs()">refresh</md-icon>
+      <md-icon class="close" [routerLink]="'/flows/' + flowId">close</md-icon>
     </div>
   </div>
+
+  <div *ngIf="runs && runs.length">
+    <div class="runs">
+      <div *ngFor="let run of runs; let last = last" class="run" [class.last]="last" [class.show-details]="showDetails == run" [ngSwitch]="run.status">
+        <div class="run-header" (click)="toggleRunDetails(run)" fxLayout="row" fxLayoutAlign="start center">
+          <md-icon *ngSwitchCase="'running'" class="status running" md-list-icon>autorenew</md-icon>
+          <md-icon *ngSwitchCase="'success'" class="status success" md-list-icon>check</md-icon>
+          <md-icon *ngSwitchCase="'error'" class="status error" md-list-icon>error</md-icon>
+
+          <h6 class="date" fxFlex md-line>{{run.startedAt * 1000 | date:'dd.MM.yy HH:mm'}}</h6>
+
+          <md-icon class="toggle show-more">expand_more</md-icon>
+          <md-icon class="toggle show-less">expand_less</md-icon>
+        </div>
+        <div class="run-details" [class.slide-in]="show" [class.slide-out]="!show">
+          <div *ngIf="run.status == 'error'">
+            <p>IF error: show error message</p>
+            <p>IF error: show step config</p>
+          </div>
+          <p>Show log details</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav" fxLayout="row" fxLayoutAlign="center center">
+      <button [style.visibility]="offset > 0 ? 'visible' : 'hidden'" md-raised-button (click)="fetchMoreLogs(offset - limit)">
+        <md-icon>keyboard_arrow_left</md-icon>
+        Newer
+      </button>
+      <button [style.visibility]="(runsCount >= (offset + limit)) ? 'visible' : 'hidden'" md-raised-button (click)="fetchMoreLogs(offset + limit)">
+        Older
+        <md-icon>keyboard_arrow_right</md-icon>
+      </button>
+    </div>
+  </div>
+
   <p *ngIf="runs && !runs.length" class="no-runs" fxLayout="row" fxLayoutAlign="center center">
     There are no logs yet from this flow.
   </p>

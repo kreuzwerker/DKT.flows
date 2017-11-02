@@ -6,6 +6,7 @@ import { Subject } from 'rxjs/Subject';
 import * as lodash from 'lodash';
 
 import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryObservable } from 'apollo-angular';
 import { NgRedux, select } from '@angular-redux/store';
 import { AppState, Action } from './../../reducers';
 import { StateService } from './../../core/services';
@@ -38,7 +39,7 @@ export class FlowsStateService extends StateService {
   flow$: Observable<Flow>;
   flowSub$: Subscription;
   // Flow logs
-  flowLogsFlowId$ = new Subject<string>();
+  flowLogsQuery$: ApolloQueryObservable<any>;
   flowLogs$: Observable<Flow[]>;
   // Available providers
   providers$: Observable<Provider[]>;
@@ -80,10 +81,6 @@ export class FlowsStateService extends StateService {
       id: this.select('flowId').filter((flowId) => flowId !== null)
     }).map(({data}) => data.Flow);
 
-    this.flowLogs$ = this.api.getFlowLogs({
-      id: this.flowLogsFlowId$.asObservable()
-    }).map(({data}) => data.Flow);
-
     // Providers list
     // --------------
 
@@ -119,15 +116,42 @@ export class FlowsStateService extends StateService {
     });
   }
 
-  loadFlowLogs(flowId: string): void {
+  loadFlowLogs(flowId: string, offset: number, limit: number, status: string): void {
     // Show loading indicator while loading providers
     this.dispatch(this.actions.setLoadingFlowLogs(true));
-    this.flowLogs$.subscribe((providers) => this.dispatch(
-      this.actions.setLoadingFlowLogs(false)
-    ) );
 
-    // Trigger loading the providers
-    this.flowLogsFlowId$.next(flowId);
+    this.flowLogsQuery$ = this.api.getFlowLogs(flowId, offset, limit, status);
+    this.flowLogs$ = this.flowLogsQuery$
+      .map(({data}) => data.Flow);
+
+    const flowLogsSub$ = this.flowLogs$.subscribe((providers) => {
+      this.dispatch(this.actions.setLoadingFlowLogs(false));
+      flowLogsSub$.unsubscribe();
+    });
+  }
+
+  fetchMoreLogs(offset: number = 0) {
+    // Show loading indicator while loading providers
+    this.dispatch(this.actions.setLoadingFlowLogs(true));
+
+    this.flowLogsQuery$.fetchMore({
+      variables: {
+        offset: offset,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) { return prev; }
+        return {
+          Flow: Object.assign({}, prev.Flow, {
+            runs: fetchMoreResult.Flow.runs
+          })
+        };
+      },
+    }).then((flow) => {
+      this.dispatch(this.actions.setLoadingFlowLogs(false));
+    })
+    .catch((err) => {
+      this.dispatch(this.actions.setLoadingFlowLogs(false));
+    });
   }
 
   selectFlow(id: string): void {

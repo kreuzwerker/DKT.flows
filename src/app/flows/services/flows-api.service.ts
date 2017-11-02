@@ -34,11 +34,16 @@ export class FlowsApiService {
     });
   }
 
-  public getFlowLogs({id}: {id: string | Observable<string>}): ApolloQueryObservable<any> {
+  public getFlowLogs(
+    id: string, offset: number, limit: number, status: string
+  ): ApolloQueryObservable<any> {
     return this.apollo.watchQuery<any>({
       query: gql.getFlowLogsQuery,
       variables: {
-        id: id
+        id: id,
+        offset: offset,
+        limit: limit,
+        status: status
       },
       // Always fetch an up-to-date list of tasks from the server
       fetchPolicy: 'network-only'

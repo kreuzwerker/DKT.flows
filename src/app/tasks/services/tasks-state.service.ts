@@ -32,7 +32,6 @@ export class TasksStateService extends StateService {
   taskItem$: Observable<ApolloQueryResult<any>> = this.api.getTaskItem(
     this.taskItemId$.asObservable()
   );
-  taskItemSub$: Subscription;
 
   constructor(
     private api: TasksApiService,
@@ -76,10 +75,10 @@ export class TasksStateService extends StateService {
     const showLoadingIndicator = setTimeout(
       () => this.dispatch(this.actions.setLoadingTaskItem(true))
     , 1);
-    this.taskItemSub$ = this.taskItem$.subscribe((response) => {
+    const taskItemSub$ = this.taskItem$.subscribe((response) => {
       clearTimeout(showLoadingIndicator);
       this.dispatch(this.actions.setLoadingTaskItem(false));
-      this.taskItemSub$.unsubscribe();
+      taskItemSub$.unsubscribe();
     });
 
     // Fetch the item of the given task
