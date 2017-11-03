@@ -22,7 +22,7 @@ const authMiddleware = {
     // authenticated with Google SignIn.
     //
     // console.log('idToken', UserLoginService.getIdToken());
-    // req.options.headers['authorization'] = UserLoginService.getIdToken();
+    req.options.headers['authorization'] = UserLoginService.getIdToken();
     next();
   }
 };
