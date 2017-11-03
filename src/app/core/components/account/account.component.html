@@ -6,7 +6,11 @@
 </md-menu>
 
 <button md-button [mdMenuTriggerFor]="userMenu">
-  <img *ngIf="getAvatar() " class="avatar" [src]="getAvatar()" alt="">
+  <img *ngIf="getAvatar(); else userAvatar" class="avatar" [src]="getAvatar()" alt="">
+  <ng-template #userAvatar>
+    <md-icon>account_circle</md-icon>
+  </ng-template>
+
   <span class="username" fxHide.sm>{{getUsername()}}</span>
   <md-icon>keyboard_arrow_down</md-icon>
 </button>
