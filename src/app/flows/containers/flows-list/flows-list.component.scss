@@ -112,23 +112,28 @@ md-list.flows .flow-list-item {
     margin: 0 1rem!important;
   }
 
-  md-icon.chevron {
-    color: #999;
-  }
+  div.steps-summary {
+    width: 250px;
 
-  div.steps-count {
-    display: inline-block;
-    background-color: $list-item-border-color;
-    color: #666;
-    font-weight: bold;
-    text-align: center;
-    font-size:1rem;
-    min-width: 28px!important;
-    max-width: 28px!important;
-    min-height: 28px!important;
-    max-height: 28px!important;
-    line-height: 28px;
-    padding: 0;
+    md-icon.chevron {
+      color: #999;
+    }
+
+    div.steps-count {
+      display: inline-block;
+      border: 2px solid $list-item-border-color;
+      border-radius: 50%;
+      color: #666;
+      font-weight: bold;
+      text-align: center;
+      font-size:1rem;
+      min-width: 28px!important;
+      max-width: 28px!important;
+      min-height: 28px!important;
+      max-height: 28px!important;
+      line-height: 28px;
+      padding: 0;
+    }
   }
 
   .label {

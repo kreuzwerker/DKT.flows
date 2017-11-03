@@ -20,12 +20,18 @@
 
     <md-list class="flows" *ngIf="state.flows$ | async as flows">
       <md-list-item *ngFor="let flow of flows.data" class="flow-list-item">
-        <!--<md-icon md-list-icon class="first-step">rss_feed</md-icon>-->
-        <!--<md-icon md-list-icon class="chevron">chevron_right</md-icon>-->
-        <!--<div md-list-icon class="steps-count">1</div>-->
-        <!--<md-icon md-list-icon class="chevron">chevron_right</md-icon>-->
-        <!--<md-icon md-list-icon class="last-step">description</md-icon>-->
-        <!--<div md-list-icon class="seperator"></div>-->
+        <div md-list-icon class="steps-summary" fxLayout="row" fxLayoutAlign="center center">
+          <md-icon class="first-step">{{getFirstStepIcon(flow)}}</md-icon>
+
+          <md-icon *ngIf="flow.steps.length > 2" class="chevron">chevron_right</md-icon>
+          <div *ngIf="flow.steps.length > 2" class="steps-count">{{flow.steps.length - 2}}</div>
+
+          <md-icon *ngIf="flow.steps.length > 1" class="chevron">chevron_right</md-icon>
+          <md-icon *ngIf="flow.steps.length > 1" class="last-step">{{getLastStepIcon(flow)}}</md-icon>
+        </div>
+
+        <div md-list-icon class="seperator"></div>
+
         <h6 md-line>
           <div *ngIf="flowHelpers.flowHasError(flow)" class="label error">error</div>
           <div *ngIf="flowHelpers.flowIsInDraft(flow)" class="label draft">draft</div>

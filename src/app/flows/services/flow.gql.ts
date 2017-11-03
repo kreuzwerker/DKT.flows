@@ -10,6 +10,13 @@ export const flowsItemFragment = gql`
     name
     description
     draft
+    steps {
+      service {
+        provider {
+          icon
+        }
+      }
+    }
   }
 `;
 

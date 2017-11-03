@@ -26,13 +26,13 @@ export class FlowsListComponent implements OnInit, OnDestroy {
     public state: FlowsStateService,
     public router: Router,
     public dialog: MdDialog,
-    public snackBar: MdSnackBar,
+    public snackBar: MdSnackBar
   ) {
-    this.state.createdFlow$.takeUntil(this.ngOnDestroy$)
-    .subscribe(
-      this.onCreatedFlow.bind(this),
-      (err) => console.log('error', err)
-    );
+    this.state.createdFlow$
+      .takeUntil(this.ngOnDestroy$)
+      .subscribe(this.onCreatedFlow.bind(this), err =>
+        console.log('error', err)
+      );
 
     this.dialogConfig = new MdDialogConfig();
     this.dialogConfig.width = '450px';
@@ -78,7 +78,10 @@ export class FlowsListComponent implements OnInit, OnDestroy {
   }
 
   openDeleteFlowDialog(id: string, name: string) {
-    let dialogRef = this.dialog.open(DeleteFlowDialogComponent, this.dialogConfig);
+    let dialogRef = this.dialog.open(
+      DeleteFlowDialogComponent,
+      this.dialogConfig
+    );
     dialogRef.componentInstance.name = name;
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm) {
@@ -92,5 +95,35 @@ export class FlowsListComponent implements OnInit, OnDestroy {
     let config = new MdSnackBarConfig();
     config.duration = 2000;
     this.snackBar.open(message, 'OK', config);
+  }
+
+  /*
+    Flow steps summary
+  */
+
+  getFirstStepIcon(flow: Flow): string {
+    if (
+      !flow.steps[0] ||
+      !flow.steps[0].service ||
+      !flow.steps[0].service.provider ||
+      !flow.steps[0].service.provider.icon
+    ) {
+      return 'help';
+    }
+
+    return flow.steps[0].service.provider.icon;
+  }
+
+  getLastStepIcon(flow: Flow): string {
+    if (
+      !flow.steps[flow.steps.length - 1] ||
+      !flow.steps[flow.steps.length - 1].service ||
+      !flow.steps[flow.steps.length - 1].service.provider ||
+      !flow.steps[flow.steps.length - 1].service.provider.icon
+    ) {
+      return 'help';
+    }
+
+    return flow.steps[flow.steps.length - 1].service.provider.icon;
   }
 }
