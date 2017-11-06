@@ -124,7 +124,7 @@
     "s3-deploy": "^0.7.3",
     "sjcl": "^1.0.6",
     "web-animations-js": "^2.2.2",
-    "zone.js": "~0.8.9"
+    "zone.js": "^0.8.18"
   },
   "devDependencies": {
     "@types/express": "~4.0.35",
