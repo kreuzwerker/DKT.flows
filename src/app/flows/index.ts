@@ -34,6 +34,7 @@ import { ProviderDetailComponent } from './components/provider-detail/provider-d
 import { ProviderIconComponent } from './components/provider-icon/provider-icon.component';
 import { ServiceItemComponent } from './components/service-item/service-item.component';
 import { StatusMessageComponent } from './components/status-message/status-message.component';
+import { StepConfigSummaryComponent } from './components/step-config-summary/step-config-summary.component';
 import { StepTestResultComponent } from './components/step-test-result/step-test-result.component';
 import { TriggerFlowRunDialogComponent } from './components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
 
@@ -79,6 +80,7 @@ const routes: Routes = [
     ProviderIconComponent,
     ServiceItemComponent,
     StatusMessageComponent,
+    StepConfigSummaryComponent,
     StepTestResultComponent,
     TriggerFlowRunDialogComponent,
   ],

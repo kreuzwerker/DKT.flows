@@ -1,0 +1,23 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+@import '../../../animations';
+
+div.step-config-summary {
+
+  // TEMP remove with md accordion
+  margin: 1rem;
+
+  h5 {
+    color: $dark-grey;
+  }
+
+  div.config {
+    margin-top: 1rem;
+
+    .value {
+      font-weight: bold;
+      color: $dark-blue;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<div class="step-config-summary">
+  <div *ngIf="config.length; else noConfigParams">
+    <h5>Configuration Summary</h5>
+    <div class="config" *ngFor="let element of config">
+      <p class="label">{{element.label}}</p>
+      <p class="value">{{element.value}}</p>
+    </div>
+  </div>
+  <ng-template #noConfigParams>
+    <p>(This step has no configration parameters)</p>
+  </ng-template>
+</div>

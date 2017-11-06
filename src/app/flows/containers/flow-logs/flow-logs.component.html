@@ -35,7 +35,7 @@
             <p>IF error: show error message</p>
             <p>IF error: show step config</p>
           </div>
-          <p>Show log details</p>
+          <dkt-step-config-summary [schema]="run.currentStep.service.configSchema" [values]="run.currentStep.configParams"></dkt-step-config-summary>
         </div>
       </div>
     </div>
