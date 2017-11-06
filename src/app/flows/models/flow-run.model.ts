@@ -1,4 +1,4 @@
-import { Flow } from './flow.model';
+import { Flow, Step } from './';
 
 export class FlowRun {
   id: string;
@@ -13,6 +13,7 @@ export class FlowRun {
 export class Run {
   id: string;
   status: string;
+  currentStep?: Step;
   logs: Log[];
   result: string;
   startedAt: string;

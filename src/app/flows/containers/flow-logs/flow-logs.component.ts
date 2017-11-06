@@ -100,6 +100,14 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
     Helpers
    */
 
+  getRunStatusType(run: Run): string {
+    if (run.status === 'running') {
+      return run.currentStep.service.task ? 'task' : 'running';
+    } else {
+      return run.status;
+    }
+  }
+
   toggleRunDetails(run: Run) {
     this.showDetails = run === this.showDetails ? null : run;
   }

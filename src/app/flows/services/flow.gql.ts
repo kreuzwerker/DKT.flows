@@ -53,14 +53,20 @@ export class FlowsListData {
   draft: boolean;
 }
 
+export const stepConfigParamsFragment = gql`
+  fragment StepConfigParams on StepConfigParams {
+    fieldId,
+    value
+  }
+`;
+
 export const flowStepFragment = gql`
   fragment FlowStep on Step {
     id,
     position,
     tested,
     configParams {
-      fieldId,
-      value
+     ...StepConfigParams
     },
     service {
       id,
@@ -80,6 +86,7 @@ export const flowStepFragment = gql`
     }
   }
 
+  ${stepConfigParamsFragment}
   ${serviceConfigSchemaFragment}
 `;
 
@@ -113,6 +120,17 @@ export const getFlowLogsQuery = gql`
       runs(offset: $offset, limit: $limit, status: $status) {
         id
         status
+        currentStep {
+          configParams {
+            ...StepConfigParams
+          }
+          service {
+            task
+            configSchema {
+              ...ServiceConfigSchema
+            }
+          }
+        }
         logs {
           steps {
             id
@@ -129,6 +147,9 @@ export const getFlowLogsQuery = gql`
       runsCount(status: $status)
     }
   }
+
+  ${stepConfigParamsFragment}
+  ${serviceConfigSchemaFragment}
 `;
 
 export const getProvidersQuery = gql`

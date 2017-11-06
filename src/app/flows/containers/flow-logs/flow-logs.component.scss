@@ -98,6 +98,10 @@ https://github.com/jtangelder/sass-loader/issues/211 */
             color: $blue;
           }
 
+          &.task {
+            color: $dark-grey;
+          }
+
           &.success {
             color: $success-bg-color;
           }

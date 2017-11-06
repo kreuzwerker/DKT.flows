@@ -18,9 +18,10 @@
 
   <div *ngIf="runs && runs.length">
     <div class="runs">
-      <div *ngFor="let run of runs; let last = last" class="run" [class.last]="last" [class.show-details]="showDetails == run" [ngSwitch]="run.status">
+      <div *ngFor="let run of runs; let last = last" class="run" [class.last]="last" [class.show-details]="showDetails == run" [ngSwitch]="getRunStatusType(run)">
         <div class="run-header" (click)="toggleRunDetails(run)" fxLayout="row" fxLayoutAlign="start center">
           <md-icon *ngSwitchCase="'running'" class="status running" md-list-icon>autorenew</md-icon>
+          <md-icon *ngSwitchCase="'task'" class="status task" md-list-icon>assignment</md-icon>
           <md-icon *ngSwitchCase="'success'" class="status success" md-list-icon>check</md-icon>
           <md-icon *ngSwitchCase="'error'" class="status error" md-list-icon>error</md-icon>
 
