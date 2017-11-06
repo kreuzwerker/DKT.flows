@@ -4,6 +4,11 @@ Dependencies Maintenance
 angular-webpack2-starter
 ------------------------
 
+**UDPATE 6.11.17**
+Due to lack of maintenance of the starter project, we're now maintaining depen-
+dencies ourselves. Therefore we no longer maintain upstream compatibility with 
+the starter project.
+
 [See project wiki](https://github.com/qdouble/angular-webpack2-starter/wiki/Recommended-Steps-for-Merging-Starter-into-Existing-Project)
 
 1. Create new branch `git checkout -b starter-updates`
