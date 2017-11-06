@@ -14,17 +14,17 @@ export class Run {
   id: string;
   status: string;
   currentStep?: Step;
-  logs: Log[];
+  logs: RunLog;
   result: string;
   startedAt: string;
   finishedAt: string;
 }
 
-export class Log {
-  steps: StepLog[];
+export class RunLog {
+  steps: RunStepLog[];
 }
 
-export class StepLog {
+export class RunStepLog {
   id: string;
   position: number;
   status: string;

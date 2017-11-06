@@ -15,7 +15,7 @@ type LogStatus = 'all' | 'success' | 'running' | 'error';
   selector: 'flow-logs',
   templateUrl: 'flow-logs.component.html',
   styleUrls: ['flow-logs.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FlowLogsComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
@@ -36,8 +36,8 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     public flowsApp: FlowsAppService,
     public route: ActivatedRoute,
-    public state: FlowsStateService,
-  ) { }
+    public state: FlowsStateService
+  ) {}
 
   ngOnInit() {
     // Register current step preparation stage
@@ -46,15 +46,18 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
     // Both flowId and status params must be present
     Observable.combineLatest(
       this.state.select('flowId').takeUntil(this.ngOnDestroy$),
-      this.route.params.takeUntil(this.ngOnDestroy$).map(params => params['status']),
-      (flowId, status) => ({flowId: flowId, status: status})
-    ).takeUntil(this.ngOnDestroy$).subscribe(
-      this.onRequestFlowLogs.bind(this),
-      (err) => console.log('error', err)
-    );
+      this.route.params
+        .takeUntil(this.ngOnDestroy$)
+        .map(params => params['status']),
+      (flowId, status) => ({ flowId: flowId, status: status })
+    )
+      .takeUntil(this.ngOnDestroy$)
+      .subscribe(this.onRequestFlowLogs.bind(this), err =>
+        console.log('error', err)
+      );
   }
 
-  onRequestFlowLogs({flowId, status}: {flowId: string, status: LogStatus}) {
+  onRequestFlowLogs({ flowId, status }: { flowId: string; status: LogStatus }) {
     if (flowId) {
       if (this.flowLogsSub$) {
         this.flowLogsSub$.unsubscribe();
@@ -63,7 +66,7 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
       this.state.loadFlowLogs(flowId, this.offset, this.limit, status);
       this.flowLogsSub$ = this.state.flowLogs$.subscribe(
         this.onLoadFlowLogs.bind(this),
-        (err) => console.log('error', err)
+        err => console.log('error', err)
       );
     }
 
@@ -106,6 +109,11 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
     } else {
       return run.status;
     }
+  }
+
+  getLastLogMsg(run: Run): string {
+    const lastLog = run.logs.steps[run.logs.steps.length - 1];
+    return lastLog && lastLog.message !== '' ? lastLog.message : '(none)';
   }
 
   toggleRunDetails(run: Run) {

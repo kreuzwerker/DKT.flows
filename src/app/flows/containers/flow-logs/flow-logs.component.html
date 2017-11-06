@@ -31,10 +31,7 @@
           <md-icon class="toggle show-less">expand_less</md-icon>
         </div>
         <div class="run-details" [class.slide-in]="show" [class.slide-out]="!show">
-          <div *ngIf="run.status == 'error'">
-            <p>IF error: show error message</p>
-            <p>IF error: show step config</p>
-          </div>
+          <p class="last-log-msg">Last log message: {{getLastLogMsg(run)}}</p>
           <dkt-step-config-summary [schema]="run.currentStep.service.configSchema" [values]="run.currentStep.configParams"></dkt-step-config-summary>
         </div>
       </div>
