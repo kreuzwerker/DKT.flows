@@ -28,15 +28,17 @@ export class TasksAppComponent implements OnInit, OnDestroy {
     public route: ActivatedRoute,
     public router: Router,
     public state: TasksStateService,
-  ) {}
+  ) {
+    // NB Since Angular v4.3 this.router.events fire already in constructor
+    this.router.events
+      .takeUntil(this.ngOnDestroy$)
+      .filter(event => event instanceof NavigationEnd)
+      .subscribe(this.onTaskRouteChange.bind(this), err =>
+        console.log('error', err)
+      );
+  }
 
   ngOnInit() {
-    this.router.events.takeUntil(this.ngOnDestroy$).filter(event => event instanceof NavigationEnd)
-    .subscribe(
-      this.onTaskRouteChange.bind(this),
-      (err) => console.log('error', err)
-    );
-
     // Load tasks data
     this.state.loadTasks();
     // ..and watch changes to tasks data e.g. approving the current selected task

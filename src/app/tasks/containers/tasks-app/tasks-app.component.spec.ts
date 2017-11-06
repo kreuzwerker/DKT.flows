@@ -1,13 +1,12 @@
 /* tslint:disable: ter-max-len */
-import { MockChangeDetectorRef, mockStore, mockApolloStore } from './../../../core/utils/mocks';
+import { MockChangeDetectorRef, mockStore, mockApolloStore, MockRoute, MockRouter } from './../../../core/utils/mocks';
 import { mockTasksState, mockTasksApp, mockTasksApi } from './../../utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { TasksAppComponent } from './tasks-app.component';
 import { TasksAppService, TasksStateService } from './../../services';
 import { TaskItem } from './../../models';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Subject, BehaviorSubject } from 'rxjs';
 import * as _ from 'lodash';
 
 describe('Tasks App', () => {
@@ -32,10 +31,8 @@ describe('Tasks App', () => {
         utils.createTaskData('3', 'Test Task 3'),
       ];
 
-      route = {
-        children: []
-      } as ActivatedRoute;
-      router = {} as Router;
+      route = <any>new MockRoute();
+      router = <any>new MockRouter();
       state = mockTasksState;
       store = mockStore;
       component = new TasksAppComponent(cd, mockTasksApi, tasksApp, route, router, state);
@@ -61,7 +58,6 @@ describe('Tasks App', () => {
       it('should call onTaskRouteChange() when the taskId route param changes', () => {
         const taskId = '1';
         let spy = spyOn(component, 'onTaskRouteChange');
-        component.ngOnInit();
         routeParams.next({taskId: taskId});
         expect(spy).toHaveBeenCalledWith(taskId);
       });

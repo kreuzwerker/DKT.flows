@@ -35,18 +35,20 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   ) {
     this.dialogConfig = new MdDialogConfig();
     this.dialogConfig.width = '450px';
+
+    // NB Since Angular v4.3 this.router.events fire already in constructor
+    this.router.events
+      .takeUntil(this.ngOnDestroy$)
+      .filter(event => event instanceof NavigationEnd)
+      .subscribe(this.onStepRouteChange.bind(this), err =>
+        console.log('error', err)
+      );
   }
 
   ngOnInit() {
     this.route.params.takeUntil(this.ngOnDestroy$).map(params => params['flowId'])
     .subscribe(
       this.onFlowRouteChange.bind(this),
-      (err) => console.log('error', err)
-    );
-
-    this.router.events.takeUntil(this.ngOnDestroy$).filter(event => event instanceof NavigationEnd)
-    .subscribe(
-      this.onStepRouteChange.bind(this),
       (err) => console.log('error', err)
     );
 

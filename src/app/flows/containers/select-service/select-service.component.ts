@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs/Subject';
 import { Observer } from 'rxjs/Observer';
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
-import { style, state, animate, transition, trigger } from '@angular/core';
+import { style, state, animate, transition, trigger } from '@angular/animations';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
 import { Service, ServiceType, Step } from './../../models';

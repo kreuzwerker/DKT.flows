@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { MockChangeDetectorRef, mockStore, mockApolloStore, MockMdDialog, MockRouter, mockSnackBar } from './../../../core/utils/mocks';
+import { MockChangeDetectorRef, mockStore, mockApolloStore, MockMdDialog, MockRouter, MockRoute, mockSnackBar } from './../../../core/utils/mocks';
 import { mockFlowsState, mockFlowsApp } from './../../utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { FlowsAppComponent } from './flows-app.component';
@@ -27,7 +27,7 @@ describe('Flows App', () => {
       cd = <any>new MockChangeDetectorRef();
       flowsApp = mockFlowsApp;
       flowsApp.flow = utils.createFlowData();
-      route = {} as ActivatedRoute;
+      route = <any>new MockRoute();
       router = <any>new MockRouter();
       state = mockFlowsState;
       store = mockStore;
@@ -63,7 +63,6 @@ describe('Flows App', () => {
 
       it('should call onStepRouteChange() when the stepId route param changes', () => {
         let spy = spyOn(component, 'onStepRouteChange');
-        component.ngOnInit();
         routeEvents.next(new NavigationEnd(1, '/', '/'));
         expect(spy).toHaveBeenCalled();
       });

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { style, state, animate, transition, trigger } from '@angular/core';
+import { style, state, animate, transition, trigger } from '@angular/animations';
 
 import { Provider, Service, ServiceType } from './../../models';
 import * as providerHelpers from './../../utils/provider.helpers';
