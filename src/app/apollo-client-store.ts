@@ -1,5 +1,6 @@
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { UserLoginService } from './core/services';
+import { each } from 'lodash';
 
 const networkInterface = createNetworkInterface({
   // TODO use as soon as server-side authentication works for both UserPool and
@@ -27,7 +28,35 @@ const authMiddleware = {
   }
 };
 
+const handleErrors = ({ response }, next) => {
+  // clone response so we can turn it into json independently
+  const res = response.clone();
+  // if it's not user error, we skip this afterware (for example a 401)
+  if (!res.ok) {
+    // handle network errors based on res.status here, for example:
+    if (res.status === 500) {
+      console.log('TODO show user message: internal server error');
+    }
+    return next();
+  }
+
+  // handle apollo errors
+  res.json().then(json => {
+    each(json.data, data => {
+      if (data && data.errors && data.errors.length) {
+        console.log('TODO show user message', data.errors[0]);
+      }
+    });
+    next();
+  });
+};
+
 networkInterface.use([authMiddleware]);
+networkInterface.useAfter([
+  {
+    applyAfterware: handleErrors
+  }
+]);
 
 export const client = new ApolloClient({
   networkInterface,
