@@ -24,7 +24,14 @@ const authMiddleware = {
     //
     // console.log('idToken', UserLoginService.getIdToken());
     req.options.headers['authorization'] = UserLoginService.getIdToken();
-    next();
+
+    UserLoginService.refreshTokens()
+      .then(next)
+      .catch(err => {
+        console.log('Failed to refresh token');
+        // TODO don't next(), sign out and redirect to sign in view
+        next();
+      });
   }
 };
 

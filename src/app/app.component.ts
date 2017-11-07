@@ -39,9 +39,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Keep current user tokens fresh
-    UserLoginService.refreshTokens();
-
     this.registerPublicFunctions();
   }
 

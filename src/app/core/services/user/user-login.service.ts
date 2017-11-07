@@ -344,24 +344,32 @@ export class UserLoginService {
     return typeof token === 'string' && token !== 'null';
   }
 
-  public static refreshTokens(): void {
+  public static refreshTokens(): Promise<void> {
     const currentUser = CognitoUtil.getCurrentUser();
-    if (!currentUser) {
-      return;
-    }
-
-    currentUser.getSession(function(err, session) {
-      if (err) {
-        console.log("CognitoUtil: Can't set the credentials:", err);
-      } else {
-        if (session.isValid()) {
-          // Update tokens
-          UserLoginService.setTokens(session);
-        } else {
-          console.log('CognitoUtil: refreshed but session is still not valid');
-        }
+    let promise: Promise<void> = new Promise<void>((resolve, reject) => {
+      if (!currentUser) {
+        reject();
+        return;
       }
+
+      currentUser.getSession(function(err, session) {
+        if (err) {
+          console.log("CognitoUtil: Can't set the credentials:", err);
+          reject();
+        } else {
+          if (session.isValid()) {
+            // Update tokens
+            UserLoginService.setTokens(session);
+            resolve();
+          } else {
+            console.log('CognitoUtil: refreshed but session is still not valid');
+            reject('not valid');
+          }
+        }
+      });
     });
+
+    return promise;
   }
 
   /**
