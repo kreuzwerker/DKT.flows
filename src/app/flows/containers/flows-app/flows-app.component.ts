@@ -207,6 +207,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     } else {
       this.disableDraftControls = true;
       this.flowsApp.showStatusMessage('Deleting flow', 'loading');
+      const name = this.flowsApp.flow.name;
       this.flowsApp.deleteFlow().subscribe((success) => {
         // Upon successful flow deletion redirect user to flows overview
         this.disableDraftControls = false;
