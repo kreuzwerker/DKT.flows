@@ -8,3 +8,10 @@
 .mat-raised-button[hidden] {
   display: none;
 }
+
+@media only screen and (max-width: 600px) {
+  // Don't shrink toolbar but keep a steady height
+  .mat-toolbar {
+    min-height: $app-toolbar-height!important;
+  }
+}

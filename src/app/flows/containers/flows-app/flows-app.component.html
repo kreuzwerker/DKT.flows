@@ -1,5 +1,5 @@
 <div class="layout full-height" fxLayout="row" fxLayoutAlign="start stretch">
-  <div class="sidebar-left border-right full-height" fxLayout="column" fxFlex>
+  <div class="sidebar-left border-right full-height">
     <dkt-loading-indicator *ngIf="state.select('loadingFlow') | async" text="Loading flow" center="true"></dkt-loading-indicator>
     <dkt-flow-header *ngIf="flowsApp.flow" 
       [flow]="flowsApp.flow"

@@ -13,6 +13,7 @@ h1.step {
 div.layout {
   div.sidebar-left {
     position: relative;
+    height: calc(100vh - #{$app-toolbar-height});
     // Min width required for inline confirm dialog (see flow-step-item)
     min-width: 350px;
     max-width: 350px;
@@ -34,8 +35,9 @@ $step-item-control-top-margin: 0.5rem;
 .steps {
   position: relative;
   padding-top: 1rem;
+  // Stretch vertically and scroll
   overflow-y: auto;
-  max-height:calc(100vh - 238px);
+  flex: 1 1 auto;
 
   .step {
     position: relative;

@@ -3,7 +3,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 @import '../../../variables';
 
 div.flow-header {
-  height: 146px;
+  flex: 0 1 auto;
 }
 
 h4 {
