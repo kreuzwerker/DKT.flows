@@ -16,7 +16,6 @@ export interface IUserLogin {
 
 @Injectable()
 export class UserLoginService {
-
   private static _userTokens = {
     accessToken: undefined,
     idToken: undefined,
@@ -57,16 +56,24 @@ export class UserLoginService {
     if (AWS.config.credentials == null) {
       return LocalStorage.get('userTokens.awsAccessKeyId');
     }
-    return AWS.config.credentials.accessKeyId || LocalStorage.get('userTokens.awsAccessKeyId');
+    return (
+      AWS.config.credentials.accessKeyId ||
+      LocalStorage.get('userTokens.awsAccessKeyId')
+    );
   }
 
   public static getAwsSecretAccessKey() {
-    return AWS.config.credentials.secretAccessKey
-      || LocalStorage.get('userTokens.awsSecretAccessKey');
+    return (
+      AWS.config.credentials.secretAccessKey ||
+      LocalStorage.get('userTokens.awsSecretAccessKey')
+    );
   }
 
   public static getAwsSessionToken() {
-    return AWS.config.credentials.sessionToken || LocalStorage.get('userTokens.awsSessionToken');
+    return (
+      AWS.config.credentials.sessionToken ||
+      LocalStorage.get('userTokens.awsSessionToken')
+    );
   }
 
   public static clearUserState() {
@@ -101,7 +108,9 @@ export class UserLoginService {
       Password: userLogin.password
     };
 
-    let authenticationDetails = new AWSCognito.AuthenticationDetails(authenticationData);
+    let authenticationDetails = new AWSCognito.AuthenticationDetails(
+      authenticationData
+    );
 
     // Set user name
     CognitoUtil.setUsername(userLogin.username);
@@ -110,37 +119,22 @@ export class UserLoginService {
     let cognitoUser = CognitoUtil.getCognitoUser();
     let promise: Promise<void> = new Promise<void>((resolve, reject) => {
       cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: function (result) {
-          // Save user tokens to local state
-          UserLoginService._userTokens.accessToken = result.getAccessToken().getJwtToken();
-          UserLoginService._userTokens.idToken = result.getIdToken().getJwtToken();
-          UserLoginService._userTokens.refreshToken = result.getRefreshToken().getToken();
-
-
-          LocalStorage.set('userTokens.idToken', UserLoginService._userTokens.idToken);
-          // console.log(
-          //   '%cCognito User Pools Identity Token: ',
-          //   Logger.LeadInStyle, UserLoginService.getIdToken()
-          // );
-          LocalStorage.set('userTokens.accessToken', UserLoginService._userTokens.accessToken);
-          // console.log(
-          //   '%cCognito User Pools Access Token: ',
-          //   Logger.LeadInStyle, UserLoginService.getAccessToken()
-          // );
-          LocalStorage.set('userTokens.refreshToken', UserLoginService._userTokens.refreshToken);
-          // console.log(
-          //   '%cCognito User Pools Refresh Token: ',
-          //   Logger.LeadInStyle, UserLoginService.getRefreshToken()
-          // );
+        onSuccess: function(result) {
+          // Update tokens
+          UserLoginService.setTokens(result);
 
           /*
            Extract the user group from the identity token.
            First, get the identity token payload and then perform a Base64 decoding
            so you can later extract the user group.
            */
-          let idTokenPayload = UserLoginService._userTokens.idToken.split('.')[1];
+          let idTokenPayload = UserLoginService._userTokens.idToken.split(
+            '.'
+          )[1];
           let payload = JSON.parse(
-            sjcl.codec.utf8String.fromBits(sjcl.codec.base64url.toBits(idTokenPayload))
+            sjcl.codec.utf8String.fromBits(
+              sjcl.codec.base64url.toBits(idTokenPayload)
+            )
           );
           let userGroup = payload['cognito:groups'];
           if (userGroup && userGroup.length > 0) {
@@ -162,34 +156,45 @@ export class UserLoginService {
           CognitoUtil.setUserState(UserState.SignedIn);
 
           // Read user attributes and write to console
-          UserProfileService.getUserAttributes().then(() => {
-            UserLoginService.getAwsCredentials().then(() => {
-              LocalStorage.set('userId', CognitoUtil.getCognitoIdentityId());
-              // console.log(
-              //   '%cCognito Identity ID: ', Logger.LeadInStyle, CognitoUtil.getCognitoIdentityId()
-              // );
-              LocalStorage.set('userTokens.awsAccessKeyId', AWS.config.credentials.accessKeyId);
-              // console.log(
-              //   '%cAWS Access Key ID: ',
-              //   Logger.LeadInStyle, AWS.config.credentials.accessKeyId
-              // );
-              LocalStorage.set('userTokens.awsSecretAccessKey', AWS.config.credentials.secretAccessKey);
-              // console.log(
-              //   '%cAWS Secret Access Key: ',
-              //   Logger.LeadInStyle, AWS.config.credentials.secretAccessKey
-              // );
-              LocalStorage.set('userTokens.awsSessionToken', AWS.config.credentials.sessionToken);
-              // console.log(
-              //   '%cAWS Session Token: ',
-              //   Logger.LeadInStyle, AWS.config.credentials.sessionToken
-              // );
+          UserProfileService.getUserAttributes()
+            .then(() => {
+              UserLoginService.getAwsCredentials().then(() => {
+                LocalStorage.set('userId', CognitoUtil.getCognitoIdentityId());
+                // console.log(
+                //   '%cCognito Identity ID: ', Logger.LeadInStyle, CognitoUtil.getCognitoIdentityId()
+                // );
+                LocalStorage.set(
+                  'userTokens.awsAccessKeyId',
+                  AWS.config.credentials.accessKeyId
+                );
+                // console.log(
+                //   '%cAWS Access Key ID: ',
+                //   Logger.LeadInStyle, AWS.config.credentials.accessKeyId
+                // );
+                LocalStorage.set(
+                  'userTokens.awsSecretAccessKey',
+                  AWS.config.credentials.secretAccessKey
+                );
+                // console.log(
+                //   '%cAWS Secret Access Key: ',
+                //   Logger.LeadInStyle, AWS.config.credentials.secretAccessKey
+                // );
+                LocalStorage.set(
+                  'userTokens.awsSessionToken',
+                  AWS.config.credentials.sessionToken
+                );
+                // console.log(
+                //   '%cAWS Session Token: ',
+                //   Logger.LeadInStyle, AWS.config.credentials.sessionToken
+                // );
+              });
+              resolve();
+            })
+            .catch(err => {
+              reject(err);
             });
-            resolve();
-          }).catch((err) => {
-            reject(err);
-          });
         },
-        onFailure: function (err) {
+        onFailure: function(err) {
           // Check for user not confirmed exception
           if (err.code === 'UserNotConfirmedException') {
             // Set user state to pending confirmation
@@ -213,7 +218,7 @@ export class UserLoginService {
     CognitoUtil.setUserProfile({
       imageUrl: profile.getImageUrl(),
       given_name: profile.getGivenName(),
-      family_name: profile.getFamilyName(),
+      family_name: profile.getFamilyName()
     });
     // console.log('Name: ' + profile.getName());
     // console.log('Image URL: ' + profile.getImageUrl());
@@ -230,28 +235,41 @@ export class UserLoginService {
     });
 
     UserLoginService._userTokens.idToken = authResponse['id_token'];
-    LocalStorage.set('userTokens.idToken', UserLoginService._userTokens.idToken);
+    LocalStorage.set(
+      'userTokens.idToken',
+      UserLoginService._userTokens.idToken
+    );
     // console.log('%cCognito User Pools Identity Token: ', Logger.LeadInStyle, UserLoginService.getIdToken());
 
     // Obtain AWS credentials
-    AWS.config.credentials.refresh(function(err){
+    AWS.config.credentials.refresh(function(err) {
       if (!err) {
         LocalStorage.set('userId', CognitoUtil.getCognitoIdentityId());
         // console.log('%cCognito Identity ID: ', Logger.LeadInStyle, CognitoUtil.getCognitoIdentityId());
-        LocalStorage.set('userTokens.awsAccessKeyId', AWS.config.credentials.accessKeyId);
+        LocalStorage.set(
+          'userTokens.awsAccessKeyId',
+          AWS.config.credentials.accessKeyId
+        );
         // console.log('%cAWS Access Key ID: ', Logger.LeadInStyle, AWS.config.credentials.accessKeyId);
-        LocalStorage.set('userTokens.awsSecretAccessKey', AWS.config.credentials.secretAccessKey);
+        LocalStorage.set(
+          'userTokens.awsSecretAccessKey',
+          AWS.config.credentials.secretAccessKey
+        );
         // console.log('%cAWS Secret Access Key: ', Logger.LeadInStyle, AWS.config.credentials.secretAccessKey);
-        LocalStorage.set('userTokens.awsSessionToken', AWS.config.credentials.sessionToken);
+        LocalStorage.set(
+          'userTokens.awsSessionToken',
+          AWS.config.credentials.sessionToken
+        );
         // console.log('%cAWS Session Token: ', Logger.LeadInStyle, AWS.config.credentials.sessionToken);
       }
     });
   }
 
   public static signOut() {
-    if (AWS.config.credentials) {
+    try {
       AWS.config.credentials.clearCachedId();
-    }
+    } catch (error) {}
+
     // Clear local user state
     UserLoginService.clearUserState();
     // Logout from Cognito service
@@ -266,8 +284,8 @@ export class UserLoginService {
     UserLoginService.clearUserState();
     // Logout from Cognito service
     CognitoUtil.getCognitoUser().globalSignOut({
-      onSuccess: (msg) => {},
-      onFailure: (err) => {}
+      onSuccess: msg => {},
+      onFailure: err => {}
     });
   }
 
@@ -283,8 +301,12 @@ export class UserLoginService {
           return;
         }
 
-
-        logins['cognito-idp.' + CognitoUtil.getRegion() + '.amazonaws.com/' + CognitoUtil.getUserPoolId()] = result.getIdToken().getJwtToken();
+        logins[
+          'cognito-idp.' +
+            CognitoUtil.getRegion() +
+            '.amazonaws.com/' +
+            CognitoUtil.getUserPoolId()
+        ] = result.getIdToken().getJwtToken();
 
         // Add the User's Id token to the Cognito credentials login map
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -295,7 +317,7 @@ export class UserLoginService {
         // Call refresh method to authenticate user and get new temp AWS credentials
         if (AWS.config.credentials.needsRefresh()) {
           AWS.config.credentials.clearCachedId();
-          AWS.config.credentials.get((err) => {
+          AWS.config.credentials.get(err => {
             if (err) {
               reject(err);
               return;
@@ -303,7 +325,7 @@ export class UserLoginService {
             resolve();
           });
         } else {
-          AWS.config.credentials.get((err) => {
+          AWS.config.credentials.get(err => {
             if (err) {
               console.error(err);
               reject(err);
@@ -322,10 +344,29 @@ export class UserLoginService {
     return typeof token === 'string' && token !== 'null';
   }
 
+  public static refreshTokens(): void {
+    const currentUser = CognitoUtil.getCurrentUser();
+    if (!currentUser) {
+      return;
+    }
+
+    currentUser.getSession(function(err, session) {
+      if (err) {
+        console.log("CognitoUtil: Can't set the credentials:", err);
+      } else {
+        if (session.isValid()) {
+          // Update tokens
+          UserLoginService.setTokens(session);
+        } else {
+          console.log('CognitoUtil: refreshed but session is still not valid');
+        }
+      }
+    });
+  }
+
   /**
    * Password management
    */
-
 
   public static forgotPassword(username: string): Promise<void> {
     // Set target username
@@ -340,8 +381,10 @@ export class UserLoginService {
           console.log('Initiated reset password for username ' + username);
           resolve();
         },
-        onFailure: (err) => {
-          console.log('Failed to initiate reset password for username ' + username);
+        onFailure: err => {
+          console.log(
+            'Failed to initiate reset password for username ' + username
+          );
           reject(err);
           return;
         },
@@ -354,7 +397,11 @@ export class UserLoginService {
     return promise;
   }
 
-  public static confirmForgotPassword(username: string, verificationCode: string, password: string): Promise<void> {
+  public static confirmForgotPassword(
+    username: string,
+    verificationCode: string,
+    password: string
+  ): Promise<void> {
     // Set target username
     CognitoUtil.setUsername(username);
 
@@ -367,7 +414,7 @@ export class UserLoginService {
           console.log('Password successfully reset for username ' + username);
           resolve();
         },
-        onFailure: (err) => {
+        onFailure: err => {
           console.log('Password was not reset for username ' + username);
           console.log(`Error: ${err.name}. ${err.message}`);
           reject(err);
@@ -379,7 +426,10 @@ export class UserLoginService {
   }
 
   // NB currently there's no UI implemented for this action
-  public static changePassword(previousPassword: string, proposedPassword: string): Promise<void> {
+  public static changePassword(
+    previousPassword: string,
+    proposedPassword: string
+  ): Promise<void> {
     let promise: Promise<void> = new Promise<void>((resolve, reject) => {
       // first, load the valid tokens cached in the local store, if they are available
       // see: https://github.com/aws/amazon-cognito-identity-js/issues/71
@@ -389,15 +439,59 @@ export class UserLoginService {
           reject(err);
           return;
         }
-        cognitoUser.changePassword(previousPassword, proposedPassword, (err: Error, result: any) => {
-          if (err) {
-            reject(err);
-            return;
+        cognitoUser.changePassword(
+          previousPassword,
+          proposedPassword,
+          (err: Error, result: any) => {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve(result);
           }
-          resolve(result);
-        });
+        );
       });
     });
     return promise;
+  }
+
+  /*
+    Private helpers
+  */
+
+  private static setTokens(session) {
+    // Save user tokens to local state
+    UserLoginService._userTokens.accessToken = session
+      .getAccessToken()
+      .getJwtToken();
+    UserLoginService._userTokens.idToken = session.getIdToken().getJwtToken();
+    UserLoginService._userTokens.refreshToken = session
+      .getRefreshToken()
+      .getToken();
+
+    LocalStorage.set(
+      'userTokens.idToken',
+      UserLoginService._userTokens.idToken
+    );
+    // console.log(
+    //   '%cCognito User Pools Identity Token: ',
+    //   Logger.LeadInStyle, UserLoginService.getIdToken()
+    // );
+    LocalStorage.set(
+      'userTokens.accessToken',
+      UserLoginService._userTokens.accessToken
+    );
+    // console.log(
+    //   '%cCognito User Pools Access Token: ',
+    //   Logger.LeadInStyle, UserLoginService.getAccessToken()
+    // );
+    LocalStorage.set(
+      'userTokens.refreshToken',
+      UserLoginService._userTokens.refreshToken
+    );
+    // console.log(
+    //   '%cCognito User Pools Refresh Token: ',
+    //   Logger.LeadInStyle, UserLoginService.getRefreshToken()
+    // );
   }
 }

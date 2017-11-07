@@ -1,6 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserLoginService } from './core/services';
+import { UserLoginService, CognitoUtil } from './core/services';
 import { MdIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -10,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './app.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   showMonitor = (ENV === 'development' && !AOT &&
     ['monitor', 'both'].includes(STORE_DEV_TOOLS) // set in constants.js file in project root
   );
@@ -31,6 +31,11 @@ export class AppComponent {
     mdIconRegistry.addSvgIcon(
       'sort_desc', sanitizer.bypassSecurityTrustResourceUrl('/assets/icon/sort_desc.svg')
     );
+  }
+
+  ngOnInit() {
+    // Keep current user tokens fresh
+    UserLoginService.refreshTokens();
   }
 
   showToolbar() {
