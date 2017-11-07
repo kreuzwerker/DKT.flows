@@ -49,7 +49,6 @@ export class FlowsStateService extends StateService {
   //
 
   createdFlow$: Subject<any> = new Subject<any>();
-  deletedFlow$: Subject<any> = new Subject<any>();
   createdFlowRun$: Subject<any> = new Subject<any>();
   testedFlowStep$: Subject<any> = new Subject<any>();
 
@@ -176,19 +175,17 @@ export class FlowsStateService extends StateService {
 
   createFlow(flow: Flow): void {
     this.dispatch(this.actions.setSavingFlow(true, false));
-    this.api.createFlow(flow).subscribe((flow) => {
+    this.api.createFlow(flow).subscribe(flow => {
       this.dispatch(this.actions.setSavingFlow(false, true));
       this.createdFlow$.next(flow);
+    }, err => {
+      this.dispatch(this.actions.setSavingFlow(false, true));
     });
   }
 
-  deleteFlow(id: string, name: string): void {
-    this.dispatch(this.actions.setSavingFlow(true, false));
-    this.api.deleteFlow({
+  deleteFlow(id: string): Observable<any> {
+    return this.api.deleteFlow({
       flowId: id,
-    }).subscribe((_step) => {
-      this.dispatch(this.actions.setSavingFlow(false, true));
-      this.deletedFlow$.next({id: id, name: name});
     });
   }
 
@@ -231,7 +228,10 @@ export class FlowsStateService extends StateService {
     this.api.addFlowStep(flow, step).subscribe((_step) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
       obs$.next(_step);
+    }, (err) => {
+      this.dispatch(this.actions.setSavingFlow(false, true));
     });
+
 
     return obs$;
   }
@@ -240,7 +240,10 @@ export class FlowsStateService extends StateService {
     this.dispatch(this.actions.setSavingFlow(true, false));
     this.api.removeFlowStep(flow, step).subscribe((data) => {
       this.dispatch(this.actions.setSavingFlow(false, true));
+    }, (err) => {
+      this.dispatch(this.actions.setSavingFlow(false, true));
     });
+
   }
 
   loadProviders(): void {
@@ -248,7 +251,9 @@ export class FlowsStateService extends StateService {
     this.dispatch(this.actions.setLoadingProviders(true));
     this.providers$.subscribe((providers) => this.dispatch(
       this.actions.setLoadingProviders(false)
-    ) );
+    ), (err) => {
+      this.dispatch(this.actions.setLoadingProviders(false));
+    });
 
     // Trigger loading the providers
     this.loadProviders$.next(1);

@@ -30,9 +30,9 @@ export class FlowsListComponent implements OnInit, OnDestroy {
   ) {
     this.state.createdFlow$
       .takeUntil(this.ngOnDestroy$)
-      .subscribe(this.onCreatedFlow.bind(this), err =>
-        console.log('error', err)
-      );
+      .subscribe(this.onCreatedFlow.bind(this), err => {
+        this.showInfoMessage(`An error occured. Could not create the flow.`);
+      });
 
     this.dialogConfig = new MdDialogConfig();
     this.dialogConfig.width = '450px';
@@ -85,8 +85,11 @@ export class FlowsListComponent implements OnInit, OnDestroy {
     dialogRef.componentInstance.name = name;
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm) {
-        this.state.deleteFlow(id, name);
-        this.showInfoMessage(`Deleted flow "${name}".`);
+        this.state.deleteFlow(id).subscribe(() => {
+          this.showInfoMessage(`Deleted flow "${name}".`);
+        }, (err) => {
+          this.showInfoMessage(`An error occured. Could not delete the flow.`);
+        });
       }
     });
   }

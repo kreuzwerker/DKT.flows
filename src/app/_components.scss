@@ -84,6 +84,16 @@ span.label {
 }
 
 /*
+  Snackbar
+*/
+
+snack-bar-container {
+  &.error {
+    background-color: $red;
+  }
+}
+
+/*
   App loading spinner
 */
 

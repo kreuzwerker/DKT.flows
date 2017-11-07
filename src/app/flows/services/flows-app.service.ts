@@ -63,8 +63,8 @@ export class FlowsAppService {
     this.state.saveFlow(this.flow.id, this.flow);
   }
 
-  deleteFlow(): void {
-    this.state.deleteFlow(this.flow.id, this.flow.name);
+  deleteFlow(): Observable<any> {
+    return this.state.deleteFlow(this.flow.id);
   }
 
   saveFlowStep(): Observable<any> {

@@ -64,12 +64,6 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
       (err) => console.log('error', err)
     );
 
-    this.state.deletedFlow$.takeUntil(this.ngOnDestroy$)
-    .subscribe(
-      this.onDeletedFlow.bind(this),
-      (err) => console.log('error', err)
-    );
-
     // Created new flow run
     this.state.createdFlowRun$.takeUntil(this.ngOnDestroy$).subscribe(
       this.onStartedFlowRun.bind(this),
@@ -108,13 +102,6 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   onSelectStep(step: Step) {
     this.flowsApp.setStep(step);
     this.cd.markForCheck();
-  }
-
-  onDeletedFlow({id, name}: {id: string, name: string}) {
-    // Upon successful flow deletion redirect user to flows overview
-    this.flowsApp.hideStatusMessage();
-    this.showInfoMessage(`Deleted flow "${name}".`);
-    this.router.navigate(['flows']);
   }
 
   /*
@@ -218,9 +205,21 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     if (this.flowsApp.flow.lastFlowRun) {
       this.flowsApp.restoreFlow();
     } else {
-      this.flowsApp.deleteFlow();
       this.disableDraftControls = true;
       this.flowsApp.showStatusMessage('Deleting flow', 'loading');
+      this.flowsApp.deleteFlow().subscribe((success) => {
+        // Upon successful flow deletion redirect user to flows overview
+        this.disableDraftControls = false;
+        this.flowsApp.hideStatusMessage();
+        this.showInfoMessage(`Deleted flow "${name}".`);
+        this.cd.markForCheck();
+        this.router.navigate(['flows']);
+      }, (err) => {
+        // Restore controls
+        this.disableDraftControls = false;
+        this.flowsApp.hideStatusMessage();
+        this.cd.markForCheck();
+      });
     }
   }
 

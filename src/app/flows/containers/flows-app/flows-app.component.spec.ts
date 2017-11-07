@@ -160,32 +160,6 @@ describe('Flows App', () => {
       });
     });
 
-    describe('onDeletedFlow()', () => {
-      let flow;
-
-      beforeEach(() => {
-        flow = {id: '1', name: 'Test flow'};
-      });
-
-      it('should hide the loading indicator', () => {
-        let spy = spyOn(flowsApp, 'hideStatusMessage');
-        component.onDeletedFlow(flow);
-        expect(spy).toHaveBeenCalled();
-      });
-
-      it('should show status message', () => {
-        let spy = spyOn(component, 'showInfoMessage');
-        component.onDeletedFlow(flow);
-        expect(spy).toHaveBeenCalledWith(`Deleted flow "${flow.name}".`);
-      });
-
-      it('should hide the loading indicator', () => {
-        let spy = spyOn(router, 'navigate');
-        component.onDeletedFlow(flow);
-        expect(spy).toHaveBeenCalledWith(['flows']);
-      });
-    });
-
     describe('onFlowRouteChange()', () => {
       it('should set the current selected flow to the given flowId', () => {
         let spy = spyOn(state, 'selectFlow');

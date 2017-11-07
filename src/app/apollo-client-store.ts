@@ -35,7 +35,7 @@ const handleErrors = ({ response }, next) => {
   if (!res.ok) {
     // handle network errors based on res.status here, for example:
     if (res.status === 500) {
-      console.log('TODO show user message: internal server error');
+      window.DKT.showMessage('An error occured', 'error');
     }
     return next();
   }
@@ -44,7 +44,8 @@ const handleErrors = ({ response }, next) => {
   res.json().then(json => {
     each(json.data, data => {
       if (data && data.errors && data.errors.length) {
-        console.log('TODO show user message', data.errors[0]);
+        console.log('ERROR', data.errors[0]);
+        window.DKT.showMessage('An error occured', 'error');
       }
     });
     next();
