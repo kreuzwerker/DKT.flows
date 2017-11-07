@@ -76,7 +76,13 @@ const resetOnLogout = (reducer: Function) => {
   };
 };
 
-const DEV_REDUCERS = [stateSetter, storeFreeze];
+const DEV_REDUCERS = [
+  stateSetter,
+  // NB disabled storeFreeze due to issue with zone.js upon failed route
+  // transition (caused by a Apollo network error)
+  // https://github.com/brandonroberts/ngrx-store-freeze/issues/17
+  // storeFreeze
+];
 // set in constants.js file of project root
 if (['logger', 'both'].indexOf(STORE_DEV_TOOLS) !== -1 ) {
     DEV_REDUCERS.push(storeLogger());
