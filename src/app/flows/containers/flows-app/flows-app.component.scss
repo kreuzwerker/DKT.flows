@@ -17,6 +17,10 @@ div.layout {
     // Min width required for inline confirm dialog (see flow-step-item)
     min-width: 350px;
     max-width: 350px;
+
+    button.toggle-sidebar {
+      display:none;
+    }
   }
 
   div.sidebar-left, div.right {
@@ -24,21 +28,45 @@ div.layout {
   }
 }
 
-// WORK IN PROGRESS reponsive sidebar-left
-// - must always show Flow name
-// - hide flow header, flow steps when screen width is too small for sidebar-left +
-//   providers + sidebar-right
-// - I can toggle show/hide overlaying sidebar-left when in "medium" layout
-// 
-// @media only screen and (max-width: 1175px) {
-//   div.layout {
-//     div.sidebar-left {
-//       position: absolute;
-//       z-index: 1;
-//       // display: none;
-//     }
-//   }
-// }
+@media only screen and (max-width: 1175px) {
+  // Hide left sidebar when editing a step and screen with is too small to
+  // show all three layout columns. Show the button to toggle the left sidebar
+  // as overlay.
+  div.layout.editing-step {
+    div.sidebar-left {
+      position: absolute;
+      z-index: 1;
+      transform: translateX(-350px);
+      transition: transform 0.2s ease-out;
+
+      &.show {
+        transform: translateX(0);
+      }
+
+      button.toggle-sidebar {
+        display:inline-block;
+        position: absolute;
+        bottom: 2rem;
+        right: -6rem;
+        // TODO update Material and use mat-fab instead of md-icon-button
+        width: 56px;
+        height: 56px;
+
+        md-icon {
+          font-size: 30px;
+          width: 30px;
+          color: $dark-grey;
+        }
+
+        &:hover {
+          md-icon {
+            color: $dark-blue;
+          }
+        }
+      }
+    }
+  }
+}
 
 /*
   Flow steps

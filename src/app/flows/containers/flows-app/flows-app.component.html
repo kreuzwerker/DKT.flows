@@ -1,5 +1,5 @@
-<div class="layout full-height" fxLayout="row" fxLayoutAlign="start stretch">
-  <div class="sidebar-left border-right full-height">
+<div class="layout full-height" [class.editing-step]="flowsApp.stepStage != null" fxLayout="row" fxLayoutAlign="start stretch" >
+  <div class="sidebar-left border-right full-height" [class.show]="showSidebar">
     <dkt-loading-indicator *ngIf="state.select('loadingFlow') | async" text="Loading flow" center="true"></dkt-loading-indicator>
     <dkt-flow-header *ngIf="flowsApp.flow" 
       [flow]="flowsApp.flow"
@@ -26,6 +26,11 @@
         <span class="btn-label">Add step</span>
       </button>
     </div>
+
+    <!-- Toggle sidebar -->
+    <button class="toggle-sidebar" md-icon-button md-raised-button (click)="showSidebar = !showSidebar">
+      <md-icon>{{showSidebar ? 'close' : 'menu'}}</md-icon>
+    </button>
   </div>
 
   <div class="main full-height" fxFlex>

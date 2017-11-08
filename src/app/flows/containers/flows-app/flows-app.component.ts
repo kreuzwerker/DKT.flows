@@ -14,7 +14,7 @@ import { Flow, Step, StepTest, FlowRun } from './../../models';
   templateUrl: 'flows-app.component.html',
   styleUrls: ['flows-app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class FlowsAppComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
@@ -23,6 +23,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
 
   requestedStepId: string = null;
   disableDraftControls: boolean = false;
+  showSidebar: boolean = false;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -46,41 +47,47 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params.takeUntil(this.ngOnDestroy$).map(params => params['flowId'])
-    .subscribe(
-      this.onFlowRouteChange.bind(this),
-      (err) => console.log('error', err)
-    );
+    this.route.params
+      .takeUntil(this.ngOnDestroy$)
+      .map(params => params['flowId'])
+      .subscribe(this.onFlowRouteChange.bind(this), err =>
+        console.log('error', err)
+      );
 
     // Current selected flow
     this.flowSub$ = this.state.flow$.subscribe(
       this.onSelectFlow.bind(this),
-      (err) => console.log('error', err)
+      err => console.log('error', err)
     );
 
     // Current selected step
-    this.state.select('step').takeUntil(this.ngOnDestroy$).subscribe(
-      this.onSelectStep.bind(this),
-      (err) => console.log('error', err)
-    );
+    this.state
+      .select('step')
+      .takeUntil(this.ngOnDestroy$)
+      .subscribe(this.onSelectStep.bind(this), err =>
+        console.log('error', err)
+      );
 
     // Created new flow run
-    this.state.createdFlowRun$.takeUntil(this.ngOnDestroy$).subscribe(
-      this.onStartedFlowRun.bind(this),
-      (err) => console.log('error', err)
-    );
+    this.state.createdFlowRun$
+      .takeUntil(this.ngOnDestroy$)
+      .subscribe(this.onStartedFlowRun.bind(this), err =>
+        console.log('error', err)
+      );
 
     // Tested flow step
-    this.state.testedFlowStep$.takeUntil(this.ngOnDestroy$).subscribe(
-      this.onTestedFlowStep.bind(this),
-      (err) => console.log('error', err)
-    );
+    this.state.testedFlowStep$
+      .takeUntil(this.ngOnDestroy$)
+      .subscribe(this.onTestedFlowStep.bind(this), err =>
+        console.log('error', err)
+      );
 
     // An external component opens the "trigger flow run" dialog
-    this.flowsApp.openTriggerFlowRunDialog$.takeUntil(this.ngOnDestroy$).subscribe(
-      this.openTriggerFlowRunDialog.bind(this),
-      (err) => console.log('error', err)
-    );
+    this.flowsApp.openTriggerFlowRunDialog$
+      .takeUntil(this.ngOnDestroy$)
+      .subscribe(this.openTriggerFlowRunDialog.bind(this), err =>
+        console.log('error', err)
+      );
   }
 
   ngOnDestroy(): void {
@@ -129,15 +136,19 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
 
   selectRequestedStep() {
     if (
-      typeof this.requestedStepId === 'undefined' || !this.requestedStepId
-      || !this.flowsApp.flow || !this.flowsApp.flow.steps.length
+      typeof this.requestedStepId === 'undefined' ||
+      !this.requestedStepId ||
+      !this.flowsApp.flow ||
+      !this.flowsApp.flow.steps.length
     ) {
       return false;
     }
 
     // Find requested step
     let requestedStep;
-    requestedStep = this.flowsApp.flow.steps.find(step => step.id === this.requestedStepId);
+    requestedStep = this.flowsApp.flow.steps.find(
+      step => step.id === this.requestedStepId
+    );
 
     if (requestedStep) {
       this.state.selectStep(requestedStep);
@@ -152,7 +163,10 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   */
 
   openTriggerFlowRunDialog() {
-    let dialogRef = this.dialog.open(TriggerFlowRunDialogComponent, this.dialogConfig);
+    let dialogRef = this.dialog.open(
+      TriggerFlowRunDialogComponent,
+      this.dialogConfig
+    );
     dialogRef.afterClosed().subscribe(data => {
       if (data) {
         this.flowsApp.startFlowRun(data.payload);
@@ -177,8 +191,9 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
       this.flowsApp.showStatusMessage('Triggering flow', 'loading');
     } else if (flowRun instanceof ApolloError) {
       this.flowsApp.showStatusMessage(
-        'An internal error occured. Flow could not be triggered'
-      , 'error');
+        'An internal error occured. Flow could not be triggered',
+        'error'
+      );
     } else if (flowRun.status === 'running') {
       this.flowsApp.showStatusMessage('Flow successfully triggered');
     } else if (flowRun.status === 'success') {
@@ -186,8 +201,9 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     } else {
       this.flowsApp.showStatusMessage(
         `An error occured. Flow could not be triggered.
-        (status: '${flowRun.status}', message: '${flowRun.message}')`
-      , 'error');
+        (status: '${flowRun.status}', message: '${flowRun.message}')`,
+        'error'
+      );
     }
 
     this.cd.markForCheck();
@@ -208,19 +224,22 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
       this.disableDraftControls = true;
       this.flowsApp.showStatusMessage('Deleting flow', 'loading');
       const name = this.flowsApp.flow.name;
-      this.flowsApp.deleteFlow().subscribe((success) => {
-        // Upon successful flow deletion redirect user to flows overview
-        this.disableDraftControls = false;
-        this.flowsApp.hideStatusMessage();
-        this.showInfoMessage(`Deleted flow "${name}".`);
-        this.cd.markForCheck();
-        this.router.navigate(['flows']);
-      }, (err) => {
-        // Restore controls
-        this.disableDraftControls = false;
-        this.flowsApp.hideStatusMessage();
-        this.cd.markForCheck();
-      });
+      this.flowsApp.deleteFlow().subscribe(
+        success => {
+          // Upon successful flow deletion redirect user to flows overview
+          this.disableDraftControls = false;
+          this.flowsApp.hideStatusMessage();
+          this.showInfoMessage(`Deleted flow "${name}".`);
+          this.cd.markForCheck();
+          this.router.navigate(['flows']);
+        },
+        err => {
+          // Restore controls
+          this.disableDraftControls = false;
+          this.flowsApp.hideStatusMessage();
+          this.cd.markForCheck();
+        }
+      );
     }
   }
 
@@ -238,7 +257,10 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     if (stepTest === 'loading') {
       this.flowsApp.showStatusMessage('Testing step', 'loading');
     } else if (stepTest instanceof ApolloError) {
-      this.flowsApp.showStatusMessage('An error occured. Step could not be tested', 'error');
+      this.flowsApp.showStatusMessage(
+        'An error occured. Step could not be tested',
+        'error'
+      );
     } else if (stepTest.tested) {
       this.flowsApp.showStatusMessage('Step successfully tested');
     } else {
@@ -251,10 +273,10 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     Flows steps
   */
 
-  getCurrentActiveStepOption (step: Step): string {
-    return (step && this.flowsApp.step && step.id === this.flowsApp.step.id) ?
-      this.flowsApp.stepStage :
-      '';
+  getCurrentActiveStepOption(step: Step): string {
+    return step && this.flowsApp.step && step.id === this.flowsApp.step.id
+      ? this.flowsApp.stepStage
+      : '';
   }
 
   isSelectedStep(step: Step): boolean {
