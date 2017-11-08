@@ -48,8 +48,11 @@ describe('Flows App', () => {
     });
 
     describe('flowHasError()', () => {
-      xit('should return true if the given flow has had an erroneous flow run', () => {
+      it('should return true if the given flow has had an erroneous last flow run', () => {
+        flow.lastFlowRun = utils.createFlowRunData('1', 'error');
         expect(helpers.flowHasError(flow)).toBeTruthy();
+        flow.lastFlowRun = utils.createFlowRunData('1', 'success');
+        expect(helpers.flowHasError(flow)).toBeFalsy();
       });
     });
 

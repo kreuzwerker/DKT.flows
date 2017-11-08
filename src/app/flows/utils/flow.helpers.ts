@@ -52,8 +52,11 @@ export function flowHasActionStep(flow: Flow): boolean {
 }
 
 export function flowHasError(flow: Flow): boolean {
-  // TODO getFlows API must provide flow.errors[]
-  return false;
+  if (flow.lastFlowRun && flow.lastFlowRun.status) {
+    return flow.lastFlowRun.status === 'error';
+  } else {
+    return false;
+  }
 }
 
 export function flowIsInDraft(flow: Flow): boolean {

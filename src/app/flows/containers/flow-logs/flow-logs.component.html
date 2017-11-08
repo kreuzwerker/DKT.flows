@@ -25,7 +25,7 @@
           <md-icon *ngSwitchCase="'success'" class="status success" md-list-icon>check</md-icon>
           <md-icon *ngSwitchCase="'error'" class="status error" md-list-icon>error</md-icon>
 
-          <h6 class="date" fxFlex md-line>{{run.startedAt * 1000 | date:'dd.MM.yy HH:mm'}}</h6>
+          <h6 class="date" fxFlex md-line>{{run.startedAt | date:'dd.MM.yy HH:mm'}}</h6>
 
           <md-icon class="toggle show-more">expand_more</md-icon>
           <md-icon class="toggle show-less">expand_less</md-icon>
@@ -41,7 +41,7 @@
         <md-icon>keyboard_arrow_left</md-icon>
         Newer
       </button>
-      <button [style.visibility]="(runsCount >= (offset + limit)) ? 'visible' : 'hidden'" md-raised-button (click)="fetchMoreLogs(offset + limit)">
+      <button [style.visibility]="(runsCount > (offset + limit)) ? 'visible' : 'hidden'" md-raised-button (click)="fetchMoreLogs(offset + limit)">
         Older
         <md-icon>keyboard_arrow_right</md-icon>
       </button>

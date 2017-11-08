@@ -17,6 +17,9 @@ export const flowsItemFragment = gql`
         }
       }
     }
+    lastFlowRun {
+      status
+    }
   }
 `;
 
