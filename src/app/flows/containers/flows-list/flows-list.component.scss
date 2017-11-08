@@ -119,6 +119,16 @@ md-list.flows .flow-list-item {
       color: #999;
     }
 
+    md-icon[aria-label='flash_on'] {
+      color: #ccc;
+      border: 2px dashed #ccc;
+      border-radius: 50%;
+      font-size: 19px;
+      width: 19px;
+      height: 19px;
+      padding: 2.5px;
+    }
+
     div.steps-count {
       display: inline-block;
       border: 2px solid $list-item-border-color;

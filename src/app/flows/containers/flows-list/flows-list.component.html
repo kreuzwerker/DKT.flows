@@ -26,8 +26,8 @@
           <md-icon *ngIf="flow.steps.length > 2" class="chevron">chevron_right</md-icon>
           <div *ngIf="flow.steps.length > 2" class="steps-count">{{flow.steps.length - 2}}</div>
 
-          <md-icon *ngIf="flow.steps.length > 1" class="chevron">chevron_right</md-icon>
-          <md-icon *ngIf="flow.steps.length > 1" class="last-step">{{getLastStepIcon(flow)}}</md-icon>
+          <md-icon class="chevron">chevron_right</md-icon>
+          <md-icon class="last-step">{{getLastStepIcon(flow)}}</md-icon>
         </div>
 
         <div md-list-icon class="seperator"></div>

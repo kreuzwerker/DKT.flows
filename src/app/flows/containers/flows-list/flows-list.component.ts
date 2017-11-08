@@ -111,7 +111,7 @@ export class FlowsListComponent implements OnInit, OnDestroy {
       !flow.steps[0].service.provider ||
       !flow.steps[0].service.provider.icon
     ) {
-      return 'help';
+      return 'flash_on';
     }
 
     return flow.steps[0].service.provider.icon;
@@ -119,12 +119,13 @@ export class FlowsListComponent implements OnInit, OnDestroy {
 
   getLastStepIcon(flow: Flow): string {
     if (
+      flow.steps.length <= 1 ||
       !flow.steps[flow.steps.length - 1] ||
       !flow.steps[flow.steps.length - 1].service ||
       !flow.steps[flow.steps.length - 1].service.provider ||
       !flow.steps[flow.steps.length - 1].service.provider.icon
     ) {
-      return 'help';
+      return 'flash_on';
     }
 
     return flow.steps[flow.steps.length - 1].service.provider.icon;
