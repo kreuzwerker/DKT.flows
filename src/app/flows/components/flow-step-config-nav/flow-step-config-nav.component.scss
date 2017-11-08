@@ -68,3 +68,29 @@ div.flow-step-config-nav {
     }
   }
 }
+
+@media only screen and (max-width: 960px) {
+  div.flow-step-config-nav {
+    // Hide 'Flow configuration' headline
+    h4 {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  div.flow-step-config-nav {
+    // Show the step name only for the current step
+    li {
+      span.name {
+        display: none;
+      }
+      
+      &.current {
+        span.name {
+          display: inherit;
+        }
+      }
+    }
+  }
+}
