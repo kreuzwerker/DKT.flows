@@ -19,14 +19,15 @@ const authMiddleware = {
       req.options.headers = {};  // Create the header object if needed.
     }
 
-    // TODO figure out which token to send to the server in case the user has
-    // authenticated with Google SignIn.
-    //
-    // console.log('idToken', UserLoginService.getIdToken());
-    req.options.headers['authorization'] = UserLoginService.getIdToken();
-
     UserLoginService.refreshTokens()
-      .then(next)
+      .then(() => {
+        // TODO figure out which token to send to the server in case the user has
+        // authenticated with Google SignIn.
+        //
+        // console.log('idToken', UserLoginService.getIdToken());
+        req.options.headers['authorization'] = UserLoginService.getIdToken();
+        next();
+      })
       .catch(err => {
         console.log('Failed to refresh token');
         // TODO don't next(), sign out and redirect to sign in view
