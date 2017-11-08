@@ -11,8 +11,8 @@ import * as providerHelpers from './../../utils/provider.helpers';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('fadeInOut', [
-      state('showing' , style({ opacity: 1, transform: 'scale(1.0)' })),
-      state('hiding', style({ opacity: 0, transform: 'scale(0.0)' })),
+      state('showing' , style({ opacity: 1, transform: 'scale(1.0) translateX(-50%)' })),
+      state('hiding', style({ opacity: 0, transform: 'scale(0.0) translateX(-50%)' })),
       transition('* <=> *', animate('200ms')),
     ])
   ]

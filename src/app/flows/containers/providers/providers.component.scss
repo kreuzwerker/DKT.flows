@@ -1,6 +1,10 @@
 .providers {
   position: relative;
 
+  .provider-item {
+    display: inline-block;
+  }
+
   .service {
     margin-bottom: 1rem;
   }

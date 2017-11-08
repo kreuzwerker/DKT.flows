@@ -1,10 +1,11 @@
-<div class="providers" fxLayout="row" fxLayoutAlign="start center">
-  <div class="padding" fxLayout="row" fxLayoutAlign="center center">
-    <dkt-loading-indicator *ngIf="state.select('loadingProviders') | async" text="Loading providers" center="true"></dkt-loading-indicator>
+<div class="providers">
+  <div *ngIf="state.select('loadingProviders') | async" class="padding" fxLayout="row" fxLayoutAlign="center center">
+    <dkt-loading-indicator text="Loading providers" center="true"></dkt-loading-indicator>
   </div>
 
   <dkt-provider-item
-    *ngFor="let provider of providers" 
+    class="provider-item"
+    *ngFor="let provider of providers"
     [provider]="provider"
     [isSelected]="provider == selectedProvider"
     (onSelectProvider)="selectProvider($event.provider)">

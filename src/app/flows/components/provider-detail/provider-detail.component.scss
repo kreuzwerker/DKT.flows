@@ -5,9 +5,11 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 div.provider-detail {
   position: absolute;
   top: 2rem;
-  left: 2rem;
-  right: 2rem;
-  width: auto;
+  // See fadeInOut states: translateX(-50%) 
+  left: 50%;
+  width: 100%;
+  min-width: 200px;
+  max-width: 400px;
   padding: 1rem;
 
   border: 1px solid #eee;
