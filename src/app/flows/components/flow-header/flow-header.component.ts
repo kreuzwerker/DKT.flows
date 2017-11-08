@@ -27,6 +27,7 @@ export class FlowHeaderComponent {
   }
 
   truncate(str: string): string {
-    return (str && str.length > 70) ? str.substring(0, 70) + '...' : str;
+    const limit = 270;
+    return str && str.length > limit ? str.substring(0, limit) + '...' : str;
   }
 }

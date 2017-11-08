@@ -24,6 +24,22 @@ div.layout {
   }
 }
 
+// WORK IN PROGRESS reponsive sidebar-left
+// - must always show Flow name
+// - hide flow header, flow steps when screen width is too small for sidebar-left +
+//   providers + sidebar-right
+// - I can toggle show/hide overlaying sidebar-left when in "medium" layout
+// 
+// @media only screen and (max-width: 1175px) {
+//   div.layout {
+//     div.sidebar-left {
+//       position: absolute;
+//       z-index: 1;
+//       display: none;
+//     }
+//   }
+// }
+
 /*
   Flow steps
 */
