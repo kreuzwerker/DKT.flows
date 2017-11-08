@@ -26,7 +26,7 @@ export interface TaskData {
 export enum TaskType {
   REVIEW = <any>'REVIEW',
   APPROVE = <any>'APPROVE',
-  CORRECT = <any>'CORRECT'
+  MODIFY = <any>'MODIFY'
 }
 
 export enum TaskState {

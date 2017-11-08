@@ -5,7 +5,9 @@ import { Observable } from 'rxjs/Observable';
 
 export const mockFlowsApp = {
   saveFlow(): void { },
-  deleteFlow(): void { },
+  deleteFlow(): Observable<any> {
+    return new Subject<any>();
+  },
   saveFlowStep(): Observable<any> {
     return new Subject<any>();
   },

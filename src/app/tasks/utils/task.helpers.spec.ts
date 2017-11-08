@@ -22,7 +22,7 @@ describe('Tasks App', () => {
         task.type = TaskType.REVIEW;
         type = helpers.getTaskStateType(task);
         expect(type).toBe(TaskStateType.REVIEW);
-        task.type = TaskType.CORRECT;
+        task.type = TaskType.MODIFY;
         type = helpers.getTaskStateType(task);
         expect(type).toBe(TaskStateType.TRANSITIONAL);
       });

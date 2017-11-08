@@ -129,7 +129,7 @@ export class TasksAppService {
     this.filtersList = [
       {type: 'taskType', taskType: TaskType.APPROVE},
       {type: 'taskType', taskType: TaskType.REVIEW},
-      {type: 'taskType', taskType: TaskType.CORRECT},
+      {type: 'taskType', taskType: TaskType.MODIFY},
     ];
 
     // Register flow filters

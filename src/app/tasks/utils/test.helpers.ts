@@ -38,7 +38,7 @@ export class TestUtils {
   createTasksListData(): Task[] {
     return [
       this.createTaskData('1', 'Test Task 1', 'Test Task 1 description', '1491989405', TaskType.APPROVE, TaskState.STARTED),
-      this.createTaskData('2', 'Test Task 2', 'Test Task 2 description', '1493989405', TaskType.CORRECT, TaskState.STARTED),
+      this.createTaskData('2', 'Test Task 2', 'Test Task 2 description', '1493989405', TaskType.MODIFY, TaskState.STARTED),
       this.createTaskData('3', 'Test Task 3', 'Test Task 3 description', '1494989405', TaskType.APPROVE, TaskState.STARTED),
       this.createTaskData('4', 'Test Task 4', 'Test Task 4 description', '1495989405', TaskType.REVIEW, TaskState.NOT_STARTED),
       this.createTaskData('5', 'Test Task 5', 'Test Task 5 description', '1496989405', TaskType.REVIEW, TaskState.NOT_STARTED),
@@ -69,7 +69,7 @@ export class TestUtils {
     return [
       this.createTaskTypeFilterData(TaskType.APPROVE),
       this.createTaskTypeFilterData(TaskType.REVIEW),
-      this.createTaskTypeFilterData(TaskType.CORRECT),
+      this.createTaskTypeFilterData(TaskType.MODIFY),
       this.createTaskFlowFilterData('1', 'Test Flow 1'),
       this.createTaskFlowFilterData('2', 'Test Flow 2'),
       this.createTaskFlowFilterData('3', 'Test Flow 3'),
