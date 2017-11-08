@@ -19,7 +19,8 @@ region=eu-west-1
 ### Deployment
 
 1. First create a new build with `yarn run build` and check locally that the build works.
-2. Run `yarn run deploy-test` to deploy the new build to the Test environment.
+2. Run `yarn run deploy-dev` to deploy the new build to the Dev environment.
+   Run `yarn run deploy-test` to deploy the new build to the Test environment.
 
 ## Local REST Mock API
 

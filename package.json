@@ -71,6 +71,7 @@
     "watch:prod": "npm-run-all -p -r \"build:prod -- --watch\" sass:watch",
     "mock-api:reset": "node mock-api/db.js",
     "mock-api:serve": "json-server mock-api/db.json -p 3001 -w --routes mock-api/routes.json --delay 500",
+    "deploy-dev": "s3-deploy './dist/client/**' --cwd './dist/client/' --profile dkt --region eu-west-1 --bucket dkt.flows.dev",
     "deploy-test": "s3-deploy './dist/client/**' --cwd './dist/client/' --profile dkt --region eu-west-1 --bucket dkt.flows.test"
   },
   "dependencies": {

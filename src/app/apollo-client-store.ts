@@ -2,15 +2,16 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { UserLoginService } from './core/services';
 import { each } from 'lodash';
 
-const networkInterface = createNetworkInterface({
-  // TODO use as soon as server-side authentication works for both UserPool and
-  // Google SignIn strategies.
-  //
-  // DKT Test API
-  // uri: 'https://x64ywwtnw3.execute-api.eu-west-1.amazonaws.com/Test'
+function getApiUrl(): string {
+  if (document.location.hostname.indexOf('dkt.flows.test') !== -1) {
+    return 'https://x64ywwtnw3.execute-api.eu-west-1.amazonaws.com/Test';
+  } else {
+    return 'https://m0zw22d92f.execute-api.eu-west-1.amazonaws.com/Dev';
+  }
+}
 
-  // DKT Dev API
-  uri: 'https://m0zw22d92f.execute-api.eu-west-1.amazonaws.com/Dev'
+const networkInterface = createNetworkInterface({
+  uri: getApiUrl()
 });
 
 const authMiddleware = {
