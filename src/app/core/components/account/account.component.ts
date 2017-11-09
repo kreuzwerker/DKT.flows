@@ -30,8 +30,10 @@ export class AccountComponent implements AfterViewInit {
     // Sign out from Google
     try {
       let auth2 = gapi.auth2.getAuthInstance();
+      // Redirect to login
       auth2.signOut().then(() => {
-        // Redirect to login
+        this.router.navigate(['/login']);
+      }).catch(err => {
         this.router.navigate(['/login']);
       });
     } catch (e) {
