@@ -252,6 +252,11 @@ export class FlowsApiService {
       __typename: 'Mutation',
       updateStep: Object.assign({}, step, {
         __typename: 'Step',
+        configParams: step.configParams ? step.configParams.map(p => {
+          return Object.assign({}, p, {
+            __typename: 'StepConfigParams'
+          });
+        }) : step.configParams,
         flow: {
           __typename: 'Flow',
           id: step.flow.id,
