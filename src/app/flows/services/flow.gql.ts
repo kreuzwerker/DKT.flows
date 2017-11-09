@@ -18,6 +18,7 @@ export const flowsItemFragment = gql`
       }
     }
     lastFlowRun {
+      id
       status
     }
   }
