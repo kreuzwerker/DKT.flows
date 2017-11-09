@@ -4,7 +4,12 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 @import '../../../animations';
 
 #flow-logs {
-  margin: 1rem;
+  max-width: 700px;
+  min-width: 370px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
 
   h4 {
     margin: 0;
