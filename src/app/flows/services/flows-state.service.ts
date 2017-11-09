@@ -60,10 +60,10 @@ export class FlowsStateService extends StateService {
   private loadProviders$: Subject<any> = new Subject<any>();
 
   constructor(
-      private api: FlowsApiService,
-      public store: NgRedux<AppState>,
-      public actions: FlowsAppActions,
-    ) {
+    private api: FlowsApiService,
+    public store: NgRedux<AppState>,
+    public actions: FlowsAppActions
+  ) {
     super(store);
 
     //
@@ -76,17 +76,21 @@ export class FlowsStateService extends StateService {
     // Fetches flow data reactively as soon as flowId gets set or changes, i.e.
     // DOES NOT fetch flow data when flowId is null or unchanged.
 
-    this.flow$ = this.api.getFlow({
-      id: this.select('flowId').filter((flowId) => flowId !== null)
-    }).map(({data}) => data.Flow);
+    this.flow$ = this.api
+      .getFlow({
+        id: this.select('flowId').filter(flowId => flowId !== null)
+      })
+      .map(({ data }) => data.Flow);
 
     // Providers list
     // --------------
 
-    this.providers$ = this.api.getProviders({
-      // NB fake var to hold back the query until we trigger it via this observable
-      id: this.loadProviders$
-    }).map(({data}) => data && data.allProviders || []);
+    this.providers$ = this.api
+      .getProviders({
+        // NB fake var to hold back the query until we trigger it via this observable
+        id: this.loadProviders$
+      })
+      .map(({ data }) => (data && data.allProviders) || []);
   }
 
   //
@@ -96,15 +100,16 @@ export class FlowsStateService extends StateService {
   loadFlows(): void {
     // Fetch an up-to-date list of flows
     this.dispatch(this.actions.setLoadingFlows(true));
-    this.flows$ = this.api.getFlows().map((response) => {
+    this.flows$ = this.api.getFlows().map(response => {
       // Flatten the data object to array of flows
-      const data = response.data && response.data.allFlows ? response.data.allFlows : [];
+      const data =
+        response.data && response.data.allFlows ? response.data.allFlows : [];
       // Return the full response including the loading flag
-      return Object.assign({}, response, {data: data});
+      return Object.assign({}, response, { data: data });
     });
 
     // Unset loading flows flag
-    this.flowsSub$ = this.flows$.subscribe((response) => {
+    this.flowsSub$ = this.flows$.subscribe(response => {
       // The first response will contain cached data. Keep showing the loading
       // indicator until the response contains data fetched via network.
       // NB see getFlows() fetch policy 'cache-and-network' property
@@ -115,15 +120,19 @@ export class FlowsStateService extends StateService {
     });
   }
 
-  loadFlowLogs(flowId: string, offset: number, limit: number, status: string): void {
+  loadFlowLogs(
+    flowId: string,
+    offset: number,
+    limit: number,
+    status: string
+  ): void {
     // Show loading indicator while loading providers
     this.dispatch(this.actions.setLoadingFlowLogs(true));
 
     this.flowLogsQuery$ = this.api.getFlowLogs(flowId, offset, limit, status);
-    this.flowLogs$ = this.flowLogsQuery$
-      .map(({data}) => data.Flow);
+    this.flowLogs$ = this.flowLogsQuery$.map(({ data }) => data.Flow);
 
-    const flowLogsSub$ = this.flowLogs$.subscribe((providers) => {
+    const flowLogsSub$ = this.flowLogs$.subscribe(providers => {
       this.dispatch(this.actions.setLoadingFlowLogs(false));
       flowLogsSub$.unsubscribe();
     });
@@ -133,24 +142,28 @@ export class FlowsStateService extends StateService {
     // Show loading indicator while loading providers
     this.dispatch(this.actions.setLoadingFlowLogs(true));
 
-    this.flowLogsQuery$.fetchMore({
-      variables: {
-        offset: offset,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) { return prev; }
-        return {
-          Flow: Object.assign({}, prev.Flow, {
-            runs: fetchMoreResult.Flow.runs
-          })
-        };
-      },
-    }).then((flow) => {
-      this.dispatch(this.actions.setLoadingFlowLogs(false));
-    })
-    .catch((err) => {
-      this.dispatch(this.actions.setLoadingFlowLogs(false));
-    });
+    this.flowLogsQuery$
+      .fetchMore({
+        variables: {
+          offset: offset
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult) {
+            return prev;
+          }
+          return {
+            Flow: Object.assign({}, prev.Flow, {
+              runs: fetchMoreResult.Flow.runs
+            })
+          };
+        }
+      })
+      .then(flow => {
+        this.dispatch(this.actions.setLoadingFlowLogs(false));
+      })
+      .catch(err => {
+        this.dispatch(this.actions.setLoadingFlowLogs(false));
+      });
   }
 
   selectFlow(id: string): void {
@@ -161,7 +174,7 @@ export class FlowsStateService extends StateService {
 
     // Show loading indicator while loading the flow
     this.dispatch(this.actions.setLoadingFlow(true));
-    this.flowSub$ = this.flow$.subscribe((flow) => {
+    this.flowSub$ = this.flow$.subscribe(flow => {
       this.dispatch(this.actions.setLoadingFlow(false));
       this.flowSub$.unsubscribe();
     });
@@ -175,46 +188,51 @@ export class FlowsStateService extends StateService {
 
   createFlow(flow: Flow): void {
     this.dispatch(this.actions.setSavingFlow(true, false));
-    this.api.createFlow(flow).subscribe(flow => {
-      this.dispatch(this.actions.setSavingFlow(false, true));
-      this.createdFlow$.next(flow);
-    }, err => {
-      this.dispatch(this.actions.setSavingFlow(false, true));
-    });
+    this.api.createFlow(flow).subscribe(
+      flow => {
+        this.dispatch(this.actions.setSavingFlow(false, true));
+        this.createdFlow$.next(flow);
+      },
+      err => {
+        this.dispatch(this.actions.setSavingFlow(false, true));
+      }
+    );
   }
 
   deleteFlow(id: string): Observable<any> {
     return this.api.deleteFlow({
-      flowId: id,
+      flowId: id
     });
   }
 
   restoreFlow(id: string): void {
     this.createdFlowRun$.next('restoring');
-    this.api.restoreFlow({
-      flowId: id,
-    }).subscribe((_step) => {
-      this.createdFlowRun$.next('restored');
-    });
+    this.api
+      .restoreFlow({
+        flowId: id
+      })
+      .subscribe(_step => {
+        this.createdFlowRun$.next('restored');
+      });
   }
 
   saveFlow(id: string, flow: FlowData): void {
     this.dispatch(this.actions.setSavingFlow(true, false));
   }
 
-  saveFlowStep(flowId: string, stepId: string, step: StepData): Observable<any> {
+  saveFlowStep(
+    flowId: string,
+    stepId: string,
+    step: StepData
+  ): Observable<any> {
     let obs$ = new Subject<any>();
     this.dispatch(this.actions.setSavingFlow(true, false));
 
-    // Remove the __typename property before making the API request
-    const configParams = step.configParams && step.configParams.map(
-      (param) => lodash.omit(param, ['__typename']) as StepConfigParamsInput
-    ) || null;
     const _step = Object.assign({}, step, {
-      configParams: configParams,
+      configParams: this.sanitizeStepConfigParams(step.configParams)
     });
 
-    this.api.updateStep(flowId, _step).subscribe((_step) => {
+    this.api.updateStep(flowId, _step).subscribe(_step => {
       this.dispatch(this.actions.setSavingFlow(false, true));
       obs$.next(_step);
     });
@@ -225,35 +243,40 @@ export class FlowsStateService extends StateService {
   addFlowStep(flow: Flow, step: Step): Observable<any> {
     let obs$ = new Subject<any>();
     this.dispatch(this.actions.setSavingFlow(true, false));
-    this.api.addFlowStep(flow, step).subscribe((_step) => {
-      this.dispatch(this.actions.setSavingFlow(false, true));
-      obs$.next(_step);
-    }, (err) => {
-      this.dispatch(this.actions.setSavingFlow(false, true));
-    });
-
+    this.api.addFlowStep(flow, step).subscribe(
+      _step => {
+        this.dispatch(this.actions.setSavingFlow(false, true));
+        obs$.next(_step);
+      },
+      err => {
+        this.dispatch(this.actions.setSavingFlow(false, true));
+      }
+    );
 
     return obs$;
   }
 
   removeFlowStep(flow: Flow, step: Step) {
     this.dispatch(this.actions.setSavingFlow(true, false));
-    this.api.removeFlowStep(flow, step).subscribe((data) => {
-      this.dispatch(this.actions.setSavingFlow(false, true));
-    }, (err) => {
-      this.dispatch(this.actions.setSavingFlow(false, true));
-    });
-
+    this.api.removeFlowStep(flow, step).subscribe(
+      data => {
+        this.dispatch(this.actions.setSavingFlow(false, true));
+      },
+      err => {
+        this.dispatch(this.actions.setSavingFlow(false, true));
+      }
+    );
   }
 
   loadProviders(): void {
     // Show loading indicator while loading providers
     this.dispatch(this.actions.setLoadingProviders(true));
-    this.providers$.subscribe((providers) => this.dispatch(
-      this.actions.setLoadingProviders(false)
-    ), (err) => {
-      this.dispatch(this.actions.setLoadingProviders(false));
-    });
+    this.providers$.subscribe(
+      providers => this.dispatch(this.actions.setLoadingProviders(false)),
+      err => {
+        this.dispatch(this.actions.setLoadingProviders(false));
+      }
+    );
 
     // Trigger loading the providers
     this.loadProviders$.next(1);
@@ -261,22 +284,52 @@ export class FlowsStateService extends StateService {
 
   createFlowRun(flowId: string, userId: string): void {
     this.createdFlowRun$.next('saving');
-    this.api.createFlowRun(flowId, userId).subscribe((flowRun) => {
-      this.createdFlowRun$.next('saved');
-    }, (error) => console.log('ERROR', error));
+    this.api.createFlowRun(flowId, userId).subscribe(
+      flowRun => {
+        this.createdFlowRun$.next('saved');
+      },
+      error => console.log('ERROR', error)
+    );
   }
 
   startFlowRun(flowRunId: string, payload: Object): void {
     this.createdFlowRun$.next('loading');
-    this.api.startFlowRun(flowRunId, payload).subscribe((flowRun) => {
-      this.createdFlowRun$.next(flowRun);
-    }, (error) => this.createdFlowRun$.next(error));
+    this.api.startFlowRun(flowRunId, payload).subscribe(
+      flowRun => {
+        this.createdFlowRun$.next(flowRun);
+      },
+      error => this.createdFlowRun$.next(error)
+    );
   }
 
-  testFlowStep(stepId: string, payload: String): void {
+  testFlowStep(
+    stepId: string,
+    payload: String,
+    configParams: StepConfigParamsInput[]
+  ): void {
+    configParams = this.sanitizeStepConfigParams(configParams);
+
     this.testedFlowStep$.next('loading');
-    this.api.testFlowStep(stepId, payload).subscribe((test) => {
-      this.testedFlowStep$.next(test);
-    }, (error) => this.testedFlowStep$.next(error));
+    this.api.testFlowStep(stepId, payload, configParams).subscribe(
+      test => {
+        this.testedFlowStep$.next(test);
+      },
+      error => this.testedFlowStep$.next(error)
+    );
+  }
+
+  /**
+   * Helpers
+   */
+
+  sanitizeStepConfigParams(configParams): StepConfigParamsInput[] | null {
+    // Remove the __typename property before making the API request
+    return (
+      (configParams &&
+        configParams.map(
+          param => lodash.omit(param, ['__typename']) as StepConfigParamsInput
+        )) ||
+      null
+    );
   }
 }

@@ -54,7 +54,7 @@ describe('Flows App', () => {
         flowsApp.step = utils.createStepData();
         const payload = 'test payload';
         component.testStep(payload);
-        expect(spy).toHaveBeenCalledWith('1', payload);
+        expect(spy).toHaveBeenCalledWith('1', payload, flowsApp.step.configParams);
       });
     });
 

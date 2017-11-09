@@ -187,12 +187,17 @@ export class FlowsApiService {
     });
   }
 
-  public testFlowStep(stepId: String, payload: String): Observable<ApolloQueryResult<any>> {
+  public testFlowStep(
+    stepId: String,
+    payload: String,
+    configParams: StepConfigParamsInput[]
+  ): Observable<ApolloQueryResult<any>> {
     return this.apollo.mutate<any>({
       mutation: gql.testFlowStepMutation,
       variables: {
         id: stepId,
         payload: payload,
+        configParams: configParams
       },
       updateQueries: {
         FlowQuery: (previousResult, { mutationResult }: any) => {

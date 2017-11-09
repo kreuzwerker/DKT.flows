@@ -51,7 +51,7 @@ export class TestStepComponent implements OnInit, OnDestroy {
   }
 
   testStep(payload: String) {
-    this.state.testFlowStep(this.flowsApp.step.id, payload);
+    this.state.testFlowStep(this.flowsApp.step.id, payload, this.flowsApp.step.configParams);
   }
 
   onTestedFlowStep(stepTest: any) {

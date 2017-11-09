@@ -285,8 +285,16 @@ export const removeFlowStepMutation = gql`
 `;
 
 export const testFlowStepMutation = gql`
-  mutation TestStep($id:ID!, $payload:String!) {
-    testStep(id: $id, payload: $payload) {
+  mutation TestStep(
+    $id:ID!,
+    $payload:String!,
+    $configParams: [StepConfigParamsInput]
+  ) {
+    testStep(
+      id: $id,
+      payload: $payload,
+      configParams: $configParams
+    ) {
       id
       description
       service {

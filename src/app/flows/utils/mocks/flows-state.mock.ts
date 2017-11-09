@@ -30,7 +30,7 @@ export const mockFlowsState = {
   dispatch(action: Action) { },
   createFlowRun(flowId: string, userId: string): void {},
   startFlowRun(flowRunId: string, payload: Object): void {},
-  testFlowStep(stepId: string, payload: String): void {},
+  testFlowStep(stepId: string, payload: String, configParams: StepConfigParamsInput[]): void {},
 
   // TODO we don't really want to do it this way..
   // Create mock via class inflection?
