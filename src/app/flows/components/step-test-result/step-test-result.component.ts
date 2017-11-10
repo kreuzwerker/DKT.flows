@@ -12,12 +12,13 @@ export class StepTestResultComponent implements OnChanges {
   @Input() show: Boolean = false;
 
   renderData: String = null;
-  renderType: String = 'html';
+  renderType: StepTestResultType = StepTestResultType.TEXT;
 
   ngOnChanges(changes: SimpleChanges) {
     // Don't update results upon errors
     if (this.type !== StepTestResultType.ERROR) {
       this.renderData = this.data;
+      this.renderType = this.type;
     }
   }
 }

@@ -204,10 +204,7 @@ export class FlowsApiService {
           return this.updateTestedFlowStep(previousResult, mutationResult.data.testStep);
         },
       },
-    }).map(({data}) => {
-      data.testStep.result = JSON.parse(data.testStep.result);
-      return data.testStep;
-    });
+    }).map(({data}) => data.testStep);
   }
 
   public createFlowRun(

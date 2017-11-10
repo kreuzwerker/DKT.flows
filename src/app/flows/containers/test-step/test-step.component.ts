@@ -6,7 +6,7 @@ import { Step, StepTestResultType } from './../../models';
 @Component({
   selector: 'test-step',
   templateUrl: 'test-step.component.html',
-  styleUrls: ['test-step.component.css'],
+  styleUrls: ['test-step.component.css']
   // NB make our life easier by not using OnPush for reactive forms, e.g. detect
   // form validation status after form has finished rendering.
 })
@@ -15,13 +15,13 @@ export class TestStepComponent implements OnInit, OnDestroy {
   step: Step = null;
   samplePayload: String = '';
 
-  showTestResults: Boolean = false;
-  stepTestResultData: String = null;
+  showTestResults: boolean = false;
+  stepTestResultData: string = null;
   stepTestResultType: StepTestResultType = null;
 
   constructor(
     public flowsApp: FlowsAppService,
-    public state: FlowsStateService,
+    public state: FlowsStateService
   ) {}
 
   ngOnInit() {
@@ -29,16 +29,19 @@ export class TestStepComponent implements OnInit, OnDestroy {
     this.flowsApp.setStepStage('test');
 
     // Current selected step
-    this.state.select('step').takeUntil(this.ngOnDestroy$).subscribe(
-      this.onSelectStep.bind(this),
-      (err) => console.log('error', err)
-    );
+    this.state
+      .select('step')
+      .takeUntil(this.ngOnDestroy$)
+      .subscribe(this.onSelectStep.bind(this), err =>
+        console.log('error', err)
+      );
 
     // Tested flow step
-    this.state.testedFlowStep$.takeUntil(this.ngOnDestroy$).subscribe(
-      this.onTestedFlowStep.bind(this),
-      (err) => console.log('error', err)
-    );
+    this.state.testedFlowStep$
+      .takeUntil(this.ngOnDestroy$)
+      .subscribe(this.onTestedFlowStep.bind(this), err =>
+        console.log('error', err)
+      );
   }
 
   onSelectStep(step: Step) {
@@ -47,11 +50,17 @@ export class TestStepComponent implements OnInit, OnDestroy {
     }
 
     this.step = step;
-    this.samplePayload = this.step.service.samplePayload ? this.step.service.samplePayload : '';
+    this.samplePayload = this.step.service.samplePayload
+      ? this.step.service.samplePayload
+      : '';
   }
 
   testStep(payload: String) {
-    this.state.testFlowStep(this.flowsApp.step.id, payload, this.flowsApp.step.configParams);
+    this.state.testFlowStep(
+      this.flowsApp.step.id,
+      payload,
+      this.flowsApp.step.configParams
+    );
   }
 
   onTestedFlowStep(stepTest: any) {
@@ -60,12 +69,41 @@ export class TestStepComponent implements OnInit, OnDestroy {
     } else if (stepTest.tested) {
       this.stepTestResultData = stepTest.result;
       // TODO result type should be provided by server
-      this.stepTestResultType = StepTestResultType.HTML;
+      this.stepTestResultType = this.getStepTestResultType(stepTest);
+
+      this.stepTestResultData = stepTest.result;
+      if (this.stepTestResultType === StepTestResultType.JSON) {
+        try {
+          this.stepTestResultData = JSON.parse(this.stepTestResultData);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
       this.showTestResults = true;
     } else {
       this.showTestResults = false;
       this.stepTestResultData = null;
       this.stepTestResultType = StepTestResultType.ERROR;
+    }
+  }
+
+  getStepTestResultType(stepTest: any): StepTestResultType {
+    // TEMP
+    // Heuristically determine result type based on step service
+    switch (stepTest.service.name) {
+      case 'Parse JSON':
+        console.log('JSON');
+        return StepTestResultType.JSON;
+
+      case 'Fetch Article':
+      case 'Extract Article':
+        console.log('HTML');
+        return StepTestResultType.HTML;
+
+      default:
+        console.log('TEXT');
+        return StepTestResultType.TEXT;
     }
   }
 
