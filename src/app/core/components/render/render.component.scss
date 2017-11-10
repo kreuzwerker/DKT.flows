@@ -6,9 +6,28 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 div.render {
   div.data {
     font-family: 'Inconsolata', monospace;
-    
-    iframe {
-      width: 100%;
+  }
+
+  div.text {
+    font-family: "Source Sans Pro", "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 1em;
+    padding: 1em;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5em;
+    color: #7F8FA4;
+  }
+
+  div.html {
+    padding: 2rem;
+
+    p.info {
+      margin-top: 1rem;
     }
+  }
+
+  pre.json {
+    font-family: monospace;
+    margin:0;
   }
 }

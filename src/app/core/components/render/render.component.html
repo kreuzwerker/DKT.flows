@@ -1,5 +1,15 @@
 <div class="render">
   <div class="data">
-    <iframe #frame frameborder="0"></iframe>
+    <div class="html" *ngIf="type == types.HTML" fxLayout="column" fxLayoutAlign="center center">
+      <button md-raised-button color="primary" (click)="showPopup()">
+        <md-icon>search</md-icon>
+        View result
+      </button>
+      <p class="info">Please make sure to <b>allow popups</b>.</p>
+    </div>
+
+    <pre class="json" *ngIf="type == types.JSON">{{this.renderData}}</pre>
+
+    <div class="text" *ngIf="type == types.TEXT">{{this.renderData}}</div>
   </div>
 </div>
