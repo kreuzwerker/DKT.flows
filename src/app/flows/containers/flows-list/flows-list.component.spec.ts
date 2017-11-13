@@ -47,6 +47,15 @@ describe('Flows App', () => {
     });
 
     describe('onCreatedFlow()', () => {
+      it('should hide loading message and show a success message', () => {
+        let spy1 = spyOn(flowsApp, 'hideStatusMessage');
+        let spy2 = spyOn(component, 'showInfoMessage');
+        const flow = utils.createFlowData();
+        component.onCreatedFlow(flow);
+        expect(spy1).toHaveBeenCalled();
+        expect(spy2).toHaveBeenCalled();
+      });
+
       it('should navigate to select a trigger service for the new flow.', () => {
         spyOn(component.router, 'navigate');
         const flow = utils.createFlowData();

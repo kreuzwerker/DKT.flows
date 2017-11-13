@@ -56,6 +56,9 @@ export class FlowsListComponent implements OnInit, OnDestroy {
   }
 
   onCreatedFlow(flow: Flow) {
+    this.flowsApp.hideStatusMessage();
+    this.showInfoMessage(`Created new flow "${flow.name}".`);
+
     // Upon successful flow creation, redirect user to select a trigger service
     // for the first step
     let route = ['flows', flow.id];
@@ -72,7 +75,7 @@ export class FlowsListComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(newFlow => {
       if (newFlow) {
         this.createFlow(newFlow);
-        this.showInfoMessage(`Created flow "${newFlow.name}".`);
+        this.flowsApp.showStatusMessage(`Creating flow "${newFlow.name}"...`, 'loading');
       }
     });
   }

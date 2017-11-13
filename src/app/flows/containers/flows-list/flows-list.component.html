@@ -4,6 +4,9 @@
   </div>
 
   <div class="main full-height" fxFlex>
+    <dkt-status-message [message]="flowsApp.statusMessageText" [type]="flowsApp.statusMessageType" [show]="flowsApp.statusMessageShow"
+  (onClose)="flowsApp.hideStatusMessage()"></dkt-status-message>
+
     <div class="options">
       <div class="inner" fxLayout="row" fxLayoutAlign="space-between center">
         <md-input-container class="search">
