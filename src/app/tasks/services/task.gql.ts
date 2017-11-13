@@ -61,7 +61,12 @@ export const getTaskItemQuery = gql`
     TaskItem(id: $id) {
       id
       data
-      type
+      prevStep {
+        service {
+          id
+          outputType
+        }
+      }
     }
   }
 `;

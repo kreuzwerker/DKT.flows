@@ -5,12 +5,14 @@ import { Subscription } from 'rxjs/Subscription';
 import { ApolloQueryResult } from 'apollo-client';
 import { TasksAppService, TasksStateService, TasksApiService } from './../../services';
 import { Task, TaskItem } from './../../models';
+import { getServiceResultType } from './../../../flows/utils';
+import { StepTestResultType } from './../../../flows/models';
 
 @Component({
   templateUrl: 'tasks-app.component.html',
   styleUrls: ['tasks-app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class TasksAppComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
@@ -27,7 +29,7 @@ export class TasksAppComponent implements OnInit, OnDestroy {
     public tasksApp: TasksAppService,
     public route: ActivatedRoute,
     public router: Router,
-    public state: TasksStateService,
+    public state: TasksStateService
   ) {
     // NB Since Angular v4.3 this.router.events fire already in constructor
     this.router.events
@@ -46,18 +48,19 @@ export class TasksAppComponent implements OnInit, OnDestroy {
     // Apollo store, instead of using a copy. This makes optimistic updates pos-
     // sible, so changes to the data of the current selected task are reflected
     // immediately.
-    this.tasksSub$ = this.state.tasks$.takeUntil(this.ngOnDestroy$).subscribe(
-      this.onUpdateTasks.bind(this),
-      (err) => console.log('error', err)
-    );
+    this.tasksSub$ = this.state.tasks$
+      .takeUntil(this.ngOnDestroy$)
+      .subscribe(this.onUpdateTasks.bind(this), err =>
+        console.log('error', err)
+      );
 
-    this.taskItemSub$ = this.state.taskItem$.takeUntil(this.ngOnDestroy$)
-    .filter(res => typeof res.data !== 'undefined')
-    .map(res => res.data.TaskItem)
-    .subscribe(
-      this.onLoadTaskItem.bind(this),
-      (err) => console.log('error', err)
-    );
+    this.taskItemSub$ = this.state.taskItem$
+      .takeUntil(this.ngOnDestroy$)
+      .filter(res => typeof res.data !== 'undefined')
+      .map(res => res.data.TaskItem)
+      .subscribe(this.onLoadTaskItem.bind(this), err =>
+        console.log('error', err)
+      );
   }
 
   ngOnDestroy(): void {
@@ -73,8 +76,12 @@ export class TasksAppComponent implements OnInit, OnDestroy {
 
   // Updated requested task ID and select the task if tasks are loaded
   onTaskRouteChange() {
-    this.rightCollapsed = !(this.route.children[0]
-      && ['comments', 'description'].indexOf(this.route.children[0].snapshot.url[0].path) !== -1);
+    this.rightCollapsed = !(
+      this.route.children[0] &&
+      ['comments', 'description'].indexOf(
+        this.route.children[0].snapshot.url[0].path
+      ) !== -1
+    );
 
     this.route.params.forEach((params: Params) => {
       if (params['taskId'] && params['taskId'] !== this.requestedTaskId) {
@@ -89,7 +96,9 @@ export class TasksAppComponent implements OnInit, OnDestroy {
     let requestedTask = null;
     if (this.requestedTaskId !== null) {
       // Find requested task
-      requestedTask = this.tasksApp.tasks.find(task => task.id === this.requestedTaskId) || null;
+      requestedTask =
+        this.tasksApp.tasks.find(task => task.id === this.requestedTaskId) ||
+        null;
     }
 
     this.tasksApp.setTask(requestedTask);
@@ -111,5 +120,9 @@ export class TasksAppComponent implements OnInit, OnDestroy {
   onLoadTaskItem(taskItem: TaskItem) {
     this.tasksApp.setTaskItem(taskItem);
     this.cd.markForCheck();
+  }
+
+  getTaskItemType(taskItem: TaskItem): StepTestResultType {
+    return getServiceResultType(taskItem.prevStep.service);
   }
 }

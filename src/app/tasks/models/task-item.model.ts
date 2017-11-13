@@ -1,5 +1,7 @@
+import { Step } from '../../flows/models';
+
 export class TaskItem {
   id: string;
   data: string;
-  type: string;
+  prevStep: Step;
 }

@@ -1,6 +1,6 @@
 /* tslint:disable: ter-max-len */
 import { Task, TaskType, TaskState, TaskFilter, TaskComment, TaskItem } from '../models';
-import { FlowRun } from '../../flows/models';
+import { FlowRun, Step } from '../../flows/models';
 
 export class TestUtils {
   defaultTaskData: Task = null;
@@ -84,11 +84,11 @@ export class TestUtils {
     };
   }
 
-  createTaskItem(id = '1', data = '<p>Task item data</p>', type = 'html'): TaskItem {
+  createTaskItem(id = '1', data = '<p>Task item data</p>', prevStep = {} as Step): TaskItem {
     return {
       id: id,
       data: data,
-      type: type,
+      prevStep: prevStep,
     };
   }
 }

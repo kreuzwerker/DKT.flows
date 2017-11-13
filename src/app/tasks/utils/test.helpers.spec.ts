@@ -1,6 +1,7 @@
 /* tslint:disable: ter-max-len */
 import { TestUtils } from './test.helpers';
 import { Task, TaskType, TaskState } from '../models';
+import { Step } from './../../flows/models';
 
 describe('Tasks App', () => {
 
@@ -31,7 +32,7 @@ describe('Tasks App', () => {
         const taskItem = utils.createTaskItem();
         expect(taskItem.id).toBe('1');
         expect(taskItem.data).toBe('<p>Task item data</p>');
-        expect(taskItem.type).toBe('html');
+        expect(taskItem.prevStep).toBeDefined();
       });
     });
   });
