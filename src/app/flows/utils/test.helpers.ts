@@ -1,5 +1,17 @@
 /* tslint:disable: ter-max-len */
-import { Flow, FlowData, StepData, StepTest, StepConfigParamsInput, FlowRun, Service, ServiceConfigSchema, ServiceType, Provider } from '../models';
+import {
+  Flow,
+  FlowData,
+  StepData,
+  StepTest,
+  StepConfigParamsInput,
+  FlowRun,
+  Service,
+  ServiceConfigSchema,
+  ServiceType,
+  ServiceIOType,
+  Provider
+} from '../models';
 
 export class TestUtils {
   defaultProviderData: Provider = null;
@@ -66,6 +78,8 @@ export class TestUtils {
     task: boolean = false,
     provider: Provider = this.defaultProviderData,
     configSchema: ServiceConfigSchema[] = this.defaultServiceConfigSchema,
+    inputType: ServiceIOType = ServiceIOType.STRING,
+    outputType: ServiceIOType = ServiceIOType.STRING
   ): Service {
     return {
       id: id,
@@ -75,6 +89,8 @@ export class TestUtils {
       task: task,
       provider: provider,
       configSchema: configSchema,
+      inputType: inputType,
+      outputType: outputType
     };
   }
 

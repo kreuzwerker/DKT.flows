@@ -2,6 +2,7 @@ import { Subject } from 'rxjs/Subject';
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { FlowsAppService, FlowsStateService } from './../../services';
 import { Step, StepTestResultType } from './../../models';
+import { getServiceResultType } from './../../utils';
 
 @Component({
   selector: 'test-step',
@@ -68,8 +69,7 @@ export class TestStepComponent implements OnInit, OnDestroy {
       this.showTestResults = false;
     } else if (stepTest.tested) {
       this.stepTestResultData = stepTest.result;
-      // TODO result type should be provided by server
-      this.stepTestResultType = this.getStepTestResultType(stepTest);
+      this.stepTestResultType = getServiceResultType(stepTest.service);
 
       this.stepTestResultData = stepTest.result;
       if (this.stepTestResultType === StepTestResultType.JSON) {
@@ -85,25 +85,6 @@ export class TestStepComponent implements OnInit, OnDestroy {
       this.showTestResults = false;
       this.stepTestResultData = null;
       this.stepTestResultType = StepTestResultType.ERROR;
-    }
-  }
-
-  getStepTestResultType(stepTest: any): StepTestResultType {
-    // TEMP
-    // Heuristically determine result type based on step service
-    switch (stepTest.service.name) {
-      case 'Parse JSON':
-        console.log('JSON');
-        return StepTestResultType.JSON;
-
-      case 'Fetch Article':
-      case 'Extract Article':
-        console.log('HTML');
-        return StepTestResultType.HTML;
-
-      default:
-        console.log('TEXT');
-        return StepTestResultType.TEXT;
     }
   }
 

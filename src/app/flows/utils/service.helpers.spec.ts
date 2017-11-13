@@ -1,7 +1,7 @@
 /* tslint:disable: ter-max-len */
 import { TestUtils } from './test.helpers';
 import * as helpers from './service.helpers';
-import { Service, ServiceType } from './../models';
+import { Service, ServiceType, ServiceIOType, StepTestResultType } from './../models';
 
 describe('Flows App', () => {
 
@@ -20,6 +20,21 @@ describe('Flows App', () => {
         expect(helpers.getServiceTypeName(service)).toBe('Trigger');
         service.type = ServiceType.ACTION;
         expect(helpers.getServiceTypeName(service)).toBe('Action');
+      });
+    });
+
+    describe('getServiceResultType()', () => {
+      it('should return the correct service result type based on the serive\'s output type', () => {
+        service.outputType = ServiceIOType.JSON;
+        expect(helpers.getServiceResultType(service)).toBe(StepTestResultType.JSON);
+        service.outputType = ServiceIOType.HTML;
+        expect(helpers.getServiceResultType(service)).toBe(StepTestResultType.HTML);
+        service.outputType = ServiceIOType.URL;
+        expect(helpers.getServiceResultType(service)).toBe(StepTestResultType.TEXT);
+        service.outputType = ServiceIOType.STRING;
+        expect(helpers.getServiceResultType(service)).toBe(StepTestResultType.TEXT);
+        service.outputType = ServiceIOType.NUMBER;
+        expect(helpers.getServiceResultType(service)).toBe(StepTestResultType.TEXT);
       });
     });
   });

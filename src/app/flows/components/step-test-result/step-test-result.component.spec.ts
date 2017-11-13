@@ -20,7 +20,7 @@ describe('Flows App', () => {
       expect(component.data).toBeNull();
       expect(component.show).toBeFalsy();
       expect(component.renderData).toBeNull();
-      expect(component.renderType).toBe('html');
+      expect(component.renderType).toBe(StepTestResultType.TEXT);
     });
   });
 });

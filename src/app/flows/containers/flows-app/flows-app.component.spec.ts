@@ -305,7 +305,7 @@ describe('Flows App', () => {
         let spy = spyOn(flowsApp, 'deleteFlow');
         let spy2 = spyOn(flowsApp, 'restoreFlow');
         let spy3 = spyOn(flowsApp, 'showStatusMessage');
-        // TODO debug why mockFlowsApp.deleteFlow() isn't called in component 
+        // TODO debug why mockFlowsApp.deleteFlow() isn't called in component
         component.discardFlowDraft();
         expect(spy).toHaveBeenCalled();
         expect(spy2).not.toHaveBeenCalled();

@@ -20,9 +20,21 @@ export class Service {
   provider: Provider;
   configSchema?: ServiceConfigSchema[];
   samplePayload?: String;
+  inputType: ServiceIOType;
+  outputType: ServiceIOType;
 }
 
 export class ServiceType {
   static TRIGGER = 'TRIGGER';
   static ACTION = 'ACTION';
+}
+
+export class ServiceIOType {
+  static JSON = 'json';
+  static HTML = 'html';
+  static STRING = 'string';
+  static NUMBER = 'number';
+  static CSV = 'csv';
+  static URL = 'url';
+  static IMAGE = 'image';
 }

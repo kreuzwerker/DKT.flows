@@ -302,6 +302,7 @@ export const testFlowStepMutation = gql`
         name
         type
         task
+        outputType
       }
       result
       error
