@@ -72,10 +72,10 @@ div.controls {
           font-size: 20px;
           color: $element-bg-color;
         }
+      }
 
-        &.locked {
-          background-color: $inactive-button-color;
-        }
+      button.locked {
+        background-color: $inactive-button-color;
       }
 
       button.control {

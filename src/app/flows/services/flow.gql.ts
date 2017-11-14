@@ -353,6 +353,7 @@ export const createFlowRunMutation = gql`
       flow {
         id
         draft
+        active
         lastFlowRun {
           id
         }

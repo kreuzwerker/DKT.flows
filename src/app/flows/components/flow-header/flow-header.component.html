@@ -28,7 +28,7 @@
       <div class="element activate" fxLayout="row" fxLayoutAlign="start center">
         <span class="text">Activate</span>
 
-        <button md-button class="toggle-active" [class.active]="flow.active" (click)="state.toggleFlowActivation(flow)">
+        <button md-button class="toggle-active" [class.active]="flow.active" [class.locked]="isManualFlowRunLocked()" [disabled]="isManualFlowRunLocked()" (click)="state.toggleFlowActivation(flow)">
           <span class="on">ON</span>
           <span class="off">OFF</span>
         </button>
