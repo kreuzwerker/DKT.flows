@@ -26,6 +26,12 @@ div.flows-list {
   div.main {
     position: relative;
   }
+
+  p.info {
+    text-align: center;
+    margin: 5rem 0 1.5rem;
+    font-size: 1.3rem!important;
+  }
 }
 
 /*
@@ -165,12 +171,6 @@ md-list.flows .flow-list-item {
   md-icon.option:hover {
     cursor: pointer;
   }
-}
-
-p.info {
-  text-align: center;
-  margin: 5rem 0 1.5rem;
-  font-size: 1.3rem!important;
 }
 
 /*

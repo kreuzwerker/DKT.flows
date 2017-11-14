@@ -26,7 +26,10 @@ div.controls {
     background-color: $warning-bg-color;
     border-top:none;
     border-bottom:none;
-    padding: 1rem;
+
+    div.inner {
+      margin: 1rem;
+    }
 
     overflow-y: hidden;
     transition: all 0.3s ease-in;
