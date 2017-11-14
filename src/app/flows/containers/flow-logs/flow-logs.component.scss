@@ -142,8 +142,16 @@ https://github.com/jtangelder/sass-loader/issues/211 */
         //   max-height: 0px;
         // }
 
+        div.step-service,
         p.last-log-msg {
           margin: 1rem;
+        }
+
+        div.step-service {
+          md-icon,
+          h6 {
+            color: $dark-grey;
+          }
         }
       }
     }

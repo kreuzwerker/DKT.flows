@@ -31,6 +31,11 @@
           <md-icon class="toggle show-less">expand_less</md-icon>
         </div>
         <div class="run-details" [class.slide-in]="show" [class.slide-out]="!show">
+          <div class="step-service" fxLayout="row" fxLayoutAlign="start center">
+            <md-icon>{{run.currentStep.service.provider.icon}}</md-icon>
+            <h6>{{run.currentStep.service.provider.name}}: {{run.currentStep.service.name}}</h6>
+          </div>
+
           <p class="last-log-msg">Last log message: {{getLastLogMsg(run)}}</p>
           <dkt-step-config-summary [schema]="run.currentStep.service.configSchema" [values]="run.currentStep.configParams"></dkt-step-config-summary>
         </div>

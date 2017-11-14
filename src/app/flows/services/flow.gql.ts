@@ -132,9 +132,15 @@ export const getFlowLogsQuery = gql`
             ...StepConfigParams
           }
           service {
+            name
             task
             configSchema {
               ...ServiceConfigSchema
+            }
+            provider {
+              id,
+              name,
+              icon
             }
           }
         }
@@ -147,7 +153,6 @@ export const getFlowLogsQuery = gql`
             timestamp
           }
         }
-        result
         startedAt
         finishedAt
       }
