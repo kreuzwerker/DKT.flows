@@ -1,8 +1,8 @@
 /* tslint:disable: ter-max-len */
 import { FlowHeaderComponent } from './flow-header.component';
-import { FlowsAppService } from './../../services';
+import { FlowsAppService, FlowsStateService } from './../../services';
 import { TestUtils } from './../../utils/test.helpers';
-import { mockFlowsApp } from './../../utils/mocks';
+import { mockFlowsApp, mockFlowsState } from './../../utils/mocks';
 import { Flow } from './../../models';
 
 describe('Flows App', () => {
@@ -11,11 +11,12 @@ describe('Flows App', () => {
     let component: FlowHeaderComponent;
     let utils: TestUtils;
     let flowsApp: FlowsAppService;
+    let state: FlowsStateService;
     let flow: Flow;
 
     beforeEach(() => {
       utils = new TestUtils();
-      component = new FlowHeaderComponent(mockFlowsApp);
+      component = new FlowHeaderComponent(mockFlowsApp, mockFlowsState);
       expect(component).toBeTruthy();
       component.flow = utils.createFlowData();
     });

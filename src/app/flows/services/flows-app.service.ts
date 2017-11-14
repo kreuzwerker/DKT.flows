@@ -60,7 +60,7 @@ export class FlowsAppService {
   */
 
   saveFlow(): void {
-    this.state.saveFlow(this.flow.id, this.flow);
+    this.state.saveFlow(this.flow);
   }
 
   deleteFlow(): Observable<any> {

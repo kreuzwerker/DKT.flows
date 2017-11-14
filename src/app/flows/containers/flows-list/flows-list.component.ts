@@ -75,7 +75,10 @@ export class FlowsListComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(newFlow => {
       if (newFlow) {
         this.createFlow(newFlow);
-        this.flowsApp.showStatusMessage(`Creating flow "${newFlow.name}"...`, 'loading');
+        this.flowsApp.showStatusMessage(
+          `Creating flow "${newFlow.name}"...`,
+          'loading'
+        );
       }
     });
   }
@@ -88,11 +91,16 @@ export class FlowsListComponent implements OnInit, OnDestroy {
     dialogRef.componentInstance.name = name;
     dialogRef.afterClosed().subscribe(confirm => {
       if (confirm) {
-        this.state.deleteFlow(id).subscribe(() => {
-          this.showInfoMessage(`Deleted flow "${name}".`);
-        }, (err) => {
-          this.showInfoMessage(`An error occured. Could not delete the flow.`);
-        });
+        this.state.deleteFlow(id).subscribe(
+          () => {
+            this.showInfoMessage(`Deleted flow "${name}".`);
+          },
+          err => {
+            this.showInfoMessage(
+              `An error occured. Could not delete the flow.`
+            );
+          }
+        );
       }
     });
   }

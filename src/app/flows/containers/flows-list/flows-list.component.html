@@ -42,9 +42,16 @@
             <div *ngIf="flowHelpers.flowIsInDraft(flow)" class="label draft">draft</div>
             {{flow.name}}
           </h6>
-      
+
           <div class="seperator"></div>
-      
+
+          <button md-button class="toggle-active" [class.active]="flow.active" (click)="state.toggleFlowActivation(flow)">
+            <span class="on">ON</span>
+            <span class="off">OFF</span>
+          </button>
+
+          <div class="seperator"></div>
+
           <button md-icon-button [mdMenuTriggerFor]="optionsMenu">
             <md-icon>more_vert</md-icon>
           </button>

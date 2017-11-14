@@ -142,3 +142,37 @@ snack-bar-container {
     transform: rotate(360deg);
   }
 }
+
+/*
+  Toggle button
+*/
+
+button.toggle-active {
+  width: 37px;
+  min-width: 37px;
+  background-color: $inactive-button-color;
+  font-size: 12px!important;
+  line-height: 12px;
+  padding: 4px 8px;
+
+  &:not(.mat-icon-button) {
+    border-radius: 10px!important;
+  }
+
+  span.on {
+    display: none;
+  }
+
+  &.active {
+    background-color: $blue;
+    color: white;
+
+    span.on {
+      display: inline;
+    }
+
+    span.off {
+      display: none;
+    }
+  }
+}

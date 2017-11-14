@@ -15,12 +15,13 @@ import * as gql from './flow.gql';
 
 @Injectable()
 export class FlowsApiService {
-  constructor(
-    private apollo: Apollo,
-    private http: Http
-  ) {}
+  constructor(private apollo: Apollo, private http: Http) {}
 
-  public getFlow({id}: {id: string | Observable<string>}): ApolloQueryObservable<any> {
+  public getFlow({
+    id
+  }: {
+    id: string | Observable<string>;
+  }): ApolloQueryObservable<any> {
     return this.apollo.watchQuery<any>({
       query: gql.getFlowQuery,
       variables: {
@@ -30,12 +31,15 @@ export class FlowsApiService {
         return previousResult['Flow']
           ? this.reduceGetFlow(previousResult)
           : previousResult;
-      },
+      }
     });
   }
 
   public getFlowLogs(
-    id: string, offset: number, limit: number, status: string
+    id: string,
+    offset: number,
+    limit: number,
+    status: string
   ): ApolloQueryObservable<any> {
     return this.apollo.watchQuery<any>({
       query: gql.getFlowLogsQuery,
@@ -59,49 +63,77 @@ export class FlowsApiService {
   }
 
   public createFlow(flow): Observable<ApolloQueryResult<any>> {
-    return this.apollo.mutate<any>({
-      mutation: gql.createFlowMutation,
-      variables: flow,
-      optimisticResponse: this.optimisticallyAddFlow(flow),
-      updateQueries: {
-        FlowsQuery: (previousResult, { mutationResult }: any) => {
-          return this.pushNewFlow(previousResult, mutationResult.data.createFlow);
+    return this.apollo
+      .mutate<any>({
+        mutation: gql.createFlowMutation,
+        variables: flow,
+        optimisticResponse: this.optimisticallyAddFlow(flow),
+        updateQueries: {
+          FlowsQuery: (previousResult, { mutationResult }: any) => {
+            return this.pushNewFlow(
+              previousResult,
+              mutationResult.data.createFlow
+            );
+          }
+        }
+      })
+      .map(({ data }) => data.createFlow);
+  }
+
+  public updateFlow(flow: Flow): Observable<ApolloQueryResult<any>> {
+    return this.apollo
+      .mutate<any>({
+        mutation: gql.updateFlowMutation,
+        variables: flow,
+        optimisticResponse: this.optimisticallyUpdateFlow(flow)
+      })
+      .map(({ data }) => data.updateFlow);
+  }
+
+  public deleteFlow({
+    flowId
+  }: {
+    flowId: string;
+  }): Observable<ApolloQueryResult<any>> {
+    return this.apollo
+      .mutate<any>({
+        mutation: gql.deleteFlowMutation,
+        variables: {
+          flowId: flowId
         },
-      },
-
-    }).map(({data}) => data.createFlow);
+        optimisticResponse: this.optimisticallyRemoveFlow(flowId),
+        updateQueries: {
+          FlowsQuery: (previousResult, { mutationResult }: any) => {
+            return this.removeDeletedFlow(
+              previousResult,
+              mutationResult.data.deleteFlow
+            );
+          }
+        }
+      })
+      .map(({ data }) => data.createFlow);
   }
 
-  public deleteFlow(
-    {flowId}: {flowId: string}
-  ): Observable<ApolloQueryResult<any>> {
-    return this.apollo.mutate<any>({
-      mutation: gql.deleteFlowMutation,
-      variables: {
-        flowId: flowId,
-      },
-      optimisticResponse: this.optimisticallyRemoveFlow(flowId),
-      updateQueries: {
-        FlowsQuery: (previousResult, { mutationResult }: any) => {
-          return this.removeDeletedFlow(previousResult, mutationResult.data.deleteFlow);
-        },
-      },
-
-    }).map(({data}) => data.createFlow);
+  public restoreFlow({
+    flowId
+  }: {
+    flowId: string;
+  }): Observable<ApolloQueryResult<any>> {
+    return this.apollo
+      .mutate<any>({
+        mutation: gql.restoreFlowMutation,
+        variables: {
+          flowId: flowId
+        }
+      })
+      .map(({ data }) => data.restoreFlow);
   }
 
-  public restoreFlow(
-    {flowId}: {flowId: string}
-  ): Observable<ApolloQueryResult<any>> {
-    return this.apollo.mutate<any>({
-      mutation: gql.restoreFlowMutation,
-      variables: {
-        flowId: flowId,
-      }
-    }).map(({data}) => data.restoreFlow);
-  }
-
-  public getProviders({id}: {id: string | Observable<string>}): ApolloQueryObservable<any> {
+  public getProviders({
+    id
+  }: {
+    id: string | Observable<string>;
+  }): ApolloQueryObservable<any> {
     return this.apollo.watchQuery<any>({
       query: gql.getProvidersQuery,
       variables: {
@@ -111,7 +143,10 @@ export class FlowsApiService {
     });
   }
 
-  public updateStep(flowId: string, step: Step): Observable<ApolloQueryResult<any>> {
+  public updateStep(
+    flowId: string,
+    step: Step
+  ): Observable<ApolloQueryResult<any>> {
     const updatedStep = Object.assign({}, step, {
       flow: { id: flowId } as Flow
     });
@@ -120,18 +155,23 @@ export class FlowsApiService {
     const updatedStepPayload = {
       id: step.id,
       position: step.position,
-      service: step.service && step.service.id || null,
-      configParams: step.configParams,
+      service: (step.service && step.service.id) || null,
+      configParams: step.configParams
     };
 
-    return this.apollo.mutate<any>({
-      mutation: gql.updateStepMutation,
-      variables: updatedStepPayload,
-      optimisticResponse: this.optimisticallyUpdateStep(updatedStep),
-    }).map(({data}) => data.updateStep);
+    return this.apollo
+      .mutate<any>({
+        mutation: gql.updateStepMutation,
+        variables: updatedStepPayload,
+        optimisticResponse: this.optimisticallyUpdateStep(updatedStep)
+      })
+      .map(({ data }) => data.updateStep);
   }
 
-  public addFlowStep(flow: Flow, step: Step): Observable<ApolloQueryResult<any>> {
+  public addFlowStep(
+    flow: Flow,
+    step: Step
+  ): Observable<ApolloQueryResult<any>> {
     const newStep = Object.assign({}, step, {
       flow: { id: flow.id } as Flow
     });
@@ -139,26 +179,37 @@ export class FlowsApiService {
     // NB mutation payload differs from Step model
     const newStepPayload = Object.assign({}, newStep, {
       flow: flow.id,
-      service: step.service ? step.service.id : null,
+      service: step.service ? step.service.id : null
     });
 
-    return this.apollo.mutate<any>({
-      mutation: gql.addFlowStepMutation,
-      variables: newStepPayload,
-      optimisticResponse: this.optimisticallyAddStep(
-        newStep,
-        this.generateFlowStepsPositions(flow, step)
-      ),
-      updateQueries: {
-        FlowQuery: (previousResult, { mutationResult }: any) => {
-          const newState = this.pushNewFlowStep(previousResult, mutationResult.data.createStep);
-          return this.updateFlowStepsPositions(newState, mutationResult.data.createStep.flow.steps);
-        },
-      },
-    }).map(({data}) => data.createStep);
+    return this.apollo
+      .mutate<any>({
+        mutation: gql.addFlowStepMutation,
+        variables: newStepPayload,
+        optimisticResponse: this.optimisticallyAddStep(
+          newStep,
+          this.generateFlowStepsPositions(flow, step)
+        ),
+        updateQueries: {
+          FlowQuery: (previousResult, { mutationResult }: any) => {
+            const newState = this.pushNewFlowStep(
+              previousResult,
+              mutationResult.data.createStep
+            );
+            return this.updateFlowStepsPositions(
+              newState,
+              mutationResult.data.createStep.flow.steps
+            );
+          }
+        }
+      })
+      .map(({ data }) => data.createStep);
   }
 
-  public removeFlowStep(flow: Flow, step: Step): Observable<ApolloQueryResult<any>> {
+  public removeFlowStep(
+    flow: Flow,
+    step: Step
+  ): Observable<ApolloQueryResult<any>> {
     const removedStep = Object.assign({}, step, {
       flow: { id: flow.id } as Flow
     });
@@ -170,7 +221,7 @@ export class FlowsApiService {
     return this.apollo.mutate<any>({
       mutation: gql.removeFlowStepMutation,
       variables: {
-        stepId: step.id,
+        stepId: step.id
       },
       optimisticResponse: this.optimisticallyRemoveStep(
         removedStep,
@@ -179,11 +230,15 @@ export class FlowsApiService {
       updateQueries: {
         FlowQuery: (previousResult, { mutationResult }: any) => {
           const newState = this.removeDeletedFlowStep(
-            previousResult, mutationResult.data.deleteStep
+            previousResult,
+            mutationResult.data.deleteStep
           );
-          return this.updateFlowStepsPositions(newState, mutationResult.data.deleteStep.flow.steps);
-        },
-      },
+          return this.updateFlowStepsPositions(
+            newState,
+            mutationResult.data.deleteStep.flow.steps
+          );
+        }
+      }
     });
   }
 
@@ -192,45 +247,54 @@ export class FlowsApiService {
     payload: String,
     configParams: StepConfigParamsInput[]
   ): Observable<ApolloQueryResult<any>> {
-    return this.apollo.mutate<any>({
-      mutation: gql.testFlowStepMutation,
-      variables: {
-        id: stepId,
-        payload: payload,
-        configParams: configParams
-      },
-      updateQueries: {
-        FlowQuery: (previousResult, { mutationResult }: any) => {
-          return this.updateTestedFlowStep(previousResult, mutationResult.data.testStep);
+    return this.apollo
+      .mutate<any>({
+        mutation: gql.testFlowStepMutation,
+        variables: {
+          id: stepId,
+          payload: payload,
+          configParams: configParams
         },
-      },
-    }).map(({data}) => data.testStep);
+        updateQueries: {
+          FlowQuery: (previousResult, { mutationResult }: any) => {
+            return this.updateTestedFlowStep(
+              previousResult,
+              mutationResult.data.testStep
+            );
+          }
+        }
+      })
+      .map(({ data }) => data.testStep);
   }
 
   public createFlowRun(
     flowId: string,
     userId: string
   ): Observable<ApolloQueryResult<any>> {
-    return this.apollo.mutate<any>({
-      mutation: gql.createFlowRunMutation,
-      variables: {
-        flowId: flowId,
-        userId: userId
-      },
-    }).map(({data}) => data.createFlowRun);
+    return this.apollo
+      .mutate<any>({
+        mutation: gql.createFlowRunMutation,
+        variables: {
+          flowId: flowId,
+          userId: userId
+        }
+      })
+      .map(({ data }) => data.createFlowRun);
   }
 
   public startFlowRun(
     flowRunId: string,
     payload: Object
   ): Observable<ApolloQueryResult<any>> {
-    return this.apollo.mutate<any>({
-      mutation: gql.startFlowRunMutation,
-      variables: {
-        flowRunId: flowRunId,
-        payload: payload,
-      },
-    }).map(({data}) => data.startFlowRun);
+    return this.apollo
+      .mutate<any>({
+        mutation: gql.startFlowRunMutation,
+        variables: {
+          flowRunId: flowRunId,
+          payload: payload
+        }
+      })
+      .map(({ data }) => data.startFlowRun);
   }
 
   /**
@@ -254,11 +318,13 @@ export class FlowsApiService {
       __typename: 'Mutation',
       updateStep: Object.assign({}, step, {
         __typename: 'Step',
-        configParams: step.configParams ? step.configParams.map(p => {
-          return Object.assign({}, p, {
-            __typename: 'StepConfigParams'
-          });
-        }) : step.configParams,
+        configParams: step.configParams
+          ? step.configParams.map(p => {
+              return Object.assign({}, p, {
+                __typename: 'StepConfigParams'
+              });
+            })
+          : step.configParams,
         flow: {
           __typename: 'Flow',
           id: step.flow.id,
@@ -272,8 +338,8 @@ export class FlowsApiService {
     return {
       __typename: 'Mutation',
       createFlow: Object.assign({}, flow, {
-        __typename: 'Flow',
-      }),
+        __typename: 'Flow'
+      })
     };
   }
 
@@ -288,14 +354,23 @@ export class FlowsApiService {
       __typename: 'Mutation',
       deleteFlow: {
         __typename: 'Flow',
-        id: flowId,
-      },
+        id: flowId
+      }
     };
   }
 
   private removeDeletedFlow(state, deleteFlow): any {
     return {
-      allFlows: state.allFlows.filter((f) => f.id !== deleteFlow.id)
+      allFlows: state.allFlows.filter(f => f.id !== deleteFlow.id)
+    };
+  }
+
+  private optimisticallyUpdateFlow(flow: Flow): any {
+    return {
+      __typename: 'Mutation',
+      updateFlow: Object.assign({}, flow, {
+        __typename: 'Flow',
+      })
     };
   }
 
@@ -318,7 +393,7 @@ export class FlowsApiService {
   private generateFlowStepsPositions(flow: Flow, newStep: Step): Step[] {
     const steps = sortBy(flow.steps, 'position');
     let pos = newStep.position;
-    return steps.map((step) => {
+    return steps.map(step => {
       // Move all steps that should come after the new step
       if (step.id !== newStep.id && step.position >= newStep.position) {
         pos++;
@@ -334,7 +409,7 @@ export class FlowsApiService {
   private regenerateFlowStepsPositions(flow: Flow): Step[] {
     const steps = sortBy(flow.steps, 'position');
     let pos = -1;
-    return steps.map((step) => {
+    return steps.map(step => {
       pos++;
       return Object.assign({}, step, {
         position: pos
@@ -353,7 +428,7 @@ export class FlowsApiService {
   private updateFlowStepsPositions(state, updatedSteps): any {
     let res = {
       Flow: Object.assign({}, state.Flow, {
-        steps: state.Flow.steps.map((step) => {
+        steps: state.Flow.steps.map(step => {
           const s = updatedSteps.find(_step => _step.id === step.id);
           return Object.assign({}, step, {
             position: s ? s.position : step.position
@@ -377,14 +452,14 @@ export class FlowsApiService {
           draft: true,
           steps: updatedStepsPositions
         }
-      },
+      }
     };
   }
 
   private removeDeletedFlowStep(state, deleteStep): any {
     return {
       Flow: Object.assign({}, state.Flow, deleteStep.flow, {
-        steps: state.Flow.steps.filter((s) => s.id !== deleteStep.id)
+        steps: state.Flow.steps.filter(s => s.id !== deleteStep.id)
       })
     };
   }
@@ -393,7 +468,7 @@ export class FlowsApiService {
     // Updates the 'tested' property of the tested step
     let steps = state.Flow.steps.map(step => {
       if (step.id === stepTest.id) {
-        return Object.assign({}, step, {tested: stepTest.tested});
+        return Object.assign({}, step, { tested: stepTest.tested });
       }
       return step;
     });
@@ -427,22 +502,24 @@ export class FlowsApiService {
   // }
 
   private get(url: string): Observable<any> {
-    return this.http.get(url)
-      .map((res: Response) => res.json());
+    return this.http.get(url).map((res: Response) => res.json());
   }
 
   private post(url: string, data: any): Observable<any> {
-    return this.http.post(url, data, this.createOptions())
+    return this.http
+      .post(url, data, this.createOptions())
       .map((res: Response) => res.json());
   }
 
   private put(url: string, data: any): Observable<any> {
-    return this.http.put(url, data, this.createOptions())
+    return this.http
+      .put(url, data, this.createOptions())
       .map((res: Response) => res.json());
   }
 
   private patch(url: string, data: any): Observable<any> {
-    return this.http.patch(url, data, this.createOptions())
+    return this.http
+      .patch(url, data, this.createOptions())
       .map((res: Response) => res.json());
   }
 

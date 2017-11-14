@@ -6,6 +6,7 @@ export class Flow {
   id: string;
   name: string;
   description: string;
+  active?: boolean;
   draft?: boolean;
   steps?: Array<Step>;
   lastFlowRun?: FlowRun;
@@ -17,6 +18,7 @@ export interface FlowData {
   id: string;
   name: string;
   description: string;
+  active?: boolean;
   draft?: boolean;
   steps?: Array<StepData>;
   lastFlowRun?: FlowRun;

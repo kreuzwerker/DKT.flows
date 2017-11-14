@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { FlowsAppService } from './../../services';
+import { FlowsAppService, FlowsStateService } from './../../services';
 import { Flow } from './../../models/flow.model';
 import * as helpers from './../../utils/flow.helpers';
 
@@ -8,7 +8,7 @@ import * as helpers from './../../utils/flow.helpers';
   selector: 'dkt-flow-header',
   templateUrl: 'flow-header.component.html',
   styleUrls: ['flow-header.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FlowHeaderComponent {
   @Input() flow: Flow;
@@ -19,8 +19,9 @@ export class FlowHeaderComponent {
   @Output() onDiscardFlowDraft = new EventEmitter();
 
   constructor(
-    public flowsApp: FlowsAppService
-  ) { }
+    public flowsApp: FlowsAppService,
+    public state: FlowsStateService
+  ) {}
 
   isManualFlowRunLocked(): boolean {
     return this.flow.draft || !helpers.flowIsExecutable(this.flow);

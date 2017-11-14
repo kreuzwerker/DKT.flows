@@ -16,21 +16,17 @@ p {
   margin-bottom: 1rem;
 }
 
-$border: 1px solid #eee;
+$border: 1px solid rgb(224, 224, 224);
 
 div.controls {
   border-top: $border;
   border-bottom: $border;
-  padding: 0 1rem;
 
   &.draft {
     background-color: $warning-bg-color;
+    border-top:none;
     border-bottom:none;
-
-    & > * {
-      margin-top:0.5rem;
-      margin-bottom:0.5rem;
-    }
+    padding: 1rem;
 
     overflow-y: hidden;
     transition: all 0.3s ease-in;
@@ -52,14 +48,13 @@ div.controls {
   &.flow {
     background-color: $element-bg-color;
     div.element {
-      display:inline-block;
+      padding: 0.5rem 1rem;
 
       // &:not(:first-child) {
       //   padding-left: 10px;
       // }
 
       &:not(:last-child) {
-        padding-right: 10px;
         border-right: $border;
       }
 
@@ -80,7 +75,7 @@ div.controls {
         }
       }
 
-      button:not(.play) {
+      button.control {
         color: $dark-grey;
 
         &:hover {
@@ -88,8 +83,15 @@ div.controls {
         }
       }
 
-      button.active {
-        color: $blue;
+      &.activate {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+
+        span.text {
+          padding-right: 0.7rem;
+          color: $dark-grey;
+          font-weight: bold;
+        }
       }
     }
   }

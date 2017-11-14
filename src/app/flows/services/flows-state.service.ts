@@ -216,8 +216,23 @@ export class FlowsStateService extends StateService {
       });
   }
 
-  saveFlow(id: string, flow: FlowData): void {
+  saveFlow(flow: FlowData): Observable<any> {
+    let obs$ = new Subject<any>();
     this.dispatch(this.actions.setSavingFlow(true, false));
+    this.api.updateFlow(flow).subscribe(_step => {
+      this.dispatch(this.actions.setSavingFlow(false, true));
+      obs$.next(flow);
+    });
+
+    return obs$;
+  }
+
+  toggleFlowActivation(flow: Flow): void {
+    this.saveFlow(
+      Object.assign({}, flow, {
+        active: !flow.active
+      })
+    );
   }
 
   saveFlowStep(

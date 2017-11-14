@@ -16,23 +16,28 @@
       <span>changes</span>
     </div>
     
-    <div class="flow controls">
+    <div class="flow controls" fxLayout="row" fxLayoutAlign="start stretch">
       <div class="element">
         <button md-icon-button class="play" [class.locked]="isManualFlowRunLocked()" (click)="onTriggerFlowRun.emit()">
           <md-icon>play_arrow</md-icon>
         </button>
       </div>
-    
-      <!-- <div class="element"> -->
-        <!-- activate flow -->
-      <!-- </div> -->
+
+      <div class="element activate" fxLayout="row" fxLayoutAlign="start center">
+        <span class="text">Activate</span>
+
+        <button md-button class="toggle-active" [class.active]="flow.active" (click)="state.toggleFlowActivation(flow)">
+          <span class="on">ON</span>
+          <span class="off">OFF</span>
+        </button>
+      </div>
     
       <!-- <div class="element"> -->
         <!-- clone flow -->
       <!-- </div> -->
     
-      <div class="element">
-        <button md-icon-button class="logs" [routerLink]="'/flows/' + flow.id + '/logs'" [routerLinkActive]="['active']">
+      <div class="element" fxFlex>
+        <button md-icon-button class="logs control" [routerLink]="'/flows/' + flow.id + '/logs'" [routerLinkActive]="['active']">
           <md-icon>restore</md-icon>
         </button>
       </div>

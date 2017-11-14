@@ -9,6 +9,7 @@ export const flowsItemFragment = gql`
     id
     name
     description
+    active
     draft
     steps {
       service {
@@ -55,6 +56,7 @@ export class FlowsListData {
   name: string;
   description: string;
   draft: boolean;
+  active: boolean;
 }
 
 export const stepConfigParamsFragment = gql`
@@ -105,6 +107,7 @@ export const getFlowQuery = gql`
       name,
       description,
       draft,
+      active,
       steps {
         ...FlowStep
       }
@@ -179,7 +182,7 @@ query ProvidersQuery {
 
 export const createFlowMutation = gql`
   mutation createFlow(
-    $id: ID!
+    $id: ID!,
     $name: String!,
     $description: String!,
   ) {
@@ -197,6 +200,27 @@ export const createFlowMutation = gql`
 
   ${flowsItemFragment}
   ${flowStepFragment}
+`;
+
+export const updateFlowMutation = gql`
+  mutation updateFlow(
+    $id: ID!,
+    $name: String!,
+    $description: String!,
+    $active: Boolean!
+  ) {
+    updateFlow(
+      id: $id,
+      name: $name,
+      description: $description,
+      active: $active
+    ) {
+      id
+      name
+      description
+      active
+    }
+  }
 `;
 
 export const deleteFlowMutation = gql`
