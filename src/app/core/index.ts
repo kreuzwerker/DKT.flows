@@ -5,6 +5,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+// Containers
+import { ErrorComponent } from './containers/error/error.component';
+
 // Components
 import { AccountComponent } from './components/account/account.component';
 import { ConfirmSignUpComponent } from './components/confirm-sign-up/confirm-sign-up.component';
@@ -31,8 +34,8 @@ const routes: Routes = [
       { path: 'sign-up', component: SignUpComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
     ]
-  }
-
+  },
+  { path: 'error/:code/:entity', component: ErrorComponent, canActivate: [LoginGuard] }
 ];
 
 @NgModule({
@@ -40,6 +43,7 @@ const routes: Routes = [
     AccountComponent,
     ConfirmSignUpComponent,
     EqualValidator,
+    ErrorComponent,
     ForgotPasswordComponent,
     GoogleSigninComponent,
     LoadingIndicatorComponent,

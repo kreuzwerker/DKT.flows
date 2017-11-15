@@ -73,11 +73,17 @@ export class AppComponent implements OnInit, OnDestroy {
     // Make certain functionalities available outside of the angular app context
     if (register) {
       window.DKT = window.DKT || {};
+
+      window.DKT.redirect = (paths => {
+        this.ngZone.run(() => this.router.navigate(paths));
+      }).bind(this);
+
       window.DKT.showMessage = ((message, type) => {
         this.ngZone.run(() => this.showMessage(message, type));
       }).bind(this);
     } else {
       // Deregister
+      window.DKT.redirect = null;
       window.DKT.showMessage = null;
     }
   }

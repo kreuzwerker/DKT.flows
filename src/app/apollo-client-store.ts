@@ -10,6 +10,14 @@ function getApiUrl(): string {
   }
 }
 
+function parseErrorMessage(message: string) {
+  const parts = message.split('_');
+  return {
+    code: parts[0].toUpperCase(),
+    entityType: parts[1].toLowerCase(),
+  };
+}
+
 const networkInterface = createNetworkInterface({
   uri: getApiUrl()
 });
@@ -40,6 +48,7 @@ const authMiddleware = {
 const handleErrors = ({ response }, next) => {
   // clone response so we can turn it into json independently
   const res = response.clone();
+
   // if it's not user error, we skip this afterware (for example a 401)
   if (!res.ok) {
     // handle network errors based on res.status here, for example:
@@ -49,14 +58,23 @@ const handleErrors = ({ response }, next) => {
     return next();
   }
 
-  // handle apollo errors
   res.json().then(json => {
-    each(json.data, data => {
-      if (data && data.errors && data.errors.length) {
-        console.log('ERROR', data.errors[0]);
-        window.DKT.showMessage('An error occured', 'error');
+    if (json.errors) {
+      const error = parseErrorMessage(json.errors[0].message);
+      switch (error.code) {
+        case 'E401':
+          window.DKT.redirect(['error', '401', error.entityType]);
+          break;
+        case 'E404':
+          window.DKT.redirect(['error', '404', error.entityType]);
+          break;
+        default:
+          each(json.errors, error => {
+            window.DKT.showMessage('An error occured', 'error');
+          });
+          break;
       }
-    });
+    }
     next();
   });
 };

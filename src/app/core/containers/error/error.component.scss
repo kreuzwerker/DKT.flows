@@ -1,0 +1,18 @@
+div.error-page {
+  width: 100%;
+  max-width: 500px;
+  margin: 150px auto;
+  padding: 3rem;
+  border-radius: 15px;
+  background-color: white;
+  text-align: center;
+
+  h2 {
+    text-align: center;
+    margin: 0;
+  }
+
+  button {
+    margin: 3rem auto 0;
+  }
+}
