@@ -64,6 +64,9 @@ export class TasksAppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // Clean up state
+    this.tasksApp.setTaskItem(null);
+
     this.ngOnDestroy$.next(true);
   }
 

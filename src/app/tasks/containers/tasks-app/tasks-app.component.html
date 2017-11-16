@@ -31,7 +31,7 @@
 
     <div *ngIf="!(state.select('loadingTasks') | async)" class="full-height">
       <p *ngIf="tasksApp.tasks.length && !tasksApp.task" class="info">
-        Please select a task.
+        Start by selecting a task from the list.
       </p>
       <p *ngIf="!tasksApp.tasks.length" class="info">
         You have currently no tasks.
