@@ -14,16 +14,9 @@
       </h4>
     </div>
 
-    <dkt-tasks-filter
-      [sortingDir]="tasksApp.sortingDir"
-      (setSortingDir)="tasksApp.setSortingDir($event)"
-      [filters]="tasksApp.filters"
-      [filtersList]="tasksApp.filtersList"
-      (setFilter)="tasksApp.setFilter($event)"
-      (unsetFilter)="tasksApp.unsetFilter($event)"
-      (unsetAllFilters)="tasksApp.unsetAllFilters()"
-      class="padding border-bottom"
-    ></dkt-tasks-filter>
+    <dkt-tasks-filter [sortingDir]="tasksApp.sortingDir" (setSortingDir)="tasksApp.setSortingDir($event)" [filters]="tasksApp.filters"
+      [filtersList]="tasksApp.filtersList" (setFilter)="tasksApp.setFilter($event)" (unsetFilter)="tasksApp.unsetFilter($event)"
+      (unsetAllFilters)="tasksApp.unsetAllFilters()" class="padding border-bottom"></dkt-tasks-filter>
     <dkt-tasks-list [tasks]="tasksApp.tasks" [task]="tasksApp.task" [sortingDir]="tasksApp.sortingDir"></dkt-tasks-list>
   </div>
 
@@ -35,18 +28,21 @@
     <p *ngIf="state.select('loadingTasks') | async" class="info">
       Loading tasks ...
     </p>
-    <p *ngIf="!(state.select('loadingTasks') | async) && tasksApp.tasks.length && !tasksApp.task" class="info">
-      Please select a task.
-    </p>
-    <p *ngIf="!(state.select('loadingTasks') | async) && !tasksApp.tasks.length" class="info">
-      You have currently no tasks.
-    </p>
 
-    <dkt-task-controls *ngIf="!(state.select('loadingTasks') | async) && tasksApp.task" class="padding border-bottom topbar-height"
-      [tasks]="tasksApp.tasks" [task]="tasksApp.task" (setState)="state.setTaskState(tasksApp.task, $event)" flex></dkt-task-controls>
+    <div *ngIf="!(state.select('loadingTasks') | async)" class="full-height">
+      <p *ngIf="tasksApp.tasks.length && !tasksApp.task" class="info">
+        Please select a task.
+      </p>
+      <p *ngIf="!tasksApp.tasks.length" class="info">
+        You have currently no tasks.
+      </p>
 
-    <md-spinner *ngIf="state.select('loadingTaskItem') | async"></md-spinner>
-    <dkt-render *ngIf="!(state.select('loadingTaskItem') | async) && tasksApp.taskItem" [data]="tasksApp.taskItem.data" [type]="getTaskItemType(tasksApp.taskItem)"></dkt-render>
+      <dkt-task-controls *ngIf="tasksApp.task" class="padding border-bottom topbar-height" [tasks]="tasksApp.tasks" [task]="tasksApp.task"
+        (setState)="state.setTaskState(tasksApp.task, $event)" flex></dkt-task-controls>
+
+      <md-spinner *ngIf="state.select('loadingTaskItem') | async"></md-spinner>
+      <dkt-render *ngIf="!(state.select('loadingTaskItem') | async) && tasksApp.taskItem" [data]="tasksApp.taskItem.data" [type]="getTaskItemType(tasksApp.taskItem)"></dkt-render>
+    </div>
   </div>
 
   <div class="sidebar-right border-left full-height" [class.collapsed]="rightCollapsed" fxFlex>
