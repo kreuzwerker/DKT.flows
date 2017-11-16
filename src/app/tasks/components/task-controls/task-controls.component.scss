@@ -74,3 +74,16 @@ div.task-controls {
     }
   }
 }
+
+/**
+ * Small layout
+ */
+@media screen and (max-width: 959px) {
+  div.task-controls {
+    button.state {
+      md-icon {
+        margin: 0;
+      }
+    }
+  }
+}
