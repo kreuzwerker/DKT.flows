@@ -12,5 +12,9 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 
   h6 {
     margin-bottom: 5px!important;
+
+    &.started {
+      font-weight: 300!important;
+    }
   }
 }
