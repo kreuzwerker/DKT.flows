@@ -32,6 +32,16 @@
   </div>
 
   <div class="main full-height" fxFlex>
+    <p *ngIf="state.select('loadingTasks') | async" class="info">
+      Loading tasks ...
+    </p>
+    <p *ngIf="!(state.select('loadingTasks') | async) && tasksApp.tasks.length && !tasksApp.task" class="info">
+      Please select a task.
+    </p>
+    <p *ngIf="!(state.select('loadingTasks') | async) && !tasksApp.tasks.length" class="info">
+      You have currently no tasks.
+    </p>
+
     <dkt-task-controls *ngIf="tasksApp.task" class="padding border-bottom topbar-height" [tasks]="tasksApp.tasks" [task]="tasksApp.task" (setState)="state.setTaskState(tasksApp.task, $event)" flex></dkt-task-controls>
 
     <md-spinner *ngIf="state.select('loadingTaskItem') | async"></md-spinner>

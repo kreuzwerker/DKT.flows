@@ -107,6 +107,12 @@ span.tasks-count {
 */
 
 div.main {
+  p.info {
+    text-align: center;
+    margin: 5rem 0 1.5rem;
+    font-size: 1.3rem!important;
+  }
+
   md-spinner {
     margin:3em auto;
     width:44px!important;
