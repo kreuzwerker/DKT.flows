@@ -158,6 +158,10 @@ export class FlowsAppService {
     this.router.navigate(['flows', this.flow.id, 'steps', stepId, 'select-service']);
   }
 
+  configureStep(flowId: string, stepId: string) {
+    this.router.navigate(['flows', this.flow.id, 'steps', stepId, 'configure']);
+  }
+
   flowPath(): string {
     return this.flow ? `/flows/${this.flow.id}` : '';
   }

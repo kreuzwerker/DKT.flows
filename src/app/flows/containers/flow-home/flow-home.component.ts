@@ -77,7 +77,9 @@ export class FlowHomeComponent implements OnInit, OnDestroy {
         this.infoBoxMessage = 'Please finish configuring the Trigger.';
         this.infoBoxActionIcon = null;
         this.infoBoxActionLabel = 'Configure Trigger';
-        this.infoBoxAction = () => console.log('Click: Configure trigger') ;
+
+        const triggerStep = helpers.getFlowTriggerStep(flow);
+        this.infoBoxAction = () => this.flowsApp.configureStep(flow.id, triggerStep.id);
         break;
 
       case FlowState.MISSING_ACTION:
