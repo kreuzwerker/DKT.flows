@@ -166,8 +166,10 @@ https://github.com/jtangelder/sass-loader/issues/211 */
     }
   }
 
-  p.no-runs {
-    margin: 3rem 0;
+  p.info {
+    text-align: center;
+    margin: 5rem 0 1.5rem;
+    font-size: 1.3rem!important;
   }
 }
 
