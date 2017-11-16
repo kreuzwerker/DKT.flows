@@ -40,7 +40,7 @@
       <dkt-task-controls *ngIf="tasksApp.task" class="padding border-bottom topbar-height" [tasks]="tasksApp.tasks" [task]="tasksApp.task"
         (setState)="state.setTaskState(tasksApp.task, $event)" flex></dkt-task-controls>
 
-      <md-spinner *ngIf="state.select('loadingTaskItem') | async"></md-spinner>
+      <md-spinner *ngIf="state.select('loadingTaskItem') | async" class="task-item"></md-spinner>
       <dkt-render *ngIf="!(state.select('loadingTaskItem') | async) && tasksApp.taskItem" [data]="tasksApp.taskItem.data" [type]="getTaskItemType(tasksApp.taskItem)"></dkt-render>
     </div>
   </div>
