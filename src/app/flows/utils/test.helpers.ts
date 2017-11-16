@@ -106,6 +106,7 @@ export class TestUtils {
       name: 'Test Flow',
       description: 'Test Flow description',
       draft: false,
+      active: false,
       steps: steps,
       lastFlowRun: this.createFlowRunData()
     };

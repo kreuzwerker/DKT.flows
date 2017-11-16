@@ -113,7 +113,7 @@ export class FlowHomeComponent implements OnInit, OnDestroy {
         this.infoBoxMessage = 'This flow has been successfully configured and tested.';
         this.infoBoxActionIcon = null;
         this.infoBoxActionLabel = 'Activate Flow';
-        this.infoBoxAction = () => alert('(functionality not yet implemented)');
+        this.infoBoxAction = () => this.state.activateFlow(flow);
         break;
 
       case FlowState.NOT_TRIGGERED:

@@ -227,6 +227,14 @@ export class FlowsStateService extends StateService {
     return obs$;
   }
 
+  activateFlow(flow: Flow): void {
+    this.saveFlow(
+      Object.assign({}, flow, {
+        active: true
+      })
+    );
+  }
+
   toggleFlowActivation(flow: Flow): void {
     this.saveFlow(
       Object.assign({}, flow, {

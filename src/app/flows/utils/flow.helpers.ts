@@ -64,7 +64,7 @@ export function flowIsInDraft(flow: Flow): boolean {
 }
 
 export function flowIsActivated(flow: Flow): boolean {
-  return true;
+  return flow.active;
 }
 
 export function flowIsTriggered(flow: Flow): boolean {

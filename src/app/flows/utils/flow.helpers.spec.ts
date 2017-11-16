@@ -43,6 +43,8 @@ describe('Flows App', () => {
 
     describe('flowIsActivated()', () => {
       it('should return true if the given flow is activated', () => {
+        expect(helpers.flowIsActivated(flow)).toBeFalsy();
+        flow.active = true;
         expect(helpers.flowIsActivated(flow)).toBeTruthy();
       });
     });
