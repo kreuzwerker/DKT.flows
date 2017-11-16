@@ -5,6 +5,9 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 .tasks-filter {
   input.search {
     outline: none;
+    border: 1px solid $element-border-color;
+    border-radius: 5px;
+    padding: 5px 10px;
   }
 
   md-icon.sortingDir {
