@@ -141,7 +141,6 @@ export class FlowsStateService extends StateService {
   fetchMoreLogs(offset: number = 0) {
     // Show loading indicator while loading providers
     this.dispatch(this.actions.setLoadingFlowLogs(true));
-
     this.flowLogsQuery$
       .fetchMore({
         variables: {
@@ -162,6 +161,7 @@ export class FlowsStateService extends StateService {
         this.dispatch(this.actions.setLoadingFlowLogs(false));
       })
       .catch(err => {
+        console.log(err);
         this.dispatch(this.actions.setLoadingFlowLogs(false));
       });
   }

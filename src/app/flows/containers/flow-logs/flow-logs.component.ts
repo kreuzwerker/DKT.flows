@@ -83,7 +83,7 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
   }
 
   reloadLogs() {
-    this.state.loadFlowLogs(this.flowId, this.offset, this.limit, this.status);
+    this.fetchMoreLogs(this.offset);
   }
 
   fetchMoreLogs(offset: number) {
