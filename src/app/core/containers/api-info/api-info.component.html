@@ -1,0 +1,18 @@
+<div class="api-info">
+  <h2>API Info</h2>
+
+  <div *ngIf="!loadingInfo; else infoLoader">
+    <h4>Current deployed commit</h4>
+    <h5>branch
+      <b>{{info.branch}}</b>
+    </h5>
+    <h5>
+      commit
+      <b>{{info.hash}}</b>:
+      <span>{{info.message}}</span>
+    </h5>
+  </div>
+  <ng-template #infoLoader>
+    <p class="info">Loading info ...</p>
+  </ng-template>
+</div>

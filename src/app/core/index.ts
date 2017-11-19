@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 // Containers
+import { ApiInfoComponent } from './containers/api-info/api-info.component';
 import { ErrorComponent } from './containers/error/error.component';
 
 // Components
@@ -35,6 +36,7 @@ import {
 } from './services';
 
 const routes: Routes = [
+  { path: 'api-info', component: ApiInfoComponent },
   { path: 'login', component: LoginComponent,
     children: [
       { path: '', component: SignInComponent },
@@ -49,6 +51,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AccountComponent,
+    ApiInfoComponent,
     ConfirmSignUpComponent,
     EqualValidator,
     ErrorComponent,
