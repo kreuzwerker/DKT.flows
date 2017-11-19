@@ -9,7 +9,7 @@ import { ApolloQueryResult } from 'apollo-client';
 import { ApolloQueryObservable } from 'apollo-angular';
 import { NgRedux, select } from '@angular-redux/store';
 import { AppState, Action } from './../../reducers';
-import { StateService } from './../../core/services';
+import { BaseStateService } from './../../core/services';
 import { FlowsApiService } from './../services';
 import {
   Flow,
@@ -25,7 +25,7 @@ import { FlowsAppActions } from './../states';
 import { FlowsListData } from './flow.gql';
 
 @Injectable()
-export class FlowsStateService extends StateService {
+export class FlowsStateService extends BaseStateService {
   storeKey = 'flowsApp';
 
   //

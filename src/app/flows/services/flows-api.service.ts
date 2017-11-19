@@ -369,7 +369,7 @@ export class FlowsApiService {
     return {
       __typename: 'Mutation',
       updateFlow: Object.assign({}, flow, {
-        __typename: 'Flow',
+        __typename: 'Flow'
       })
     };
   }

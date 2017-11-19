@@ -24,7 +24,15 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { EqualValidator } from './directives/equal-validator.directive';
 
 // Services
-import { LoginGuard, LoginUiState, StateService, UserLoginService, UserRegistrationService } from './services';
+import {
+  BaseStateService,
+  CoreApiService,
+  CoreStateService,
+  LoginGuard,
+  LoginUiState,
+  UserLoginService,
+  UserRegistrationService
+} from './services';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent,
@@ -69,9 +77,11 @@ const routes: Routes = [
     RenderComponent,
   ],
   providers: [
+    BaseStateService,
+    CoreApiService,
+    CoreStateService,
     LoginGuard,
     LoginUiState,
-    StateService,
     UserLoginService,
     UserRegistrationService,
   ]

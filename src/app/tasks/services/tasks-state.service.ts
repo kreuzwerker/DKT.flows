@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 import { ApolloQueryResult } from 'apollo-client';
 import { NgRedux, select } from '@angular-redux/store';
 import { AppState, Action } from './../../reducers';
-import { StateService } from './../../core/services';
+import { BaseStateService } from './../../core/services';
 import { TasksApiService } from './../services';
 import { Task, TaskState, TaskItem } from './../models';
 import { TasksAppActions } from './../states';
@@ -14,7 +14,7 @@ import { TasksAppActions } from './../states';
 import { TasksListData } from './task.gql';
 
 @Injectable()
-export class TasksStateService extends StateService {
+export class TasksStateService extends BaseStateService {
   storeKey = 'tasksApp';
 
   //
@@ -36,7 +36,7 @@ export class TasksStateService extends StateService {
   constructor(
     private api: TasksApiService,
     public store: NgRedux<AppState>,
-    public actions: TasksAppActions,
+    public actions: TasksAppActions
   ) {
     super(store);
   }
@@ -44,15 +44,16 @@ export class TasksStateService extends StateService {
   loadTasks() {
     // Fetch an up-to-date list of tasks
     this.dispatch(this.actions.setLoadingTasks(true));
-    this.tasks$ = this.api.getTasks().map((response) => {
+    this.tasks$ = this.api.getTasks().map(response => {
       // Flatten the data object to array of tasks
-      const data = response.data && response.data.allTasks ? response.data.allTasks : [];
+      const data =
+        response.data && response.data.allTasks ? response.data.allTasks : [];
       // Return the full response including the loading flag
-      return Object.assign({}, response, {data: data});
+      return Object.assign({}, response, { data: data });
     });
 
     // Unset loading tasks flag
-    this.tasksSub$ = this.tasks$.subscribe((response) => {
+    this.tasksSub$ = this.tasks$.subscribe(response => {
       // The first response will contain cached data. Keep showing the loading
       // indicator until the response contains data fetched via network.
       // NB see getTasks() fetch policy 'cache-and-network' property
@@ -73,9 +74,10 @@ export class TasksStateService extends StateService {
     // which takes longer to complete, then the loader will be shown. A cache
     // request completes immediately and thus no loader is shown.
     const showLoadingIndicator = setTimeout(
-      () => this.dispatch(this.actions.setLoadingTaskItem(true))
-    , 1);
-    const taskItemSub$ = this.taskItem$.subscribe((response) => {
+      () => this.dispatch(this.actions.setLoadingTaskItem(true)),
+      1
+    );
+    const taskItemSub$ = this.taskItem$.subscribe(response => {
       clearTimeout(showLoadingIndicator);
       this.dispatch(this.actions.setLoadingTaskItem(false));
       taskItemSub$.unsubscribe();
@@ -87,11 +89,13 @@ export class TasksStateService extends StateService {
 
   setTaskState(task: Task, state: TaskState) {
     // this.dispatch(this.actions.setSavingTask(true, false));
-    this.api.updateTaskState({
-      id: task.id,
-      state: state
-    }).subscribe((_task) => {
-      // this.dispatch(this.actions.setSavingTask(false, true));
-    });
+    this.api
+      .updateTaskState({
+        id: task.id,
+        state: state
+      })
+      .subscribe(_task => {
+        // this.dispatch(this.actions.setSavingTask(false, true));
+      });
   }
 }
