@@ -3,6 +3,10 @@
     <md-icon>exit_to_app</md-icon>
     <span>Log out</span>
   </button>
+  <button md-menu-item (click)="goTo('api-info')">
+    <md-icon>info</md-icon>
+    <span>API info</span>
+  </button>
 </md-menu>
 
 <button md-button [mdMenuTriggerFor]="userMenu">

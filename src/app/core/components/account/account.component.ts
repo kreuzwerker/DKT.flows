@@ -53,4 +53,8 @@ export class AccountComponent implements AfterViewInit {
     let profile: any = CognitoUtil.getUserProfile();
     return profile && profile.imageUrl || null;
   }
+
+  goTo(path): void {
+    this.router.navigate([path]);
+  }
 }
