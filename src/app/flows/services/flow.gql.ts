@@ -375,6 +375,10 @@ export const startFlowRunMutation = gql`
       status
       message
       runsCount
+      flow {
+        id
+        active
+      }
     }
   }
 `;
