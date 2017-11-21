@@ -63,6 +63,10 @@ export class FlowsAppService {
     this.state.saveFlow(this.flow);
   }
 
+  updateFlow(updates) {
+    return this.state.saveFlow(Object.assign({}, this.flow, updates));
+  }
+
   deleteFlow(): Observable<any> {
     return this.state.deleteFlow(this.flow.id);
   }

@@ -1,0 +1,25 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+@import '../../../animations';
+
+.flow-settings {
+  width: 100%;
+  max-width: 400px;
+  margin: 2rem auto;
+  background-color: white;
+  border-radius: 5px;
+  animation: FadeIn 0.2s;
+
+  .padding {
+    padding: 2rem;
+  }
+
+  .border-bottom {
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  h4 {
+    margin: 0;
+  }
+}

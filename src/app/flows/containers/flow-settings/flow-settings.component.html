@@ -1,0 +1,31 @@
+<form class="flow-settings" #flowSettingsForm="ngForm" (ngSubmit)="saveSettings(flowSettingsForm)">
+  <h4 class="padding border-bottom">Flow settings</h4>
+
+  <md-tab-group md-dynamic-height>
+    <md-tab>
+      <ng-template md-tab-label>General</ng-template>
+
+      <div fxLayout="column" class="padding border-bottom">
+        <md-input-container>
+          <input mdInput placeholder="Name" type="text" name="name" tabindex="1" [ngModel]="flow.name" #name="ngModel" required>
+          <md-hint *ngIf="name.dirty && name.errors?.required">Name is required</md-hint>
+        </md-input-container>
+
+        <md-input-container>
+          <textarea mdInput placeholder="Description" type="text" name="description" tabindex="2" [ngModel]="flow.description" #description="ngModel" required></textarea>
+          <md-hint *ngIf="description.dirty && description.errors?.required">Description is required</md-hint>
+        </md-input-container>
+      </div>
+    </md-tab>
+    <md-tab>
+      <ng-template md-tab-label>Triggering</ng-template>
+      <div class="padding border-bottom">triggering settings</div>
+    </md-tab>
+  </md-tab-group>
+
+  <div class="buttons padding" fxLayout="row" fxLayoutAlign="space-between center">
+    <button md-raised-button type="button" [routerLink]="'/flows/' + flow.id" tabIndex="4">Cancel</button>
+    <button md-raised-button type="submit" [disabled]="flowSettingsForm.invalid" color="accent" tabIndex="3">Save</button>
+  </div>
+
+</form>

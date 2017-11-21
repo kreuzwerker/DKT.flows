@@ -4,6 +4,18 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 
 div.flow-header {
   flex: 0 1 auto;
+
+  button.control {
+    color: $dark-grey;
+
+    &:hover {
+      color: $dark-blue;
+    }
+
+    &.active {
+      color: $blue;
+    }
+  }
 }
 
 h4 {
@@ -76,14 +88,6 @@ div.controls {
 
       button.locked {
         background-color: $inactive-button-color;
-      }
-
-      button.control {
-        color: $dark-grey;
-
-        &:hover {
-          color: $dark-blue;
-        }
       }
 
       &.activate {
