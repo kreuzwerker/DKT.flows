@@ -17,13 +17,21 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   flowSub$: Subscription;
 
+  triggerType = null;
   triggerTypes = {
     MANUAL: 'manual',
     AUTOMATIC: 'automatic',
     SCHEDULED: 'scheduled'
   };
 
-  triggerType = null;
+  triggerDate = null;
+  triggerTime = null;
+  triggerInterval = null;
+  triggerIntervalType = null;
+  triggerIntervalTypes = {
+    MINUTES: 'm',
+    HOURS: 'h'
+  };
 
   flow: Flow = {
     id: null,
@@ -51,8 +59,17 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
 
   onSelectFlow(flow: Flow) {
     this.flow = flow;
+
     // TODO set from flow.triggerType ?
-    this.triggerType = this.triggerTypes.MANUAL;
+    this.triggerType = this.triggerTypes.SCHEDULED;
+
+    // TODO calculcate based on flow.triggerDatetime
+    this.triggerDate = '2017-11-21';
+    this.triggerTime = '15:00';
+    // TODO calculate based on flow.triggerInterval=x minutes
+    this.triggerInterval = 2;
+    this.triggerIntervalType = this.triggerIntervalTypes.HOURS;
+
     this.cd.markForCheck();
   }
 

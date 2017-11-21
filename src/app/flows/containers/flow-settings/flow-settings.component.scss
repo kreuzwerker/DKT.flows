@@ -23,11 +23,19 @@ https://github.com/jtangelder/sass-loader/issues/211 */
     margin: 0;
   }
 
+  md-icon,
+  h6 {
+    color: $dark-grey;
+  }
+
   md-list-item {
     cursor: pointer;
 
     &:hover {
-      background-color: $element-hover-color;
+      md-icon,
+      h6 {
+        color: black;
+      }
     }
 
     &.selected {
@@ -35,6 +43,38 @@ https://github.com/jtangelder/sass-loader/issues/211 */
       h6 {
         color: $blue;
       }
+    }
+  }
+
+  div.scheduled-trigger-settings {
+    width: 225px;
+    margin: 0 0 0 65px;
+
+    overflow-y: hidden;
+    transition: all 0.3s ease-out;
+
+    &.slide-in {
+      max-height: 500px;
+      animation: FadeIn 0.3s;
+    }
+
+    &.slide-out {
+      max-height: 0px;
+      animation: FadeOut 0.3s;
+    }
+
+    md-input-container {
+      &:first-of-type {
+        margin-right: 1rem;
+      }
+
+      &.small {
+        width: 60px;
+      }
+    }
+
+    md-select {
+      margin-top: 7px;
     }
   }
 }
