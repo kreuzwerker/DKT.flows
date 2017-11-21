@@ -88,6 +88,18 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
     }
   }
 
+  deleteFlow() {
+    this.flowsApp.showStatusMessage('Deleting flow', 'loading');
+    this.flowsApp.deleteFlow().subscribe(() => {
+        this.flowsApp.hideStatusMessage();
+        this.showInfoMessage(`Deleted flow "${this.flowsApp.flow.name}".`);
+        this.router.navigate(['flows']);
+      }, err => {
+        this.flowsApp.hideStatusMessage();
+        this.showInfoMessage(`An error occured. Could not delete the flow.`);
+      });
+  }
+
   showInfoMessage(message: string) {
     let config = new MdSnackBarConfig();
     config.duration = 2000;

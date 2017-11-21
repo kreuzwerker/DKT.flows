@@ -15,6 +15,16 @@
           <textarea mdInput placeholder="Description" type="text" name="description" tabindex="2" [ngModel]="flow.description" #description="ngModel" required></textarea>
           <md-hint *ngIf="description.dirty && description.errors?.required">Description is required</md-hint>
         </md-input-container>
+
+        <h6>Delete flow?</h6>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p class="warning" fxLayout="row" fxLayoutAlign="start center">
+            <md-icon color="warn">warning</md-icon>
+            Are you sure you want to delete this flow?
+          </p>
+
+          <button type="button" (click)="deleteFlow()" md-raised-button color="warn">Delete</button>
+        </div>
       </div>
     </md-tab>
     <md-tab>

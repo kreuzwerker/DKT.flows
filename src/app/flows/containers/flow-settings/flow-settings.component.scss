@@ -23,13 +23,23 @@ https://github.com/jtangelder/sass-loader/issues/211 */
     margin: 0;
   }
 
-  md-icon,
   h6 {
-    color: $dark-grey;
+    margin: 1.5rem 0 1rem!important;
+  }
+
+  p.warning {
+    md-icon {
+      margin-right: 0.5rem;
+    }
   }
 
   md-list-item {
     cursor: pointer;
+
+    md-icon,
+    h6 {
+      color: $dark-grey;
+    }
 
     &:hover {
       md-icon,
