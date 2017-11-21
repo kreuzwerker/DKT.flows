@@ -17,6 +17,14 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   flowSub$: Subscription;
 
+  triggerTypes = {
+    MANUAL: 'manual',
+    AUTOMATIC: 'automatic',
+    SCHEDULED: 'scheduled'
+  };
+
+  triggerType = null;
+
   flow: Flow = {
     id: null,
     name: '',
@@ -43,6 +51,8 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
 
   onSelectFlow(flow: Flow) {
     this.flow = flow;
+    // TODO set from flow.triggerType ?
+    this.triggerType = this.triggerTypes.MANUAL;
     this.cd.markForCheck();
   }
 
@@ -69,5 +79,21 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.ngOnDestroy$.next(true);
+  }
+
+  /**
+   * Helper functions
+   */
+
+  isManual() {
+    return this.triggerType === this.triggerTypes.MANUAL;
+  }
+
+  isAutomatic() {
+    return this.triggerType === this.triggerTypes.AUTOMATIC;
+  }
+
+  isScheduled() {
+    return this.triggerType === this.triggerTypes.SCHEDULED;
   }
 }

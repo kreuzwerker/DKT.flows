@@ -19,7 +19,32 @@
     </md-tab>
     <md-tab>
       <ng-template md-tab-label>Triggering</ng-template>
-      <div class="padding border-bottom">triggering settings</div>
+
+      <md-radio-group [(ngModel)]="triggerType" name="triggerType">
+        <md-list class="padding border-bottom">
+          <md-list-item [class.selected]="isManual()" (click)="triggerType = triggerTypes.MANUAL">
+            <md-icon md-list-icon>flash_on</md-icon>
+            <h6 md-line>Manual</h6>
+            <p md-line>Lorem ipsum ipsum ipsum ipsum.</p>
+            <md-radio-button [value]="triggerTypes.MANUAL" [checked]="isManual()"></md-radio-button>
+          </md-list-item>
+
+          <md-list-item [class.selected]="isAutomatic()" (click)="triggerType = triggerTypes.AUTOMATIC">
+            <md-icon md-list-icon>flash_auto</md-icon>
+            <h6 md-line>Automatic</h6>
+            <p md-line>Lorem ipsum ipsum ipsum ipsum.</p>
+            <md-radio-button [value]="triggerTypes.AUTOMATIC" [checked]="isAutomatic()"></md-radio-button>
+          </md-list-item>
+
+          <md-list-item [class.selected]="isScheduled()" (click)="triggerType = triggerTypes.SCHEDULED">
+            <md-icon md-list-icon>schedule</md-icon>
+            <h6 md-line>Scheduled</h6>
+            <p md-line>Lorem ipsum ipsum ipsum ipsum.</p>
+            <md-radio-button [value]="triggerTypes.SCHEDULED" [checked]="isScheduled()"></md-radio-button>
+          </md-list-item>
+        </md-list>
+      </md-radio-group>
+
     </md-tab>
   </md-tab-group>
 

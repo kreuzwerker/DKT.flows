@@ -22,4 +22,19 @@ https://github.com/jtangelder/sass-loader/issues/211 */
   h4 {
     margin: 0;
   }
+
+  md-list-item {
+    cursor: pointer;
+
+    &:hover {
+      background-color: $element-hover-color;
+    }
+
+    &.selected {
+      md-icon,
+      h6 {
+        color: $blue;
+      }
+    }
+  }
 }
