@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild, ElementRef, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { StepTestResultType } from './../../../flows/models';
+import { createAnnotationsDom } from './lib/annotations';
 
 @Component({
   selector: 'dkt-render',
@@ -10,6 +11,7 @@ import { StepTestResultType } from './../../../flows/models';
 export class RenderComponent implements OnChanges {
   @Input() type: StepTestResultType = StepTestResultType.HTML;
   @Input() data: any = null;
+  @ViewChild('annotations') annotationsContainer: ElementRef;
 
   types = StepTestResultType;
   renderData: string = '';
@@ -18,11 +20,21 @@ export class RenderComponent implements OnChanges {
     this.render();
   }
 
+  clear() {
+    if (this.type !== StepTestResultType.ANNOTATIONS) {
+      this.annotationsContainer.nativeElement.innerHTML = '';
+    }
+  }
+
   render() {
+    this.clear();
+
     if (this.type === StepTestResultType.HTML) {
       this.renderHtml(this.data);
     } else if (this.type === StepTestResultType.JSON) {
       this.renderJson(this.data);
+    } else if (this.type === StepTestResultType.ANNOTATIONS) {
+      this.renderAnnotations(this.data);
     } else {
       this.renderText(this.data);
     }
@@ -34,9 +46,19 @@ export class RenderComponent implements OnChanges {
 
   renderJson(json: object): void {
     // Format json
-    this.renderData = typeof json === 'object'
-      ? JSON.stringify(json, null, '  ')
-      : json;
+    this.renderData =
+      typeof json === 'object' ? JSON.stringify(json, null, '  ') : json;
+  }
+
+  renderAnnotations(annotations): void {
+    annotations =
+      typeof annotations === 'string' ? JSON.parse(annotations) : annotations;
+
+    createAnnotationsDom(
+      this.annotationsContainer,
+      annotations.text,
+      annotations.ents
+    );
   }
 
   renderText(text: string): void {

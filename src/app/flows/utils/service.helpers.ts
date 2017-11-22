@@ -13,6 +13,9 @@ export function getServiceTypeName(service: Service): string {
 
 export function getServiceResultType(service: Service): StepTestResultType {
   switch (<ServiceIOType>service.outputType) {
+    case ServiceIOType.ANNOTATIONS:
+      return StepTestResultType.ANNOTATIONS;
+
     case ServiceIOType.JSON:
       return StepTestResultType.JSON;
 
