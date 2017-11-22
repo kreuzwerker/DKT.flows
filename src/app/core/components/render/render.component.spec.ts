@@ -8,6 +8,8 @@ describe('Core', () => {
 
     beforeEach(() => {
       component = new RenderComponent();
+      // Stub clear method as long as we don't know how to mock @ViewChild
+      component.clear = () => {};
       expect(component).toBeTruthy();
     });
 

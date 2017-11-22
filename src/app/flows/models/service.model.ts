@@ -30,6 +30,7 @@ export class ServiceType {
 }
 
 export class ServiceIOType {
+  static ANNOTATIONS = 'annotations';
   static JSON = 'json';
   static HTML = 'html';
   static STRING = 'string';

@@ -33,4 +33,4 @@ export class StepTest {
   tested: boolean;
 }
 
-export enum StepTestResultType { ERROR, TEXT, HTML, JSON }
+export enum StepTestResultType { ERROR, TEXT, HTML, JSON, ANNOTATIONS }
