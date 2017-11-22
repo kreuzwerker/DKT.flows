@@ -92,3 +92,14 @@ export function getFlowState(flow: Flow): FlowState {
     return FlowState.TRIGGERED;
   }
 }
+
+export function flowTriggerTypeCanBeAutoamtic(flow: Flow): boolean {
+  const triggerStep = getFlowTriggerStep(flow);
+  if (!triggerStep) {
+    return false;
+  }
+
+  // TODO service.automatic property missing
+  // return triggerStep.service.automatic;
+  return false;
+}

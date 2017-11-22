@@ -6,6 +6,7 @@ import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
 import { Flow, FlowTriggerType } from './../../models';
+import { flowTriggerTypeCanBeAutoamtic } from './../../utils';
 
 @Component({
   selector: 'flow-settings',
@@ -111,15 +112,19 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
    * Helper functions
    */
 
-  isManual(form) {
+  isAutomaticEnabled(): boolean {
+    return this.flow.id ? flowTriggerTypeCanBeAutoamtic(this.flow) : false;
+  }
+
+  isManual(form): boolean {
     return form.value.triggerType === FlowTriggerType.MANUAL;
   }
 
-  isAutomatic(form) {
+  isAutomatic(form): boolean {
     return form.value.triggerType === FlowTriggerType.AUTOMATIC;
   }
 
-  isScheduled(form) {
+  isScheduled(form): boolean {
     return form.value.triggerType === FlowTriggerType.SCHEDULED;
   }
 }

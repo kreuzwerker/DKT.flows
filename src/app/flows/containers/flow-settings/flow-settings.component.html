@@ -41,7 +41,7 @@
               </md-list-item>
             </md-radio-button>
 
-            <md-radio-button [value]="flowTriggerType.AUTOMATIC" [checked]="isAutomatic(flowSettingsForm)" labelPosition="before">
+            <md-radio-button [value]="flowTriggerType.AUTOMATIC" [checked]="isAutomatic(flowSettingsForm)" *ngIf="isAutomaticEnabled()" labelPosition="before">
               <md-list-item [class.selected]="isAutomatic(flowSettingsForm)">
                 <md-icon md-list-icon>flash_auto</md-icon>
                 <h6 md-line>Automatic</h6>
@@ -59,7 +59,7 @@
           </md-list>
         </md-radio-group>
 
-        <div [class.slide-in]="isScheduled(flowSettingsForm)" [class.slide-out]="!isScheduled(flowSettingsForm)" class="scheduled-trigger-settings">
+        <div [class.slide-in]="isScheduled(flowSettingsForm)" [class.slide-out]="!isScheduled(flowSettingsForm)" class="scheduling">
           <h6>Start at</h6>
 
           <div fxLayout="row" fxLayoutAlign="start center">
