@@ -20,13 +20,18 @@ div.api-info {
     text-align: center;
   }
 
-  span {
-    font-family: monospace;
+  p {
+    font-size: 1.3rem!important;
+  }
+
+  p.message {
+    font-family: monospace!important;
+    margin-top: 1rem;
+    color: #999;
   }
 
   p.info {
     text-align: center;
     margin: 5rem 0 5rem;
-    font-size: 1.3rem!important;
   }
 }
