@@ -2,7 +2,7 @@ import { Subject } from 'rxjs/Subject';
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { Router } from '@angular/router';
-import { Flow } from '../../models';
+import { Flow, FlowTriggerType } from '../../models';
 import * as flowHelpers from './../../utils/flow.helpers';
 import { FlowsAppService, FlowsStateService } from './../../services';
 import { FlowsListData } from './../../services/flow.gql';
@@ -20,6 +20,7 @@ export class FlowsListComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   dialogConfig: MdDialogConfig;
   flowHelpers = flowHelpers;
+  flowTriggerType = FlowTriggerType;
 
   constructor(
     public flowsApp: FlowsAppService,

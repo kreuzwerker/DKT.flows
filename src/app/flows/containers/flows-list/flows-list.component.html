@@ -34,18 +34,26 @@
             <md-icon class="chevron">chevron_right</md-icon>
             <md-icon class="last-step">{{getLastStepIcon(flow)}}</md-icon>
           </div>
-      
-          <div md-list-icon class="seperator"></div>
-      
+
+          <div *ngIf="!flowHelpers.flowIsInDraft(flow)" md-list-icon class="seperator"></div>
+
+          <div md-list-icon *ngIf="!flowHelpers.flowIsInDraft(flow)" class="trigger-type" [ngSwitch]="flow.triggerType">
+            <md-icon *ngSwitchCase="flowTriggerType.MANUAL" mdTooltip="Set to trigger manually">flash_on</md-icon>
+            <md-icon *ngSwitchCase="flowTriggerType.AUTOMATIC" mdTooltip="Set to trigger automatically">flash_auto</md-icon>
+            <md-icon *ngSwitchCase="flowTriggerType.SCHEDULED" mdTooltip="Scheduled for XXX">schedule</md-icon>
+          </div>
+
+          <div class="seperator" md-list-icon></div>
+
           <h6 md-line>
             <div *ngIf="flowHelpers.flowHasError(flow)" class="label error">error</div>
             <div *ngIf="flowHelpers.flowIsInDraft(flow)" class="label draft">draft</div>
             {{flow.name}}
           </h6>
 
-          <div class="seperator"></div>
+          <div *ngIf="!flowHelpers.flowIsInDraft(flow)" class="seperator"></div>
 
-          <button md-button class="toggle-active" [class.active]="flow.active" (click)="state.toggleFlowActivation(flow)">
+          <button *ngIf="!flowHelpers.flowIsInDraft(flow)" md-button class="toggle-active" [class.active]="flow.active" (click)="state.toggleFlowActivation(flow)">
             <span class="on">ON</span>
             <span class="off">OFF</span>
           </button>

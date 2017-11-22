@@ -11,6 +11,7 @@ export const flowsItemFragment = gql`
     description
     active
     draft
+    triggerType
     steps {
       service {
         provider {
