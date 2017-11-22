@@ -58,7 +58,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 
   div.scheduled-trigger-settings {
     width: 225px;
-    margin: 0 0 0 65px;
+    margin: 1rem 0 0 65px;
 
     overflow-y: hidden;
     transition: all 0.3s ease-out;
@@ -73,6 +73,10 @@ https://github.com/jtangelder/sass-loader/issues/211 */
       animation: FadeOut 0.3s;
     }
 
+    h6 {
+      margin-top: 1rem!important;
+    }
+
     md-input-container {
       &:first-of-type {
         margin-right: 1rem;
@@ -80,6 +84,10 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 
       &.small {
         width: 60px;
+      }
+
+      input[type="date"] {
+        width: 120px;
       }
     }
 

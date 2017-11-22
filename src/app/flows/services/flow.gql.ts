@@ -108,6 +108,7 @@ export const getFlowQuery = gql`
       description,
       draft,
       active,
+      triggerType,
       steps {
         ...FlowStep
       }
@@ -212,18 +213,21 @@ export const updateFlowMutation = gql`
     $id: ID!,
     $name: String!,
     $description: String!,
-    $active: Boolean!
+    $active: Boolean!,
+    $triggerType: String!
   ) {
     updateFlow(
       id: $id,
       name: $name,
       description: $description,
-      active: $active
+      active: $active,
+      triggerType: $triggerType
     ) {
       id
       name
       description
       active
+      triggerType
     }
   }
 `;

@@ -2,6 +2,7 @@
 import {
   Flow,
   FlowData,
+  FlowTriggerType,
   StepData,
   StepTest,
   StepConfigParamsInput,
@@ -108,7 +109,8 @@ export class TestUtils {
       draft: false,
       active: false,
       steps: steps,
-      lastFlowRun: this.createFlowRunData()
+      lastFlowRun: this.createFlowRunData(),
+      triggerType: FlowTriggerType.MANUAL
     };
   }
 

@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
-import { Flow } from './../../models';
+import { Flow, FlowTriggerType } from './../../models';
 
 @Component({
   selector: 'flow-settings',
@@ -17,20 +17,16 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   flowSub$: Subscription;
 
-  triggerType = null;
-  triggerTypes = {
-    MANUAL: 'manual',
-    AUTOMATIC: 'automatic',
-    SCHEDULED: 'scheduled'
-  };
+  flowTriggerType = FlowTriggerType;
 
   triggerDate = null;
   triggerTime = null;
   triggerInterval = null;
   triggerIntervalType = null;
   triggerIntervalTypes = {
-    MINUTES: 'm',
-    HOURS: 'h'
+    MINUTES: 'MINUTES',
+    HOURS: 'HOURS',
+    DAYS: 'DAYS'
   };
 
   flow: Flow = {
@@ -60,9 +56,6 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
   onSelectFlow(flow: Flow) {
     this.flow = flow;
 
-    // TODO set from flow.triggerType ?
-    this.triggerType = this.triggerTypes.SCHEDULED;
-
     // TODO calculcate based on flow.triggerDatetime
     this.triggerDate = '2017-11-21';
     this.triggerTime = '15:00';
@@ -78,7 +71,8 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
       this.flowsApp
         .updateFlow({
           name: form.value.name,
-          description: form.value.description
+          description: form.value.description,
+          triggerType: form.value.triggerType
         })
         .subscribe(
           () => this.showInfoMessage(`Updated flow settings.`),
@@ -90,14 +84,17 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
 
   deleteFlow() {
     this.flowsApp.showStatusMessage('Deleting flow', 'loading');
-    this.flowsApp.deleteFlow().subscribe(() => {
+    this.flowsApp.deleteFlow().subscribe(
+      () => {
         this.flowsApp.hideStatusMessage();
         this.showInfoMessage(`Deleted flow "${this.flowsApp.flow.name}".`);
         this.router.navigate(['flows']);
-      }, err => {
+      },
+      err => {
         this.flowsApp.hideStatusMessage();
         this.showInfoMessage(`An error occured. Could not delete the flow.`);
-      });
+      }
+    );
   }
 
   showInfoMessage(message: string) {
@@ -114,15 +111,15 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
    * Helper functions
    */
 
-  isManual() {
-    return this.triggerType === this.triggerTypes.MANUAL;
+  isManual(form) {
+    return form.value.triggerType === FlowTriggerType.MANUAL;
   }
 
-  isAutomatic() {
-    return this.triggerType === this.triggerTypes.AUTOMATIC;
+  isAutomatic(form) {
+    return form.value.triggerType === FlowTriggerType.AUTOMATIC;
   }
 
-  isScheduled() {
-    return this.triggerType === this.triggerTypes.SCHEDULED;
+  isScheduled(form) {
+    return form.value.triggerType === FlowTriggerType.SCHEDULED;
   }
 }

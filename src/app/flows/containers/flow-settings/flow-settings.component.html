@@ -31,26 +31,26 @@
       <ng-template md-tab-label>Triggering</ng-template>
 
       <div class="padding border-bottom">
-        <md-radio-group [(ngModel)]="triggerType" name="triggerType">
+        <md-radio-group [ngModel]="flow.triggerType" name="triggerType">
           <md-list>
-            <md-radio-button [value]="triggerTypes.MANUAL" [checked]="isManual()" labelPosition="before">
-              <md-list-item [class.selected]="isManual()">
+            <md-radio-button [value]="flowTriggerType.MANUAL" [checked]="isManual(flowSettingsForm)" labelPosition="before">
+              <md-list-item [class.selected]="isManual(flowSettingsForm)">
                   <md-icon md-list-icon>flash_on</md-icon>
                   <h6 md-line>Manual</h6>
                   <p md-line>Explanatory text about this trigger type</p>
               </md-list-item>
             </md-radio-button>
 
-            <md-radio-button [value]="triggerTypes.AUTOMATIC" [checked]="isAutomatic()" labelPosition="before">
-              <md-list-item [class.selected]="isAutomatic()">
+            <md-radio-button [value]="flowTriggerType.AUTOMATIC" [checked]="isAutomatic(flowSettingsForm)" labelPosition="before">
+              <md-list-item [class.selected]="isAutomatic(flowSettingsForm)">
                 <md-icon md-list-icon>flash_auto</md-icon>
                 <h6 md-line>Automatic</h6>
                 <p md-line>Explanatory text about this trigger type</p>
               </md-list-item>
             </md-radio-button>
 
-            <md-radio-button [value]="triggerTypes.SCHEDULED" [checked]="isScheduled()" labelPosition="before">
-              <md-list-item [class.selected]="isScheduled()">
+            <md-radio-button [value]="flowTriggerType.SCHEDULED" [checked]="isScheduled(flowSettingsForm)" labelPosition="before">
+              <md-list-item [class.selected]="isScheduled(flowSettingsForm)">
                 <md-icon md-list-icon>schedule</md-icon>
                 <h6 md-line>Scheduled</h6>
                 <p md-line>Explanatory text about this trigger type</p>
@@ -59,8 +59,8 @@
           </md-list>
         </md-radio-group>
 
-        <div [class.slide-in]="isScheduled()" [class.slide-out]="!isScheduled()" class="scheduled-trigger-settings">
-          <b>Start at</b>
+        <div [class.slide-in]="isScheduled(flowSettingsForm)" [class.slide-out]="!isScheduled(flowSettingsForm)" class="scheduled-trigger-settings">
+          <h6>Start at</h6>
 
           <div fxLayout="row" fxLayoutAlign="start center">
             <md-input-container>
@@ -76,19 +76,20 @@
             </md-input-container>
           </div>
 
-          <b>Run every</b>
+          <h6>Run every</h6>
 
           <div fxLayout="row" fxLayoutAlign="start start">
             <md-input-container class="small">
-              <input mdInput type="number" name="triggerInterval" [ngModel]="triggerInterval" #triggerInterval_="ngModel"
+              <input mdInput type="number" min="1" name="triggerInterval" [ngModel]="triggerInterval" #triggerInterval_="ngModel"
                 required>
               <md-hint *ngIf="triggerInterval_.dirty && triggerInterval_.errors?.required">Interval is required</md-hint>
             </md-input-container>
 
             <!-- TODO wrap in mat-form-field so elements align (requires Material update) -->
             <md-select [(ngModel)]="triggerIntervalType" name="triggerIntervalType">
-              <md-option [value]="triggerIntervalTypes.MINUTES">Minutes</md-option>
-              <md-option [value]="triggerIntervalTypes.HOURS">Hours</md-option>
+              <md-option [value]="triggerIntervalTypes.MINUTES">minutes</md-option>
+              <md-option [value]="triggerIntervalTypes.HOURS">hours</md-option>
+              <md-option [value]="triggerIntervalTypes.DAYS">days</md-option>
             </md-select>
           </div>
 

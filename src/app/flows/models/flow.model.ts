@@ -12,6 +12,7 @@ export class Flow {
   lastFlowRun?: FlowRun;
   runs?: Run[];
   runsCount?: number;
+  triggerType?: FlowTriggerType;
 }
 
 export interface FlowData {
@@ -24,6 +25,7 @@ export interface FlowData {
   lastFlowRun?: FlowRun;
   runs?: Run[];
   runsCount?: number;
+  triggerType?: FlowTriggerType;
 }
 
 export enum FlowState {
@@ -35,4 +37,10 @@ export enum FlowState {
   NOT_ACTIVATED,
   NOT_TRIGGERED,
   TRIGGERED
+}
+
+export class FlowTriggerType {
+  static MANUAL = 'MANUAL';
+  static AUTOMATIC = 'AUTOMATIC';
+  static SCHEDULED = 'SCHEDULED';
 }
