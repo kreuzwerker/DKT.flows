@@ -1,12 +1,28 @@
 <div class="flow-header">
   <div class="padding">
-    <h4 fxLayout="row" fxLayoutAlign="start start">
+    <h4 class="name" fxLayout="row" fxLayoutAlign="start start">
       <span fxFlex>{{flow.name}}</span>
       <button md-icon-button class="settings control" [routerLink]="'/flows/' + flow.id + '/settings'" [routerLinkActive]="['active']">
         <md-icon>settings</md-icon>
       </button>
     </h4>
-    <p>{{truncate(flow.description)}}</p>
+
+    <div class="trigger-setting" [ngSwitch]="flow.triggerType" [routerLink]="'/flows/' + flow.id + '/settings/triggering'">
+      <p *ngSwitchCase="flowTriggerType.MANUAL" fxLayout="row" fxLayoutAlign="start center">
+        <md-icon>flash_on</md-icon>
+        <span>Manual trigger</span>
+      </p>
+      <p *ngSwitchCase="flowTriggerType.AUTOMATIC" fxLayout="row" fxLayoutAlign="start center">
+        <md-icon>flash_auto</md-icon>
+        <span>Automatic trigger</span>
+      </p>
+      <p *ngSwitchCase="flowTriggerType.SCHEDULED" fxLayout="row" fxLayoutAlign="start center">
+        <md-icon>schedule</md-icon>
+        <span>Scheduled</span>
+      </p>
+    </div>
+
+    <p class="description">{{truncate(flow.description)}}</p>
   </div>
 
   <div [class.slide-in]="flow.draft" [class.slide-out]="!flow.draft" class="draft controls">

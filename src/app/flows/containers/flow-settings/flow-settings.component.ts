@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
@@ -18,6 +18,7 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
   flowSub$: Subscription;
 
+  selectedTabIndex = 0;
   flowTriggerType = FlowTriggerType;
 
   triggerDate = null;
@@ -41,8 +42,12 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
     public flowsApp: FlowsAppService,
     public state: FlowsStateService,
     public router: Router,
+    public route: ActivatedRoute,
     public snackBar: MdSnackBar
-  ) {}
+  ) {
+    const url = this.route.snapshot.url;
+    this.selectedTabIndex = url[1] && url[1].path === 'triggering' ? 1 : 0;
+  }
 
   ngOnInit() {
     // Register current step preparation stage

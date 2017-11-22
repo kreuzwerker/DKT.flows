@@ -54,6 +54,7 @@ const routes: Routes = [
       { path: 'logs', component: FlowLogsComponent },
       { path: 'logs/:status', component: FlowLogsComponent },
       { path: 'settings', component: FlowSettingsComponent },
+      { path: 'settings/triggering', component: FlowSettingsComponent },
       { path: 'steps/:stepId/select-service', component: SelectServiceComponent },
       { path: 'steps/:stepId/configure', component: ConfigureStepComponent },
       { path: 'steps/:stepId/test', component: TestStepComponent }

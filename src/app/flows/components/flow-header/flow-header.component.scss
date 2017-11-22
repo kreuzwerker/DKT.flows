@@ -16,16 +16,36 @@ div.flow-header {
       color: $blue;
     }
   }
-}
 
-h4 {
-  margin: 0 0 1rem 0;
-}
+  div.trigger-setting {
+    display:inline-block;
+    cursor: pointer;
+    
+    p, p md-icon {
+      color: $blue!important;
+    }
 
-p {
-  font-size: 1rem;
-  color: $secondary-text-color;
-  margin-bottom: 1rem;
+    p {
+      margin: 0;
+
+      md-icon {
+        margin-right: 0.5rem;
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  h4.name {
+    margin: 0;
+  }
+
+  p.description {
+    font-size: 1rem;
+    color: $secondary-text-color;
+    margin: 0.5rem 0;
+  }
 }
 
 $border: 1px solid rgb(224, 224, 224);

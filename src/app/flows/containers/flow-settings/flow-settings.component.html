@@ -1,7 +1,7 @@
 <form class="flow-settings" #flowSettingsForm="ngForm" (ngSubmit)="saveSettings(flowSettingsForm)">
   <h4 class="padding border-bottom">Flow settings</h4>
 
-  <md-tab-group md-dynamic-height>
+  <md-tab-group md-dynamic-height [selectedIndex]="selectedTabIndex">
     <md-tab>
       <ng-template md-tab-label>General</ng-template>
 
