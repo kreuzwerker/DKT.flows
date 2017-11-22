@@ -25,6 +25,8 @@ describe('Flows App', () => {
 
     describe('getServiceResultType()', () => {
       it('should return the correct service result type based on the serive\'s output type', () => {
+        service.outputType = ServiceIOType.ANNOTATIONS;
+        expect(helpers.getServiceResultType(service)).toBe(StepTestResultType.ANNOTATIONS);
         service.outputType = ServiceIOType.JSON;
         expect(helpers.getServiceResultType(service)).toBe(StepTestResultType.JSON);
         service.outputType = ServiceIOType.HTML;

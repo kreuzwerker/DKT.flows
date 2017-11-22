@@ -11,5 +11,7 @@
     <pre class="json" *ngIf="type == types.JSON">{{this.renderData}}</pre>
 
     <div class="text" *ngIf="type == types.TEXT">{{this.renderData}}</div>
+
+    <div class="text annotations" #annotations [hidden]="type != types.ANNOTATIONS"></div>
   </div>
 </div>
