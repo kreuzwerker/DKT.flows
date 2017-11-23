@@ -9,6 +9,17 @@
   display: none;
 }
 
+// Blue radio buttons
+.mat-radio-checked .mat-radio-outer-circle {
+  border-color: $blue;
+}
+.mat-radio-checked .mat-radio-inner-circle {
+  background-color: $blue;
+}
+.mat-radio-ripple .mat-ripple-element {
+  background-color: $blue-semitransparent;
+}
+
 @media only screen and (max-width: 600px) {
   // Don't shrink toolbar but keep a steady height
   .mat-toolbar {

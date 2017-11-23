@@ -9,9 +9,10 @@ import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 import { UUID } from 'angular2-uuid';
 
-import { Flow, Step, Service, ServiceType } from './../models';
+import { Flow, Step, StepScheduling, Service, ServiceType } from './../models';
 import { FlowsListData } from './flow.gql';
 import { FlowsStateService } from './';
+import * as flowHelpers from './../utils/flow.helpers';
 import * as stepHelpers from './../utils/step.helpers';
 
 @Injectable()
@@ -31,10 +32,7 @@ export class FlowsAppService {
   // Allow children components to control dialogs
   openTriggerFlowRunDialog$: Subject<any> = new Subject<any>();
 
-  constructor(
-    public state: FlowsStateService,
-    private router: Router,
-  ) {}
+  constructor(public state: FlowsStateService, private router: Router) {}
 
   setFlow(flow: Flow): void {
     this.flow = flow;
@@ -42,9 +40,7 @@ export class FlowsAppService {
 
   setStep(step: Step): void {
     this.step = step;
-    this.stepTypeName = step
-      ? stepHelpers.getStepServiceTypeName(step)
-      : null;
+    this.stepTypeName = step ? stepHelpers.getStepServiceTypeName(step) : null;
   }
 
   /*
@@ -63,9 +59,17 @@ export class FlowsAppService {
     this.state.saveFlow(this.flow);
   }
 
+  updateFlow(updates) {
+    return this.state.saveFlow(Object.assign({}, this.flow, updates));
+  }
+
   deleteFlow(): Observable<any> {
     return this.state.deleteFlow(this.flow.id);
   }
+
+  /*
+    Flow steps
+  */
 
   saveFlowStep(): Observable<any> {
     return this.state.saveFlowStep(this.flow.id, this.step.id, this.step);
@@ -81,7 +85,7 @@ export class FlowsAppService {
     let newStep = this.createStepObject({
       position: position
     });
-    this.state.addFlowStep(this.flow, newStep).subscribe((newStep) => {
+    this.state.addFlowStep(this.flow, newStep).subscribe(newStep => {
       // Select new step as soon as its available in flow.steps
       // NB no optimistic response possible here
       this.selectStep(this.flow.id, newStep.id);
@@ -104,10 +108,12 @@ export class FlowsAppService {
   resetFlowStepConfig(): void {
     // Reset config params and tested flag of a step e.g. after changing the
     // selected service
-    this.state.selectStep(Object.assign({}, this.step, {
-      configParams: null,
-      tested: null
-    }));
+    this.state.selectStep(
+      Object.assign({}, this.step, {
+        configParams: null,
+        tested: null
+      })
+    );
   }
 
   /**
@@ -133,6 +139,25 @@ export class FlowsAppService {
   }
 
   /*
+    Flow scheduling
+  */
+
+  updateFlowScheduling(scheduling: StepScheduling): Observable<any> | boolean {
+    let triggerStep = flowHelpers.getFlowTriggerStep(this.flow);
+    if (!triggerStep) {
+      return false;
+    }
+
+    return this.state.saveFlowStep(
+      this.flow.id,
+      triggerStep.id,
+      Object.assign({}, triggerStep, {
+        scheduling: scheduling
+      })
+    );
+  }
+
+  /*
     Status messages
   */
 
@@ -155,7 +180,13 @@ export class FlowsAppService {
   }
 
   selectStep(flowId: string, stepId: string) {
-    this.router.navigate(['flows', this.flow.id, 'steps', stepId, 'select-service']);
+    this.router.navigate([
+      'flows',
+      this.flow.id,
+      'steps',
+      stepId,
+      'select-service'
+    ]);
   }
 
   configureStep(flowId: string, stepId: string) {
@@ -173,19 +204,27 @@ export class FlowsAppService {
   createFlowObject(flowData: Object): Flow {
     // NB Must assign all properties from the Flow model, otherwise optimistic
     // responses don't work
-    return Object.assign({}, {
-      id: UUID.UUID(),
-      draft: true
-    }, flowData) as Flow;
+    return Object.assign(
+      {},
+      {
+        id: UUID.UUID(),
+        draft: true
+      },
+      flowData
+    ) as Flow;
   }
 
   createStepObject(stepData: Object): Step {
     // NB Must assign all properties from the Step model, otherwise optimistic
     // responses don't work
-    return Object.assign({}, {
-      id: UUID.UUID(),
-      configParams: null,
-      tested: false
-    }, stepData) as Step;
+    return Object.assign(
+      {},
+      {
+        id: UUID.UUID(),
+        configParams: null,
+        tested: false
+      },
+      stepData
+    ) as Step;
   }
 }

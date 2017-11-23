@@ -1,0 +1,107 @@
+<form class="flow-settings" #flowSettingsForm="ngForm" (ngSubmit)="saveSettings(flowSettingsForm)">
+  <h4 class="padding border-bottom">Flow settings</h4>
+
+  <md-tab-group md-dynamic-height [selectedIndex]="selectedTabIndex">
+    <md-tab>
+      <ng-template md-tab-label>General</ng-template>
+
+      <div fxLayout="column" class="padding border-bottom">
+        <md-input-container>
+          <input mdInput placeholder="Name" type="text" name="name" tabindex="1" [ngModel]="flow.name" #name="ngModel" required>
+          <md-hint *ngIf="name.dirty && name.errors?.required">Name is required</md-hint>
+        </md-input-container>
+
+        <md-input-container>
+          <textarea mdInput placeholder="Description" type="text" name="description" tabindex="2" [ngModel]="flow.description" #description="ngModel" required></textarea>
+          <md-hint *ngIf="description.dirty && description.errors?.required">Description is required</md-hint>
+        </md-input-container>
+
+        <h6>Delete flow?</h6>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <p class="warning" fxLayout="row" fxLayoutAlign="start center">
+            <md-icon color="warn">warning</md-icon>
+            Are you sure you want to delete this flow?
+          </p>
+
+          <button type="button" (click)="deleteFlow()" md-raised-button color="warn">Delete</button>
+        </div>
+      </div>
+    </md-tab>
+    <md-tab>
+      <ng-template md-tab-label>Triggering</ng-template>
+
+      <div class="padding border-bottom">
+        <md-radio-group [ngModel]="flow.triggerType" name="triggerType">
+          <md-list>
+            <md-radio-button [value]="flowTriggerType.MANUAL" [checked]="isManual(flowSettingsForm)" labelPosition="before">
+              <md-list-item [class.selected]="isManual(flowSettingsForm)">
+                  <md-icon md-list-icon>flash_on</md-icon>
+                  <h6 md-line>Manual</h6>
+                  <p md-line>Explanatory text about this trigger type</p>
+              </md-list-item>
+            </md-radio-button>
+
+            <md-radio-button [value]="flowTriggerType.AUTOMATIC" [checked]="isAutomatic(flowSettingsForm)" *ngIf="isAutomaticEnabled()" labelPosition="before">
+              <md-list-item [class.selected]="isAutomatic(flowSettingsForm)">
+                <md-icon md-list-icon>flash_auto</md-icon>
+                <h6 md-line>Automatic</h6>
+                <p md-line>Explanatory text about this trigger type</p>
+              </md-list-item>
+            </md-radio-button>
+
+            <md-radio-button [value]="flowTriggerType.SCHEDULED" [checked]="isScheduled(flowSettingsForm)" labelPosition="before">
+              <md-list-item [class.selected]="isScheduled(flowSettingsForm)">
+                <md-icon md-list-icon>schedule</md-icon>
+                <h6 md-line>Scheduled</h6>
+                <p md-line>Explanatory text about this trigger type</p>
+              </md-list-item>
+            </md-radio-button>
+          </md-list>
+        </md-radio-group>
+
+        <div [class.slide-in]="isScheduled(flowSettingsForm)" [class.slide-out]="!isScheduled(flowSettingsForm)" class="scheduling">
+          <h6>Start at</h6>
+
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <md-input-container>
+              <input mdInput placeholder="Date" type="date" name="triggerDate" [(ngModel)]="triggerDate" #triggerDate_="ngModel"
+                required>
+              <md-hint *ngIf="triggerDate_.dirty && triggerDate_.errors?.required">Start date is required</md-hint>
+            </md-input-container>
+
+            <md-input-container>
+              <input mdInput placeholder="Time" type="time" name="triggerTime" [(ngModel)]="triggerTime" #triggerTime_="ngModel"
+                required>
+              <md-hint *ngIf="triggerTime_.dirty && triggerTime_.errors?.required">Start time is required</md-hint>
+            </md-input-container>
+          </div>
+
+          <h6>Run every</h6>
+
+          <div fxLayout="row" fxLayoutAlign="start start">
+            <md-input-container class="small">
+              <input mdInput type="number" min="1" name="triggerInterval" [(ngModel)]="triggerInterval" #triggerInterval_="ngModel"
+                required>
+              <md-hint *ngIf="triggerInterval_.dirty && triggerInterval_.errors?.required">Interval is required</md-hint>
+            </md-input-container>
+
+            <!-- TODO wrap in mat-form-field so elements align (requires Material update) -->
+            <md-select [(ngModel)]="triggerIntervalType" name="triggerIntervalType">
+              <md-option [value]="intervalType.MINUTES">minutes</md-option>
+              <md-option [value]="intervalType.HOURS">hours</md-option>
+              <md-option [value]="intervalType.DAYS">days</md-option>
+            </md-select>
+          </div>
+
+        </div>
+      </div>
+
+    </md-tab>
+  </md-tab-group>
+
+  <div class="buttons padding" fxLayout="row" fxLayoutAlign="space-between center">
+    <button md-raised-button type="button" [routerLink]="'/flows/' + flow.id" tabIndex="4">Cancel</button>
+    <button md-raised-button type="submit" [disabled]="flowSettingsForm.invalid" color="accent" tabIndex="3">Save</button>
+  </div>
+
+</form>

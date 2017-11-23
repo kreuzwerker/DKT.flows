@@ -1,0 +1,98 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+@import '../../../animations';
+
+.flow-settings {
+  width: 100%;
+  max-width: 400px;
+  margin: 2rem auto;
+  background-color: white;
+  border-radius: 5px;
+  animation: FadeIn 0.2s;
+
+  .padding {
+    padding: 2rem;
+  }
+
+  .border-bottom {
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  h4 {
+    margin: 0;
+  }
+
+  h6 {
+    margin: 1.5rem 0 1rem!important;
+  }
+
+  p.warning {
+    md-icon {
+      margin-right: 0.5rem;
+    }
+  }
+
+  md-list-item {
+    cursor: pointer;
+
+    md-icon,
+    h6 {
+      color: $dark-grey;
+    }
+
+    &:hover {
+      md-icon,
+      h6 {
+        color: black;
+      }
+    }
+
+    &.selected {
+      md-icon,
+      h6 {
+        color: $blue;
+      }
+    }
+  }
+
+  div.scheduling {
+    width: 225px;
+    margin: 1rem 0 0 65px;
+
+    overflow-y: hidden;
+    transition: all 0.3s ease-out;
+
+    &.slide-in {
+      max-height: 500px;
+      animation: FadeIn 0.3s;
+    }
+
+    &.slide-out {
+      max-height: 0px;
+      animation: FadeOut 0.3s;
+    }
+
+    h6 {
+      margin-top: 1rem!important;
+    }
+
+    md-input-container {
+      &:first-of-type {
+        margin-right: 1rem;
+      }
+
+      &.small {
+        width: 60px;
+      }
+
+      input[type="date"] {
+        width: 120px;
+      }
+    }
+
+    md-select {
+      margin-top: 7px;
+    }
+  }
+}

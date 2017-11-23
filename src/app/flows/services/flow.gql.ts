@@ -11,6 +11,7 @@ export const flowsItemFragment = gql`
     description
     active
     draft
+    triggerType
     steps {
       service {
         provider {
@@ -74,6 +75,11 @@ export const flowStepFragment = gql`
     configParams {
      ...StepConfigParams
     },
+    scheduling {
+      startDatetime,
+      interval,
+      intervalType
+    },
     service {
       id,
       type,
@@ -108,6 +114,7 @@ export const getFlowQuery = gql`
       description,
       draft,
       active,
+      triggerType,
       steps {
         ...FlowStep
       }
@@ -212,18 +219,21 @@ export const updateFlowMutation = gql`
     $id: ID!,
     $name: String!,
     $description: String!,
-    $active: Boolean!
+    $active: Boolean!,
+    $triggerType: String!
   ) {
     updateFlow(
       id: $id,
       name: $name,
       description: $description,
-      active: $active
+      active: $active,
+      triggerType: $triggerType
     ) {
       id
       name
       description
       active
+      triggerType
     }
   }
 `;
@@ -260,13 +270,15 @@ export const updateStepMutation = gql`
     $id: ID!,
     $position: Int!,
     $service: ID!,
-    $configParams: [StepConfigParamsInput]
+    $configParams: [StepConfigParamsInput],
+    $scheduling: SchedulingInputType
   ) {
     updateStep(
       id: $id,
       position: $position,
       service: $service,
       configParams: $configParams,
+      scheduling: $scheduling
     ) {
       ...FlowStep
       flow {

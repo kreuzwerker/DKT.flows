@@ -1,6 +1,6 @@
 /* tslint:disable: ter-max-len */
 import { TestUtils } from './test.helpers';
-import { FlowData, StepData, Service, ServiceType, Provider, FlowRun } from '../models';
+import { FlowData, FlowTriggerType, StepData, Service, ServiceType, Provider, FlowRun } from '../models';
 
 describe('Flows App', () => {
 
@@ -59,6 +59,7 @@ describe('Flows App', () => {
         expect(flow.description).toBe('Test Flow description');
         expect(flow.steps.length).toBe(3);
         expect(flow.lastFlowRun).toBeDefined();
+        expect(flow.triggerType).toBe(FlowTriggerType.MANUAL);
       });
     });
 

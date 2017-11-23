@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlowsAppService, FlowsStateService } from './../../services';
-import { Flow } from './../../models/flow.model';
+import { Flow, FlowTriggerType } from './../../models/flow.model';
 import * as helpers from './../../utils/flow.helpers';
 
 @Component({
@@ -17,6 +17,8 @@ export class FlowHeaderComponent {
   @Output() onTriggerFlowRun = new EventEmitter();
   @Output() onSaveFlowDraft = new EventEmitter();
   @Output() onDiscardFlowDraft = new EventEmitter();
+
+  flowTriggerType = FlowTriggerType;
 
   constructor(
     public flowsApp: FlowsAppService,

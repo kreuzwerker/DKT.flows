@@ -92,5 +92,11 @@ describe('Flows App', () => {
       xit('should return the appropriate flow state for the given flow', () => {
       });
     });
+
+    xdescribe('flowTriggerTypeCanBeAutoamtic()', () => {
+      it('should return true if the trigger step of the given flow allows automatic triggering', () => {
+        expect(helpers.flowTriggerTypeCanBeAutoamtic(flow)).toBeTruthy();
+      });
+    });
   });
 });

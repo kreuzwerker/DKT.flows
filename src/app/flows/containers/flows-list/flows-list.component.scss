@@ -151,6 +151,12 @@ md-list.flows .flow-list-item {
     }
   }
 
+  div.trigger-type {
+    md-icon {
+      color: $blue;
+    }
+  }
+
   .label {
     display: inline-block;
     border-radius: 3px;
