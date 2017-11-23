@@ -5,8 +5,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
-import { Flow, FlowTriggerType } from './../../models';
+import { Flow, FlowTriggerType, StepSchedulingIntervalType } from './../../models';
 import { flowTriggerTypeCanBeAutoamtic } from './../../utils';
+import * as flowHelpers from '../../utils/flow.helpers';
 
 @Component({
   selector: 'flow-settings',
@@ -20,16 +21,12 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
 
   selectedTabIndex = 0;
   flowTriggerType = FlowTriggerType;
+  intervalType = StepSchedulingIntervalType;
 
   triggerDate = null;
   triggerTime = null;
   triggerInterval = null;
   triggerIntervalType = null;
-  triggerIntervalTypes = {
-    MINUTES: 'MINUTES',
-    HOURS: 'HOURS',
-    DAYS: 'DAYS'
-  };
 
   flow: Flow = {
     id: null,
@@ -62,18 +59,37 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
   onSelectFlow(flow: Flow) {
     this.flow = flow;
 
-    // TODO calculcate based on flow.triggerDatetime
-    this.triggerDate = '2017-11-21';
-    this.triggerTime = '15:00';
-    // TODO calculate based on flow.triggerInterval=x minutes
-    this.triggerInterval = 2;
-    this.triggerIntervalType = this.triggerIntervalTypes.HOURS;
+    const triggerStep = flowHelpers.getFlowTriggerStep(flow);
+    let datetime;
+    if (triggerStep && triggerStep.scheduling) {
+      datetime = this.getDatetime(triggerStep.scheduling.startDatetime);
+      this.triggerInterval = triggerStep.scheduling.interval;
+      this.triggerIntervalType = triggerStep.scheduling.intervalType;
+    } else {
+      const date = new Date();
+      datetime = this.getDatetime(date.toISOString());
+      this.triggerInterval = 1;
+      this.triggerIntervalType = StepSchedulingIntervalType.HOURS;
+    }
+    this.triggerDate = datetime[0];
+    this.triggerTime = datetime[1];
 
     this.cd.markForCheck();
   }
 
   saveSettings(form) {
     if (form.valid) {
+      if (form.value.triggerType === FlowTriggerType.SCHEDULED) {
+        this.flowsApp.updateFlowScheduling({
+          startDatetime: this.makeIsoDatetime(
+            this.triggerDate,
+            this.triggerTime
+          ),
+          interval: this.triggerInterval,
+          intervalType: this.triggerIntervalType
+        });
+      }
+
       this.flowsApp
         .updateFlow({
           name: form.value.name,
@@ -116,6 +132,18 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
   /**
    * Helper functions
    */
+
+  getDatetime(isoDatetime: string): string[] {
+    let datetime = isoDatetime.split('T');
+    // Use hh:ii time format
+    datetime[1] = datetime[1].replace(/^(\d\d:\d\d).*/, '$1');
+    return datetime;
+  }
+
+  makeIsoDatetime(date: string, time: string): string {
+    // Adds ':00' seconds to time
+    return `${date}T${time}:00`;
+  }
 
   isAutomaticEnabled(): boolean {
     return this.flow.id ? flowTriggerTypeCanBeAutoamtic(this.flow) : false;

@@ -156,7 +156,8 @@ export class FlowsApiService {
       id: step.id,
       position: step.position,
       service: (step.service && step.service.id) || null,
-      configParams: step.configParams
+      configParams: step.configParams,
+      scheduling: step.scheduling
     };
 
     return this.apollo

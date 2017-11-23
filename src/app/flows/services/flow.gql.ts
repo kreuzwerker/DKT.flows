@@ -75,6 +75,11 @@ export const flowStepFragment = gql`
     configParams {
      ...StepConfigParams
     },
+    scheduling {
+      startDatetime,
+      interval,
+      intervalType
+    },
     service {
       id,
       type,
@@ -265,13 +270,15 @@ export const updateStepMutation = gql`
     $id: ID!,
     $position: Int!,
     $service: ID!,
-    $configParams: [StepConfigParamsInput]
+    $configParams: [StepConfigParamsInput],
+    $scheduling: SchedulingInputType
   ) {
     updateStep(
       id: $id,
       position: $position,
       service: $service,
       configParams: $configParams,
+      scheduling: $scheduling
     ) {
       ...FlowStep
       flow {

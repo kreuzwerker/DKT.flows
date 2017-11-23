@@ -13,6 +13,7 @@ export class Step {
   configParams?: StepConfigParamsInput[];
   tested?: boolean;
   flow?: Flow;
+  scheduling?: StepScheduling;
 }
 
 export class StepData {
@@ -22,6 +23,19 @@ export class StepData {
   configParams?: StepConfigParamsInput[];
   tested?: boolean;
   flow?: Flow;
+  scheduling?: StepScheduling;
+}
+
+export class StepScheduling {
+  startDatetime: string;
+  interval: number;
+  intervalType: StepSchedulingIntervalType;
+}
+
+export class StepSchedulingIntervalType {
+  static MINUTES = 'MINUTES';
+  static HOURS = 'HOURS';
+  static DAYS = 'DAYS';
 }
 
 export class StepTest {

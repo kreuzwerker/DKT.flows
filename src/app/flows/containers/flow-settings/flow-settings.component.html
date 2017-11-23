@@ -64,13 +64,13 @@
 
           <div fxLayout="row" fxLayoutAlign="start center">
             <md-input-container>
-              <input mdInput placeholder="Date" type="date" name="triggerDate" [ngModel]="triggerDate" #triggerDate_="ngModel"
+              <input mdInput placeholder="Date" type="date" name="triggerDate" [(ngModel)]="triggerDate" #triggerDate_="ngModel"
                 required>
               <md-hint *ngIf="triggerDate_.dirty && triggerDate_.errors?.required">Start date is required</md-hint>
             </md-input-container>
 
             <md-input-container>
-              <input mdInput placeholder="Time" type="time" name="triggerTime" [ngModel]="triggerTime" #triggerTime_="ngModel"
+              <input mdInput placeholder="Time" type="time" name="triggerTime" [(ngModel)]="triggerTime" #triggerTime_="ngModel"
                 required>
               <md-hint *ngIf="triggerTime_.dirty && triggerTime_.errors?.required">Start time is required</md-hint>
             </md-input-container>
@@ -80,16 +80,16 @@
 
           <div fxLayout="row" fxLayoutAlign="start start">
             <md-input-container class="small">
-              <input mdInput type="number" min="1" name="triggerInterval" [ngModel]="triggerInterval" #triggerInterval_="ngModel"
+              <input mdInput type="number" min="1" name="triggerInterval" [(ngModel)]="triggerInterval" #triggerInterval_="ngModel"
                 required>
               <md-hint *ngIf="triggerInterval_.dirty && triggerInterval_.errors?.required">Interval is required</md-hint>
             </md-input-container>
 
             <!-- TODO wrap in mat-form-field so elements align (requires Material update) -->
             <md-select [(ngModel)]="triggerIntervalType" name="triggerIntervalType">
-              <md-option [value]="triggerIntervalTypes.MINUTES">minutes</md-option>
-              <md-option [value]="triggerIntervalTypes.HOURS">hours</md-option>
-              <md-option [value]="triggerIntervalTypes.DAYS">days</md-option>
+              <md-option [value]="intervalType.MINUTES">minutes</md-option>
+              <md-option [value]="intervalType.HOURS">hours</md-option>
+              <md-option [value]="intervalType.DAYS">days</md-option>
             </md-select>
           </div>
 

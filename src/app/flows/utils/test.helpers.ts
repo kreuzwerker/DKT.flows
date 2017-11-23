@@ -4,6 +4,8 @@ import {
   FlowData,
   FlowTriggerType,
   StepData,
+  StepScheduling,
+  StepSchedulingIntervalType,
   StepTest,
   StepConfigParamsInput,
   FlowRun,
@@ -120,7 +122,12 @@ export class TestUtils {
     service: Service = this.defaultServiceData,
     configParams: StepConfigParamsInput[] = this.defaultStepConfigParamsInputs,
     tested: boolean = true,
-    flow: Flow = { id: '1' } as Flow
+    flow: Flow = { id: '1' } as Flow,
+    scheduling: StepScheduling = {
+      startDatetime: '2017-11-23T04:19:00.853Z',
+      interval: 1,
+      intervalType: StepSchedulingIntervalType.HOURS
+    }
   ): StepData {
     return   {
       id: id,
