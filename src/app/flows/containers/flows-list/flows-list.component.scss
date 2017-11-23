@@ -14,12 +14,33 @@ div.flows-list {
     position: relative;
     background-color: #273142;
     border-top: 1px solid #354155;
-    padding: 2rem;
-    min-width: 130px;
-    max-width: 130px;
+    min-width: 200px;
+    max-width: 200px;
 
     button[color="primary"] {
       text-transform: uppercase;
+      margin: 2rem;
+    }
+
+    ul {
+      padding: 0;
+
+      li {
+        list-style: none;
+        color: white;
+        padding: 0.5rem 2rem;
+        cursor: pointer;
+        outline: none;
+        font-weight: bold;
+
+        &.active {
+          background-color: $nav-active-color;
+        }
+
+        &:hover {
+          background-color: rgba(57, 72, 99, 0.5);
+        }
+      }
     }
   }
 

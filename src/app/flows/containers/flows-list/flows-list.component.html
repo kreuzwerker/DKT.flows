@@ -1,6 +1,11 @@
 <div class="flows-list full-height" fxLayout="row" fxLayoutAlign="start stretch">
   <div class="left full-height border-right">
     <button md-raised-button color="primary" (click)="openNewFlowDialog()"><md-icon svgIcon="flow"></md-icon> create flow</button>
+
+    <ul>
+      <li routerLink="/flows" [routerLinkActive]="['active']">My flows</li>
+      <li routerLink="/flows/accounts" [routerLinkActive]="['active']">Connected accounts</li>
+    </ul>
   </div>
 
   <div class="main full-height" fxFlex>
