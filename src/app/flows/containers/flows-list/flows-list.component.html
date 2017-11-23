@@ -40,7 +40,7 @@
           <div md-list-icon *ngIf="!flowHelpers.flowIsInDraft(flow)" class="trigger-type" [ngSwitch]="flow.triggerType">
             <md-icon *ngSwitchCase="flowTriggerType.MANUAL" mdTooltip="Set to trigger manually">flash_on</md-icon>
             <md-icon *ngSwitchCase="flowTriggerType.AUTOMATIC" mdTooltip="Set to trigger automatically">flash_auto</md-icon>
-            <md-icon *ngSwitchCase="flowTriggerType.SCHEDULED" mdTooltip="Scheduled for XXX">schedule</md-icon>
+            <md-icon *ngSwitchCase="flowTriggerType.SCHEDULED" mdTooltip="Scheduled to trigger">schedule</md-icon>
           </div>
 
           <div class="seperator" md-list-icon></div>
