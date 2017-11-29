@@ -1,99 +1,85 @@
-<div class="flows-list full-height" fxLayout="row" fxLayoutAlign="start stretch">
-  <div class="left full-height border-right">
-    <button md-raised-button color="primary" (click)="openNewFlowDialog()"><md-icon svgIcon="flow"></md-icon> create flow</button>
-
-    <ul>
-      <li routerLink="/flows" [routerLinkActive]="['active']">My flows</li>
-      <li routerLink="/flows/accounts" [routerLinkActive]="['active']">Connected accounts</li>
-    </ul>
-  </div>
-
-  <div class="main full-height" fxFlex>
-    <dkt-status-message [message]="flowsApp.statusMessageText" [type]="flowsApp.statusMessageType" [show]="flowsApp.statusMessageShow"
-  (onClose)="flowsApp.hideStatusMessage()"></dkt-status-message>
-
-    <div class="options">
-      <div class="inner" fxLayout="row" fxLayoutAlign="space-between center">
-        <md-input-container class="search">
-          <input mdInput placeholder="Search" type="text">
-          <md-icon mdSuffix>search</md-icon>
-        </md-input-container>
-
-        <div class="loader">
-          <md-spinner *ngIf="state.select('loadingFlows') | async"></md-spinner>
-          <md-icon *ngIf="!(state.select('loadingFlows') | async)" class="option" (click)="reloadFlows()">refresh</md-icon>
-        </div>
+<div class="flows-list full-height">
+  <div class="options">
+    <div class="inner" fxLayout="row" fxLayoutAlign="space-between center">
+      <md-input-container class="search">
+        <input mdInput placeholder="Search" type="text">
+        <md-icon mdSuffix>search</md-icon>
+      </md-input-container>
+  
+      <div class="loader">
+        <md-spinner *ngIf="state.select('loadingFlows') | async"></md-spinner>
+        <md-icon *ngIf="!(state.select('loadingFlows') | async)" class="option" (click)="reloadFlows()">refresh</md-icon>
       </div>
     </div>
+  </div>
 
-    <p *ngIf="state.select('loadingFlows') | async" class="info">Loading flows ...</p>
-    <div *ngIf="!(state.select('loadingFlows') | async) && state.flows$ | async as flows">
-      <md-list class="flows" *ngIf="flows.data.length; else noFlows">
-        <md-list-item *ngFor="let flow of flows.data" class="flow-list-item">
-          <div md-list-icon class="steps-summary" fxLayout="row" fxLayoutAlign="center center">
-            <md-icon class="first-step">{{getFirstStepIcon(flow)}}</md-icon>
-      
-            <md-icon *ngIf="flow.steps.length > 2" class="chevron">chevron_right</md-icon>
-            <div *ngIf="flow.steps.length > 2" class="steps-count">{{flow.steps.length - 2}}</div>
-      
-            <md-icon class="chevron">chevron_right</md-icon>
-            <md-icon class="last-step">{{getLastStepIcon(flow)}}</md-icon>
-          </div>
-
-          <div *ngIf="!flowHelpers.flowIsInDraft(flow)" md-list-icon class="seperator"></div>
-
-          <div md-list-icon *ngIf="!flowHelpers.flowIsInDraft(flow)" class="trigger-type" [ngSwitch]="flow.triggerType">
-            <md-icon *ngSwitchCase="flowTriggerType.MANUAL" mdTooltip="Set to trigger manually">flash_on</md-icon>
-            <md-icon *ngSwitchCase="flowTriggerType.AUTOMATIC" mdTooltip="Set to trigger automatically">flash_auto</md-icon>
-            <md-icon *ngSwitchCase="flowTriggerType.SCHEDULED" mdTooltip="Scheduled to trigger">schedule</md-icon>
-          </div>
-
-          <div class="seperator" md-list-icon></div>
-
-          <h6 md-line>
-            <div *ngIf="flowHelpers.flowHasError(flow)" class="label error">error</div>
-            <div *ngIf="flowHelpers.flowIsInDraft(flow)" class="label draft">draft</div>
-            {{flow.name}}
-          </h6>
-
-          <div *ngIf="!flowHelpers.flowIsInDraft(flow)" class="seperator"></div>
-
-          <button *ngIf="!flowHelpers.flowIsInDraft(flow)" md-button class="toggle-active" [class.active]="flow.active" (click)="state.toggleFlowActivation(flow)">
-            <span class="on">ON</span>
-            <span class="off">OFF</span>
-          </button>
-
-          <div class="seperator"></div>
-
-          <button md-icon-button [mdMenuTriggerFor]="optionsMenu">
-            <md-icon>more_vert</md-icon>
-          </button>
-          <md-menu #optionsMenu="mdMenu" class="flow-list-item-options">
-            <button md-menu-item routerLink="/flows/{{flow.id}}">
-              <md-icon>edit</md-icon>
-              <span>Edit</span>
-            </button>
-            <button md-menu-item routerLink="/flows/{{flow.id}}/logs">
-              <md-icon>restore</md-icon>
-              <span>View logs</span>
-            </button>
-            <button md-menu-item class="delete" (click)="openDeleteFlowDialog(flow.id, flow.name)">
-              <md-icon>delete</md-icon>
-              <span>Delete</span>
-            </button>
-          </md-menu>
-        </md-list-item>
-      </md-list>
-      <ng-template #noFlows>
-        <div fxLayout="column" fxLayoutAlign="center center">
-          <p class="info">
-            You don't have any flows yet.
-          </p>
-          <button md-raised-button (click)="openNewFlowDialog()">
-            <span>Create your first flow</span>
-          </button>
+  <p *ngIf="state.select('loadingFlows') | async" class="info">Loading flows ...</p>
+  <div *ngIf="!(state.select('loadingFlows') | async) && state.flows$ | async as flows">
+    <md-list class="flows" *ngIf="flows.data.length; else noFlows">
+      <md-list-item *ngFor="let flow of flows.data" class="flow-list-item">
+        <div md-list-icon class="steps-summary" fxLayout="row" fxLayoutAlign="center center">
+          <md-icon class="first-step">{{getFirstStepIcon(flow)}}</md-icon>
+  
+          <md-icon *ngIf="flow.steps.length > 2" class="chevron">chevron_right</md-icon>
+          <div *ngIf="flow.steps.length > 2" class="steps-count">{{flow.steps.length - 2}}</div>
+  
+          <md-icon class="chevron">chevron_right</md-icon>
+          <md-icon class="last-step">{{getLastStepIcon(flow)}}</md-icon>
         </div>
-      </ng-template>
-    </div>
+  
+        <div *ngIf="!flowHelpers.flowIsInDraft(flow)" md-list-icon class="seperator"></div>
+  
+        <div md-list-icon *ngIf="!flowHelpers.flowIsInDraft(flow)" class="trigger-type" [ngSwitch]="flow.triggerType">
+          <md-icon *ngSwitchCase="flowTriggerType.MANUAL" mdTooltip="Set to trigger manually">flash_on</md-icon>
+          <md-icon *ngSwitchCase="flowTriggerType.AUTOMATIC" mdTooltip="Set to trigger automatically">flash_auto</md-icon>
+          <md-icon *ngSwitchCase="flowTriggerType.SCHEDULED" mdTooltip="Scheduled to trigger">schedule</md-icon>
+        </div>
+  
+        <div class="seperator" md-list-icon></div>
+  
+        <h6 md-line>
+          <div *ngIf="flowHelpers.flowHasError(flow)" class="label error">error</div>
+          <div *ngIf="flowHelpers.flowIsInDraft(flow)" class="label draft">draft</div>
+          {{flow.name}}
+        </h6>
+  
+        <div *ngIf="!flowHelpers.flowIsInDraft(flow)" class="seperator"></div>
+  
+        <button *ngIf="!flowHelpers.flowIsInDraft(flow)" md-button class="toggle-active" [class.active]="flow.active" (click)="state.toggleFlowActivation(flow)">
+          <span class="on">ON</span>
+          <span class="off">OFF</span>
+        </button>
+  
+        <div class="seperator"></div>
+  
+        <button md-icon-button [mdMenuTriggerFor]="optionsMenu">
+          <md-icon>more_vert</md-icon>
+        </button>
+        <md-menu #optionsMenu="mdMenu" class="flow-list-item-options">
+          <button md-menu-item routerLink="/flows/{{flow.id}}">
+            <md-icon>edit</md-icon>
+            <span>Edit</span>
+          </button>
+          <button md-menu-item routerLink="/flows/{{flow.id}}/logs">
+            <md-icon>restore</md-icon>
+            <span>View logs</span>
+          </button>
+          <button md-menu-item class="delete" (click)="openDeleteFlowDialog(flow.id, flow.name)">
+            <md-icon>delete</md-icon>
+            <span>Delete</span>
+          </button>
+        </md-menu>
+      </md-list-item>
+    </md-list>
+    <ng-template #noFlows>
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <p class="info">
+          You don't have any flows yet.
+        </p>
+        <button md-raised-button (click)="openNewFlowDialog()">
+          <span>Create your first flow</span>
+        </button>
+      </div>
+    </ng-template>
   </div>
 </div>

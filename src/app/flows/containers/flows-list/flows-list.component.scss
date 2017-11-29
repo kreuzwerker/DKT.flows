@@ -6,56 +6,6 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 $list-container-width: 900px;
 
 /*
-  Layout
-*/
-
-div.flows-list {
-  div.left {
-    position: relative;
-    background-color: #273142;
-    border-top: 1px solid #354155;
-    min-width: 200px;
-    max-width: 200px;
-
-    button[color="primary"] {
-      text-transform: uppercase;
-      margin: 2rem;
-    }
-
-    ul {
-      padding: 0;
-
-      li {
-        list-style: none;
-        color: white;
-        padding: 0.5rem 2rem;
-        cursor: pointer;
-        outline: none;
-        font-weight: bold;
-
-        &.active {
-          background-color: $nav-active-color;
-        }
-
-        &:hover {
-          background-color: rgba(57, 72, 99, 0.5);
-        }
-      }
-    }
-  }
-
-  div.main {
-    position: relative;
-  }
-
-  p.info {
-    text-align: center;
-    margin: 5rem 0 1.5rem;
-    font-size: 1.3rem!important;
-  }
-}
-
-/*
  Options
  */
 
@@ -198,6 +148,12 @@ md-list.flows .flow-list-item {
   md-icon.option:hover {
     cursor: pointer;
   }
+}
+
+p.info {
+  text-align: center;
+  margin: 5rem 0 1.5rem;
+  font-size: 1.3rem!important;
 }
 
 /*
