@@ -1,3 +1,19 @@
-<h2>
-  Connected Accounts
-</h2>
+<p *ngIf="state.select('loadingAccounts') | async" class="info">Loading accounts ...</p>
+<div *ngIf="state.accounts$ | async as accounts">
+  <md-list *ngIf="accounts.data.length; else noAccounts" class="accounts">
+    <md-list-item *ngFor="let account of accounts.data" (click)="openEditAccountDialog(account)" class="account-list-item">
+      <h6 md-line>{{account.name}}</h6>
+      <md-icon>edit</md-icon>
+    </md-list-item>
+  </md-list>
+  <ng-template #noAccounts>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <p class="info">
+        You haven't added any accounts yet.
+      </p>
+      <button md-raised-button (click)="openNewFlowDialog()">
+        <span>Create your first account</span>
+      </button>
+    </div>
+  </ng-template>
+</div>

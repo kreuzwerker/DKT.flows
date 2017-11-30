@@ -26,6 +26,7 @@ import { TestStepComponent } from './containers/test-step/test-step.component';
 import { ProvidersComponent } from './containers/providers/providers.component';
 
 // Components
+import { EditAccountDialogComponent } from './components/edit-account-dialog/edit-account-dialog.component';
 import { DeleteFlowDialogComponent } from './components/delete-flow-dialog/delete-flow-dialog.component';
 import { NewFlowDialogComponent } from './components/new-flow-dialog/new-flow-dialog.component';
 import { FlowHeaderComponent } from './components/flow-header/flow-header.component';
@@ -42,6 +43,7 @@ import { StepTestResultComponent } from './components/step-test-result/step-test
 import { TriggerFlowRunDialogComponent } from './components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
 
 // Services
+import { AccountsApiService, AccountsStateService } from './services';
 import { FlowsApiService, FlowsAppService, FlowsStateService, FormBuilderService } from './services';
 import { LoginGuard } from './../core/services/user/login-guard.service';
 
@@ -72,6 +74,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AccountsComponent,
+    EditAccountDialogComponent,
     FlowsComponent,
     FlowsListComponent,
     FlowsAppComponent,
@@ -113,6 +116,8 @@ const routes: Routes = [
   exports: [
   ],
   providers: [
+    AccountsApiService,
+    AccountsStateService,
     FlowsAppService,
     FlowsApiService,
     FlowsStateService,
@@ -120,6 +125,7 @@ const routes: Routes = [
     FormBuilderService,
   ],
   entryComponents: [
+    EditAccountDialogComponent,
     NewFlowDialogComponent,
     DeleteFlowDialogComponent,
     TriggerFlowRunDialogComponent

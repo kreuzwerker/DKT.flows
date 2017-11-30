@@ -62,7 +62,7 @@ export class FlowsComponent implements OnDestroy {
     dialogRef.afterClosed().subscribe(newFlow => {
       if (newFlow) {
         // DEBUG why status message isn't showing
-        // this.createFlow(newFlow);
+        this.createFlow(newFlow);
         this.flowsApp.showStatusMessage(
           `Creating flow "${newFlow.name}"...`,
           'loading'

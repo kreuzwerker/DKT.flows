@@ -1,1 +1,45 @@
-// component css goes here
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+@import '../../../animations';
+
+md-list.accounts {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 2rem;
+  box-sizing: border-box;
+  border: 1px solid $list-item-border-color;
+}
+
+md-list.accounts .account-list-item {
+  padding: 1rem;
+  background-color: white;
+  border-bottom: 1px solid $list-item-border-color;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  md-icon {
+    color: $dark-grey;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color:$list-item-hover-bg-color;
+
+    md-icon {
+      color: $dark-blue;
+    }
+  }
+}
+
+p.info {
+  text-align: center;
+  margin: 5rem 0 1.5rem;
+  font-size: 1.3rem!important;
+}
