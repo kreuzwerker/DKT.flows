@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MdDialogRef } from '@angular/material';
 import { Account } from './../../models';
+import { AccountsStateService } from './../../services';
 
 @Component({
   selector: 'edit-account-dialog',
@@ -11,11 +12,20 @@ import { Account } from './../../models';
 export class EditAccountDialogComponent {
   account: Account;
 
-  constructor(public dialogRef: MdDialogRef<EditAccountDialogComponent>) {}
+  constructor(
+    public dialogRef: MdDialogRef<EditAccountDialogComponent>,
+    public state: AccountsStateService
+  ) {}
 
   submitForm(form) {
     if (form.valid) {
-      this.dialogRef.close(form.value);
+      this.dialogRef.close(
+        Object.assign({}, this.account, form.value)
+      );
     }
+  }
+
+  getAccountTypeName(account: Account) {
+    return this.state.getAccountType(account.accountType).name;
   }
 }

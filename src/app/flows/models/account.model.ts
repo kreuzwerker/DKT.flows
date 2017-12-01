@@ -1,5 +1,6 @@
 export class Account {
+  id?: string;
+  key?: string;
   name: string;
-  type: string;
-  credentials: Array<any>;
+  accountType: string;
 }

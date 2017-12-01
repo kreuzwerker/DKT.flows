@@ -111,7 +111,7 @@ export class FlowsApiService {
           }
         }
       })
-      .map(({ data }) => data.createFlow);
+      .map(({ data }) => data.deleteFlow);
   }
 
   public restoreFlow({

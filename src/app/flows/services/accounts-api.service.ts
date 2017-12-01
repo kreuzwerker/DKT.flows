@@ -17,20 +17,9 @@ export class AccountsApiService {
 
   // public getAccounts(): ApolloQueryObservable<any> {
   public getAccounts() {
-    let obs$ = new Subject<any>();
-    setTimeout(() => {
-      obs$.next({
-        data: {
-          allAccounts: ACCOUNTS_DATA
-        }
-      });
-    }, 1000);
-
-    return obs$;
-
-    // return this.apollo.watchQuery<any>({
-    //   query: gql.getAccountsQuery
-    // });
+    return this.apollo.watchQuery<any>({
+      query: gql.getAccountsQuery
+    });
   }
 
   public createAccount(account): Observable<ApolloQueryResult<any>> {
@@ -38,33 +27,84 @@ export class AccountsApiService {
       .mutate<any>({
         mutation: gql.createAccountMutation,
         variables: account,
-        // optimisticResponse: this.optimisticallyAddAccount(account),
-        // updateQueries: {
-        //   AccountsQuery: (previousResult, { mutationResult }: any) => {
-        //     return this.pushNewAccount(
-        //       previousResult,
-        //       mutationResult.data.createAccount
-        //     );
-        //   }
-        // }
+        optimisticResponse: this.optimisticallyAddAccount(account),
+        updateQueries: {
+          AccountsQuery: (previousResult, { mutationResult }: any) => {
+            return this.pushNewAccount(
+              previousResult,
+              mutationResult.data.createAccount
+            );
+          }
+        }
       })
-      .map(({ data }) => data.createFlow);
+      .map(({ data }) => data.createAccount);
   }
 
   public updateAccount(account: Account): Observable<ApolloQueryResult<any>> {
-    let obs$ = new Subject<any>();
-    setTimeout(() => {
-      obs$.next({ data: { updateAccount: account } });
-    }, 1000);
+    return this.apollo
+      .mutate<any>({
+        mutation: gql.updateAccountMutation,
+        variables: account,
+        optimisticResponse: this.optimisticallyUpdateAccount(account)
+      })
+      .map(({ data }) => data.updateAccount);
+  }
 
-    return obs$;
+  public deleteAccount(id: string): Observable<ApolloQueryResult<any>> {
+    return this.apollo
+      .mutate<any>({
+        mutation: gql.deleteAccountMutation,
+        variables: {
+          id: id
+        },
+        optimisticResponse: this.optimisticallyRemoveAccount(id),
+        updateQueries: {
+          AccountsQuery: (previousResult, { mutationResult }: any) => {
+            return this.removeDeletedAccount(
+              previousResult,
+              mutationResult.data.deleteAccount
+            );
+          }
+        }
+      })
+      .map(({ data }) => data.deleteAccount);
+  }
 
-    // return this.apollo
-    //   .mutate<any>({
-    //     mutation: gql.updateAccountMutation,
-    //     variables: account
-    //     // optimisticResponse: this.optimisticallyUpdateAccount(account)
-    //   })
-    //   .map(({ data }) => data.updateAccount);
+  private optimisticallyAddAccount(account: Account): any {
+    return {
+      __typename: 'Mutation',
+      createAccount: Object.assign({}, account, {
+        __typename: 'Account'
+      })
+    };
+  }
+
+  private pushNewAccount(state, newAccount): any {
+    return { allAccounts: [...state.allAccounts, newAccount] };
+  }
+
+  private optimisticallyUpdateAccount(account: Account): any {
+    return {
+      __typename: 'Mutation',
+      updateAccount: Object.assign({}, account, {
+        __typename: 'Account'
+      })
+    };
+  }
+
+  private optimisticallyRemoveAccount(id: string): any {
+    return {
+      __typename: 'Mutation',
+      deleteAccount: {
+        __typename: 'Account',
+        id: id
+      }
+    };
+  }
+
+  private removeDeletedAccount(state, deleteAccount): any {
+    return {
+      allAccounts: state.allAccounts.filter(a => a.id !== deleteAccount.id)
+    };
   }
 }

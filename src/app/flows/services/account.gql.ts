@@ -9,10 +9,23 @@ import gql from 'graphql-tag';
  */
 
 export const getAccountsQuery = gql`
-  query AccountsQuery($id: ID) {
+  query AccountsQuery {
+    allAccounts {
+      id
+      key
+      name
+      accountType
+    }
+  }
+`;
+
+export const getAccountQuery = gql`
+  query AccountQuery($id: ID) {
     Account(id: $id) {
       id,
+      key
       name,
+      accountType,
     }
   }
 `;
@@ -22,25 +35,49 @@ export const getAccountsQuery = gql`
  */
 
 export const createAccountMutation = gql`
-  mutation createAccount(
-    $name: String!,
+  mutation CreateAccount(
+    $name: String,
+    $credentials: String,
+    $accountType: String
   ) {
     createAccount(
       name: $name,
+      credentials: $credentials,
+      accountType: $accountType
     ) {
+      id
+      key
       name
+      accountType
     }
   }
 `;
 
 export const updateAccountMutation = gql`
-  mutation updateAccount(
-    $name: String!
+  mutation UpdateAccount(
+    $id: ID!,
+    $name: String,
+    $credentials: String,
+    $accountType: String
   ) {
     updateAccount(
-      name: $name
+      id: $id,
+      name: $name,
+      credentials: $credentials
+      accountType: $accountType
     ) {
+      id
+      key
       name
+      accountType
+    }
+  }
+`;
+
+export const deleteAccountMutation = gql`
+  mutation DeleteAccount($id: ID!) {
+    deleteAccount(id: $id) {
+      id
     }
   }
 `;

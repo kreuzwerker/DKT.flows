@@ -18,6 +18,10 @@ import { FlowsAppActions } from './../states';
 export class AccountsStateService extends BaseStateService {
   storeKey = 'flowsApp';
 
+  accountTypes = [
+    { accountType: 'AWS', name: 'AWS', icon: 'donut_large' },
+  ];
+
   //
   // App data state
   //
@@ -31,6 +35,23 @@ export class AccountsStateService extends BaseStateService {
     public actions: FlowsAppActions
   ) {
     super(store);
+  }
+
+  getAccountType(type: string): Account {
+    return this.accountTypes.find(accountType => accountType.accountType === type);
+  }
+
+  getAccountTypeIcon(type: string): string {
+    switch (type) {
+      case 'aws':
+        return 'donut_large';
+
+      case 'twitter':
+        return 'donut_small';
+
+      default:
+        return 'donut_large';
+    }
   }
 
   //
@@ -50,15 +71,18 @@ export class AccountsStateService extends BaseStateService {
       return Object.assign({}, response, { data: data });
     });
 
-    this.accounts$.subscribe(accounts => {
-      this.dispatch(this.actions.setLoadingAccounts(false));
-    }, err => {
-      this.dispatch(this.actions.setLoadingAccounts(false));
-      console.log(err);
-    });
+    this.accounts$.subscribe(
+      accounts => {
+        this.dispatch(this.actions.setLoadingAccounts(false));
+      },
+      err => {
+        this.dispatch(this.actions.setLoadingAccounts(false));
+        console.log(err);
+      }
+    );
   }
 
-  createAccount(account: Account): Observable<any> {
+  createAccount(account): Observable<any> {
     let obs$ = new Subject<any>();
     this.dispatch(this.actions.setSavingAccount(true, false));
     this.api.createAccount(account).subscribe(
@@ -76,12 +100,30 @@ export class AccountsStateService extends BaseStateService {
   updateAccount(account: Account): Observable<any> {
     let obs$ = new Subject<any>();
     this.dispatch(this.actions.setSavingAccount(true, false));
-    this.api.updateAccount(account).subscribe(_account => {
-      this.dispatch(this.actions.setSavingAccount(false, true));
-      obs$.next(account);
-    }, err => {
-      this.dispatch(this.actions.setSavingAccount(false, true));
-    });
+    this.api.updateAccount(account).subscribe(
+      _account => {
+        this.dispatch(this.actions.setSavingAccount(false, true));
+        obs$.next(account);
+      },
+      err => {
+        this.dispatch(this.actions.setSavingAccount(false, true));
+      }
+    );
+    return obs$;
+  }
+
+  deleteAccount(account: Account): Observable<any> {
+    let obs$ = new Subject<any>();
+    this.dispatch(this.actions.setSavingAccount(true, false));
+    this.api.deleteAccount(account.id).subscribe(
+      _account => {
+        this.dispatch(this.actions.setSavingAccount(false, true));
+        obs$.next(account);
+      },
+      err => {
+        this.dispatch(this.actions.setSavingAccount(false, true));
+      }
+    );
     return obs$;
   }
 }

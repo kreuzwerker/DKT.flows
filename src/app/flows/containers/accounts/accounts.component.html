@@ -1,19 +1,41 @@
 <p *ngIf="state.select('loadingAccounts') | async" class="info">Loading accounts ...</p>
 <div *ngIf="state.accounts$ | async as accounts">
-  <md-list *ngIf="accounts.data.length; else noAccounts" class="accounts">
-    <md-list-item *ngFor="let account of accounts.data" (click)="openEditAccountDialog(account)" class="account-list-item">
-      <h6 md-line>{{account.name}}</h6>
-      <md-icon>edit</md-icon>
-    </md-list-item>
-  </md-list>
+  <div *ngIf="accounts.data.length; else noAccounts">
+    <md-list class="accounts">
+      <md-list-item *ngFor="let account of accounts.data" class="account-list-item">
+        <md-icon md-list-icon>{{state.getAccountTypeIcon(account.accountType)}}</md-icon>
+        <h5 md-line>{{account.name}}</h5>
+        <button md-icon-button (click)="openEditAccountDialog(account)">
+          <md-icon>edit</md-icon>
+        </button>
+        <button md-icon-button (click)="deleteAccount(account)">
+          <md-icon>delete</md-icon>
+        </button>
+      </md-list-item>
+    </md-list>
+  </div>
+
   <ng-template #noAccounts>
     <div fxLayout="column" fxLayoutAlign="center center">
       <p class="info">
-        You haven't added any accounts yet.
+        You haven't connected any accounts yet.
       </p>
-      <button md-raised-button (click)="openNewFlowDialog()">
-        <span>Create your first account</span>
-      </button>
     </div>
   </ng-template>
+
+  <div class="new">
+    <h4>Connect an account</h4>
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <div *ngFor="let account of state.accountTypes" (click)="openNewAccountDialog(account.accountType)" class="account-type" fxLayout="column" fxLayoutAlign="center center">
+        <md-icon>{{account.icon}}</md-icon>
+        <span>{{account.name}}</span>
+      </div>
+
+      <div class="account-type dummy"></div>
+      <div class="account-type dummy"></div>
+      <div class="account-type dummy"></div>
+      <div class="account-type dummy"></div>
+      <div class="account-type dummy"></div>
+    </div>
+  </div>
 </div>

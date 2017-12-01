@@ -3,13 +3,15 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 @import '../../../variables';
 @import '../../../animations';
 
-md-list.accounts {
+md-list.accounts,
+div.new {
   width: 100%;
-  margin: 0 auto;
-  max-width: 600px;
-  padding: 2rem;
+  max-width: 500px;
   box-sizing: border-box;
-  border: 1px solid $list-item-border-color;
+}
+
+md-list.accounts {
+  margin: 2rem auto;
 }
 
 md-list.accounts .account-list-item {
@@ -21,6 +23,10 @@ md-list.accounts .account-list-item {
     border-bottom: none;
   }
 
+  h5 {
+    font-size: 20px;
+  }
+
   md-icon {
     color: $dark-grey;
     font-size: 20px;
@@ -29,11 +35,49 @@ md-list.accounts .account-list-item {
   }
 
   &:hover {
-    cursor: pointer;
     background-color:$list-item-hover-bg-color;
+  }
+
+  button {
+    &:hover {
+      md-icon {
+        color: $dark-blue;
+      }
+    }
+  }
+}
+
+div.new {
+  margin: 0 auto 2rem;
+
+  div.account-type {
+    cursor: pointer;
+    width: 80px;
+    height: 100px;
+    display: inline-block;
+    background-color: $dark-grey;
+    margin-right: 1rem;
+    border-radius: 5px;
+    color: white;
+
+    &.dummy {
+      cursor: inherit;
+      background-color: rgb(206, 218, 231);
+    }
+
+    &:not(.dummy):hover {
+      background-color: $dark-blue;
+    }
 
     md-icon {
-      color: $dark-blue;
+      font-size: 40px;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 0.5rem;
+    }
+
+    span {
+      display: block;
     }
   }
 }

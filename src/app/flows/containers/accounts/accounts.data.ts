@@ -3,31 +3,15 @@ import { Account } from './../../models';
 
 export let ACCOUNTS_DATA: Account[] = [
   {
+    id: '1',
+    key: '1',
     name: 'Example S3 account',
-    type: 'aws',
-    credentials: [
-      {
-        name: 'access_key',
-        value: 'xyz1'
-      },
-      {
-        name: 'secret_access_key',
-        value: 'abc1'
-      }
-    ],
+    accountType: 'aws',
   },
   {
-    name: 'Kreuzwerker S3 account',
-    type: 'aws',
-    credentials: [
-      {
-        name: 'access_key',
-        value: 'xyz2'
-      },
-      {
-        name: 'secret_access_key',
-        value: 'abc2'
-      }
-    ],
+    id: '1',
+    key: '1',
+    name: 'Kreuzwerker Twitter account',
+    accountType: 'twitter',
   }
 ];

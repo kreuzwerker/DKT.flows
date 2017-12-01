@@ -1,1 +1,13 @@
-// component css goes here
+form.edit-account-form {
+  h6 {
+    margin: 1rem 0!important;
+  }
+
+  md-input-container {
+    width: 100%;
+  }
+
+  .mat-input-wrapper {
+    margin-top: 0;
+  }
+}
