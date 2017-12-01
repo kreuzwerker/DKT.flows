@@ -3,7 +3,10 @@ import { UserLoginService } from './core/services';
 import { each } from 'lodash';
 
 function getApiUrl(): string {
-  if (document.location.hostname.indexOf('dkt.flows.test') !== -1) {
+  if (
+    document.location.hostname.indexOf('flows.kreuzwerker.net') !== -1 ||
+    document.location.hostname.indexOf('dkt.flows.test') !== -1
+  ) {
     return 'https://x64ywwtnw3.execute-api.eu-west-1.amazonaws.com/Test';
   } else {
     return 'https://m0zw22d92f.execute-api.eu-west-1.amazonaws.com/Dev';
