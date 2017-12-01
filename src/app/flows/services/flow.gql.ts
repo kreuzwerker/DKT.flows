@@ -26,7 +26,6 @@ export const flowsItemFragment = gql`
   }
 `;
 
-
 export const serviceConfigSchemaFragment = gql`
   fragment ServiceConfigSchema on ServiceConfigSchema {
     fieldId,

@@ -4,6 +4,15 @@ import gql from 'graphql-tag';
  * Fragments
  */
 
+export const accountFragment = gql`
+  fragment Account on Account {
+    id
+    key
+    name
+    accountType
+  }
+`;
+
 /**
  * Queries
  */
@@ -11,23 +20,21 @@ import gql from 'graphql-tag';
 export const getAccountsQuery = gql`
   query AccountsQuery {
     allAccounts {
-      id
-      key
-      name
-      accountType
+      ...Account
     }
   }
+
+  ${accountFragment}
 `;
 
 export const getAccountQuery = gql`
   query AccountQuery($id: ID) {
     Account(id: $id) {
-      id,
-      key
-      name,
-      accountType,
+      ...Account
     }
   }
+
+  ${accountFragment}
 `;
 
 /**
@@ -45,12 +52,11 @@ export const createAccountMutation = gql`
       credentials: $credentials,
       accountType: $accountType
     ) {
-      id
-      key
-      name
-      accountType
+      ...Account
     }
   }
+
+  ${accountFragment}
 `;
 
 export const updateAccountMutation = gql`
@@ -66,12 +72,11 @@ export const updateAccountMutation = gql`
       credentials: $credentials
       accountType: $accountType
     ) {
-      id
-      key
-      name
-      accountType
+      ...Account
     }
   }
+
+  ${accountFragment}
 `;
 
 export const deleteAccountMutation = gql`
