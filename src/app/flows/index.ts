@@ -27,6 +27,7 @@ import { ProvidersComponent } from './containers/providers/providers.component';
 
 // Components
 import { EditAccountDialogComponent } from './components/edit-account-dialog/edit-account-dialog.component';
+import { SelectAccountDialogComponent } from './components/select-account-dialog/select-account-dialog.component';
 import { DeleteFlowDialogComponent } from './components/delete-flow-dialog/delete-flow-dialog.component';
 import { NewFlowDialogComponent } from './components/new-flow-dialog/new-flow-dialog.component';
 import { FlowHeaderComponent } from './components/flow-header/flow-header.component';
@@ -75,6 +76,7 @@ const routes: Routes = [
   declarations: [
     AccountsComponent,
     EditAccountDialogComponent,
+    SelectAccountDialogComponent,
     FlowsComponent,
     FlowsListComponent,
     FlowsAppComponent,
@@ -126,6 +128,7 @@ const routes: Routes = [
   ],
   entryComponents: [
     EditAccountDialogComponent,
+    SelectAccountDialogComponent,
     NewFlowDialogComponent,
     DeleteFlowDialogComponent,
     TriggerFlowRunDialogComponent

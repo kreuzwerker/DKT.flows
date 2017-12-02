@@ -1,5 +1,6 @@
 /* tslint:disable: ter-max-len */
 import {
+  Account,
   Flow,
   FlowData,
   FlowTriggerType,
@@ -79,6 +80,7 @@ export class TestUtils {
     description: string = 'Test Service description',
     type: ServiceType = ServiceType.TRIGGER,
     task: boolean = false,
+    requiredAccountType: string = null,
     provider: Provider = this.defaultProviderData,
     configSchema: ServiceConfigSchema[] = this.defaultServiceConfigSchema,
     inputType: ServiceIOType = ServiceIOType.STRING,
@@ -90,6 +92,7 @@ export class TestUtils {
       description: description,
       type: type,
       task: task,
+      requiredAccountType: requiredAccountType,
       provider: provider,
       configSchema: configSchema,
       inputType: inputType,
@@ -127,7 +130,8 @@ export class TestUtils {
       startDatetime: '2017-11-23T04:19:00.853Z',
       interval: 1,
       intervalType: StepSchedulingIntervalType.HOURS
-    }
+    },
+    account: Account = this.createAccountData()
   ): StepData {
     return   {
       id: id,
@@ -135,7 +139,8 @@ export class TestUtils {
       service: service,
       configParams: configParams,
       tested: tested,
-      flow: flow
+      flow: flow,
+      account: account
     };
   }
 
@@ -157,6 +162,20 @@ export class TestUtils {
       result: '',
       error: error,
       tested: tested,
+    };
+  }
+
+  createAccountData(
+    id: string = '1',
+    key: string = '1',
+    name: string = 'Test account',
+    accountType: string = 'AWS'
+  ) {
+    return {
+      id: id,
+      key: key,
+      name: name,
+      accountType: accountType
     };
   }
 }

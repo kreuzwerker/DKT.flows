@@ -18,9 +18,7 @@ import { FlowsAppActions } from './../states';
 export class AccountsStateService extends BaseStateService {
   storeKey = 'flowsApp';
 
-  accountTypes = [
-    { accountType: 'AWS', name: 'AWS', icon: 'donut_large' },
-  ];
+  accountTypes = [{ accountType: 'AWS', name: 'AWS', icon: 'donut_large' }];
 
   //
   // App data state
@@ -38,7 +36,9 @@ export class AccountsStateService extends BaseStateService {
   }
 
   getAccountType(type: string): Account {
-    return this.accountTypes.find(accountType => accountType.accountType === type);
+    return this.accountTypes.find(
+      accountType => accountType.accountType === type
+    );
   }
 
   getAccountTypeIcon(type: string): string {
@@ -52,6 +52,10 @@ export class AccountsStateService extends BaseStateService {
       default:
         return 'donut_large';
     }
+  }
+
+  getAccountTypeName(accountType: string) {
+    return this.getAccountType(accountType).name;
   }
 
   //

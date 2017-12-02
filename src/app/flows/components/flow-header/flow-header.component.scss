@@ -55,9 +55,12 @@ div.controls {
   border-bottom: $border;
 
   &.draft {
-    background-color: $warning-bg-color;
     border-top:none;
     border-bottom:none;
+
+    &.highlight {
+      background-color: $warning-bg-color;
+    }
 
     div.inner {
       margin: 1rem;

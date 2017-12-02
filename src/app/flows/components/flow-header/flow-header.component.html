@@ -25,7 +25,7 @@
     <p class="description">{{truncate(flow.description)}}</p>
   </div>
 
-  <div [class.slide-in]="flow.draft" [class.slide-out]="!flow.draft" class="draft controls">
+  <div [class.slide-in]="flow.draft" [class.slide-out]="!flow.draft" class="draft controls" [class.highlight]="!disableDraftControls && !disableDeployControl">
     <div class="inner">
       <button md-raised-button color="primary" class="save" (click)="onSaveFlowDraft.emit()" [disabled]="disableDraftControls || disableDeployControl">
         <md-icon>publish</md-icon>

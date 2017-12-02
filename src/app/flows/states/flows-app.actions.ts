@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 
-import { Step, StepData, StepConfigParamsInput, Provider, Service } from '../models';
+import { Account, Step, StepData, StepConfigParamsInput, Provider, Service } from '../models';
 
 @Injectable()
 export class FlowsAppActions {
@@ -47,6 +47,16 @@ export class FlowsAppActions {
       type: FlowsAppActions.SET_STEP_CONFIG,
       payload: {
         configParams: configParams
+      }
+    };
+  }
+
+  static SET_STEP_ACCOUNT = 'SET_STEP_ACCOUNT';
+  setStepAccount(account: Account) {
+    return {
+      type: FlowsAppActions.SET_STEP_ACCOUNT,
+      payload: {
+        account: account
       }
     };
   }

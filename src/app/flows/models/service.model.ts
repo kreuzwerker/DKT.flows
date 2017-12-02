@@ -17,6 +17,7 @@ export class Service {
   description: string;
   type: ServiceType;
   task: boolean;
+  requiredAccountType: string;
   provider: Provider;
   configSchema?: ServiceConfigSchema[];
   samplePayload?: String;

@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs';
-import { sortBy } from 'lodash';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
 import { Flow, Run } from './../../models';

@@ -28,8 +28,4 @@ export class EditAccountDialogComponent {
       });
     }
   }
-
-  getAccountTypeName(account: Account) {
-    return this.state.getAccountType(account.accountType).name;
-  }
 }

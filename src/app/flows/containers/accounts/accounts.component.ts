@@ -34,11 +34,7 @@ export class AccountsComponent implements OnInit {
     this.state.loadAccounts();
   }
 
-  createAccount(account: Account) {
-    const credentials = {
-      accessKeyId: 'AKIAJMB42VD4RX4S3KZA',
-      secretAccessKey: '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'
-    };
+  createAccount(account: Account, credentials: object) {
     this.state
       .createAccount({
         name: account.name,
@@ -62,9 +58,9 @@ export class AccountsComponent implements OnInit {
       name: '',
       accountType: accountType
     };
-    dialogRef.afterClosed().subscribe(account => {
-      if (account) {
-        this.createAccount(account);
+    dialogRef.afterClosed().subscribe((payload) => {
+      if (payload) {
+        this.createAccount(payload.account, payload.credentials);
         this.cd.markForCheck();
       }
     });
@@ -92,7 +88,11 @@ export class AccountsComponent implements OnInit {
   }
 
   deleteAccount(account: Account) {
-    this.state.deleteAccount(account);
+    const name = account.name;
+    this.state.deleteAccount(account).subscribe(account => {
+      this.showInfoMessage(`Deleted account "${name}"`);
+      this.cd.markForCheck();
+    });
   }
 
   showInfoMessage(message: string) {

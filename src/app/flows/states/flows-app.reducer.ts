@@ -60,6 +60,14 @@ export function flowsAppReducer(state = initialState, {type, payload}: Action): 
       });
     }
 
+    case Actions.SET_STEP_ACCOUNT: {
+      return Object.assign({}, state, {
+        step: Object.assign({}, state.step, {
+          account: payload.account
+        })
+      });
+    }
+
     case Actions.SELECT_PROVIDER: {
       return Object.assign({}, state, { provider: payload });
     }
