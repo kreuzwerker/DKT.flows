@@ -90,13 +90,14 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
   }
 
   openSelectAccountDialog() {
-    this.accountsState.loadAccounts();
+    this.accountsState.loadAccounts(this.step.service.requiredAccountType);
 
     let dialogRef = this.dialog.open(
       SelectAccountDialogComponent,
       this.dialogConfig
     );
-    dialogRef.componentInstance.accountType = this.step.service.requiredAccountType;
+    dialogRef.componentInstance.requiredAccountType = this.step.service.requiredAccountType;
+    dialogRef.componentInstance.selectedAccount = this.step.account;
     dialogRef.afterClosed().subscribe(account => {
       if (account) {
         this.state.dispatch(this.state.actions.setStepAccount(account));

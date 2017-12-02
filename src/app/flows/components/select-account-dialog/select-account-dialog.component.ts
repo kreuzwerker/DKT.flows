@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MdDialogRef } from '@angular/material';
 import { Account } from './../../models';
 import { AccountsStateService } from './../../services';
@@ -10,14 +11,21 @@ import { AccountsStateService } from './../../services';
 })
 export class SelectAccountDialogComponent {
   account: Account;
-  accountType: string;
+  requiredAccountType: string;
+  selectedAccount: Account;
 
   constructor(
     public dialogRef: MdDialogRef<SelectAccountDialogComponent>,
-    public state: AccountsStateService
+    public state: AccountsStateService,
+    public router: Router
   ) {}
 
   selectAccount(account: Account) {
     this.dialogRef.close(account);
+  }
+
+  goToAccounts() {
+    this.dialogRef.close();
+    this.router.navigate(['/flows/accounts']);
   }
 }

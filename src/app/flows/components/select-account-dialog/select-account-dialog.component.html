@@ -10,7 +10,10 @@
   <div *ngIf="state.accounts$ | async as accounts">
     <div *ngIf="accounts.data.length; else noAccounts">
       <md-list class="accounts">
-        <md-list-item *ngFor="let account of accounts.data" class="account-list-item" (click)="selectAccount(account)">
+        <md-list-item *ngFor="let account of accounts.data"
+          class="account-list-item"
+          [class.selected]="selectedAccount && selectedAccount.id == account.id"
+          (click)="selectAccount(account)">
           <h5 md-line>{{account.name}}</h5>
         </md-list-item>
       </md-list>
@@ -19,8 +22,9 @@
     <ng-template #noAccounts>
       <div fxLayout="column" fxLayoutAlign="center center">
         <p class="info">
-          You haven't connected any accounts yet.
+          You haven't connected any {{state.getAccountTypeName(requiredAccountType)}} accounts yet.
         </p>
+        <button md-raised-button color="primary" (click)="goToAccounts()">Manage connected accounts</button>
       </div>
     </ng-template>
   </div>

@@ -62,15 +62,20 @@ export class AccountsStateService extends BaseStateService {
   // API
   //
 
-  loadAccounts() {
+  loadAccounts(filterByAccountType: string = null) {
     // Fetch an up-to-date list of flows
     this.dispatch(this.actions.setLoadingAccounts(true));
     this.accounts$ = this.api.getAccounts().map(response => {
       // Flatten the data object to array of flows
-      const data =
+      let data =
         response.data && response.data.allAccounts
           ? response.data.allAccounts
           : [];
+
+      if (data && filterByAccountType) {
+        data = data.filter(account => account.accountType === filterByAccountType);
+      }
+
       // Return the full response including the loading flag
       return Object.assign({}, response, { data: data });
     });
