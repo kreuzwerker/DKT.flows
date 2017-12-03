@@ -26,8 +26,6 @@ import { TestStepComponent } from './containers/test-step/test-step.component';
 import { ProvidersComponent } from './containers/providers/providers.component';
 
 // Components
-import { EditAccountDialogComponent } from './components/edit-account-dialog/edit-account-dialog.component';
-import { SelectAccountDialogComponent } from './components/select-account-dialog/select-account-dialog.component';
 import { DeleteFlowDialogComponent } from './components/delete-flow-dialog/delete-flow-dialog.component';
 import { NewFlowDialogComponent } from './components/new-flow-dialog/new-flow-dialog.component';
 import { FlowHeaderComponent } from './components/flow-header/flow-header.component';
@@ -42,6 +40,11 @@ import { StatusMessageComponent } from './components/status-message/status-messa
 import { StepConfigSummaryComponent } from './components/step-config-summary/step-config-summary.component';
 import { StepTestResultComponent } from './components/step-test-result/step-test-result.component';
 import { TriggerFlowRunDialogComponent } from './components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
+// - Accounts
+import { DeleteAccountDialogComponent } from './components/delete-account-dialog/delete-account-dialog.component';
+import { EditAccountDialogComponent } from './components/edit-account-dialog/edit-account-dialog.component';
+import { SelectAccountDialogComponent } from './components/select-account-dialog/select-account-dialog.component';
+
 
 // Services
 import { AccountsApiService, AccountsStateService } from './services';
@@ -74,9 +77,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    AccountsComponent,
-    EditAccountDialogComponent,
-    SelectAccountDialogComponent,
     FlowsComponent,
     FlowsListComponent,
     FlowsAppComponent,
@@ -101,6 +101,11 @@ const routes: Routes = [
     StepConfigSummaryComponent,
     StepTestResultComponent,
     TriggerFlowRunDialogComponent,
+    // Accounts
+    AccountsComponent,
+    DeleteAccountDialogComponent,
+    EditAccountDialogComponent,
+    SelectAccountDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -113,10 +118,9 @@ const routes: Routes = [
     MaterialModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    EffectsModule.run(FlowsAppEffects),
+    EffectsModule.run(FlowsAppEffects)
   ],
-  exports: [
-  ],
+  exports: [],
   providers: [
     AccountsApiService,
     AccountsStateService,
@@ -124,14 +128,16 @@ const routes: Routes = [
     FlowsApiService,
     FlowsStateService,
     FlowsAppActions,
-    FormBuilderService,
+    FormBuilderService
   ],
   entryComponents: [
-    EditAccountDialogComponent,
-    SelectAccountDialogComponent,
     NewFlowDialogComponent,
     DeleteFlowDialogComponent,
-    TriggerFlowRunDialogComponent
-  ],
+    TriggerFlowRunDialogComponent,
+    // Accounts
+    DeleteAccountDialogComponent,
+    EditAccountDialogComponent,
+    SelectAccountDialogComponent,
+  ]
 })
 export class FlowsModule {}

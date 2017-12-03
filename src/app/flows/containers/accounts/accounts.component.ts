@@ -8,6 +8,7 @@ import {
 import { Account } from './../../models';
 import { ACCOUNTS_DATA  } from './accounts.data';
 import { FlowsAppService, AccountsStateService } from './../../services';
+import { DeleteAccountDialogComponent } from './../../components/delete-account-dialog/delete-account-dialog.component';
 import { EditAccountDialogComponent } from './../../components/edit-account-dialog/edit-account-dialog.component';
 
 @Component({
@@ -58,7 +59,7 @@ export class AccountsComponent implements OnInit {
       name: '',
       accountType: accountType
     };
-    dialogRef.afterClosed().subscribe((payload) => {
+    dialogRef.afterClosed().subscribe(payload => {
       if (payload) {
         this.createAccount(payload.account, payload.credentials);
         this.cd.markForCheck();
@@ -82,6 +83,20 @@ export class AccountsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(account => {
       if (account) {
         this.updateAccount(account);
+        this.cd.markForCheck();
+      }
+    });
+  }
+
+  openDeleteAccountDialog(account: Account) {
+    let dialogRef = this.dialog.open(
+      DeleteAccountDialogComponent,
+      this.dialogConfig
+    );
+    dialogRef.componentInstance.account = account;
+    dialogRef.afterClosed().subscribe(confirm => {
+      if (confirm) {
+        this.state.deleteAccount(account);
         this.cd.markForCheck();
       }
     });

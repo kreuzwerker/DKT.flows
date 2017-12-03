@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
-import * as lodash from 'lodash';
+import { sortBy } from 'lodash';
 
 import { ApolloQueryResult } from 'apollo-client';
 import { ApolloQueryObservable } from 'apollo-angular';
@@ -75,6 +75,8 @@ export class AccountsStateService extends BaseStateService {
       if (data && filterByAccountType) {
         data = data.filter(account => account.accountType === filterByAccountType);
       }
+
+      data = sortBy(data, 'name');
 
       // Return the full response including the loading flag
       return Object.assign({}, response, { data: data });
