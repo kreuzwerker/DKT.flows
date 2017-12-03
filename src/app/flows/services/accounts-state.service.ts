@@ -93,28 +93,25 @@ export class AccountsStateService extends BaseStateService {
     );
   }
 
-  createAccount(account): Observable<any> {
+  createAccount(accountPayload): Observable<any> {
     let obs$ = new Subject<any>();
     this.dispatch(this.actions.setSavingAccount(true, false));
-    this.api.createAccount(account).subscribe(
-      account => {
+    this.api.createAccount(accountPayload).subscribe(account => {
         this.dispatch(this.actions.setSavingAccount(false, true));
         obs$.next(account);
-      },
-      err => {
+      }, err => {
         this.dispatch(this.actions.setSavingAccount(false, true));
-      }
-    );
+      });
     return obs$;
   }
 
-  updateAccount(account: Account): Observable<any> {
+  updateAccount(accountPayload): Observable<any> {
     let obs$ = new Subject<any>();
     this.dispatch(this.actions.setSavingAccount(true, false));
-    this.api.updateAccount(account).subscribe(
+    this.api.updateAccount(accountPayload).subscribe(
       _account => {
         this.dispatch(this.actions.setSavingAccount(false, true));
-        obs$.next(account);
+        obs$.next(accountPayload);
       },
       err => {
         this.dispatch(this.actions.setSavingAccount(false, true));

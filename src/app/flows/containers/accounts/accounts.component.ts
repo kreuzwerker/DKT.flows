@@ -67,11 +67,18 @@ export class AccountsComponent implements OnInit {
     });
   }
 
-  updateAccount(account: Account) {
-    this.state.updateAccount(account).subscribe(account => {
-      this.showInfoMessage(`Updated account "${account.name}"`);
-      this.cd.markForCheck();
-    });
+  updateAccount(account: Account, credentials: object) {
+    this.state
+      .updateAccount({
+        id: account.id,
+        name: account.name,
+        accountType: account.accountType,
+        credentials: JSON.stringify(credentials)
+      })
+      .subscribe(account => {
+        this.showInfoMessage(`Updated account "${account.name}"`);
+        this.cd.markForCheck();
+      });
   }
 
   openEditAccountDialog(account: Account) {
@@ -80,9 +87,9 @@ export class AccountsComponent implements OnInit {
       this.dialogConfig
     );
     dialogRef.componentInstance.account = account;
-    dialogRef.afterClosed().subscribe(account => {
-      if (account) {
-        this.updateAccount(account);
+    dialogRef.afterClosed().subscribe(payload => {
+      if (payload) {
+        this.updateAccount(payload.account, payload.credentials);
         this.cd.markForCheck();
       }
     });
