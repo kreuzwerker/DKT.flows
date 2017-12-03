@@ -22,8 +22,7 @@ md-list.accounts {
     &:hover,
     &.selected {
       cursor: pointer;
-      background-color: $dark-blue;
-      border-left: 5px solid $dark-grey;
+      border-left: 5px solid $dark-blue;
     }
   }
 }
