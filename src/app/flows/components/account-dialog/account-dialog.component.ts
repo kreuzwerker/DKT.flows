@@ -16,6 +16,7 @@ export class AccountDialogComponent {
   selectedAccount: Account = null;
 
   accounts: Account[] = [];
+  addNew: boolean = false;
 
   constructor(
     public dialogRef: MdDialogRef<AccountDialogComponent>,
@@ -26,19 +27,52 @@ export class AccountDialogComponent {
     });
   }
 
+  selectAccount(account: Account) {
+    this.dialogRef.close(account);
+  }
+
   submitForm(form) {
     if (form.valid) {
-      this.dialogRef.close({
-        account: Object.assign({}, this.account, {
+      const account = Object.assign({}, this.account, {
           name: form.value.name
         }),
-        credentials: omit(form.value, 'name')
-      });
+        credentials = omit(form.value, 'name');
+
+      if (this.isSelectMode()) {
+        this.createAccount(account, credentials);
+      } else {
+        this.dialogRef.close({
+          account: account,
+          credentials: credentials
+        });
+      }
     }
+  }
+
+  createAccount(account: Account, credentials: object) {
+    this.state
+      .createAccount({
+        name: account.name,
+        accountType: account.accountType,
+        credentials: JSON.stringify(credentials)
+      })
+      .subscribe(account => {
+        // Reload accounts
+        this.state.loadAccounts();
+        this.addNew = false;
+      });
   }
 
   isSelectMode() {
     return this.requiredAccountType !== null;
+  }
+
+  showCreate() {
+    return (
+      this.addNew ||
+      !this.isSelectMode() ||
+      (!this.state.get('loadingAccounts') && !this.accounts.length)
+    );
   }
 
   getTitle() {

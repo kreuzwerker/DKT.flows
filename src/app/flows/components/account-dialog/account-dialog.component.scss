@@ -32,9 +32,25 @@ md-list.accounts {
   }
 }
 
+.margin-top {
+  margin-top: 1rem;
+}
+
+button.add {
+  md-icon {
+    color: $dark-grey;
+  }
+
+  &:hover {
+    md-icon {
+      color: $dark-blue;
+    }
+  }
+}
+
 p.info {
   text-align: center;
-  margin: 1rem 0 2rem;
+  margin: 1rem 0 1rem;
   font-size: 1.3rem!important;
 }
 
@@ -43,6 +59,11 @@ p.info {
 */
 
 form.edit-account-form {
+  h5 {
+    text-align: center;
+    margin: 1rem 0;
+  }
+
   h6 {
     margin: 1rem 0!important;
   }

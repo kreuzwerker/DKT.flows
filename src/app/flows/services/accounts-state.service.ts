@@ -73,7 +73,9 @@ export class AccountsStateService extends BaseStateService {
           : [];
 
       if (data && filterByAccountType) {
-        data = data.filter(account => account.accountType === filterByAccountType);
+        data = data.filter(
+          account => account.accountType === filterByAccountType
+        );
       }
 
       data = sortBy(data, 'name');

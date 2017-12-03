@@ -15,6 +15,12 @@
           <h5 md-line>{{account.name}}</h5>
         </md-list-item>
       </md-list>
+
+      <div *ngIf="!addNew" fxLayout="row" fxLayoutAlign="center center" class="margin-top">
+        <button class="add" md-icon-button type="button" (click)="addNew = true">
+          <md-icon>add</md-icon>
+        </button>
+      </div>
     </div>
 
     <div *ngIf="!accounts.length">
@@ -28,8 +34,10 @@
 </div>
 
 <!-- Create account -->
-<form *ngIf="!isSelectMode() || (!(state.select('loadingAccounts') | async) && !accounts.length)" class="edit-account-form" #editAccountForm="ngForm" (ngSubmit)="submitForm(editAccountForm)">
+<form *ngIf="showCreate()" class="edit-account-form" #editAccountForm="ngForm" (ngSubmit)="submitForm(editAccountForm)">
   <div md-dialog-content fxLayout="column" class="create">
+    <h5>Connect an account</h5>
+
     <md-input-container class="name">
       <input mdInput placeholder="Name" type="text" name="name" tabindex="1" [ngModel]="account.name" #name="ngModel" required>
       <md-hint *ngIf="name.dirty && name.errors?.required">Name is required</md-hint>
