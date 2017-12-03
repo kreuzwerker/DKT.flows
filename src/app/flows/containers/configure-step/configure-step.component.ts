@@ -12,7 +12,7 @@ import { AccountsStateService, FlowsAppService, FlowsStateService, FormBuilderSe
 import { FormGroup } from '@angular/forms';
 import { DynamicFormService, DynamicFormControlModel } from '@ng2-dynamic-forms/core';
 import { Step, StepConfigParamsInput } from './../../models';
-import { SelectAccountDialogComponent } from './../../components/select-account-dialog/select-account-dialog.component';
+import { AccountDialogComponent } from './../../components/account-dialog/account-dialog.component';
 
 @Component({
   selector: 'configure-step',
@@ -89,15 +89,19 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
     }
   }
 
-  openSelectAccountDialog() {
+  openAccountDialog() {
     this.accountsState.loadAccounts(this.step.service.requiredAccountType);
 
-    let dialogRef = this.dialog.open(
-      SelectAccountDialogComponent,
-      this.dialogConfig
-    );
+    let dialogRef = this.dialog.open(AccountDialogComponent, this.dialogConfig);
     dialogRef.componentInstance.requiredAccountType = this.step.service.requiredAccountType;
     dialogRef.componentInstance.selectedAccount = this.step.account;
+    dialogRef.componentInstance.account = {
+      id: null,
+      key: null,
+      name: '',
+      accountType: this.step.service.requiredAccountType
+    };
+
     dialogRef.afterClosed().subscribe(account => {
       if (account) {
         this.state.dispatch(this.state.actions.setStepAccount(account));

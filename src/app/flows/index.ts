@@ -42,9 +42,7 @@ import { StepTestResultComponent } from './components/step-test-result/step-test
 import { TriggerFlowRunDialogComponent } from './components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
 // - Accounts
 import { DeleteAccountDialogComponent } from './components/delete-account-dialog/delete-account-dialog.component';
-import { EditAccountDialogComponent } from './components/edit-account-dialog/edit-account-dialog.component';
-import { SelectAccountDialogComponent } from './components/select-account-dialog/select-account-dialog.component';
-
+import { AccountDialogComponent } from './components/account-dialog/account-dialog.component';
 
 // Services
 import { AccountsApiService, AccountsStateService } from './services';
@@ -103,9 +101,8 @@ const routes: Routes = [
     TriggerFlowRunDialogComponent,
     // Accounts
     AccountsComponent,
-    DeleteAccountDialogComponent,
-    EditAccountDialogComponent,
-    SelectAccountDialogComponent,
+    AccountDialogComponent,
+    DeleteAccountDialogComponent
   ],
   imports: [
     CommonModule,
@@ -136,8 +133,7 @@ const routes: Routes = [
     TriggerFlowRunDialogComponent,
     // Accounts
     DeleteAccountDialogComponent,
-    EditAccountDialogComponent,
-    SelectAccountDialogComponent,
+    AccountDialogComponent,
   ]
 })
 export class FlowsModule {}

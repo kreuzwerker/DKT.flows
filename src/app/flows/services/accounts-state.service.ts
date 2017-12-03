@@ -25,7 +25,7 @@ export class AccountsStateService extends BaseStateService {
   //
 
   // All accounts list
-  accounts$: Observable<ApolloQueryResult<Account>>;
+  accounts$: Observable<ApolloQueryResult<Account[]>>;
 
   constructor(
     private api: AccountsApiService,

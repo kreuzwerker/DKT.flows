@@ -9,7 +9,7 @@ import { Account } from './../../models';
 import { ACCOUNTS_DATA  } from './accounts.data';
 import { FlowsAppService, AccountsStateService } from './../../services';
 import { DeleteAccountDialogComponent } from './../../components/delete-account-dialog/delete-account-dialog.component';
-import { EditAccountDialogComponent } from './../../components/edit-account-dialog/edit-account-dialog.component';
+import { AccountDialogComponent } from './../../components/account-dialog/account-dialog.component';
 
 @Component({
   selector: 'dkt-accounts',
@@ -49,10 +49,7 @@ export class AccountsComponent implements OnInit {
   }
 
   openNewAccountDialog(accountType: string) {
-    let dialogRef = this.dialog.open(
-      EditAccountDialogComponent,
-      this.dialogConfig
-    );
+    let dialogRef = this.dialog.open(AccountDialogComponent, this.dialogConfig);
     dialogRef.componentInstance.account = {
       id: null,
       key: null,
@@ -82,10 +79,7 @@ export class AccountsComponent implements OnInit {
   }
 
   openEditAccountDialog(account: Account) {
-    let dialogRef = this.dialog.open(
-      EditAccountDialogComponent,
-      this.dialogConfig
-    );
+    let dialogRef = this.dialog.open(AccountDialogComponent, this.dialogConfig);
     dialogRef.componentInstance.account = account;
     dialogRef.afterClosed().subscribe(payload => {
       if (payload) {
