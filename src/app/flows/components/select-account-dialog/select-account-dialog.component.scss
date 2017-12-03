@@ -8,12 +8,8 @@ md-list.accounts {
 
   md-list-item.account-list-item {
     margin-bottom: 1px;
-    background-color: $dark-grey;
-    border-left: 5px solid $dark-grey;
-
-    h5 {
-      color: white;
-    }
+    background-color: $element-bg-color;
+    border-left: 5px solid $grey;
 
     &:last-of-type {
       border-bottom: none;
@@ -22,7 +18,12 @@ md-list.accounts {
     &:hover,
     &.selected {
       cursor: pointer;
+      background-color: $dark-grey;
       border-left: 5px solid $dark-blue;
+
+      h5 {
+        color: white;
+      }
     }
   }
 }
