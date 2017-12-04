@@ -1,6 +1,33 @@
-form.configuration {
-  max-width: 600px;
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
 
+form.configuration,
+div.connect-account > div {
+  max-width: 570px;
+}
+
+div.connect-account {
+  padding: 1rem;
+
+  &.highlight {
+    background-color: $warning-bg-color;
+  }
+
+  md-icon, span.name {
+    color: $dark-grey;
+  }
+
+  md-icon {
+    margin-right: 0.5rem;
+  }
+
+  span.name {
+    font-size: 20px;
+  }
+}
+
+form.configuration {
   p.no-config-form {
     margin: 2rem 0 3rem .5rem;
 

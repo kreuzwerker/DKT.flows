@@ -13,6 +13,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from './../core';
 
 // Containers
+import { AccountsComponent } from './containers/accounts/accounts.component';
+import { FlowsComponent } from './containers/flows/flows.component';
 import { FlowsListComponent } from './containers/flows-list/flows-list.component';
 import { FlowsAppComponent } from './containers/flows-app/flows-app.component';
 import { FlowHomeComponent } from './containers/flow-home/flow-home.component';
@@ -38,8 +40,12 @@ import { StatusMessageComponent } from './components/status-message/status-messa
 import { StepConfigSummaryComponent } from './components/step-config-summary/step-config-summary.component';
 import { StepTestResultComponent } from './components/step-test-result/step-test-result.component';
 import { TriggerFlowRunDialogComponent } from './components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
+// - Accounts
+import { DeleteAccountDialogComponent } from './components/delete-account-dialog/delete-account-dialog.component';
+import { AccountDialogComponent } from './components/account-dialog/account-dialog.component';
 
 // Services
+import { AccountsApiService, AccountsStateService } from './services';
 import { FlowsApiService, FlowsAppService, FlowsStateService, FormBuilderService } from './services';
 import { LoginGuard } from './../core/services/user/login-guard.service';
 
@@ -47,7 +53,12 @@ import { LoginGuard } from './../core/services/user/login-guard.service';
 import { FlowsAppActions, FlowsAppEffects } from './states';
 
 const routes: Routes = [
-  { path: 'flows', component: FlowsListComponent, canActivate: [LoginGuard] },
+  { path: 'flows', component: FlowsComponent, canActivate: [LoginGuard],
+    children: [
+      { path: '', component: FlowsListComponent },
+      { path: 'accounts', component: AccountsComponent },
+    ]
+  },
   { path: 'flows/:flowId', component: FlowsAppComponent, canActivate: [LoginGuard],
     children: [
       { path: '', component: FlowHomeComponent },
@@ -64,6 +75,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
+    FlowsComponent,
     FlowsListComponent,
     FlowsAppComponent,
     FlowHomeComponent,
@@ -87,6 +99,10 @@ const routes: Routes = [
     StepConfigSummaryComponent,
     StepTestResultComponent,
     TriggerFlowRunDialogComponent,
+    // Accounts
+    AccountsComponent,
+    AccountDialogComponent,
+    DeleteAccountDialogComponent
   ],
   imports: [
     CommonModule,
@@ -99,21 +115,25 @@ const routes: Routes = [
     MaterialModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    EffectsModule.run(FlowsAppEffects),
+    EffectsModule.run(FlowsAppEffects)
   ],
-  exports: [
-  ],
+  exports: [],
   providers: [
+    AccountsApiService,
+    AccountsStateService,
     FlowsAppService,
     FlowsApiService,
     FlowsStateService,
     FlowsAppActions,
-    FormBuilderService,
+    FormBuilderService
   ],
   entryComponents: [
     NewFlowDialogComponent,
     DeleteFlowDialogComponent,
-    TriggerFlowRunDialogComponent
-  ],
+    TriggerFlowRunDialogComponent,
+    // Accounts
+    DeleteAccountDialogComponent,
+    AccountDialogComponent,
+  ]
 })
 export class FlowsModule {}

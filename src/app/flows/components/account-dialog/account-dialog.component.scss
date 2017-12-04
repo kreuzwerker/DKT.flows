@@ -1,0 +1,78 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+@import '../../../animations';
+
+/*
+  Select account
+*/
+
+md-list.accounts {
+  padding: 0px;
+
+  md-list-item.account-list-item {
+    margin-bottom: 1px;
+    background-color: $element-bg-color;
+    border-left: 5px solid $grey;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    &:hover,
+    &.selected {
+      cursor: pointer;
+      background-color: $dark-grey;
+      border-left: 5px solid $dark-blue;
+
+      h5 {
+        color: white;
+      }
+    }
+  }
+}
+
+.margin-top {
+  margin-top: 1rem;
+}
+
+button.add {
+  md-icon {
+    color: $dark-grey;
+  }
+
+  &:hover {
+    md-icon {
+      color: $dark-blue;
+    }
+  }
+}
+
+p.info {
+  text-align: center;
+  margin: 1rem 0 1rem;
+  font-size: 1.3rem!important;
+}
+
+/*
+  Created/edit account
+*/
+
+form.edit-account-form {
+  h5 {
+    text-align: center;
+    margin: 1rem 0;
+  }
+
+  h6 {
+    margin: 1rem 0!important;
+  }
+
+  md-input-container {
+    width: 100%;
+  }
+
+  .mat-input-wrapper {
+    margin-top: 0;
+  }
+}

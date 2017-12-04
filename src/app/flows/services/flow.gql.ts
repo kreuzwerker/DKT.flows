@@ -26,7 +26,6 @@ export const flowsItemFragment = gql`
   }
 `;
 
-
 export const serviceConfigSchemaFragment = gql`
   fragment ServiceConfigSchema on ServiceConfigSchema {
     fieldId,
@@ -70,6 +69,11 @@ export const stepConfigParamsFragment = gql`
 export const flowStepFragment = gql`
   fragment FlowStep on Step {
     id,
+    account {
+      id,
+      name,
+      accountType
+    },
     position,
     tested,
     configParams {
@@ -86,6 +90,7 @@ export const flowStepFragment = gql`
       name,
       description,
       task,
+      requiredAccountType,
       configSchema {
         ...ServiceConfigSchema
       },
@@ -268,6 +273,7 @@ export const restoreFlowMutation = gql`
 export const updateStepMutation = gql`
   mutation StepMutation(
     $id: ID!,
+    $account: ID,
     $position: Int!,
     $service: ID!,
     $configParams: [StepConfigParamsInput],
@@ -275,6 +281,7 @@ export const updateStepMutation = gql`
   ) {
     updateStep(
       id: $id,
+      account: $account,
       position: $position,
       service: $service,
       configParams: $configParams,

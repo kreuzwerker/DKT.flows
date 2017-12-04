@@ -1,0 +1,89 @@
+/* TODO relative paths are bad. find a way to import variables globally:
+https://github.com/jtangelder/sass-loader/issues/211 */
+@import '../../../variables';
+@import '../../../animations';
+
+md-list.accounts,
+div.new {
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+md-list.accounts {
+  margin: 2rem auto;
+}
+
+md-list.accounts .account-list-item {
+  padding: 1rem;
+  background-color: white;
+  border-bottom: 1px solid $list-item-border-color;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  h5 {
+    font-size: 20px;
+  }
+
+  md-icon {
+    color: $dark-grey;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background-color:$list-item-hover-bg-color;
+  }
+
+  button {
+    &:hover {
+      md-icon {
+        color: $dark-blue;
+      }
+    }
+  }
+}
+
+div.new {
+  margin: 0 auto 2rem;
+
+  div.account-type {
+    cursor: pointer;
+    width: 80px;
+    height: 100px;
+    display: inline-block;
+    background-color: $dark-grey;
+    margin-right: 1rem;
+    border-radius: 5px;
+    color: white;
+
+    &.dummy {
+      cursor: inherit;
+      background-color: rgb(206, 218, 231);
+    }
+
+    &:not(.dummy):hover {
+      background-color: $dark-blue;
+    }
+
+    md-icon {
+      font-size: 40px;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 0.5rem;
+    }
+
+    span {
+      display: block;
+    }
+  }
+}
+
+p.info {
+  text-align: center;
+  margin: 5rem 0 1.5rem;
+  font-size: 1.3rem!important;
+}

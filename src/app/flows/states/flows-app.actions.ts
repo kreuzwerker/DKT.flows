@@ -2,11 +2,10 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 
-import { Step, StepData, StepConfigParamsInput, Provider, Service } from '../models';
+import { Account, Step, StepData, StepConfigParamsInput, Provider, Service } from '../models';
 
 @Injectable()
 export class FlowsAppActions {
-
   static SELECT_FLOW = 'SELECT_FLOW';
   selectFlow(flowId: string) {
     return {
@@ -29,7 +28,7 @@ export class FlowsAppActions {
       type: FlowsAppActions.SET_STEP_SERVICE_STEP,
       payload: {
         provider: provider,
-        service: service,
+        service: service
       }
     };
   }
@@ -47,7 +46,17 @@ export class FlowsAppActions {
     return {
       type: FlowsAppActions.SET_STEP_CONFIG,
       payload: {
-        configParams: configParams,
+        configParams: configParams
+      }
+    };
+  }
+
+  static SET_STEP_ACCOUNT = 'SET_STEP_ACCOUNT';
+  setStepAccount(account: Account) {
+    return {
+      type: FlowsAppActions.SET_STEP_ACCOUNT,
+      payload: {
+        account: account
       }
     };
   }
@@ -92,6 +101,27 @@ export class FlowsAppActions {
   setSavingFlow(saving: boolean, saved: boolean) {
     return {
       type: FlowsAppActions.SET_SAVING_FLOW,
+      payload: {
+        saving: saving,
+        saved: saved
+      }
+    };
+  }
+
+  // Accounts
+
+  static SET_LOADING_ACCOUNTS = 'SET_LOADING_ACCOUNTS';
+  setLoadingAccounts(loading: boolean) {
+    return {
+      type: FlowsAppActions.SET_LOADING_ACCOUNTS,
+      payload: loading
+    };
+  }
+
+  static SET_SAVING_ACCOUNT = 'SET_SAVING_ACCOUNT';
+  setSavingAccount(saving: boolean, saved: boolean) {
+    return {
+      type: FlowsAppActions.SET_SAVING_ACCOUNT,
       payload: {
         saving: saving,
         saved: saved

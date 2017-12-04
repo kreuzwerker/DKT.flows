@@ -7,10 +7,12 @@
 import { Subject } from 'rxjs/Subject';
 import { Observer } from 'rxjs/Observer';
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';
+import { MdDialog, MdDialogConfig } from '@angular/material';
+import { AccountsStateService, FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';
 import { FormGroup } from '@angular/forms';
 import { DynamicFormService, DynamicFormControlModel } from '@ng2-dynamic-forms/core';
 import { Step, StepConfigParamsInput } from './../../models';
+import { AccountDialogComponent } from './../../components/account-dialog/account-dialog.component';
 
 @Component({
   selector: 'configure-step',
@@ -25,23 +27,32 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
   step: Step = null;
   formModel: DynamicFormControlModel[];
   configForm: FormGroup;
+  dialogConfig: MdDialogConfig;
+  accountIsDirty: boolean = false;
 
   constructor(
     public flowsApp: FlowsAppService,
     public state: FlowsStateService,
+    public accountsState: AccountsStateService,
     private formBuilder: FormBuilderService,
-    private formService: DynamicFormService
-  ) { }
+    private formService: DynamicFormService,
+    public dialog: MdDialog
+  ) {
+    this.dialogConfig = new MdDialogConfig();
+    this.dialogConfig.width = '450px';
+  }
 
   ngOnInit() {
     // Register current step preparation stage
     this.flowsApp.setStepStage('configure');
 
     // Current selected step
-    this.state.select('step').takeUntil(this.ngOnDestroy$).subscribe(
-      this.onSelectStep.bind(this),
-      (err) => console.log('error', err)
-    );
+    this.state
+      .select('step')
+      .takeUntil(this.ngOnDestroy$)
+      .subscribe(this.onSelectStep.bind(this), err =>
+        console.log('error', err)
+      );
   }
 
   onSelectStep(step: Step) {
@@ -51,10 +62,57 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
 
     this.step = step;
     if (typeof this.step.service.configSchema !== 'undefined') {
-      let values = this.step.configParams && this.reduceValues(this.step.configParams) || {};
+      let values =
+        (this.step.configParams && this.reduceValues(this.step.configParams)) ||
+        {};
       this.initForm(this.step.service.configSchema, values);
     }
   }
+
+  /*
+    Connected Account
+  */
+
+  hasConnectedAccount(): boolean {
+    return this.step.account !== null;
+  }
+
+  requireConnectAccount(): boolean {
+    if (!this.step.service.requiredAccountType) {
+      return false;
+    } else if (!this.hasConnectedAccount()) {
+      return true;
+    } else {
+      return (
+        this.step.service.requiredAccountType !== this.step.account.accountType
+      );
+    }
+  }
+
+  openAccountDialog() {
+    this.accountsState.loadAccounts(this.step.service.requiredAccountType);
+
+    let dialogRef = this.dialog.open(AccountDialogComponent, this.dialogConfig);
+    dialogRef.componentInstance.requiredAccountType = this.step.service.requiredAccountType;
+    dialogRef.componentInstance.selectedAccount = this.step.account;
+    dialogRef.componentInstance.account = {
+      id: null,
+      key: null,
+      name: '',
+      accountType: this.step.service.requiredAccountType
+    };
+
+    dialogRef.afterClosed().subscribe(account => {
+      if (account) {
+        this.state.dispatch(this.state.actions.setStepAccount(account));
+        this.accountIsDirty = true;
+      }
+    });
+  }
+
+  /*
+    Configuration Form
+  */
 
   initForm(schema, values) {
     // Create form model from service config form schema
@@ -75,7 +133,8 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
     }
 
     // No need to save if step has already been configured and values haven't changed
-    if (this.step.configParams !== null && !this.configForm.dirty) {
+    // (including the connected account)
+    if (this.step.configParams !== null && !this.configForm.dirty && !this.accountIsDirty) {
       return true;
     }
 
@@ -83,6 +142,7 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
     let values = this.mapValues(this.configForm.value);
     this.state.dispatch(this.state.actions.setStepConfig(values));
     this.flowsApp.saveFlowStep();
+    this.accountIsDirty = false;
 
     // Return immediately, relying on optimistic response from updateStep mutation
     return true;
@@ -100,7 +160,7 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
   }
 
   mapValues(values) {
-    return Object.keys(values).map((key) => {
+    return Object.keys(values).map(key => {
       return { fieldId: key, value: values[key] };
     });
   }

@@ -1,0 +1,66 @@
+<h1 md-dialog-title fxLayout="row" fxLayoutAlign="space-between center">
+  <md-icon [svgIcon]="state.getAccountTypeIcon(account.accountType)"></md-icon>
+  <span>{{getTitle()}}</span>
+  <md-icon class="close" (click)="dialogRef.close(false)">close</md-icon>
+</h1>
+
+<!-- Select account -->
+<div md-dialog-content fxLayout="column" class="select" *ngIf="isSelectMode()">
+  <p *ngIf="state.select('loadingAccounts') | async" class="info">Loading accounts ...</p>
+  <div *ngIf="!(state.select('loadingAccounts') | async)">
+    <div *ngIf="accounts.length">
+      <md-list class="accounts">
+        <md-list-item *ngFor="let account of accounts" class="account-list-item" [class.selected]="selectedAccount && selectedAccount.id == account.id"
+          (click)="selectAccount(account)">
+          <h5 md-line>{{account.name}}</h5>
+        </md-list-item>
+      </md-list>
+
+      <div *ngIf="!addNew" fxLayout="row" fxLayoutAlign="center center" class="margin-top">
+        <button class="add" md-icon-button type="button" (click)="addNew = true">
+          <md-icon>add</md-icon>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="!accounts.length">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <p class="info">
+          You haven't connected any {{state.getAccountTypeName(requiredAccountType)}} accounts yet.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create account -->
+<form *ngIf="showCreate()" class="edit-account-form" #editAccountForm="ngForm" (ngSubmit)="submitForm(editAccountForm)">
+  <div md-dialog-content fxLayout="column" class="create">
+    <h5 *ngIf="isSelectMode()">Connect an account</h5>
+
+    <md-input-container class="name">
+      <input mdInput placeholder="Name" type="text" name="name" tabindex="1" [ngModel]="account.name" #name="ngModel" required>
+      <md-hint *ngIf="name.dirty && name.errors?.required">Name is required</md-hint>
+    </md-input-container>
+
+    <h6>Credentials</h6>
+
+    <div *ngIf="account.accountType === 'AWS'">
+      <md-input-container>
+        <input mdInput placeholder="AWS Access Key" type="text" name="accessKeyId" tabindex="2" ngModel #accessKeyId="ngModel" required>
+        <md-hint *ngIf="accessKeyId.dirty && accessKeyId.errors?.required">Access Key is required</md-hint>
+      </md-input-container>
+
+      <md-input-container>
+        <input mdInput placeholder="AWS Secret Access Key" type="text" name="secretAccessKey" tabindex="3" ngModel #secretAccessKey="ngModel"
+          required>
+        <md-hint *ngIf="secretAccessKey.dirty && secretAccessKey.errors?.required">Secret Access Key is required</md-hint>
+      </md-input-container>
+    </div>
+  </div>
+
+  <div md-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button md-button type="button" (click)="dialogRef.close(false)" tabIndex="4">Cancel</button>
+    <button md-button type="submit" [disabled]="editAccountForm.invalid" md-raised-button class="mat-accent" tabIndex="3">Save</button>
+  </div>
+</form>
