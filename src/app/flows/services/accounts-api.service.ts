@@ -6,7 +6,6 @@ import { Apollo, ApolloQueryObservable } from 'apollo-angular';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Account } from './../models';
-import { ACCOUNTS_DATA } from './../containers/accounts/accounts.data';
 
 // GraphQL queries & mutations
 import * as gql from './account.gql';

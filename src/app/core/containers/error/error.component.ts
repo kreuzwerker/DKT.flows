@@ -40,7 +40,6 @@ export class ErrorComponent {
   }
 
   message() {
-    console.log('this.entityType', this.entityType);
     switch (parseInt(this.code, 10)) {
       case 401:
         return `You don't have permission to access this ${

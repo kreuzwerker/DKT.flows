@@ -6,7 +6,6 @@ import {
   MdSnackBarConfig
 } from '@angular/material';
 import { Account } from './../../models';
-import { ACCOUNTS_DATA  } from './accounts.data';
 import { FlowsAppService, AccountsStateService } from './../../services';
 import { DeleteAccountDialogComponent } from './../../components/delete-account-dialog/delete-account-dialog.component';
 import { AccountDialogComponent } from './../../components/account-dialog/account-dialog.component';
