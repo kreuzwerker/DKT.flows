@@ -1,5 +1,5 @@
 <h1 md-dialog-title fxLayout="row" fxLayoutAlign="space-between center">
-  <md-icon>{{state.getAccountTypeIcon(account.accountType)}}</md-icon>
+  <md-icon [svgIcon]="state.getAccountTypeIcon(account.accountType)"></md-icon>
   <span>Delete account</span>
   <md-icon class="close" (click)="dialogRef.close(false)">close</md-icon>
 </h1>

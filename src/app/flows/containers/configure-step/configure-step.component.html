@@ -4,14 +4,14 @@
 
     <div class="connect-account" *ngIf="step" [class.highlight]="requireConnectAccount()">
       <div *ngIf="hasConnectedAccount()" fxLayout="row" fxLayoutAlign="space-between center">
-        <md-icon>{{accountsState.getAccountTypeIcon(step.account.accountType)}}</md-icon>
+        <md-icon [svgIcon]="accountsState.getAccountTypeIcon(step.account.accountType)"></md-icon>
         <span class="name">{{accountsState.getAccountTypeName(step.account.accountType)}} account {{step.account.name}}</span>
         <button md-raised-button (click)="openAccountDialog()">
           Change
         </button>
       </div>
       <div *ngIf="requireConnectAccount()" fxLayout="row" fxLayoutAlign="space-between center">
-        <md-icon>{{accountsState.getAccountTypeIcon(step.service.requiredAccountType)}}</md-icon>
+        <md-icon [svgIcon]="accountsState.getAccountTypeIcon(step.service.requiredAccountType)"></md-icon>
         <span class="name">{{accountsState.getAccountTypeName(step.service.requiredAccountType)}} account</span>
         <button md-raised-button color="primary" (click)="openAccountDialog()">
           Select

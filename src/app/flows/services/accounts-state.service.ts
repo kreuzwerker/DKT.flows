@@ -14,11 +14,19 @@ import { AccountsApiService } from './../services';
 import { Account } from './../models';
 import { FlowsAppActions } from './../states';
 
+class AccountType {
+  accountType: string;
+  name: string;
+  icon: string;
+}
+
 @Injectable()
 export class AccountsStateService extends BaseStateService {
   storeKey = 'flowsApp';
 
-  accountTypes = [{ accountType: 'AWS', name: 'AWS', icon: 'donut_large' }];
+  accountTypes: AccountType[] = [
+    { accountType: 'AWS', name: 'AWS', icon: 'aws' }
+  ];
 
   //
   // App data state
@@ -35,23 +43,15 @@ export class AccountsStateService extends BaseStateService {
     super(store);
   }
 
-  getAccountType(type: string): Account {
+  getAccountType(type: string): AccountType {
     return this.accountTypes.find(
       accountType => accountType.accountType === type
     );
   }
 
   getAccountTypeIcon(type: string): string {
-    switch (type) {
-      case 'aws':
-        return 'donut_large';
-
-      case 'twitter':
-        return 'donut_small';
-
-      default:
-        return 'donut_large';
-    }
+    const accountType = this.getAccountType(type);
+    return accountType ? accountType.icon : 'donut_large';
   }
 
   getAccountTypeName(accountType: string) {
@@ -98,12 +98,15 @@ export class AccountsStateService extends BaseStateService {
   createAccount(accountPayload): Observable<any> {
     let obs$ = new Subject<any>();
     this.dispatch(this.actions.setSavingAccount(true, false));
-    this.api.createAccount(accountPayload).subscribe(account => {
+    this.api.createAccount(accountPayload).subscribe(
+      account => {
         this.dispatch(this.actions.setSavingAccount(false, true));
         obs$.next(account);
-      }, err => {
+      },
+      err => {
         this.dispatch(this.actions.setSavingAccount(false, true));
-      });
+      }
+    );
     return obs$;
   }
 
