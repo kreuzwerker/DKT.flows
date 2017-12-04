@@ -1,7 +1,7 @@
 /* tslint:disable: ter-max-len */
 import { Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { mockStore, MockMdDialog } from './../../../core/utils/mocks';
+import { mockStore, MockMatDialog } from './../../../core/utils/mocks';
 import {
   mockFlowsApp,
   mockFlowsState,
@@ -10,7 +10,7 @@ import {
 import { TestUtils } from './../../utils/test.helpers';
 import { ConfigureStepComponent } from './configure-step.component';
 import { AccountsStateService, FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';
-import { DynamicFormService, DynamicFormControlModel } from '@ng2-dynamic-forms/core';
+import { DynamicFormService, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { ServiceConfigSchema } from './../../models';
 
 describe('Flows App', () => {
@@ -40,7 +40,7 @@ describe('Flows App', () => {
       state = mockFlowsState;
       accountsState = mockAccountsState;
       store = mockStore;
-      dialog = new MockMdDialog();
+      dialog = new MockMatDialog();
 
       component = new ConfigureStepComponent(
         flowsApp,

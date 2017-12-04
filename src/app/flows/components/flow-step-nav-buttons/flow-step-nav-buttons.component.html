@@ -1,7 +1,7 @@
 <div class="nav-buttons" fxLayout="row" fxLayoutAlign="space-between center">
-  <button md-raised-button (click)="back()">{{backLabel}}</button>
-  <button md-raised-button (click)="continue()" [disabled]="continueDisabled || continueIsLoading" color="accent">
-    <md-spinner *ngIf="continueIsLoading"></md-spinner>
+  <button mat-raised-button (click)="back()">{{backLabel}}</button>
+  <button mat-raised-button (click)="continue()" [disabled]="continueDisabled || continueIsLoading" color="accent">
+    <mat-spinner *ngIf="continueIsLoading"></mat-spinner>
     {{continueIsLoading ? 'Saving' : continueLabel}}
   </button>
 </div>

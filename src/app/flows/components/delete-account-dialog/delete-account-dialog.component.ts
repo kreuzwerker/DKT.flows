@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { Account } from './../../models';
 import { AccountsStateService } from './../../services';
 
@@ -12,7 +12,7 @@ export class DeleteAccountDialogComponent {
   account: Account;
 
   constructor(
-    public dialogRef: MdDialogRef<DeleteAccountDialogComponent>,
+    public dialogRef: MatDialogRef<DeleteAccountDialogComponent>,
     public state: AccountsStateService
   ) {}
 }

@@ -1,5 +1,5 @@
-import { MdSnackBar, MdSnackBarConfig  } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig  } from '@angular/material';
 
 export const mockSnackBar = {
-  open: (message: string, action?: string, config?: MdSnackBarConfig) => {},
-} as MdSnackBar;
+  open: (message: string, action?: string, config?: MatSnackBarConfig) => {},
+} as MatSnackBar;

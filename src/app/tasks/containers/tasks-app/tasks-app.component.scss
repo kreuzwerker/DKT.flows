@@ -16,7 +16,7 @@ div.layout {
   }
 
   div.sidebar-left, div.sidebar-right {
-    md-icon.option {
+    mat-icon.option {
       color: $dark-grey;
       cursor: pointer;
       outline: none;
@@ -25,12 +25,6 @@ div.layout {
       &:hover {
         color: $dark-blue;
       }
-    }
-
-    md-spinner {
-      display: inline-block;
-      width: 24px!important;
-      height: 24px!important;
     }
   }
 
@@ -113,7 +107,7 @@ div.main {
     font-size: 1.3rem!important;
   }
 
-  md-spinner.task-item {
+  mat-spinner.task-item {
     margin:3em auto;
     width:44px!important;
     height:44px!important;

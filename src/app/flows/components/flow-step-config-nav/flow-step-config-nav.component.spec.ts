@@ -68,7 +68,7 @@ describe('Flows App', () => {
 // import { ChangeDetectionStrategy } from '@angular/core';
 // // import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 
-// import { MaterialModule } from '@angular/material';
+// import { DktMaterialModule } from './../../../dkt-material.module';
 
 // import { FlowStepConfigNavComponent } from './flow-step-config-nav.component';
 
@@ -76,7 +76,7 @@ describe('Flows App', () => {
 //     beforeEach(async(() => {
 //         TestBed.configureTestingModule({
 //             imports: [
-//                 MaterialModule.forRoot(),
+//                 DktMaterialModule,
 //             ],
 //             declarations: [FlowStepConfigNavComponent],
 //             providers: [

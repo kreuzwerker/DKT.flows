@@ -16,7 +16,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
   }
 
   .header {
-    md-icon {
+    mat-icon {
       color: $dark-grey;
       cursor: pointer;
       outline: none;
@@ -44,12 +44,6 @@ https://github.com/jtangelder/sass-loader/issues/211 */
         }
       }
     }
-  
-    md-spinner {
-      display: inline-block;
-      width: 24px!important;
-      height: 24px!important;
-    } 
   }
 
   div.runs {
@@ -68,16 +62,16 @@ https://github.com/jtangelder/sass-loader/issues/211 */
         border-bottom: none;
       }
 
-      md-icon.show-less {
+      mat-icon.show-less {
         display: none;
       }
 
       &.show-details {
-        md-icon.show-more {
+        mat-icon.show-more {
           display: none;
         }
 
-        md-icon.show-less {
+        mat-icon.show-less {
           display: flex;
         }
 
@@ -97,7 +91,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
           margin: 1rem;
         }
 
-        md-icon.status {
+        mat-icon.status {
           &.running {
             animation: Spin 1.2s infinite linear;
             color: $blue;
@@ -116,14 +110,14 @@ https://github.com/jtangelder/sass-loader/issues/211 */
           }
         }
 
-        md-icon.toggle {
+        mat-icon.toggle {
           color: $dark-grey;
         }
 
         &:hover {
           background-color: $list-item-hover-bg-color;
 
-          md-icon.toggle {
+          mat-icon.toggle {
             color: $dark-blue;
           }
         }
@@ -148,7 +142,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
         }
 
         div.step-service {
-          md-icon,
+          mat-icon,
           h6 {
             color: $dark-grey;
           }
@@ -160,7 +154,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
   div.nav {
     button {
       margin: 0 0.5em;
-      md-icon {
+      mat-icon {
         color: $dark-grey;
       }
     }

@@ -1,6 +1,6 @@
 import { Component, NgZone, Input, AfterViewInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MdIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material';
 import { Router } from '@angular/router';
 import { googleSignInConfig } from './../../config';
 import { LoginUiState, UserLoginService } from './../../services';
@@ -18,12 +18,12 @@ export class GoogleSigninComponent implements AfterViewInit {
   constructor(
     public router: Router,
     public zone: NgZone,
-    private mdIconRegistry: MdIconRegistry,
+    private matIconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
     private loginUi: LoginUiState
   ) {
     // Register "google" icon
-    mdIconRegistry.addSvgIcon(
+    matIconRegistry.addSvgIcon(
       'google',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/icon/google.svg')
     );

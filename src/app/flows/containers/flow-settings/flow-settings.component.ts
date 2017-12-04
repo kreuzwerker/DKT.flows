@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestro
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 import { FlowsAppService, FlowsStateService } from './../../services';
 import { Flow, FlowTriggerType, StepSchedulingIntervalType } from './../../models';
@@ -40,7 +40,7 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
     public state: FlowsStateService,
     public router: Router,
     public route: ActivatedRoute,
-    public snackBar: MdSnackBar
+    public snackBar: MatSnackBar
   ) {
     const url = this.route.snapshot.url;
     this.selectedTabIndex = url[1] && url[1].path === 'triggering' ? 1 : 0;
@@ -120,7 +120,7 @@ export class FlowSettingsComponent implements OnInit, OnDestroy {
   }
 
   showInfoMessage(message: string) {
-    let config = new MdSnackBarConfig();
+    let config = new MatSnackBarConfig();
     config.duration = 2000;
     this.snackBar.open(message, 'OK', config);
   }

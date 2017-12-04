@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DynamicFormsCoreModule } from '@ng2-dynamic-forms/core';
-import { DynamicFormsMaterialUIModule } from '@ng2-dynamic-forms/ui-material';
-import { MaterialModule } from '@angular/material';
+import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
+import { DktMaterialModule } from './../dkt-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Routes, RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
@@ -112,7 +112,7 @@ const routes: Routes = [
     DynamicFormsCoreModule.forRoot(),
     DynamicFormsMaterialUIModule,
     RouterModule.forChild(routes),
-    MaterialModule,
+    DktMaterialModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     EffectsModule.run(FlowsAppEffects)

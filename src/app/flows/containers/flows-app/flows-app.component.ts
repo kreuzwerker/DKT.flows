@@ -2,7 +2,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs';
 import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, Params, NavigationEnd } from '@angular/router';
-import { MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { ApolloError } from 'apollo-client';
 import { TriggerFlowRunDialogComponent } from './../../components/trigger-flow-run-dialog/trigger-flow-run-dialog.component';
 import * as flowHelpers from '../../utils/flow.helpers';
@@ -18,7 +18,7 @@ import { Flow, Step, StepTest, FlowRun } from './../../models';
 })
 export class FlowsAppComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
-  dialogConfig: MdDialogConfig;
+  dialogConfig: MatDialogConfig;
   flowSub$: Subscription;
 
   requestedStepId: string = null;
@@ -31,10 +31,10 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
     public route: ActivatedRoute,
     public router: Router,
     public state: FlowsStateService,
-    public dialog: MdDialog,
-    public snackBar: MdSnackBar
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar
   ) {
-    this.dialogConfig = new MdDialogConfig();
+    this.dialogConfig = new MatDialogConfig();
     this.dialogConfig.width = '450px';
 
     // NB Since Angular v4.3 this.router.events fire already in constructor
@@ -295,7 +295,7 @@ export class FlowsAppComponent implements OnInit, OnDestroy {
   }
 
   showInfoMessage(message: string) {
-    let config = new MdSnackBarConfig();
+    let config = new MatSnackBarConfig();
     config.duration = 2000;
     this.snackBar.open(message, 'OK', config);
   }

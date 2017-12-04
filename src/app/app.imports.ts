@@ -1,10 +1,10 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DynamicFormsCoreModule } from '@ng2-dynamic-forms/core';
-import { DynamicFormsMaterialUIModule } from '@ng2-dynamic-forms/ui-material';
+import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import { DynamicFormsMaterialUIModule } from '@ng-dynamic-forms/ui-material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
-import { MaterialModule } from '@angular/material';
+import { DktMaterialModule } from './dkt-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { EffectsModule } from '@ngrx/effects';
@@ -44,7 +44,7 @@ if (ENV === 'development' && !AOT &&
 export const APP_IMPORTS = [
   BrowserAnimationsModule,
   EffectsModule.run(UserEffects),
-  MaterialModule,
+  DktMaterialModule,
   FlexLayoutModule,
   FormsModule,
   BrowserAnimationsModule,

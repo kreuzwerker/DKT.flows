@@ -8,7 +8,7 @@ import {
     DynamicTextAreaModel,
     DynamicRadioGroupModel,
     DynamicSelectModel,
-} from '@ng2-dynamic-forms/core';
+} from '@ng-dynamic-forms/core';
 
 describe('Flows App', () => {
 

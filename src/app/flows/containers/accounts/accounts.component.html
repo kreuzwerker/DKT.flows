@@ -1,18 +1,18 @@
 <p *ngIf="state.select('loadingAccounts') | async" class="info">Loading accounts ...</p>
 <div *ngIf="state.accounts$ | async as accounts">
   <div *ngIf="accounts.data.length; else noAccounts">
-    <md-list class="accounts">
-      <md-list-item *ngFor="let account of accounts.data" class="account-list-item">
-        <md-icon md-list-icon [svgIcon]="state.getAccountTypeIcon(account.accountType)"></md-icon>
-        <h5 md-line>{{account.name}}</h5>
-        <button md-icon-button (click)="openEditAccountDialog(account)">
-          <md-icon>edit</md-icon>
+    <mat-list class="accounts">
+      <mat-list-item *ngFor="let account of accounts.data" class="account-list-item">
+        <mat-icon mat-list-icon [svgIcon]="state.getAccountTypeIcon(account.accountType)"></mat-icon>
+        <h5 mat-line>{{account.name}}</h5>
+        <button mat-icon-button (click)="openEditAccountDialog(account)">
+          <mat-icon>edit</mat-icon>
         </button>
-        <button md-icon-button (click)="openDeleteAccountDialog(account)">
-          <md-icon>delete</md-icon>
+        <button mat-icon-button (click)="openDeleteAccountDialog(account)">
+          <mat-icon>delete</mat-icon>
         </button>
-      </md-list-item>
-    </md-list>
+      </mat-list-item>
+    </mat-list>
   </div>
 
   <ng-template #noAccounts>
@@ -27,7 +27,7 @@
     <h4>Connect an account</h4>
     <div fxLayout="row" fxLayoutAlign="start center">
       <div *ngFor="let account of state.accountTypes" (click)="openNewAccountDialog(account.accountType)" class="account-type" fxLayout="column" fxLayoutAlign="center center">
-        <md-icon [svgIcon]="account.icon"></md-icon>
+        <mat-icon [svgIcon]="account.icon"></mat-icon>
         <span>{{account.name}}</span>
       </div>
 

@@ -2,10 +2,10 @@
 import { mockFlowsApp, mockFlowsState } from './../../utils/mocks';
 import {
   MockRouter,
-  MockMdDialog,
+  MockMatDialog,
   mockSnackBar
 } from './../../../core/utils/mocks';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { TestUtils } from './../../utils/test.helpers';
 import { FlowsComponent } from './flows.component';
 import { FlowsStateService } from './../../services';
@@ -24,7 +24,7 @@ describe('Flows App', () => {
       flowsApp = mockFlowsApp;
       state = mockFlowsState;
       router = <any>new MockRouter();
-      dialog = new MockMdDialog();
+      dialog = new MockMatDialog();
       component = new FlowsComponent(
         flowsApp,
         state,

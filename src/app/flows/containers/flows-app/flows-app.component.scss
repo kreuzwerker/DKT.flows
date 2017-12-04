@@ -48,18 +48,18 @@ div.layout {
         position: absolute;
         bottom: 2rem;
         right: -6rem;
-        // TODO update Material and use mat-fab instead of md-icon-button
+        // TODO update Material and use mat-fab instead of mat-icon-button
         width: 56px;
         height: 56px;
 
-        md-icon {
+        mat-icon {
           font-size: 30px;
           width: 30px;
           color: $dark-grey;
         }
 
         &:hover {
-          md-icon {
+          mat-icon {
             color: $dark-blue;
           }
         }
@@ -130,7 +130,7 @@ $step-item-control-top-margin: 0.5rem;
   button.add {
     background-color: $steps-line-bg-color;
 
-    md-icon {
+    mat-icon {
       color: $steps-line-color;
     }
 

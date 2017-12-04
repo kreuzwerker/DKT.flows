@@ -1,19 +1,19 @@
 <div *ngIf="state == states.NOT_STARTED" fxLayout="row" fxLayoutAlign="start center">
-  <button md-raised-button color="accent" class="state" (click)="setState.emit(states.APPROVED)">
-    <md-icon>done</md-icon>
+  <button mat-raised-button color="accent" class="state" (click)="setState.emit(states.APPROVED)">
+    <mat-icon>done</mat-icon>
     <span fxHide.sm>Approve</span>
   </button>
 
-  <button md-raised-button color="warn" class="state" (click)="setState.emit(states.REJECTED)">
-    <md-icon>block</md-icon>
+  <button mat-raised-button color="warn" class="state" (click)="setState.emit(states.REJECTED)">
+    <mat-icon>block</mat-icon>
     <span fxHide.sm>Reject</span>
   </button>
 </div>
 <div *ngIf="state == states.APPROVED" class="finished" fxLayout="row" fxLayoutAlign="start center">
-  <md-icon>done</md-icon>
+  <mat-icon>done</mat-icon>
   <span fxHide.sm>Approved</span>
 </div>
 <div *ngIf="state == states.REJECTED" class="finished" fxLayout="row" fxLayoutAlign="start center">
-  <md-icon>block</md-icon>
+  <mat-icon>block</mat-icon>
   <span fxHide.sm>Rejected</span>
 </div>

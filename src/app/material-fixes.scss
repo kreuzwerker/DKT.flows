@@ -20,6 +20,14 @@
   background-color: $blue-semitransparent;
 }
 
+.mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+  color: white;
+}
+
+.mat-form-field-underline {
+  background-color: rgba(0,0,0,0.12);
+}
+
 @media only screen and (max-width: 600px) {
   // Don't shrink toolbar but keep a steady height
   .mat-toolbar {

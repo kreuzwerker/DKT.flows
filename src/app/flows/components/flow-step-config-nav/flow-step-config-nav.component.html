@@ -2,17 +2,17 @@
   <h4>Flow configuration</h4>
   <ul>
     <li *ngIf="showStepNav('select')" [class.current]="current == 'select'">
-      <span class="icon" *ngIf="getStepIconType('select') == 'check'"><md-icon>check</md-icon></span>      
+      <span class="icon" *ngIf="getStepIconType('select') == 'check'"><mat-icon>check</mat-icon></span>      
       <span class="icon" *ngIf="getStepIconType('select') == 'number'">1</span>      
       <span class="name">Select {{type}}</span>
     </li>
     <li *ngIf="showStepNav('configure')" [class.current]="current == 'configure'">
-      <span class="icon" *ngIf="getStepIconType('configure') == 'check'"><md-icon>check</md-icon></span>      
+      <span class="icon" *ngIf="getStepIconType('configure') == 'check'"><mat-icon>check</mat-icon></span>      
       <span class="icon" *ngIf="getStepIconType('configure') == 'number'">2</span>      
       <span class="name">Configure {{type}}</span>
     </li>
     <li *ngIf="showStepNav('test')" [class.current]="current == 'test'">
-      <span class="icon" *ngIf="getStepIconType('test') == 'check'"><md-icon>check</md-icon></span>      
+      <span class="icon" *ngIf="getStepIconType('test') == 'check'"><mat-icon>check</mat-icon></span>      
       <span class="icon" *ngIf="getStepIconType('test') == 'number'">3</span>      
       <span class="name">Test {{type}}</span>
     </li>

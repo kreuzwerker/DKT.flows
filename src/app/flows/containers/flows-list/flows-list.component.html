@@ -1,43 +1,43 @@
 <div class="flows-list full-height">
   <div class="options">
     <div class="inner" fxLayout="row" fxLayoutAlign="space-between center">
-      <md-input-container class="search">
-        <input mdInput placeholder="Search" type="text">
-        <md-icon mdSuffix>search</md-icon>
-      </md-input-container>
+      <mat-form-field class="search">
+        <input matInput placeholder="Search" type="text">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
   
       <div class="loader">
-        <md-spinner *ngIf="state.select('loadingFlows') | async"></md-spinner>
-        <md-icon *ngIf="!(state.select('loadingFlows') | async)" class="option" (click)="reloadFlows()">refresh</md-icon>
+        <mat-spinner *ngIf="state.select('loadingFlows') | async"></mat-spinner>
+        <mat-icon *ngIf="!(state.select('loadingFlows') | async)" class="option" (click)="reloadFlows()">refresh</mat-icon>
       </div>
     </div>
   </div>
 
   <p *ngIf="state.select('loadingFlows') | async" class="info">Loading flows ...</p>
   <div *ngIf="!(state.select('loadingFlows') | async) && state.flows$ | async as flows">
-    <md-list class="flows" *ngIf="flows.data.length; else noFlows">
-      <md-list-item *ngFor="let flow of flows.data" class="flow-list-item">
-        <div md-list-icon class="steps-summary" fxLayout="row" fxLayoutAlign="center center">
-          <md-icon class="first-step">{{getFirstStepIcon(flow)}}</md-icon>
+    <mat-list class="flows" *ngIf="flows.data.length; else noFlows">
+      <mat-list-item *ngFor="let flow of flows.data" class="flow-list-item">
+        <div mat-list-icon class="steps-summary" fxLayout="row" fxLayoutAlign="center center">
+          <mat-icon class="first-step">{{getFirstStepIcon(flow)}}</mat-icon>
   
-          <md-icon *ngIf="flow.steps.length > 2" class="chevron">chevron_right</md-icon>
+          <mat-icon *ngIf="flow.steps.length > 2" class="chevron">chevron_right</mat-icon>
           <div *ngIf="flow.steps.length > 2" class="steps-count">{{flow.steps.length - 2}}</div>
   
-          <md-icon class="chevron">chevron_right</md-icon>
-          <md-icon class="last-step">{{getLastStepIcon(flow)}}</md-icon>
+          <mat-icon class="chevron">chevron_right</mat-icon>
+          <mat-icon class="last-step">{{getLastStepIcon(flow)}}</mat-icon>
         </div>
   
-        <div *ngIf="!flowHelpers.flowIsInDraft(flow)" md-list-icon class="seperator"></div>
+        <div *ngIf="!flowHelpers.flowIsInDraft(flow)" mat-list-icon class="seperator"></div>
   
-        <div md-list-icon *ngIf="!flowHelpers.flowIsInDraft(flow)" class="trigger-type" [ngSwitch]="flow.triggerType">
-          <md-icon *ngSwitchCase="flowTriggerType.MANUAL" mdTooltip="Set to trigger manually">flash_on</md-icon>
-          <md-icon *ngSwitchCase="flowTriggerType.AUTOMATIC" mdTooltip="Set to trigger automatically">flash_auto</md-icon>
-          <md-icon *ngSwitchCase="flowTriggerType.SCHEDULED" mdTooltip="Scheduled to trigger">schedule</md-icon>
+        <div mat-list-icon *ngIf="!flowHelpers.flowIsInDraft(flow)" class="trigger-type" [ngSwitch]="flow.triggerType">
+          <mat-icon *ngSwitchCase="flowTriggerType.MANUAL" matTooltip="Set to trigger manually">flash_on</mat-icon>
+          <mat-icon *ngSwitchCase="flowTriggerType.AUTOMATIC" matTooltip="Set to trigger automatically">flash_auto</mat-icon>
+          <mat-icon *ngSwitchCase="flowTriggerType.SCHEDULED" matTooltip="Scheduled to trigger">schedule</mat-icon>
         </div>
   
-        <div class="seperator" md-list-icon></div>
+        <div class="seperator" mat-list-icon></div>
   
-        <h6 md-line>
+        <h6 mat-line>
           <div *ngIf="flowHelpers.flowHasError(flow)" class="label error">error</div>
           <div *ngIf="flowHelpers.flowIsInDraft(flow)" class="label draft">draft</div>
           {{flow.name}}
@@ -45,38 +45,38 @@
   
         <div *ngIf="!flowHelpers.flowIsInDraft(flow)" class="seperator"></div>
   
-        <button *ngIf="!flowHelpers.flowIsInDraft(flow)" md-button class="toggle-active" [class.active]="flow.active" (click)="state.toggleFlowActivation(flow)">
+        <button *ngIf="!flowHelpers.flowIsInDraft(flow)" mat-button class="toggle-active" [class.active]="flow.active" (click)="state.toggleFlowActivation(flow)">
           <span class="on">ON</span>
           <span class="off">OFF</span>
         </button>
   
         <div class="seperator"></div>
   
-        <button md-icon-button [mdMenuTriggerFor]="optionsMenu">
-          <md-icon>more_vert</md-icon>
+        <button mat-icon-button [matMenuTriggerFor]="optionsMenu">
+          <mat-icon>more_vert</mat-icon>
         </button>
-        <md-menu #optionsMenu="mdMenu" class="flow-list-item-options">
-          <button md-menu-item routerLink="/flows/{{flow.id}}">
-            <md-icon>edit</md-icon>
+        <mat-menu #optionsMenu="matMenu" class="flow-list-item-options">
+          <button mat-menu-item routerLink="/flows/{{flow.id}}">
+            <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </button>
-          <button md-menu-item routerLink="/flows/{{flow.id}}/logs">
-            <md-icon>restore</md-icon>
+          <button mat-menu-item routerLink="/flows/{{flow.id}}/logs">
+            <mat-icon>restore</mat-icon>
             <span>View logs</span>
           </button>
-          <button md-menu-item class="delete" (click)="openDeleteFlowDialog(flow.id, flow.name)">
-            <md-icon>delete</md-icon>
+          <button mat-menu-item class="delete" (click)="openDeleteFlowDialog(flow.id, flow.name)">
+            <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>
-        </md-menu>
-      </md-list-item>
-    </md-list>
+        </mat-menu>
+      </mat-list-item>
+    </mat-list>
     <ng-template #noFlows>
       <div fxLayout="column" fxLayoutAlign="center center">
         <p class="info">
           You don't have any flows yet.
         </p>
-        <button md-raised-button (click)="openNewFlowDialog()">
+        <button mat-raised-button (click)="openNewFlowDialog()">
           <span>Create your first flow</span>
         </button>
       </div>

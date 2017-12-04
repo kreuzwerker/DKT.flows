@@ -1,20 +1,20 @@
 <div class="tasks-filter">
   <div fxLayout="row" fxLayoutAlign="start center">
-    <input mdInput class="search" placeholder="Search" [mdAutocomplete]="auto" [formControl]="filterCtrl" fxFlex>
+    <input matInput class="search" placeholder="Search" [matAutocomplete]="auto" [formControl]="filterCtrl" fxFlex>
 
-    <md-autocomplete #auto="mdAutocomplete">
-      <md-option (onSelectionChange)="selectFilter($event, filter)" *ngFor="let filter of filteredFilters | async" [value]="filter">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option (onSelectionChange)="selectFilter($event, filter)" *ngFor="let filter of filteredFilters | async" [value]="filter">
         {{getFilterLabel(filter)}}
-      </md-option>
-    </md-autocomplete>
+      </mat-option>
+    </mat-autocomplete>
 
-    <md-icon class="sortingDir" svgIcon="{{sortingDir == 'asc' ? 'sort_asc' : 'sort_desc'}}" (click)="toggleSortingDir()" mdTooltip="Sort {{sortingDir == 'asc' ? 'descending' : 'ascending'}}" mdTooltipShowDelay="500"></md-icon>
+    <mat-icon class="sortingDir" svgIcon="{{sortingDir == 'asc' ? 'sort_asc' : 'sort_desc'}}" (click)="toggleSortingDir()" matTooltip="Sort {{sortingDir == 'asc' ? 'descending' : 'ascending'}}" matTooltipShowDelay="500"></mat-icon>
   </div>
   <div *ngIf="filters.length" class="filters" fxLayout="row" fxLayoutAlign="start center">
     <span class="label filter" *ngFor="let filter of filters" fxLayout="row" fxLayoutAlign="start center">
       {{getFilterLabel(filter, true)}}
-      <md-icon class="close" (click)="unsetFilter.emit(filter)">close</md-icon>
+      <mat-icon class="close" (click)="unsetFilter.emit(filter)">close</mat-icon>
     </span>
-    <a md-button (click)="unsetAllFilters.emit()">Reset</a>
+    <a mat-button (click)="unsetAllFilters.emit()">Reset</a>
   </div>
 </div>

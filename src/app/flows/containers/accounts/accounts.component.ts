@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import {
-  MdDialog,
-  MdDialogConfig,
-  MdSnackBar,
-  MdSnackBarConfig
+  MatDialog,
+  MatDialogConfig,
+  MatSnackBar,
+  MatSnackBarConfig
 } from '@angular/material';
 import { Account } from './../../models';
 import { FlowsAppService, AccountsStateService } from './../../services';
@@ -17,16 +17,16 @@ import { AccountDialogComponent } from './../../components/account-dialog/accoun
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountsComponent implements OnInit {
-  dialogConfig: MdDialogConfig;
+  dialogConfig: MatDialogConfig;
 
   constructor(
     private cd: ChangeDetectorRef,
     public flowsApp: FlowsAppService,
     public state: AccountsStateService,
-    public dialog: MdDialog,
-    public snackBar: MdSnackBar
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar
   ) {
-    this.dialogConfig = new MdDialogConfig();
+    this.dialogConfig = new MatDialogConfig();
     this.dialogConfig.width = '450px';
   }
 
@@ -111,7 +111,7 @@ export class AccountsComponent implements OnInit {
   }
 
   showInfoMessage(message: string) {
-    let config = new MdSnackBarConfig();
+    let config = new MatSnackBarConfig();
     config.duration = 2000;
     this.snackBar.open(message, 'OK', config);
   }

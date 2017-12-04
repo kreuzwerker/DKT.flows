@@ -7,12 +7,12 @@
   <div class="content" fxLayout="row" fxLayoutAlign="space-between center">
     <dkt-loading-indicator *ngIf="type == 'loading'" [text]="message"></dkt-loading-indicator>
     <div *ngIf="type != 'loading'" class="message" fxLayout="row" fxLayoutAlign="start center">
-      <md-icon *ngIf="type == 'success'">check_circle</md-icon>
-      <md-icon *ngIf="type == 'error'">error</md-icon>
+      <mat-icon *ngIf="type == 'success'">check_circle</mat-icon>
+      <mat-icon *ngIf="type == 'error'">error</mat-icon>
       <span>{{message}}</span>
     </div>
-    <button md-icon-button  (click)="onClose.emit()">
-      <md-icon class="close">close</md-icon>
+    <button mat-icon-button  (click)="onClose.emit()">
+      <mat-icon class="close">close</mat-icon>
     </button>
   </div>
 </div>

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'delete-flow-dialog',
@@ -9,5 +9,5 @@ import { MdDialogRef } from '@angular/material';
 })
 export class DeleteFlowDialogComponent {
   @Input() name: string;
-  constructor(public dialogRef: MdDialogRef<DeleteFlowDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<DeleteFlowDialogComponent>) {}
 }

@@ -1,5 +1,5 @@
 /* tslint:disable: ter-max-len */
-import { MockChangeDetectorRef, mockStore, mockApolloStore, MockMdDialog, MockRouter, MockRoute, mockSnackBar } from './../../../core/utils/mocks';
+import { MockChangeDetectorRef, mockStore, mockApolloStore, MockMatDialog, MockRouter, MockRoute, mockSnackBar } from './../../../core/utils/mocks';
 import { mockFlowsState, mockFlowsApp } from './../../utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { FlowsAppComponent } from './flows-app.component';
@@ -31,7 +31,7 @@ describe('Flows App', () => {
       router = <any>new MockRouter();
       state = mockFlowsState;
       store = mockStore;
-      dialog = new MockMdDialog();
+      dialog = new MockMatDialog();
       component = new FlowsAppComponent(cd, flowsApp, route, router, state, dialog, mockSnackBar);
       expect(component).toBeTruthy();
     });

@@ -28,28 +28,28 @@ https://github.com/jtangelder/sass-loader/issues/211 */
   }
 
   p.warning {
-    md-icon {
+    mat-icon {
       margin-right: 0.5rem;
     }
   }
 
-  md-list-item {
+  mat-list-item {
     cursor: pointer;
 
-    md-icon,
+    mat-icon,
     h6 {
       color: $dark-grey;
     }
 
     &:hover {
-      md-icon,
+      mat-icon,
       h6 {
         color: black;
       }
     }
 
     &.selected {
-      md-icon,
+      mat-icon,
       h6 {
         color: $blue;
       }
@@ -77,7 +77,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
       margin-top: 1rem!important;
     }
 
-    md-input-container {
+    mat-form-field {
       &:first-of-type {
         margin-right: 1rem;
       }
@@ -91,8 +91,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
       }
     }
 
-    md-select {
-      margin-top: 7px;
+    mat-select {
     }
   }
 }

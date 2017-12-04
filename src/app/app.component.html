@@ -1,8 +1,8 @@
 <div id="app" class="full-height">
-  <md-toolbar *ngIf="showToolbar()" color="primary" id="app-toolbar">
+  <mat-toolbar *ngIf="showToolbar()" color="primary" id="app-toolbar">
     <dkt-main-nav fxFlex></dkt-main-nav>
     <dkt-account></dkt-account>
-  </md-toolbar>
+  </mat-toolbar>
 
   <div id="app-body" class="full-height">
     <router-outlet (activate)="activateEvent($event)" (deactivate)="deactivateEvent($event)"></router-outlet>

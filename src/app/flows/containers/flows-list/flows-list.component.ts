@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs/Subject';
 import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Router } from '@angular/router';
 import { Flow, FlowTriggerType } from '../../models';
 import * as flowHelpers from './../../utils/flow.helpers';
@@ -16,7 +16,7 @@ import { DeleteFlowDialogComponent } from './../../components/delete-flow-dialog
 })
 export class FlowsListComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
-  dialogConfig: MdDialogConfig;
+  dialogConfig: MatDialogConfig;
   flowHelpers = flowHelpers;
   flowTriggerType = FlowTriggerType;
 
@@ -24,10 +24,10 @@ export class FlowsListComponent implements OnInit, OnDestroy {
     public flowsApp: FlowsAppService,
     public state: FlowsStateService,
     public router: Router,
-    public dialog: MdDialog,
-    public snackBar: MdSnackBar
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar
   ) {
-    this.dialogConfig = new MdDialogConfig();
+    this.dialogConfig = new MatDialogConfig();
     this.dialogConfig.width = '450px';
   }
 
@@ -67,7 +67,7 @@ export class FlowsListComponent implements OnInit, OnDestroy {
   }
 
   showInfoMessage(message: string) {
-    let config = new MdSnackBarConfig();
+    let config = new MatSnackBarConfig();
     config.duration = 2000;
     this.snackBar.open(message, 'OK', config);
   }

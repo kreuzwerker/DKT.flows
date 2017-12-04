@@ -2,22 +2,22 @@
   <div class="padding">
     <h4 class="name" fxLayout="row" fxLayoutAlign="start start">
       <span fxFlex>{{flow.name}}</span>
-      <button md-icon-button class="settings control" [routerLink]="'/flows/' + flow.id + '/settings'" [routerLinkActive]="['active']">
-        <md-icon>settings</md-icon>
+      <button mat-icon-button class="settings control" [routerLink]="'/flows/' + flow.id + '/settings'" [routerLinkActive]="['active']">
+        <mat-icon>settings</mat-icon>
       </button>
     </h4>
 
     <div class="trigger-setting" [ngSwitch]="flow.triggerType" [routerLink]="'/flows/' + flow.id + '/settings/triggering'">
       <p *ngSwitchCase="flowTriggerType.MANUAL" fxLayout="row" fxLayoutAlign="start center">
-        <md-icon>flash_on</md-icon>
+        <mat-icon>flash_on</mat-icon>
         <span>Manual trigger</span>
       </p>
       <p *ngSwitchCase="flowTriggerType.AUTOMATIC" fxLayout="row" fxLayoutAlign="start center">
-        <md-icon>flash_auto</md-icon>
+        <mat-icon>flash_auto</mat-icon>
         <span>Automatic trigger</span>
       </p>
       <p *ngSwitchCase="flowTriggerType.SCHEDULED" fxLayout="row" fxLayoutAlign="start center">
-        <md-icon>schedule</md-icon>
+        <mat-icon>schedule</mat-icon>
         <span>Scheduled</span>
       </p>
     </div>
@@ -27,12 +27,12 @@
 
   <div [class.slide-in]="flow.draft" [class.slide-out]="!flow.draft" class="draft controls" [class.highlight]="!disableDraftControls && !disableDeployControl">
     <div class="inner">
-      <button md-raised-button color="primary" class="save" (click)="onSaveFlowDraft.emit()" [disabled]="disableDraftControls || disableDeployControl">
-        <md-icon>publish</md-icon>
+      <button mat-raised-button color="primary" class="save" (click)="onSaveFlowDraft.emit()" [disabled]="disableDraftControls || disableDeployControl">
+        <mat-icon>publish</mat-icon>
         Deploy
       </button>
       <span>or</span>
-      <button md-raised-button class="discard" (click)="onDiscardFlowDraft.emit()" [disabled]="disableDraftControls">
+      <button mat-raised-button class="discard" (click)="onDiscardFlowDraft.emit()" [disabled]="disableDraftControls">
         discard
       </button>
       <span>changes</span>
@@ -41,15 +41,15 @@
 
   <div class="flow controls" fxLayout="row" fxLayoutAlign="start stretch">
     <div class="element">
-      <button md-icon-button class="play" [class.locked]="isManualFlowRunLocked()" [disabled]="isManualFlowRunLocked()" (click)="onTriggerFlowRun.emit()">
-        <md-icon>play_arrow</md-icon>
+      <button mat-icon-button class="play" [class.locked]="isManualFlowRunLocked()" [disabled]="isManualFlowRunLocked()" (click)="onTriggerFlowRun.emit()">
+        <mat-icon>play_arrow</mat-icon>
       </button>
     </div>
 
     <div class="element activate" fxLayout="row" fxLayoutAlign="start center">
       <span class="text">Activate</span>
 
-      <button md-button class="toggle-active" [class.active]="flow.active" [class.locked]="isManualFlowRunLocked()" [disabled]="isManualFlowRunLocked()" (click)="state.toggleFlowActivation(flow)">
+      <button mat-button class="toggle-active" [class.active]="flow.active" [class.locked]="isManualFlowRunLocked()" [disabled]="isManualFlowRunLocked()" (click)="state.toggleFlowActivation(flow)">
         <span class="on">ON</span>
         <span class="off">OFF</span>
       </button>
@@ -60,8 +60,8 @@
     <!-- </div> -->
 
     <div class="element" fxFlex>
-      <button md-icon-button class="logs control" [routerLink]="'/flows/' + flow.id + '/logs'" [routerLinkActive]="['active']">
-        <md-icon>restore</md-icon>
+      <button mat-icon-button class="logs control" [routerLink]="'/flows/' + flow.id + '/logs'" [routerLinkActive]="['active']">
+        <mat-icon>restore</mat-icon>
       </button>
     </div>
 

@@ -1,20 +1,20 @@
-<md-menu #userMenu="mdMenu" yPosition="below">
-  <button md-menu-item (click)="signOut()">
-    <md-icon>exit_to_app</md-icon>
+<mat-menu #userMenu="matMenu" yPosition="below">
+  <button mat-menu-item (click)="signOut()">
+    <mat-icon>exit_to_app</mat-icon>
     <span>Log out</span>
   </button>
-  <button md-menu-item (click)="goTo('api-info')">
-    <md-icon>info</md-icon>
+  <button mat-menu-item (click)="goTo('api-info')">
+    <mat-icon>info</mat-icon>
     <span>API info</span>
   </button>
-</md-menu>
+</mat-menu>
 
-<button md-button [mdMenuTriggerFor]="userMenu">
+<button mat-button [matMenuTriggerFor]="userMenu">
   <img *ngIf="getAvatar(); else userAvatar" class="avatar" [src]="getAvatar()" alt="">
   <ng-template #userAvatar>
-    <md-icon>account_circle</md-icon>
+    <mat-icon>account_circle</mat-icon>
   </ng-template>
 
   <span class="username" fxHide.xs>{{getUsername()}}</span>
-  <md-icon>keyboard_arrow_down</md-icon>
+  <mat-icon>keyboard_arrow_down</mat-icon>
 </button>

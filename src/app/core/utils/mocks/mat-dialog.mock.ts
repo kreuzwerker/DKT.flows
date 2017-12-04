@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs/Subject';
 
-export class MockMdDialog {
+export class MockMatDialog {
   open<T>(component, config?) {
-    // TODO should return a mdDialogRef
+    // TODO should return a matDialogRef
   }
 }
