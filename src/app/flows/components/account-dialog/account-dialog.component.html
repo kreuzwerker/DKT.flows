@@ -36,7 +36,7 @@
 <!-- Create account -->
 <form *ngIf="showCreate()" class="edit-account-form" #editAccountForm="ngForm" (ngSubmit)="submitForm(editAccountForm)">
   <div md-dialog-content fxLayout="column" class="create">
-    <h5>Connect an account</h5>
+    <h5 *ngIf="isSelectMode()">Connect an account</h5>
 
     <md-input-container class="name">
       <input mdInput placeholder="Name" type="text" name="name" tabindex="1" [ngModel]="account.name" #name="ngModel" required>
