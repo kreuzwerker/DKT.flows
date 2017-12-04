@@ -1,11 +1,15 @@
 /* tslint:disable: ter-max-len */
 import { Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { mockStore } from './../../../core/utils/mocks';
-import { mockFlowsApp, mockFlowsState } from './../../utils/mocks';
+import { mockStore, MockMdDialog } from './../../../core/utils/mocks';
+import {
+  mockFlowsApp,
+  mockFlowsState,
+  mockAccountsState
+} from './../../utils/mocks';
 import { TestUtils } from './../../utils/test.helpers';
 import { ConfigureStepComponent } from './configure-step.component';
-import { FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';
+import { AccountsStateService, FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';
 import { DynamicFormService, DynamicFormControlModel } from '@ng2-dynamic-forms/core';
 import { ServiceConfigSchema } from './../../models';
 
@@ -16,7 +20,9 @@ describe('Flows App', () => {
     let utils: TestUtils;
     let flowsApp: FlowsAppService;
     let state: FlowsStateService;
+    let accountsState: AccountsStateService;
     let store: any;
+    let dialog;
 
     const mockFormBuilder = {
       createFormModel(schema: ServiceConfigSchema[], values) {}
@@ -32,9 +38,18 @@ describe('Flows App', () => {
       utils = new TestUtils();
       flowsApp = mockFlowsApp;
       state = mockFlowsState;
+      accountsState = mockAccountsState;
       store = mockStore;
+      dialog = new MockMdDialog();
 
-      component = new ConfigureStepComponent(flowsApp, state, mockFormBuilder, mockFormService);
+      component = new ConfigureStepComponent(
+        flowsApp,
+        state,
+        accountsState,
+        mockFormBuilder,
+        mockFormService,
+        dialog
+      );
       expect(component).toBeTruthy();
     });
 

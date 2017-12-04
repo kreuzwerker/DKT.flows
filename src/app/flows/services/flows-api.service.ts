@@ -111,7 +111,7 @@ export class FlowsApiService {
           }
         }
       })
-      .map(({ data }) => data.createFlow);
+      .map(({ data }) => data.deleteFlow);
   }
 
   public restoreFlow({
@@ -154,6 +154,7 @@ export class FlowsApiService {
     // NB mutation payload differs from Step model
     const updatedStepPayload = {
       id: step.id,
+      account: step.account && step.account.id,
       position: step.position,
       service: (step.service && step.service.id) || null,
       configParams: step.configParams,
@@ -319,6 +320,7 @@ export class FlowsApiService {
       __typename: 'Mutation',
       updateStep: Object.assign({}, step, {
         __typename: 'Step',
+        account: step.account,
         configParams: step.configParams
           ? step.configParams.map(p => {
               return Object.assign({}, p, {

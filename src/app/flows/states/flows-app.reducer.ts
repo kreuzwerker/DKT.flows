@@ -13,6 +13,9 @@ export interface FlowsAppState {
   loadingProviders: boolean;
   savingFlow: boolean;
   savedFlow: boolean;
+  loadingAccounts: boolean;
+  savingAccount: boolean;
+  savedAccount: boolean;
 }
 
 const initialState: FlowsAppState = {
@@ -25,21 +28,19 @@ const initialState: FlowsAppState = {
   loadingProviders: false,
   savingFlow: false,
   savedFlow: true,
+  loadingAccounts: false,
+  savingAccount: false,
+  savedAccount: true,
 };
 
 export function flowsAppReducer(state = initialState, {type, payload}: Action): FlowsAppState {
   switch (type) {
-
     case Actions.SELECT_FLOW: {
-      return Object.assign({}, state, {
-        flowId: payload
-      });
+      return Object.assign({}, state, { flowId: payload });
     }
 
     case Actions.SELECT_STEP: {
-      return Object.assign({}, state, {
-        step: payload
-      });
+      return Object.assign({}, state, { step: payload });
     }
 
     case Actions.SET_STEP_SERVICE_STEP: {
@@ -54,15 +55,21 @@ export function flowsAppReducer(state = initialState, {type, payload}: Action): 
     case Actions.SET_STEP_CONFIG: {
       return Object.assign({}, state, {
         step: Object.assign({}, state.step, {
-          configParams: payload.configParams,
+          configParams: payload.configParams
+        })
+      });
+    }
+
+    case Actions.SET_STEP_ACCOUNT: {
+      return Object.assign({}, state, {
+        step: Object.assign({}, state.step, {
+          account: payload.account
         })
       });
     }
 
     case Actions.SELECT_PROVIDER: {
-      return Object.assign({}, state, {
-        provider: payload
-      });
+      return Object.assign({}, state, { provider: payload });
     }
 
     /**
@@ -70,33 +77,38 @@ export function flowsAppReducer(state = initialState, {type, payload}: Action): 
      */
 
     case Actions.SET_LOADING_FLOW: {
-      return Object.assign({}, state, {
-        loadingFlow: payload
-      });
+      return Object.assign({}, state, { loadingFlow: payload });
     }
 
     case Actions.SET_LOADING_FLOWS: {
-      return Object.assign({}, state, {
-        loadingFlows: payload
-      });
+      return Object.assign({}, state, { loadingFlows: payload });
     }
 
     case Actions.SET_LOADING_FLOW_LOGS: {
-      return Object.assign({}, state, {
-        loadingFlowLogs: payload
-      });
+      return Object.assign({}, state, { loadingFlowLogs: payload });
     }
 
     case Actions.SET_LOADING_PROVIDERS: {
-      return Object.assign({}, state, {
-        loadingProviders: payload
-      });
+      return Object.assign({}, state, { loadingProviders: payload });
     }
 
     case Actions.SET_SAVING_FLOW: {
       return Object.assign({}, state, {
         savingFlow: payload.saving,
         savedFlow: payload.saved
+      });
+    }
+
+    // Accounts
+
+    case Actions.SET_LOADING_ACCOUNTS: {
+      return Object.assign({}, state, { loadingAccounts: payload });
+    }
+
+    case Actions.SET_SAVING_ACCOUNT: {
+      return Object.assign({}, state, {
+        savingAccount: payload.saving,
+        savedAccount: payload.saved
       });
     }
 

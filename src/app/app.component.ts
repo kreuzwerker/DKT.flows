@@ -36,6 +36,10 @@ export class AppComponent implements OnInit, OnDestroy {
       'sort_desc',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/icon/sort_desc.svg')
     );
+    mdIconRegistry.addSvgIcon(
+      'aws',
+      sanitizer.bypassSecurityTrustResourceUrl('/assets/icon/aws.svg')
+    );
   }
 
   ngOnInit() {

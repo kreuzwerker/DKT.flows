@@ -1,0 +1,17 @@
+<div class="flows full-height" fxLayout="row" fxLayoutAlign="start stretch">
+  <div class="left full-height border-right">
+    <button md-raised-button color="primary" (click)="openNewFlowDialog()">
+      <md-icon svgIcon="flow"></md-icon> create flow</button>
+    <ul>
+      <li routerLink="/flows" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">My flows</li>
+      <li routerLink="/flows/accounts" [routerLinkActive]="['active']">Connected accounts</li>
+    </ul>
+  </div>
+
+  <div class="main full-height" fxFlex>
+  <dkt-status-message [message]="flowsApp.statusMessageText" [type]="flowsApp.statusMessageType" [show]="flowsApp.statusMessageShow"
+    (onClose)="flowsApp.hideStatusMessage()"></dkt-status-message>
+
+    <router-outlet></router-outlet>
+  </div>
+</div>

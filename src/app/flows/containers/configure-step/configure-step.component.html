@@ -2,6 +2,23 @@
   <div class="right" fxLayout="column" fxFlex>
     <dkt-flow-step-config-nav [type]="flowsApp.stepTypeName" [current]="'configure'" class="col-header"></dkt-flow-step-config-nav>
 
+    <div class="connect-account" *ngIf="step" [class.highlight]="requireConnectAccount()">
+      <div *ngIf="hasConnectedAccount()" fxLayout="row" fxLayoutAlign="space-between center">
+        <md-icon [svgIcon]="accountsState.getAccountTypeIcon(step.account.accountType)"></md-icon>
+        <span class="name">{{accountsState.getAccountTypeName(step.account.accountType)}} account {{step.account.name}}</span>
+        <button md-raised-button (click)="openAccountDialog()">
+          Change
+        </button>
+      </div>
+      <div *ngIf="requireConnectAccount()" fxLayout="row" fxLayoutAlign="space-between center">
+        <md-icon [svgIcon]="accountsState.getAccountTypeIcon(step.service.requiredAccountType)"></md-icon>
+        <span class="name">{{accountsState.getAccountTypeName(step.service.requiredAccountType)}} account</span>
+        <button md-raised-button color="primary" (click)="openAccountDialog()">
+          Select
+        </button>
+      </div>
+    </div>
+
     <div class="padding">
       <form *ngIf="formModel" [formGroup]="configForm" class="step configuration">
         <div *ngIf="formModel.length; else noConfigForm">
@@ -23,7 +40,7 @@
           [onContinue]="saveForm"
           continuePath="{{flowsApp.flowStepPath()}}/test"
           [continueLabel]="getContinueLabel()"
-          [continueDisabled]="configForm.invalid"
+          [continueDisabled]="configForm.invalid || requireConnectAccount()"
           ></dkt-flow-step-nav-buttons>
       </form>
     </div>

@@ -1,4 +1,4 @@
-import { Flow, Service } from './';
+import { Account, Flow, Service } from './';
 
 export interface StepConfigParamsInput {
   fieldId: String;
@@ -14,6 +14,7 @@ export class Step {
   tested?: boolean;
   flow?: Flow;
   scheduling?: StepScheduling;
+  account?: Account;
 }
 
 export class StepData {
@@ -24,6 +25,7 @@ export class StepData {
   tested?: boolean;
   flow?: Flow;
   scheduling?: StepScheduling;
+  account?: Account;
 }
 
 export class StepScheduling {
