@@ -28,19 +28,36 @@ span.label {
   font-size: 13px;
   white-space: nowrap;
 
+  $darken: 15%;
+  &:hover {
+    background-color: darken(#d9d9d9, $darken);
+  }
+
   &.MODIFY {
     background-color: $pink;
     color: $white;
+
+    &:hover {
+      background-color: darken($pink, $darken);
+    }
   }
 
   &.APPROVE {
     background-color: $mint;
     color: $white;
+
+    &:hover {
+      background-color: darken($mint, $darken);
+    }
   }
 
   &.REVIEW {
     background-color: $purple;
     color: $white;
+
+    &:hover {
+      background-color: darken($purple, $darken);
+    }
   }
 
   &.filter {

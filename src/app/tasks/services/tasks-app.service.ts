@@ -29,6 +29,7 @@ export class TasksAppService {
   // Tasks list
   tasksSub$: Subscription;
   tasks: Task[] = [];
+  allTasks: Task[] = [];
   // Task item
   taskItem: TaskItem;
   // Flows list
@@ -43,29 +44,30 @@ export class TasksAppService {
 
     // Load flows and register as filters
     // NB updates the filters list on every change to the flows list (added/removed)
-    this.flowsSub$ = this.api.getFlows().subscribe((response) => {
+    this.flowsSub$ = this.api.getFlows().subscribe(response => {
       if (response.data && response.data.allFlows) {
         this.initFlowFilters(response.data.allFlows);
       }
     });
 
-    this.router.events.filter(event => event instanceof NavigationEnd)
-    .subscribe(
-      this.onRouteChange.bind(this),
-      (err) => console.log('error', err)
-    );
+    this.router.events
+      .filter(event => event instanceof NavigationEnd)
+      .subscribe(this.onRouteChange.bind(this), err =>
+        console.log('error', err)
+      );
   }
 
   onRouteChange() {
     this.currentTaskRoute =
-      this.router.routerState.root.children[0].children[0]
-      && this.router.routerState.root.children[0].children[0].snapshot.url[0]
-      ? this.router.routerState.root.children[0].children[0].snapshot.url[0].path
-      : null;
+      this.router.routerState.root.children[0].children[0] &&
+      this.router.routerState.root.children[0].children[0].snapshot.url[0]
+        ? this.router.routerState.root.children[0].children[0].snapshot.url[0]
+            .path
+        : null;
   }
 
   setTasks(tasks): void {
-    this.tasks = tasks;
+    this.allTasks = this.tasks = tasks;
     this.sortTasks(this.sortingDir);
   }
 
@@ -101,7 +103,9 @@ export class TasksAppService {
    */
 
   sortTasks(dir) {
-    let tasksInProgress = this.tasks.filter(task => task.state === TaskState.STARTED);
+    let tasksInProgress = this.tasks.filter(
+      task => task.state === TaskState.STARTED
+    );
     let tasksMisc = this.tasks.filter(task => task.state !== TaskState.STARTED);
 
     tasksInProgress = _.sortBy(tasksInProgress, 'date');
@@ -127,14 +131,18 @@ export class TasksAppService {
   initFlowFilters(flows: Flow[] = []) {
     // Register type filters
     this.filtersList = [
-      {type: 'taskType', taskType: TaskType.APPROVE},
-      {type: 'taskType', taskType: TaskType.REVIEW},
-      {type: 'taskType', taskType: TaskType.MODIFY},
+      { type: 'taskType', taskType: TaskType.APPROVE },
+      { type: 'taskType', taskType: TaskType.REVIEW },
+      { type: 'taskType', taskType: TaskType.MODIFY }
     ];
 
     // Register flow filters
     flows.forEach(flow => {
-      this.filtersList.push({type: 'flowId', flowId: flow.id, flowName: flow.name});
+      this.filtersList.push({
+        type: 'flowId',
+        flowId: flow.id,
+        flowName: flow.name
+      });
     });
   }
 
@@ -149,8 +157,11 @@ export class TasksAppService {
   }
 
   unsetFilter(params) {
-    this.filters = this.filters.filter((filter) => {
-      return filter.type !== params.type || filter[params.type] !== params[params.type];
+    this.filters = this.filters.filter(filter => {
+      return (
+        filter.type !== params.type ||
+        filter[params.type] !== params[params.type]
+      );
     });
     this.applyFilters();
   }
@@ -161,23 +172,34 @@ export class TasksAppService {
   }
 
   applyFilters() {
-    this.tasks = this.filters.length ? this.tasks.filter((task) => {
-      // Validate against current filters (locical OR):
-      let valid = false;
-      this.filters.forEach((filter) => {
-        if (filter.type === 'flowId' && task.flowRun.flow.id === filter.flowId) valid = true;
-        if (filter.type === 'taskType' && task.type === filter.taskType) valid = true;
-      });
+    this.tasks = this.filters.length
+      ? this.tasks.filter(task => {
+          // Validate against current filters (locical OR):
+          let valid = false;
+          this.filters.forEach(filter => {
+            if (
+              filter.type === 'flowId' &&
+              task.flowRun.flow.id === filter.flowId
+            )
+              valid = true;
+            if (filter.type === 'taskType' && task.type === filter.taskType)
+              valid = true;
+          });
 
-      return valid;
-    }) : this.tasks;
+          return valid;
+        })
+      : this.allTasks;
+
     this.sortTasks(this.sortingDir);
   }
 
   filterExists(params) {
     let exists = false;
-    this.filters.forEach((filter) => {
-      if (filter.type === params.type && filter[filter.type] === params[filter.type]) {
+    this.filters.forEach(filter => {
+      if (
+        filter.type === params.type &&
+        filter[filter.type] === params[filter.type]
+      ) {
         exists = true;
       }
     });
