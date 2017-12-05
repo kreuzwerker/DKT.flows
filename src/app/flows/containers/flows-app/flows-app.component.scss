@@ -46,11 +46,13 @@ div.layout {
       button.toggle-sidebar {
         display:inline-block;
         position: absolute;
+        background-color: white;
         bottom: 2rem;
         right: -6rem;
-        // TODO update Material and use mat-fab instead of mat-icon-button
-        width: 56px;
-        height: 56px;
+
+        .mat-button-wrapper {
+          padding-top: 14px;
+        }
 
         mat-icon {
           font-size: 30px;

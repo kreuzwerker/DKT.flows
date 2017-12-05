@@ -51,7 +51,7 @@ h6 {
 button {
   font-size: 13px!important;
   font-weight: 600!important;
-  &:not(.mat-icon-button) {
+  &:not(.mat-icon-button):not(.mat-fab):not(.mat-mini-fab) {
     border-radius: 4px!important;
   }
 }
