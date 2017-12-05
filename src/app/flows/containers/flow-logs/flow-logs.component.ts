@@ -29,7 +29,6 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
   requestedOffset: number = 0;
   limit: number = 5;
   status: LogStatus;
-  showDetails: Run = null;
 
   constructor(
     private cd: ChangeDetectorRef,

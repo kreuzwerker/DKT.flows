@@ -46,52 +46,20 @@ https://github.com/jtangelder/sass-loader/issues/211 */
     }
   }
 
-  div.runs {
+  mat-accordion.runs {
     padding-top: 0;
-    margin: 1rem 0;
-    border: 1px solid $list-item-border-color;
-    border-radius: 3px;
-    cursor:default;
-    background-color: white;
+    margin: 1rem;
+    cursor: default;
+    // background-color: white;
     animation: FadeIn 0.2s;
 
-    div.run {
-      border-bottom: 1px solid $list-item-border-color;
-
-      &.last {
-        border-bottom: none;
-      }
-
-      mat-icon.show-less {
-        display: none;
-      }
-
-      &.show-details {
-        mat-icon.show-more {
-          display: none;
-        }
-
-        mat-icon.show-less {
-          display: flex;
-        }
-
-        div.run-header {
-          background-color: $light-blue;
-        }
-
-        div.run-details {
-          max-height: 400px;
-        }
-      }
-
+    mat-expansion-panel.run {
       div.run-header {
         cursor: pointer;
 
-        & > * {
-          margin: 1rem;
-        }
-
         mat-icon.status {
+          margin-right: 1rem;
+
           &.running {
             animation: Spin 1.2s infinite linear;
             color: $blue;
@@ -109,39 +77,19 @@ https://github.com/jtangelder/sass-loader/issues/211 */
             color: $error-bg-color;
           }
         }
-
-        mat-icon.toggle {
-          color: $dark-grey;
-        }
-
-        &:hover {
-          background-color: $list-item-hover-bg-color;
-
-          mat-icon.toggle {
-            color: $dark-blue;
-          }
-        }
       }
 
       div.run-details {
-        overflow-y: hidden;
-        transition: max-height 0.3s ease-in;
-        max-height: 0px;
-
-        // &.slide-in {
-        //   max-height: 400px;
-        // }
-
-        // &.slide-out {
-        //   max-height: 0px;
-        // }
-
         div.step-service,
         p.last-log-msg {
           margin: 1rem;
         }
 
         div.step-service {
+          mat-icon {
+            margin-right: 1rem;
+          }
+
           mat-icon,
           h6 {
             color: $dark-grey;

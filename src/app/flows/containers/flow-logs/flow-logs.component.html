@@ -19,21 +19,19 @@
   <p *ngIf="state.select('loadingFlowLogs') | async" class="info">Loading logs ...</p>
   <div *ngIf="!(state.select('loadingFlowLogs') | async)">
     <div *ngIf="runs && runs.length; else noRuns">
-      <div class="runs">
-        <div *ngFor="let run of runs; let last = last" class="run" [class.last]="last" [class.show-details]="showDetails == run"
-          [ngSwitch]="getRunStatusType(run)">
-          <div class="run-header" (click)="toggleRunDetails(run)" fxLayout="row" fxLayoutAlign="start center">
-            <mat-icon *ngSwitchCase="'running'" class="status running" mat-list-icon>autorenew</mat-icon>
-            <mat-icon *ngSwitchCase="'task'" class="status task" mat-list-icon>assignment</mat-icon>
-            <mat-icon *ngSwitchCase="'success'" class="status success" mat-list-icon>check</mat-icon>
-            <mat-icon *ngSwitchCase="'error'" class="status error" mat-list-icon>error</mat-icon>
-    
-            <h6 class="date" fxFlex mat-line>{{run.startedAt | date:'dd.MM.yy HH:mm'}}</h6>
-    
-            <mat-icon class="toggle show-more">expand_more</mat-icon>
-            <mat-icon class="toggle show-less">expand_less</mat-icon>
-          </div>
-          <div class="run-details" [class.slide-in]="show" [class.slide-out]="!show">
+      <mat-accordion class="runs">
+        <mat-expansion-panel *ngFor="let run of runs; let last = last" class="run" [ngSwitch]="getRunStatusType(run)">
+          <mat-expansion-panel-header (click)="toggleRunDetails(run)">
+            <div class="run-header" fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon *ngSwitchCase="'running'" class="status running" mat-list-icon>autorenew</mat-icon>
+              <mat-icon *ngSwitchCase="'task'" class="status task" mat-list-icon>assignment</mat-icon>
+              <mat-icon *ngSwitchCase="'success'" class="status success" mat-list-icon>check</mat-icon>
+              <mat-icon *ngSwitchCase="'error'" class="status error" mat-list-icon>error</mat-icon>
+
+              <h6 class="date" fxFlex mat-line>{{run.startedAt | date:'dd.MM.yy HH:mm'}}</h6>
+            </div>
+          </mat-expansion-panel-header>
+          <div class="run-details">
             <div class="step-service" fxLayout="row" fxLayoutAlign="start center">
               <mat-icon>{{run.currentStep.service.provider.icon}}</mat-icon>
               <h6>{{run.currentStep.service.provider.name}}: {{run.currentStep.service.name}}</h6>
@@ -42,8 +40,8 @@
             <p class="last-log-msg">Last log message: {{getLastLogMsg(run)}}</p>
             <dkt-step-config-summary [schema]="run.currentStep.service.configSchema" [values]="run.currentStep.configParams"></dkt-step-config-summary>
           </div>
-        </div>
-      </div>
+        </mat-expansion-panel>
+      </mat-accordion>
       <div class="nav" fxLayout="row" fxLayoutAlign="center center">
         <button [style.visibility]="offset > 0 ? 'visible' : 'hidden'" mat-raised-button (click)="fetchMoreLogs(offset - limit)">
           <mat-icon>keyboard_arrow_left</mat-icon>
