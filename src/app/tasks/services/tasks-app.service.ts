@@ -68,7 +68,7 @@ export class TasksAppService {
 
   setTasks(tasks): void {
     this.allTasks = this.tasks = tasks;
-    this.sortTasks(this.sortingDir);
+    this.applyFilters();
   }
 
   setTask(task: Task): void {
@@ -92,6 +92,16 @@ export class TasksAppService {
     }
 
     this.router.navigate(path);
+  }
+
+  unsetTask() {
+    if (!this.task) {
+      return false;
+    }
+
+    // NB will trigger applyFilters subsequently via route change listener -> setTasks
+    this.router.navigate(['/tasks']);
+    return true;
   }
 
   isActiveTask(task) {
@@ -153,7 +163,7 @@ export class TasksAppService {
   setFilter(params) {
     if (this.filterExists(params)) return;
     this.filters.push(params);
-    this.applyFilters();
+    if (!this.unsetTask()) this.applyFilters();
   }
 
   unsetFilter(params) {
@@ -163,12 +173,12 @@ export class TasksAppService {
         filter[params.type] !== params[params.type]
       );
     });
-    this.applyFilters();
+    if (!this.unsetTask()) this.applyFilters();
   }
 
   unsetAllFilters() {
     this.filters = [];
-    this.applyFilters();
+    if (!this.unsetTask()) this.applyFilters();
   }
 
   applyFilters() {
