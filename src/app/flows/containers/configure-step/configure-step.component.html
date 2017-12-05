@@ -2,18 +2,18 @@
   <div class="right" fxLayout="column" fxFlex>
     <dkt-flow-step-config-nav [type]="flowsApp.stepTypeName" [current]="'configure'" class="col-header"></dkt-flow-step-config-nav>
 
-    <div class="connect-account" *ngIf="step" [class.highlight]="requireConnectAccount()">
+    <div class="connect-account" *ngIf="step && step.service.requiredAccountType" [class.highlight]="requireConnectAccount()">
       <div *ngIf="hasConnectedAccount()" fxLayout="row" fxLayoutAlign="space-between center">
-        <md-icon [svgIcon]="accountsState.getAccountTypeIcon(step.account.accountType)"></md-icon>
+        <mat-icon [svgIcon]="accountsState.getAccountTypeIcon(step.account.accountType)"></mat-icon>
         <span class="name">{{accountsState.getAccountTypeName(step.account.accountType)}} account {{step.account.name}}</span>
-        <button md-raised-button (click)="openAccountDialog()">
+        <button mat-raised-button (click)="openAccountDialog()">
           Change
         </button>
       </div>
       <div *ngIf="requireConnectAccount()" fxLayout="row" fxLayoutAlign="space-between center">
-        <md-icon [svgIcon]="accountsState.getAccountTypeIcon(step.service.requiredAccountType)"></md-icon>
+        <mat-icon [svgIcon]="accountsState.getAccountTypeIcon(step.service.requiredAccountType)"></mat-icon>
         <span class="name">{{accountsState.getAccountTypeName(step.service.requiredAccountType)}} account</span>
-        <button md-raised-button color="primary" (click)="openAccountDialog()">
+        <button mat-raised-button color="primary" (click)="openAccountDialog()">
           Select
         </button>
       </div>
@@ -29,7 +29,7 @@
         </div>
         <ng-template #noConfigForm>
           <p class="no-config-form" fxLayout="row" fxLayoutAlign="start center">
-            <md-icon color="primary">info</md-icon>
+            <mat-icon color="primary">info</mat-icon>
             This step does not require configuration. Proceed by clicking on&nbsp;<b>Continue</b>.
           </p>
         </ng-template>

@@ -1,23 +1,23 @@
 <form #newFlowForm="ngForm" (ngSubmit)="submitForm(newFlowForm)">
-  <h1 md-dialog-title fxLayout="row" fxLayoutAlign="space-between center">
+  <h1 mat-dialog-title fxLayout="row" fxLayoutAlign="space-between center">
     Create flow
-    <md-icon class="close" (click)="dialogRef.close(false)">close</md-icon>
+    <mat-icon class="close" (click)="dialogRef.close(false)">close</mat-icon>
   </h1>
 
-  <div md-dialog-content fxLayout="column">
-    <md-input-container>
-      <input mdInput placeholder="Name" type="text" name="name" tabindex="1" ngModel #name="ngModel" required>
-      <md-hint *ngIf="name.dirty && name.errors?.required">Name is required</md-hint>
-    </md-input-container>
+  <div mat-dialog-content fxLayout="column" class="full-width">
+    <mat-form-field>
+      <input matInput placeholder="Name" type="text" name="name" tabindex="1" ngModel #name="ngModel" required>
+      <mat-hint *ngIf="name.dirty && name.errors?.required">Name is required</mat-hint>
+    </mat-form-field>
 
-    <md-input-container>
-      <textarea mdInput placeholder="Description" type="text" name="description" tabindex="2" ngModel #description="ngModel" required></textarea>
-      <md-hint *ngIf="description.dirty && description.errors?.required">Description is required</md-hint>
-    </md-input-container>
+    <mat-form-field>
+      <textarea matInput placeholder="Description" type="text" name="description" tabindex="2" ngModel #description="ngModel" required></textarea>
+      <mat-hint *ngIf="description.dirty && description.errors?.required">Description is required</mat-hint>
+    </mat-form-field>
   </div>
 
-  <div md-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
-    <button md-button type="button" (click)="dialogRef.close(false)" tabIndex="4">Cancel</button>
-    <button md-button type="submit" [disabled]="newFlowForm.invalid" md-raised-button class="mat-accent" tabIndex="3">Create</button>
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button type="button" (click)="dialogRef.close(false)" tabIndex="4">Cancel</button>
+    <button mat-button type="submit" [disabled]="newFlowForm.invalid" mat-raised-button class="mat-accent" tabIndex="3">Create</button>
   </div>
 </form>

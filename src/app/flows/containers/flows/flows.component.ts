@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs/Subject';
 import { Component, ChangeDetectionStrategy, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Router } from '@angular/router';
 import { Flow } from '../../models';
 import { FlowsAppService, FlowsStateService } from './../../services';
@@ -15,14 +15,14 @@ import { NewFlowDialogComponent } from './../../components/new-flow-dialog/new-f
 })
 export class FlowsComponent implements OnDestroy {
   ngOnDestroy$ = new Subject<boolean>();
-  dialogConfig: MdDialogConfig;
+  dialogConfig: MatDialogConfig;
 
   constructor(
     public flowsApp: FlowsAppService,
     public state: FlowsStateService,
     public router: Router,
-    public dialog: MdDialog,
-    public snackBar: MdSnackBar
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar
   ) {
     this.state.createdFlow$
       .takeUntil(this.ngOnDestroy$)
@@ -30,7 +30,7 @@ export class FlowsComponent implements OnDestroy {
         this.showInfoMessage(`An error occured. Could not create the flow.`);
       });
 
-    this.dialogConfig = new MdDialogConfig();
+    this.dialogConfig = new MatDialogConfig();
     this.dialogConfig.width = '450px';
   }
 
@@ -56,7 +56,7 @@ export class FlowsComponent implements OnDestroy {
   }
 
   openNewFlowDialog() {
-    let config = new MdDialogConfig();
+    let config = new MatDialogConfig();
     config.width = '450px';
     let dialogRef = this.dialog.open(NewFlowDialogComponent, this.dialogConfig);
     dialogRef.afterClosed().subscribe(newFlow => {
@@ -72,7 +72,7 @@ export class FlowsComponent implements OnDestroy {
   }
 
   showInfoMessage(message: string) {
-    let config = new MdSnackBarConfig();
+    let config = new MatSnackBarConfig();
     config.duration = 2000;
     this.snackBar.open(message, 'OK', config);
   }

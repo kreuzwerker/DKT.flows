@@ -16,6 +16,12 @@
   dependencies:
     tslib "^1.7.1"
 
+"@angular/cdk@2.0.0-beta.12":
+  version "2.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-2.0.0-beta.12.tgz#3a243cb62b93f4e039120ba70f900dc9e235622e"
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/common@^4.4.6":
   version "4.4.6"
   resolved "https://registry.yarnpkg.com/@angular/common/-/common-4.4.6.tgz#4b81420724e0828a0e839b95a55eb1a7e83918f2"
@@ -58,9 +64,11 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/material@2.0.0-beta.3":
-  version "2.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-beta.3.tgz#ec31dee61d7300ece28fee476852db236ded1e13"
+"@angular/material@2.0.0-beta.12":
+  version "2.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-beta.12.tgz#71b6d0b7b021891e5d0e3688c1d4bd78c7457f58"
+  dependencies:
+    tslib "^1.7.1"
 
 "@angular/platform-browser-dynamic@^4.4.6":
   version "4.4.6"
@@ -114,13 +122,13 @@
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@angularclass/idle-preload/-/idle-preload-1.0.4.tgz#41eeea532cc4998167c825f6dca62cb98f4b7028"
 
-"@ng2-dynamic-forms/core@^1.4.9":
-  version "1.4.9"
-  resolved "https://registry.yarnpkg.com/@ng2-dynamic-forms/core/-/core-1.4.9.tgz#0739c641cf87e786305fd6a0a8646f663578460f"
+"@ng-dynamic-forms/core@1.4.34":
+  version "1.4.34"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-1.4.34.tgz#523a2419416ee60d5a50711c45da3445002bed8d"
 
-"@ng2-dynamic-forms/ui-material@^1.4.9":
-  version "1.4.9"
-  resolved "https://registry.yarnpkg.com/@ng2-dynamic-forms/ui-material/-/ui-material-1.4.9.tgz#faf09944b47342faf9d4dbd7d00882d741e17fa5"
+"@ng-dynamic-forms/ui-material@1.4.34":
+  version "1.4.34"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-material/-/ui-material-1.4.34.tgz#49c6aeae6ffd61b3b3440f7b6083b72cea1a2b5d"
 
 "@ngrx/core@1.2.0":
   version "1.2.0"

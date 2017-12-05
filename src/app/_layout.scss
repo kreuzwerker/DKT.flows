@@ -23,7 +23,7 @@ div.layout {
   flex:1;
 }
 
-.full-width, .full-width > md-input-container {
+.full-width, .full-width:not(.select) > mat-form-field {
   width: 100%;
 }
 
@@ -52,7 +52,7 @@ div.border-left {
 */
 
 form.single-column {
-  .mat-input-container {
+  .mat-form-field {
     width:100%;
   }
 }

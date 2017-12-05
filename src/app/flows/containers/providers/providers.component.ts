@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs/Subject';
 import { Observable, Subscription } from 'rxjs';
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import * as _ from 'lodash';
 
 import { Provider, Step, Service, ServiceType } from './../../models';
@@ -14,7 +14,7 @@ import { FlowsStateService } from './../../services';
   selector: 'dkt-providers',
   templateUrl: 'providers.component.html',
   styleUrls: ['providers.component.css'],
-  providers: [MdSnackBar],
+  providers: [MatSnackBar],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
@@ -34,7 +34,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   constructor(
     private cd: ChangeDetectorRef,
     public state: FlowsStateService,
-    public snackBar: MdSnackBar
+    public snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -134,7 +134,7 @@ export class ProvidersComponent implements OnInit, OnDestroy {
   selectService(service: Service): boolean {
     if (service.type !== this.selectableServiceType) {
       let typeName = serviceHelpers.getServiceTypeName(service);
-      let config = new MdSnackBarConfig();
+      let config = new MatSnackBarConfig();
       config.duration = 2000;
       this.snackBar.open(`You can't select ${typeName} steps.`, 'OK', config);
       return false;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'trigger-flow-run-dialog',
@@ -8,5 +8,5 @@ import { MdDialogRef } from '@angular/material';
   styleUrls: ['trigger-flow-run-dialog.component.css']
 })
 export class TriggerFlowRunDialogComponent {
-  constructor(public dialogRef: MdDialogRef<TriggerFlowRunDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<TriggerFlowRunDialogComponent>) {}
 }

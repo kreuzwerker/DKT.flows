@@ -2,15 +2,15 @@
 // - warning message "The <template> element is deprecated...":
 //   https://github.com/angular/material2/issues/3301
 // - warning message "It looks like you're using the disabled attribute...":
-//   https://github.com/udos86/ng2-dynamic-forms/issues/293
+//   https://github.com/udos86/ng-dynamic-forms/issues/293
 
 import { Subject } from 'rxjs/Subject';
 import { Observer } from 'rxjs/Observer';
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { MdDialog, MdDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { AccountsStateService, FlowsAppService, FlowsStateService, FormBuilderService } from './../../services';
 import { FormGroup } from '@angular/forms';
-import { DynamicFormService, DynamicFormControlModel } from '@ng2-dynamic-forms/core';
+import { DynamicFormService, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 import { Step, StepConfigParamsInput } from './../../models';
 import { AccountDialogComponent } from './../../components/account-dialog/account-dialog.component';
 
@@ -27,7 +27,7 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
   step: Step = null;
   formModel: DynamicFormControlModel[];
   configForm: FormGroup;
-  dialogConfig: MdDialogConfig;
+  dialogConfig: MatDialogConfig;
   accountIsDirty: boolean = false;
 
   constructor(
@@ -36,9 +36,9 @@ export class ConfigureStepComponent implements OnInit, OnDestroy {
     public accountsState: AccountsStateService,
     private formBuilder: FormBuilderService,
     private formService: DynamicFormService,
-    public dialog: MdDialog
+    public dialog: MatDialog
   ) {
-    this.dialogConfig = new MdDialogConfig();
+    this.dialogConfig = new MatDialogConfig();
     this.dialogConfig.width = '450px';
   }
 

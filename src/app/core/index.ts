@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '@angular/material';
+import { DktMaterialModule } from './../dkt-material.module';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -67,7 +67,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FlexLayoutModule,
-    MaterialModule.forRoot(),
+    DktMaterialModule,
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,

@@ -1,7 +1,7 @@
 <!-- Header-->
 <div class="padding border-bottom topbar-height" fxLayout="row" fxLayoutAlign="start center">
   <h4 class="header" fxFlex>Comments</h4>
-  <md-icon class="close" [routerLink]="'/tasks/' + tasksApp.task?.id">close</md-icon>
+  <mat-icon class="close" [routerLink]="'/tasks/' + tasksApp.task?.id">close</mat-icon>
 </div>
 
 <div class="padding">
@@ -10,13 +10,13 @@
     <img class="avatar" [src]="'https://randomuser.me/api/portraits/thumb/men/83.jpg'" alt="User profile image">
     <div fxLayout="column" fxFlex>
       <form #newCommentForm="ngForm" class="new-comment-form" (ngSubmit)="submitForm(newCommentForm)">
-        <md-input-container>
-          <textarea mdInput rows="4" placeholder="Enter your comment" type="text" name="comment" tabindex="2" ngModel #comment="ngModel" required></textarea>
-        </md-input-container>
+        <mat-form-field>
+          <textarea matInput rows="4" placeholder="Enter your comment" type="text" name="comment" tabindex="2" ngModel #comment="ngModel" required></textarea>
+        </mat-form-field>
 
 
         <div fxLayout="row" fxLayoutAlign="end center">
-          <button md-raised-button type="submit" [disabled]="newCommentForm.invalid" tabIndex="3">Create</button>
+          <button mat-raised-button type="submit" [disabled]="newCommentForm.invalid" tabIndex="3">Create</button>
         </div>
       </form>
     </div>

@@ -7,10 +7,10 @@
         <span class="tasks-count">{{tasksApp.tasks.length}}</span>
         <span fxFlex>Tasks Remaining</span>
 
-        <md-spinner *ngIf="state.select('loadingTasks') | async"></md-spinner>
-        <md-icon *ngIf="!(state.select('loadingTasks') | async)" class="option" (click)="reloadTasks()">refresh</md-icon>
+        <mat-spinner *ngIf="state.select('loadingTasks') | async"></mat-spinner>
+        <mat-icon *ngIf="!(state.select('loadingTasks') | async)" class="option" (click)="reloadTasks()">refresh</mat-icon>
 
-        <md-icon class="option" (click)="leftCollapsed = true">close</md-icon>
+        <mat-icon class="option" (click)="leftCollapsed = true">close</mat-icon>
       </h4>
     </div>
 
@@ -40,7 +40,7 @@
       <dkt-task-controls *ngIf="tasksApp.task" class="padding border-bottom topbar-height" [tasks]="tasksApp.tasks" [task]="tasksApp.task"
         (setState)="state.setTaskState(tasksApp.task, $event)" flex></dkt-task-controls>
 
-      <md-spinner *ngIf="state.select('loadingTaskItem') | async" class="task-item"></md-spinner>
+      <mat-spinner *ngIf="state.select('loadingTaskItem') | async" class="task-item"></mat-spinner>
       <dkt-render *ngIf="!(state.select('loadingTaskItem') | async) && tasksApp.taskItem" [data]="tasksApp.taskItem.data" [type]="getTaskItemType(tasksApp.taskItem)"></dkt-render>
     </div>
   </div>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { Account } from './../../models';
 import { AccountsStateService } from './../../services';
 import { omit } from 'lodash';
@@ -19,7 +19,7 @@ export class AccountDialogComponent {
   addNew: boolean = false;
 
   constructor(
-    public dialogRef: MdDialogRef<AccountDialogComponent>,
+    public dialogRef: MatDialogRef<AccountDialogComponent>,
     public state: AccountsStateService
   ) {
     this.state.accounts$.subscribe(accounts => {

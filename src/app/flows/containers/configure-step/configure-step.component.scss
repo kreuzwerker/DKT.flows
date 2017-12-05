@@ -14,11 +14,11 @@ div.connect-account {
     background-color: $warning-bg-color;
   }
 
-  md-icon, span.name {
+  mat-icon, span.name {
     color: $dark-grey;
   }
 
-  md-icon {
+  mat-icon {
     margin-right: 0.5rem;
   }
 
@@ -31,7 +31,7 @@ form.configuration {
   p.no-config-form {
     margin: 2rem 0 3rem .5rem;
 
-    md-icon {
+    mat-icon {
       margin-right: 0.5rem;
     }
   }

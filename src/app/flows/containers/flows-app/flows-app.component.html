@@ -15,21 +15,21 @@
       <div class="step" *ngFor="let step of flowsApp.flow.steps; let last = last" [class.last]="last" [class.selected]="isSelectedStep(step)">
         <div class="position size-30">{{step.position + 1}}</div>
         <dkt-flow-step-item [flow]="flowsApp.flow" [step]="step" [currentActive]="getCurrentActiveStepOption(step)"></dkt-flow-step-item>
-        <button *ngIf="!last" md-icon-button class="add size-30" (click)="flowsApp.addFlowStep(step.position + 1)">
-          <md-icon>add</md-icon>
+        <button *ngIf="!last" mat-icon-button class="add size-30" (click)="flowsApp.addFlowStep(step.position + 1)">
+          <mat-icon>add</mat-icon>
           <span class="btn-label">Add step</span>
         </button>
       </div>
 
-      <button md-icon-button class="add size-30" (click)="flowsApp.addFlowStep()">
-        <md-icon>add</md-icon>
+      <button mat-icon-button class="add size-30" (click)="flowsApp.addFlowStep()">
+        <mat-icon>add</mat-icon>
         <span class="btn-label">Add step</span>
       </button>
     </div>
 
     <!-- Toggle sidebar -->
-    <button class="toggle-sidebar" md-icon-button md-raised-button (click)="showSidebar = !showSidebar">
-      <md-icon>{{showSidebar ? 'close' : 'menu'}}</md-icon>
+    <button class="toggle-sidebar" mat-fab (click)="showSidebar = !showSidebar">
+      <mat-icon>{{showSidebar ? 'close' : 'menu'}}</mat-icon>
     </button>
   </div>
 

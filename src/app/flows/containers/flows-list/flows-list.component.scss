@@ -17,22 +17,22 @@ div.flows-list div.options {
     width: 100%;
     max-width: $list-container-width;
     margin: 0 auto;
-    padding: 1rem 4rem;
+    padding: 0rem 4rem;
   }
 
-  md-input-container.search {
+  mat-form-field.search {
     width: 200px;
 
     div.mat-input-wrapper {
-      margin: 0;
+      margin: 10px 0 0 0;
     }
 
-    div.mat-input-suffix md-icon {
+    div.mat-input-suffix mat-icon {
       color: $dark-grey;
     }
   }
 
-  md-icon.option {
+  mat-icon.option {
     color: $dark-grey;
     cursor: pointer;
     outline: none;
@@ -41,19 +41,13 @@ div.flows-list div.options {
       color: $dark-blue;
     }
   }
-
-  md-spinner {
-    display: inline-block;
-    width: 24px!important;
-    height: 24px!important;
-  }
 }
 
 /*
  Flows list
  */
 
-md-list.flows {
+mat-list.flows {
   width: 100%;
   margin: 0 auto;
   max-width: $list-container-width;
@@ -61,7 +55,7 @@ md-list.flows {
   box-sizing: border-box;
 }
 
-md-list.flows .flow-list-item {
+mat-list.flows .flow-list-item {
   margin: 0 0 1rem 0;
   padding: 0.5em 0em 0.5em 0.5em;
   border: 1px solid $list-item-border-color;
@@ -89,13 +83,14 @@ md-list.flows .flow-list-item {
   }
 
   div.steps-summary {
-    width: 250px;
+    min-width: 140px;
+    max-width: 140px;
 
-    md-icon.chevron {
+    mat-icon.chevron {
       color: #999;
     }
 
-    md-icon[aria-label='flash_on'] {
+    mat-icon[aria-label='flash_on'] {
       color: #ccc;
       border: 2px dashed #ccc;
       border-radius: 50%;
@@ -123,7 +118,7 @@ md-list.flows .flow-list-item {
   }
 
   div.trigger-type {
-    md-icon {
+    mat-icon {
       color: $blue;
     }
   }
@@ -145,7 +140,7 @@ md-list.flows .flow-list-item {
     }
   }
 
-  md-icon.option:hover {
+  mat-icon.option:hover {
     cursor: pointer;
   }
 }

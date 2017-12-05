@@ -6,17 +6,17 @@
       <dkt-step-test-result [type]="stepTestResultType" [data]="stepTestResultData" [show]="showTestResults"></dkt-step-test-result>
 
       <form *ngIf="step && !step.service.task" #testFlowForm="ngForm" (ngSubmit)="testStep(testFlowForm.value.payload)" class="step test">
-        <md-input-container class="full-width">
-          <textarea mdInput [ngModel]="samplePayload" #payload="ngModel" placeholder="Test data" type="text" name="payload" rows="10" required></textarea>
-          <md-hint *ngIf="payload.dirty && payload.errors?.required">Payload is required</md-hint>
-        </md-input-container>
+        <mat-form-field class="full-width">
+          <textarea matInput [ngModel]="samplePayload" #payload="ngModel" placeholder="Test data" type="text" name="payload" rows="10" required></textarea>
+          <mat-hint *ngIf="payload.dirty && payload.errors?.required">Payload is required</mat-hint>
+        </mat-form-field>
 
         <div fxLayout="row" fxLayoutAlign="end center">
-          <button md-button type="submit" [disabled]="testFlowForm.invalid" md-raised-button class="mat-accent">Test</button>
+          <button mat-button type="submit" [disabled]="testFlowForm.invalid" mat-raised-button class="mat-accent">Test</button>
         </div>
       </form>
       <p *ngIf="step && step.service.task" class="no-test-form" fxLayout="row" fxLayoutAlign="start center">
-        <md-icon color="primary">info</md-icon>
+        <mat-icon color="primary">info</mat-icon>
         This step does't need to be tested. Proceed by clicking on&nbsp;<b>Finish</b>.
       </p>
 

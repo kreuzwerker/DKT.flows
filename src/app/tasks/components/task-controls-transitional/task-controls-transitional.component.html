@@ -1,32 +1,32 @@
 <div *ngIf="state == states.NOT_STARTED">
-  <button md-raised-button color="primary" class="state" (click)="setState.emit(states.STARTED)">
-    <md-icon>play_arrow</md-icon>
+  <button mat-raised-button color="primary" class="state" (click)="setState.emit(states.STARTED)">
+    <mat-icon>play_arrow</mat-icon>
     <span fxHide.sm>Start</span>
   </button>
 </div>
 <div *ngIf="state == states.STARTED" fxLayout="row" fxLayoutAlign="start center">
-  <button md-raised-button color="primary" class="state" (click)="setState.emit(states.PAUSED)">
-    <md-icon>pause</md-icon>
+  <button mat-raised-button color="primary" class="state" (click)="setState.emit(states.PAUSED)">
+    <mat-icon>pause</mat-icon>
     <span fxHide.sm>Pause</span>
   </button>
 
-  <button md-raised-button color="primary" class="state" (click)="setState.emit(states.FINISHED)">
-    <md-icon>done_all</md-icon>
+  <button mat-raised-button color="primary" class="state" (click)="setState.emit(states.FINISHED)">
+    <mat-icon>done_all</mat-icon>
     <span fxHide.sm>Finish</span>
   </button>
 </div>
 <div *ngIf="state == states.PAUSED" fxLayout="row" fxLayoutAlign="start center">
-  <button md-raised-button color="primary" class="state" (click)="setState.emit(states.STARTED)">
-    <md-icon>play_arrow</md-icon>
+  <button mat-raised-button color="primary" class="state" (click)="setState.emit(states.STARTED)">
+    <mat-icon>play_arrow</mat-icon>
     <span fxHide.sm>Resume</span>
   </button>
 
-  <button md-raised-button color="primary" class="state" (click)="setState.emit(states.FINISHED)">
-    <md-icon>done_all</md-icon>
+  <button mat-raised-button color="primary" class="state" (click)="setState.emit(states.FINISHED)">
+    <mat-icon>done_all</mat-icon>
     <span fxHide.sm>Finish</span>
   </button>
 </div>
 <div *ngIf="state == states.FINISHED" class="finished" fxLayout="row" fxLayoutAlign="start center">
-  <md-icon>done_all</md-icon>
+  <mat-icon>done_all</mat-icon>
   <span fxHide.sm>Finished</span>
 </div>

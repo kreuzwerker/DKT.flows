@@ -8,7 +8,7 @@ import {
     DynamicTextAreaModel,
     DynamicRadioGroupModel,
     DynamicSelectModel,
-} from '@ng2-dynamic-forms/core';
+} from '@ng-dynamic-forms/core';
 
 const FORM_ELM_DEFAULT_CLASSES = {
   element: {
@@ -99,7 +99,12 @@ export class FormBuilderService {
       options: element.options,
       value: typeof value !== undefined && value || element.defaultValue,
       required: element.required,
-    }, FORM_ELM_DEFAULT_CLASSES);
+    }, Object.assign({}, FORM_ELM_DEFAULT_CLASSES, {
+      element: Object.assign({}, FORM_ELM_DEFAULT_CLASSES.element, {
+        // Mark as 'select' element container
+        container: FORM_ELM_DEFAULT_CLASSES.element.container + ' select'
+      })
+    }));
   }
 
   createRadioModel(element, value) {

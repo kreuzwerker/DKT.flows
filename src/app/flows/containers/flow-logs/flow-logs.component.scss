@@ -16,7 +16,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
   }
 
   .header {
-    md-icon {
+    mat-icon {
       color: $dark-grey;
       cursor: pointer;
       outline: none;
@@ -44,60 +44,22 @@ https://github.com/jtangelder/sass-loader/issues/211 */
         }
       }
     }
-  
-    md-spinner {
-      display: inline-block;
-      width: 24px!important;
-      height: 24px!important;
-    } 
   }
 
-  div.runs {
+  mat-accordion.runs {
     padding-top: 0;
-    margin: 1rem 0;
-    border: 1px solid $list-item-border-color;
-    border-radius: 3px;
-    cursor:default;
-    background-color: white;
+    margin: 1rem;
+    cursor: default;
+    // background-color: white;
     animation: FadeIn 0.2s;
 
-    div.run {
-      border-bottom: 1px solid $list-item-border-color;
-
-      &.last {
-        border-bottom: none;
-      }
-
-      md-icon.show-less {
-        display: none;
-      }
-
-      &.show-details {
-        md-icon.show-more {
-          display: none;
-        }
-
-        md-icon.show-less {
-          display: flex;
-        }
-
-        div.run-header {
-          background-color: $light-blue;
-        }
-
-        div.run-details {
-          max-height: 400px;
-        }
-      }
-
+    mat-expansion-panel.run {
       div.run-header {
         cursor: pointer;
 
-        & > * {
-          margin: 1rem;
-        }
+        mat-icon.status {
+          margin-right: 1rem;
 
-        md-icon.status {
           &.running {
             animation: Spin 1.2s infinite linear;
             color: $blue;
@@ -115,40 +77,20 @@ https://github.com/jtangelder/sass-loader/issues/211 */
             color: $error-bg-color;
           }
         }
-
-        md-icon.toggle {
-          color: $dark-grey;
-        }
-
-        &:hover {
-          background-color: $list-item-hover-bg-color;
-
-          md-icon.toggle {
-            color: $dark-blue;
-          }
-        }
       }
 
       div.run-details {
-        overflow-y: hidden;
-        transition: max-height 0.3s ease-in;
-        max-height: 0px;
-
-        // &.slide-in {
-        //   max-height: 400px;
-        // }
-
-        // &.slide-out {
-        //   max-height: 0px;
-        // }
-
         div.step-service,
         p.last-log-msg {
           margin: 1rem;
         }
 
         div.step-service {
-          md-icon,
+          mat-icon {
+            margin-right: 1rem;
+          }
+
+          mat-icon,
           h6 {
             color: $dark-grey;
           }
@@ -160,7 +102,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
   div.nav {
     button {
       margin: 0 0.5em;
-      md-icon {
+      mat-icon {
         color: $dark-grey;
       }
     }

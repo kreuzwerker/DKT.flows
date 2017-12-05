@@ -20,7 +20,7 @@ div.task-controls {
         border-bottom-left-radius: 0!important;
       }
 
-      md-icon {
+      mat-icon {
         color: $dark-grey;
       }
     }
@@ -32,7 +32,7 @@ div.task-controls {
   }
 
   button.state {
-    md-icon {
+    mat-icon {
       margin-left: -5px;
       margin-right: 5px;
     }
@@ -43,11 +43,11 @@ div.task-controls {
   }
 
   div.finished {
-    md-icon {
+    mat-icon {
       margin-right: 0.5rem;
     }
 
-    span, md-icon {
+    span, mat-icon {
       color: $dark-grey;
     }
   }
@@ -58,7 +58,7 @@ div.task-controls {
   }
 
   div.icons {
-    md-icon {
+    mat-icon {
       font-size: 20px;
       width: 20px;
       height: 20px;
@@ -83,7 +83,7 @@ div.task-controls {
     button.state {
       min-width: 68px;
 
-      md-icon {
+      mat-icon {
         margin: 0;
       }
     }

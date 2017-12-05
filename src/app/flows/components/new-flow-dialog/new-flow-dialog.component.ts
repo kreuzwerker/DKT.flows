@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'new-flow-dialog',
@@ -8,7 +8,7 @@ import { MdDialogRef } from '@angular/material';
   styleUrls: ['new-flow-dialog.component.css']
 })
 export class NewFlowDialogComponent {
-  constructor(public dialogRef: MdDialogRef<NewFlowDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<NewFlowDialogComponent>) {}
 
   submitForm(form) {
     if (form.valid) {

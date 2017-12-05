@@ -7,10 +7,10 @@ https://github.com/jtangelder/sass-loader/issues/211 */
   Select account
 */
 
-md-list.accounts {
+mat-list.accounts {
   padding: 0px;
 
-  md-list-item.account-list-item {
+  mat-list-item.account-list-item {
     margin-bottom: 1px;
     background-color: $element-bg-color;
     border-left: 5px solid $grey;
@@ -37,12 +37,12 @@ md-list.accounts {
 }
 
 button.add {
-  md-icon {
+  mat-icon {
     color: $dark-grey;
   }
 
   &:hover {
-    md-icon {
+    mat-icon {
       color: $dark-blue;
     }
   }
@@ -68,7 +68,7 @@ form.edit-account-form {
     margin: 1rem 0!important;
   }
 
-  md-input-container {
+  mat-form-field {
     width: 100%;
   }
 

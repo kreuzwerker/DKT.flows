@@ -29,7 +29,6 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
   requestedOffset: number = 0;
   limit: number = 5;
   status: LogStatus;
-  showDetails: Run = null;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -113,9 +112,5 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
   getLastLogMsg(run: Run): string {
     const lastLog = run.logs.steps[run.logs.steps.length - 1];
     return lastLog && lastLog.message !== '' ? lastLog.message : '(none)';
-  }
-
-  toggleRunDetails(run: Run) {
-    this.showDetails = run === this.showDetails ? null : run;
   }
 }

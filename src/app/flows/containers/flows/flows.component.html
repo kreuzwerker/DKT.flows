@@ -1,7 +1,7 @@
 <div class="flows full-height" fxLayout="row" fxLayoutAlign="start stretch">
   <div class="left full-height border-right">
-    <button md-raised-button color="primary" (click)="openNewFlowDialog()">
-      <md-icon svgIcon="flow"></md-icon> create flow</button>
+    <button mat-raised-button color="primary" (click)="openNewFlowDialog()">
+      <mat-icon svgIcon="flow"></mat-icon> create flow</button>
     <ul>
       <li routerLink="/flows" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">My flows</li>
       <li routerLink="/flows/accounts" [routerLinkActive]="['active']">Connected accounts</li>

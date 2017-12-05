@@ -3,18 +3,18 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 @import '../../../variables';
 @import '../../../animations';
 
-md-list.accounts,
+mat-list.accounts,
 div.new {
   width: 100%;
   max-width: 500px;
   box-sizing: border-box;
 }
 
-md-list.accounts {
+mat-list.accounts {
   margin: 2rem auto;
 }
 
-md-list.accounts .account-list-item {
+mat-list.accounts .account-list-item {
   padding: 1rem;
   background-color: white;
   border-bottom: 1px solid $list-item-border-color;
@@ -27,7 +27,7 @@ md-list.accounts .account-list-item {
     font-size: 20px;
   }
 
-  md-icon {
+  mat-icon {
     color: $dark-grey;
     font-size: 20px;
     width: 20px;
@@ -40,7 +40,7 @@ md-list.accounts .account-list-item {
 
   button {
     &:hover {
-      md-icon {
+      mat-icon {
         color: $dark-blue;
       }
     }
@@ -69,7 +69,7 @@ div.new {
       background-color: $dark-blue;
     }
 
-    md-icon {
+    mat-icon {
       font-size: 40px;
       width: 40px;
       height: 40px;

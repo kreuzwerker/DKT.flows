@@ -1,17 +1,17 @@
-<h1 md-dialog-title fxLayout="row" fxLayoutAlign="space-between center">
+<h1 mat-dialog-title fxLayout="row" fxLayoutAlign="space-between center">
   Delete flow
-  <md-icon class="close" (click)="dialogRef.close(false)">close</md-icon>
+  <mat-icon class="close" (click)="dialogRef.close(false)">close</mat-icon>
 </h1>
 
-<div md-dialog-content fxLayout="column">
+<div mat-dialog-content fxLayout="column">
   <p class="name">{{name}}</p>
   <p class="warning" fxLayout="row" fxLayoutAlign="start center">
-    <md-icon color="warn">warning</md-icon>
+    <mat-icon color="warn">warning</mat-icon>
     Are you sure you want to delete this flow?
   </p>
 </div>
 
-<div md-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
-  <button md-button (click)="dialogRef.close(false)" tabindex="2">Cancel</button>
-  <button md-button (click)="dialogRef.close(true)" tabindex="1" cdk-focus-start md-raised-button class="md-warn">Delete</button>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+  <button mat-button (click)="dialogRef.close(false)" tabindex="2">Cancel</button>
+  <button mat-button (click)="dialogRef.close(true)" tabindex="1" cdk-focus-start mat-raised-button class="mat-warn">Delete</button>
 </div>

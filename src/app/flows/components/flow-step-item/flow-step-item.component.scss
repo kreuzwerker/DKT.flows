@@ -7,7 +7,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
   padding: 0px;
 
   .header, .options {
-    md-icon {
+    mat-icon {
       margin: .8rem;
       text-align: center;
     }
@@ -23,7 +23,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
       background-color: $warning-bg-color;
     }
 
-    md-icon {
+    mat-icon {
       font-size: 1.5rem;
       width: 1.5rem;
       height: 1.5rem;
@@ -41,7 +41,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
       list-style: none;
       color: $dark-grey;
 
-      md-icon {
+      mat-icon {
         font-size: .9rem;
         width: 1.5rem;
         height: .9rem;
@@ -54,7 +54,7 @@ https://github.com/jtangelder/sass-loader/issues/211 */
         font-size: 12px;
 
         &.active-link {
-          a, md-icon {
+          a, mat-icon {
             color: $active-color;
           }
         }
@@ -102,20 +102,20 @@ https://github.com/jtangelder/sass-loader/issues/211 */
 
       &.showingConfirmDialog {
         .confirm-dialog {
-          [md-button] {
+          [mat-button] {
             font-size:12px;
             padding: 0px 5px;
             line-height: 22px;
             min-width: initial;
           }
 
-          [md-button]:last-child {
+          [mat-button]:last-child {
             margin-right: 5px;
           }
         }
 
         &.remove {
-          md-icon,
+          mat-icon,
           .confirm-dialog span.sure {
               color: $warning-color;
           }

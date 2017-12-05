@@ -20,15 +20,16 @@ div.flow-header {
   div.trigger-setting {
     display:inline-block;
     cursor: pointer;
-    
-    p, p md-icon {
+    outline: none;
+
+    p, p mat-icon {
       color: $blue!important;
     }
 
     p {
       margin: 0;
 
-      md-icon {
+      mat-icon {
         margin-right: 0.5rem;
         font-size: 20px;
         width: 20px;
@@ -103,7 +104,7 @@ div.controls {
         margin: 5px 0;
         background-color: $primary-color;
 
-        md-icon {
+        mat-icon {
           font-size: 20px;
           color: $element-bg-color;
         }

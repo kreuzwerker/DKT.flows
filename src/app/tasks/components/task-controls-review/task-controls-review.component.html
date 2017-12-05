@@ -1,8 +1,8 @@
-<button *ngIf="state == states.NOT_STARTED" md-raised-button color="primary" class="state" (click)="setState.emit(states.REVIEWED)">
-  <md-icon>done_all</md-icon>
+<button *ngIf="state == states.NOT_STARTED" mat-raised-button color="primary" class="state" (click)="setState.emit(states.REVIEWED)">
+  <mat-icon>done_all</mat-icon>
   <span fxHide.sm>Mark as reviewed</span>
 </button>
 <div *ngIf="state == states.REVIEWED" class="finished" fxLayout="row" fxLayoutAlign="start center">
-  <md-icon>done_all</md-icon>
+  <mat-icon>done_all</mat-icon>
   <span fxHide.sm>Reviewed</span>
 </div>

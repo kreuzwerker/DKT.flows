@@ -1,7 +1,7 @@
 <div class="provider-detail"
   [@fadeInOut]="dialogState"
   >
-  <md-icon class="close" (click)="close()">close</md-icon>
+  <mat-icon class="close" (click)="close()">close</mat-icon>
 
   <div class="header" *ngIf="provider">
     <div fxLayout="row" fxLayoutAlign="start center">
@@ -14,9 +14,9 @@
     <p class="description">{{provider.description}}</p>
   </div>
 
-  <md-tab-group *ngIf="provider" [selectedIndex]="selectedTabIndex" md-dynamic-height>
-    <md-tab>
-      <ng-template md-tab-label>Triggers ({{triggerServices.length}})</ng-template>
+  <mat-tab-group *ngIf="provider" [selectedIndex]="selectedTabIndex" mat-dynamic-height>
+    <mat-tab>
+      <ng-template mat-tab-label>Triggers ({{triggerServices.length}})</ng-template>
       <ul class="service-steps">
         <li 
           *ngFor="let service of triggerServices"
@@ -26,9 +26,9 @@
         </li>
       </ul>
       <p *ngIf="triggerServices.length == 0" class="no-steps">No triggers available.</p>
-    </md-tab>
-    <md-tab>
-      <ng-template md-tab-label>Actions ({{actionServices.length}})</ng-template>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>Actions ({{actionServices.length}})</ng-template>
       <ul class="service-steps">
         <li
           *ngFor="let service of actionServices"
@@ -38,7 +38,7 @@
         </li>
       </ul>
       <p *ngIf="actionServices.length == 0" class="no-steps">No actions available.</p>
-    </md-tab>
-  </md-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 
 </div>

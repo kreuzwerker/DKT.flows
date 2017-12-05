@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserLoginService, CognitoUtil } from './core/services';
-import { MdIconRegistry, MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { MatIconRegistry, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -18,25 +18,25 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     public route: ActivatedRoute,
     public router: Router,
-    private mdIconRegistry: MdIconRegistry,
+    private matIconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
     private ngZone: NgZone,
-    public snackBar: MdSnackBar
+    public snackBar: MatSnackBar
   ) {
     // Register custom DKT icons
-    mdIconRegistry.addSvgIcon(
+    matIconRegistry.addSvgIcon(
       'flow',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/icon/flow.svg')
     );
-    mdIconRegistry.addSvgIcon(
+    matIconRegistry.addSvgIcon(
       'sort_asc',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/icon/sort_asc.svg')
     );
-    mdIconRegistry.addSvgIcon(
+    matIconRegistry.addSvgIcon(
       'sort_desc',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/icon/sort_desc.svg')
     );
-    mdIconRegistry.addSvgIcon(
+    matIconRegistry.addSvgIcon(
       'aws',
       sanitizer.bypassSecurityTrustResourceUrl('/assets/icon/aws.svg')
     );
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   showMessage(message: string, type: string = 'info') {
-    let config = new MdSnackBarConfig();
+    let config = new MatSnackBarConfig();
     config.duration = 2000;
     config.extraClasses = [type];
     this.snackBar.open(message, 'OK', config);
