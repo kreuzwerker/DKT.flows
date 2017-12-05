@@ -28,6 +28,11 @@
   background-color: rgba(0,0,0,0.12);
 }
 
+.mat-dialog-content {
+  padding: 0px!important;
+  margin: 0px!important;
+}
+
 @media only screen and (max-width: 600px) {
   // Don't shrink toolbar but keep a steady height
   .mat-toolbar {

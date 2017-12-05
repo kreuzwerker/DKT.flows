@@ -12,7 +12,7 @@
 <button mat-button [matMenuTriggerFor]="userMenu">
   <img *ngIf="getAvatar(); else userAvatar" class="avatar" [src]="getAvatar()" alt="">
   <ng-template #userAvatar>
-    <mat-icon>account_circle</mat-icon>
+    <mat-icon class="account">account_circle</mat-icon>
   </ng-template>
 
   <span class="username" fxHide.xs>{{getUsername()}}</span>

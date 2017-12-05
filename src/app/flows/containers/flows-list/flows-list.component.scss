@@ -17,14 +17,14 @@ div.flows-list div.options {
     width: 100%;
     max-width: $list-container-width;
     margin: 0 auto;
-    padding: 1rem 4rem;
+    padding: 0rem 4rem;
   }
 
   mat-form-field.search {
     width: 200px;
 
     div.mat-input-wrapper {
-      margin: 0;
+      margin: 10px 0 0 0;
     }
 
     div.mat-input-suffix mat-icon {
@@ -83,7 +83,8 @@ mat-list.flows .flow-list-item {
   }
 
   div.steps-summary {
-    width: 250px;
+    min-width: 140px;
+    max-width: 140px;
 
     mat-icon.chevron {
       color: #999;

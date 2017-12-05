@@ -113,8 +113,4 @@ export class FlowLogsComponent implements OnInit, OnDestroy {
     const lastLog = run.logs.steps[run.logs.steps.length - 1];
     return lastLog && lastLog.message !== '' ? lastLog.message : '(none)';
   }
-
-  toggleRunDetails(run: Run) {
-    this.showDetails = run === this.showDetails ? null : run;
-  }
 }

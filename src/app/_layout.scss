@@ -23,7 +23,7 @@ div.layout {
   flex:1;
 }
 
-.full-width, .full-width > mat-form-field {
+.full-width, .full-width:not(.select) > mat-form-field {
   width: 100%;
 }
 

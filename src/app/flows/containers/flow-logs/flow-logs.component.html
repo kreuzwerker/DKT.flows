@@ -21,7 +21,7 @@
     <div *ngIf="runs && runs.length; else noRuns">
       <mat-accordion class="runs">
         <mat-expansion-panel *ngFor="let run of runs; let last = last" class="run" [ngSwitch]="getRunStatusType(run)">
-          <mat-expansion-panel-header (click)="toggleRunDetails(run)">
+          <mat-expansion-panel-header>
             <div class="run-header" fxLayout="row" fxLayoutAlign="start center">
               <mat-icon *ngSwitchCase="'running'" class="status running" mat-list-icon>autorenew</mat-icon>
               <mat-icon *ngSwitchCase="'task'" class="status task" mat-list-icon>assignment</mat-icon>

@@ -155,7 +155,7 @@ button.toggle-active {
   line-height: 12px;
   padding: 4px 8px;
 
-  &:not(.mat-icon-button) {
+  &:not(.mat-icon-button):not(.mat-fab):not(.mat-mini-fab) {
     border-radius: 10px!important;
   }
 
