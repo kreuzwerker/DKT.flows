@@ -141,7 +141,3 @@ For e2e tests, use `yarn run e2e`. To run unit test and e2e test at the same tim
 ### Wiki Links
 
 [Recommended Steps for merging this starter into existing project](https://github.com/qdouble/angular-webpack2-starter/wiki/Recommended-Steps-for-Merging-Starter-into-Existing-Project)
-
-### License
-
-[MIT](https://github.com/qdouble/angular-webpack2-starter/blob/no-universal-support/LICENSE)
